@@ -1,3 +1,11 @@
+import logging
+
+import sentry_sdk
+from sentry_sdk.integrations.celery import CeleryIntegration
+from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
+from sentry_sdk.integrations.redis import RedisIntegration
+
 from .base import *  # noqa
 from .base import env
 
@@ -6,7 +14,7 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["www.scoap3.org"])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["scoap3.org"])
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -82,9 +90,7 @@ AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
 aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 # STATIC
 # ------------------------
-STATICFILES_STORAGE = "scoap3.utils.storages.StaticRootS3Boto3Storage"
-COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
-STATIC_URL = f"https://{aws_s3_domain}/static/"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # MEDIA
 # ------------------------------------------------------------------------------
 DEFAULT_FILE_STORAGE = "scoap3.utils.storages.MediaRootS3Boto3Storage"
@@ -95,7 +101,7 @@ MEDIA_URL = f"https://{aws_s3_domain}/media/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env(
     "DJANGO_DEFAULT_FROM_EMAIL",
-    default="SCOAP3 <noreply@www.scoap3.org>",
+    default="SCOAP3 <noreply@scoap3.org>",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
@@ -169,7 +175,12 @@ sentry_logging = LoggingIntegration(
     level=SENTRY_LOG_LEVEL,  # Capture info and above as breadcrumbs
     event_level=logging.ERROR,  # Send errors as events
 )
-integrations = [sentry_logging, DjangoIntegration(), RedisIntegration()]
+integrations = [
+    sentry_logging,
+    DjangoIntegration(),
+    CeleryIntegration(),
+    RedisIntegration(),
+]
 sentry_sdk.init(
     dsn=SENTRY_DSN,
     integrations=integrations,
@@ -177,6 +188,11 @@ sentry_sdk.init(
     traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0),
 )
 
-
+# django-rest-framework
+# -------------------------------------------------------------------------------
+# Tools that generate code samples can use SERVERS to point to the correct domain
+SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa: F405
+    {"url": "https://scoap3.org", "description": "Production server"}
+]
 # Your stuff...
 # ------------------------------------------------------------------------------

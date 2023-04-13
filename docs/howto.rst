@@ -31,3 +31,8 @@ To compile all docstrings automatically into documentation source files, use the
     
         make apidocs
 
+
+This can be done in the docker container:
+    :: 
+        
+        docker run --rm docs make apidocs

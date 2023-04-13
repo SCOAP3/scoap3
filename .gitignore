@@ -62,7 +62,8 @@ target/
 # pyenv
 .python-version
 
-
+# celery beat schedule file
+celerybeat-schedule
 
 # Environments
 .venv
@@ -275,7 +276,9 @@ dump.rdb
 scoap3/media/
 
 .pytest_cache/
+.ipython/
 scoap3/static/webpack_bundles/
 webpack-stats.json
 .env
 .envs/*
+!.envs/.local/

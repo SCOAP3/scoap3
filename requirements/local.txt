@@ -2,7 +2,8 @@
 
 Werkzeug[watchdog]==2.2.3 # https://github.com/pallets/werkzeug
 ipdb==0.13.13  # https://github.com/gotcha/ipdb
-psycopg2-binary==2.9.6  # https://github.com/psycopg/psycopg2
+psycopg2==2.9.6  # https://github.com/psycopg/psycopg2
+watchfiles==0.19.0  # https://github.com/samuelcolvin/watchfiles
 
 # Testing
 # ------------------------------------------------------------------------------
@@ -10,6 +11,7 @@ mypy==1.1.1  # https://github.com/python/mypy
 django-stubs==1.16.0  # https://github.com/typeddjango/django-stubs
 pytest==7.3.0  # https://github.com/pytest-dev/pytest
 pytest-sugar==0.9.7  # https://github.com/Frozenball/pytest-sugar
+djangorestframework-stubs==1.10.0  # https://github.com/typeddjango/djangorestframework-stubs
 
 # Documentation
 # ------------------------------------------------------------------------------
@@ -23,6 +25,7 @@ flake8-isort==6.0.0  # https://github.com/gforcada/flake8-isort
 coverage==7.2.2  # https://github.com/nedbat/coveragepy
 black==23.3.0  # https://github.com/psf/black
 pylint-django==2.5.3  # https://github.com/PyCQA/pylint-django
+pylint-celery==0.3  # https://github.com/PyCQA/pylint-celery
 pre-commit==3.2.2  # https://github.com/pre-commit/pre-commit
 
 # Django
