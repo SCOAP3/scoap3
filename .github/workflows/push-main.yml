@@ -1,0 +1,28 @@
+name: Push main
+
+on:
+  push:
+    branches: [main]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    uses: ./.github/workflows/tests.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: send event
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v5.0.0
+        with:
+          event-type: update
+          images: |
+            scoap3/scoap3-backend@${{ needs.test.outputs.backend-image-id }}
+          token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}

@@ -1,0 +1,33 @@
+name: Tests
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to build
+        type: string
+        required: true
+    outputs:
+      backend-image-id:
+        description: The ID of image that has been buit
+        value: ${{ jobs.build-backend.outputs.image-id }}
+
+jobs:
+  build-backend:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: scoap3/scoap3-backend
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    secrets: inherit
+
+
+  test-backend:
+    needs: build-backend
+    strategy:
+      fail-fast: false
+    uses: ./.github/workflows/backend-tests.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: "scoap3/scoap3-backend@${{ needs.build-backend.outputs.image-id }}"

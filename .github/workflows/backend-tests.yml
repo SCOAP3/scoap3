@@ -1,0 +1,56 @@
+name: Backend tests
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to test
+        type: string
+        required: true
+      image:
+        description: The name of the image to test
+        type: string
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    services:
+      redis:
+        image: redis:6
+        ports:
+          - 6379:6379
+      postgres:
+        image: postgres:14.1
+        env:
+          POSTGRES_DB: scoap3
+          POSTGRES_USER: debug
+          POSTGRES_PASSWORD: debug
+        ports:
+          - 5432:5432
+      mailhog:
+        image: mailhog/mailhog:v1.0.0
+        ports:
+          - '8025:8025'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+      - name: Test
+        run: >
+          docker run
+          --pull always
+          --network="host"
+          --env POSTGRES_DB=scoap3
+          --env POSTGRES_USER=debug
+          --env POSTGRES_PASSWORD=debug
+          ${{ inputs.image }}
+          pytest

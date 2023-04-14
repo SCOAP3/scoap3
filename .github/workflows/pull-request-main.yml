@@ -1,0 +1,19 @@
+name: Pull request main
+
+on:
+  pull_request_target:
+    branches: [main]
+    paths-ignore: [ "docs/**" ]
+
+jobs:
+  test:
+    uses: ./.github/workflows/tests.yml
+    with:
+      ref: ${{ github.event.pull_request.head.sha }}
+    secrets: inherit
+
+  pre-commit:
+    uses: ./.github/workflows/pre-commit.yml
+    with:
+      ref: ${{ github.event.pull_request.head.sha }}
+    secrets: inherit
