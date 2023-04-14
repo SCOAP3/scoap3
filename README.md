@@ -1,106 +1,81 @@
 # SCOAP3
 
-Todo
+**WIP version of SCOAP3**
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+
+Current live version available at: [www.scoap3.org](www.scoap3.org)
+
+SCOAP3 is a one-of-its-kind partnership of over three-thousand libraries, key funding agencies and research centers in 43 countries and 3 intergovernmental organizations. Working with leading publishers, SCOAP3 has converted key journals in the field of high-energy physics to open access at no cost for authors. SCOAP3 centrally pays publishers for costs involved in providing their services, publishers, in turn, reduce subscription fees to all their customers, who can redirect these funds to contribute to SCOAP3. Each country contributes in a way commensurate to its scientific output in the field. In addition, existing open access journals are also centrally supported, removing any existing financial barrier for authors.
+
+SCOAP3 journals are open for any scientist to publish without any financial barriers. Copyright stays with authors, and a permissive CC-BY license allows text- and data-mining. SCOAP3 addresses open access mandates at no burden for authors. All articles appear in the SCOAP3 repository for further distribution, as well as being open access on publishers’ websites.
 
 License: MIT
 
-## Settings
+---
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+## Pre requirements
 
-## Basic Commands
+### Python
 
-### Setting Up Your Users
+Python `3.11`
 
--   To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+You can also use [pyenv](https://github.com/pyenv/pyenv) for your python installations.
+Simply follow the [instructions](https://github.com/pyenv/pyenv#installation) and set the global version to 3.8.
 
--   To create a **superuser account**, use this command:
+### poetry
 
-        $ python manage.py createsuperuser
+install `poetry` https://poetry.eustace.io/docs/
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
-
-### Type checks
-
-Running type checks with mypy:
-
-    $ mypy scoap3
-
-### Test coverage
-
-To run the tests, check your test coverage, and generate an HTML coverage report:
-
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
-
-#### Running tests with pytest
-
-    $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
-
-### Celery
-
-This app comes with Celery.
-
-To run a celery worker:
-
-``` bash
-cd scoap3
-celery -A config.celery_app worker -l info
+```bash
+$ curl -sSL https://install.python-poetry.org | python3 - --version 1.1.14
 ```
 
-Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
+### pre-commit
 
-To run [periodic tasks](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html), you'll need to start the celery beat scheduler service. You can start it as a standalone process:
+install `pre-commit` https://pre-commit.com/
 
-``` bash
-cd scoap3
-celery -A config.celery_app beat
+```bash
+$ curl https://pre-commit.com/install-local.py | python -
 ```
 
-or you can embed the beat service inside a worker with the `-B` option (not recommended for production use):
+And run
 
-``` bash
-cd scoap3
-celery -A config.celery_app worker -B -l info
+```bash
+$ pre-commit install
 ```
 
-### Email Server
+### Docker & Docker Compose
 
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server [MailHog](https://github.com/mailhog/MailHog) with a web interface is available as docker container.
+Follow the guide https://docs.docker.com/compose/install/
 
-Container mailhog will start automatically when you will run all docker containers.
-Please check [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html) for more details how to start all containers.
+---
 
-With MailHog running, to view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
+## Run with docker
 
-### Sentry
+### Start
+```bash
+$ docker-compose up
+```
 
-Sentry is an error logging aggregator service. You can sign up for a free account at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
-The system is set up with reasonable defaults, including 404 logging and integration with the WSGI application.
+### Usage
 
-You must set the DSN url in production.
+After startup, the application should be avaiable at [localhost:3000](localhost:3000)
 
-## Deployment
+---
 
-The following details how to deploy this application.
+## How to test
 
 ### Docker
-
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
-
-### Custom Bootstrap Compilation
-
-The generated CSS is set up with automatic Bootstrap recompilation with variables of your choice.
-Bootstrap v5 is installed using npm and customised by tweaking your variables in `static/sass/custom_bootstrap_vars`.
-
-You can find a list of available variables [in the bootstrap source](https://github.com/twbs/bootstrap/blob/v5.1.3/scss/_variables.scss), or get explanations on them in the [Bootstrap docs](https://getbootstrap.com/docs/5.1/customize/sass/).
-
-Bootstrap's javascript as well as its dependencies are concatenated into a single file: `static/js/vendors.js`.
+```bash
+$ docker-compose run --rm django pytest
+```
+### Local
+For running the tests you only need the django, db, redis and mq service.
+You can start only the needed services using
+```bash
+$ docker-compose run django
+```
+To run the tests, use:
+```bash
+$ poetry run pytest
+```
