@@ -61,6 +61,10 @@ services:
   redis:
     image: redis:6
     container_name: scoap3_local_redis
+    restart: 'always'
+    read_only: true
+    ports:
+      - '6379:6379'
 
   celeryworker:
     <<: *django
@@ -107,3 +111,37 @@ services:
     command: npm run dev
     ports:
       - "3000:3000"
+
+  opensearch:
+    container_name: scoap3_local_opensearch
+    build:
+      context: .
+      dockerfile: ./compose/local/opensearch/Dockerfile
+    restart: 'always'
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node1
+      - discovery.seed_hosts=opensearch-node1
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - DISABLE_SECURITY_PLUGIN=true
+      - 'OPENSEARCH_JAVA_OPTS=-Xms1024m -Xmx1024m'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 2g
+    ports:
+      - 9200:9200
+      - 9300:9300
+      - 9600:9600 # performance analysis
+
+  mq:
+    image: rabbitmq:3.9.11-management
+    restart: 'always'
+    container_name: scoap3_local_mq
+    ports:
+      - '5672:5672'
