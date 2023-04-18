@@ -194,5 +194,3 @@ sentry_sdk.init(
 SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa: F405
     {"url": "https://scoap3.org", "description": "Production server"}
 ]
-# Your stuff...
-# ------------------------------------------------------------------------------

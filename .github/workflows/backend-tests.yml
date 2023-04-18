@@ -19,9 +19,19 @@ defaults:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     services:
+      opensearch:
+        image: registry.cern.ch/cern-sis/scoap3/opensearch
+        env:
+          bootstrap.memory_lock: true
+          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          discovery.type: single-node
+        ports:
+          - 9200:9200
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+          - 5672:5672
       redis:
         image: redis:6
         ports:
@@ -49,9 +59,10 @@ jobs:
           docker run
           --pull always
           --network="host"
+          --entrypoint poetry
           --env POSTGRES_DB=scoap3
           --env POSTGRES_USER=scoap3
           --env POSTGRES_PASSWORD=scoap3
           --env POSTGRES_HOST=localhost
           ${{ inputs.image }}
-          pytest
+          run pytest

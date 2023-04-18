@@ -67,3 +67,7 @@ atomic = true
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = ["--ds=config.settings.test", "--reuse-db"]
+python_files = ["test_*.py", "*_test.py"]

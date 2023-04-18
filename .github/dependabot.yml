@@ -3,74 +3,11 @@
 
 version: 2
 updates:
-  # Update GitHub actions in workflows
+  - package-ecosystem: "pip"  # pip supports also poetry https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#package-ecosystem
+    directory: "/"
+    schedule:
+      interval: "weekly"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
-
-  # Enable version updates for Docker
-  # We need to specify each Dockerfile in a separate entry because Dependabot doesn't
-  # support wildcards or recursively checking subdirectories. Check this issue for updates:
-  # https://github.com/dependabot/dependabot-core/issues/2178
-  - package-ecosystem: "docker"
-    # Look for a `Dockerfile` in the `compose/local/django` directory
-    directory: "compose/local/django/"
-    schedule:
-      interval: "monthly"
-    # Ignore minor version updates (3.10 -> 3.11) but update patch versions
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
-
-  - package-ecosystem: "docker"
-    # Look for a `Dockerfile` in the `compose/local/docs` directory
-    directory: "compose/local/docs/"
-    schedule:
-      interval: "monthly"
-    # Ignore minor version updates (3.10 -> 3.11) but update patch versions
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
-
-  - package-ecosystem: "docker"
-    # Look for a `Dockerfile` in the `compose/local/node` directory
-    directory: "compose/local/node/"
-    schedule:
-      interval: "monthly"
-
-  - package-ecosystem: "docker"
-    # Look for a `Dockerfile` in the `compose/production/aws` directory
-    directory: "compose/production/aws/"
-    schedule:
-      interval: "monthly"
-
-  - package-ecosystem: "docker"
-    # Look for a `Dockerfile` in the `compose/production/django` directory
-    directory: "compose/production/django/"
-    schedule:
-      interval: "monthly"
-    # Ignore minor version updates (3.10 -> 3.11) but update patch versions
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
-
-  - package-ecosystem: "docker"
-    # Look for a `Dockerfile` in the `compose/production/postgres` directory
-    directory: "compose/production/postgres/"
-    schedule:
-      interval: "monthly"
-
-  - package-ecosystem: "docker"
-    # Look for a `Dockerfile` in the `compose/production/traefik` directory
-    directory: "compose/production/traefik/"
-    schedule:
-      interval: "monthly"
-
-  # Enable version updates for Python/Pip - Production
-  - package-ecosystem: "pip"
-    # Look for a `requirements.txt` in the `root` directory
-    # also 'setup.cfg', 'runtime.txt' and 'requirements/*.txt'
-    directory: "/"
-    schedule:
-      interval: "monthly"
+      interval: "weekly"

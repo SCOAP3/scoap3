@@ -1,7 +1,7 @@
 # PostgreSQL
 # ------------------------------------------------------------------------------
-POSTGRES_HOST=postgres
+POSTGRES_HOST=db
 POSTGRES_PORT=5432
 POSTGRES_DB=scoap3
-POSTGRES_USER=debug
-POSTGRES_PASSWORD=debug
+POSTGRES_USER=scoap3
+POSTGRES_PASSWORD=scoap3

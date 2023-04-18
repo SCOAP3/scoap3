@@ -33,5 +33,3 @@ TEMPLATES[0]["OPTIONS"]["debug"] = True  # type: ignore # noqa: F405
 WEBPACK_LOADER["DEFAULT"][  # noqa: F405
     "LOADER_CLASS"
 ] = "webpack_loader.loader.FakeWebpackLoader"
-# Your stuff...
-# ------------------------------------------------------------------------------
