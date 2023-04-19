@@ -47,6 +47,7 @@ jobs:
           context: ${{ inputs.context }}
           stage: ${{ inputs.stage }}
           dockerfile: ${{ inputs.dockerfile }}
+          registry: registry.cern.ch
           tags: |
             type=ref,event=branch
             type=ref,event=pr
