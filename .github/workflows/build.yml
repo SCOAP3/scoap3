@@ -32,7 +32,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      image-id: ${{ steps.build.outputs.image-id }}
+      image-id: ${{ steps.uncached.outputs.imageid }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
