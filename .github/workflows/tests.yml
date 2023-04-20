@@ -30,4 +30,4 @@ jobs:
     uses: ./.github/workflows/backend-tests.yml
     with:
       ref: ${{ inputs.ref }}
-      image: "cern-sis/scoap3/scoap3-backend@${{ needs.build-backend.outputs.image-id }}"
+      image: "registry.cern.ch/cern-sis/scoap3/scoap3-backend@${{ needs.build-backend.outputs.image-id }}"
