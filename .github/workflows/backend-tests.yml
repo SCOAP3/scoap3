@@ -52,5 +52,6 @@ jobs:
           --env POSTGRES_DB=scoap3
           --env POSTGRES_USER=scoap3
           --env POSTGRES_PASSWORD=scoap3
+          --env POSTGRES_HOST=localhost
           ${{ inputs.image }}
           pytest
