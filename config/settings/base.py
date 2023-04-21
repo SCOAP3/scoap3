@@ -92,6 +92,8 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
     "webpack_loader",
+    "django_elasticsearch_dsl",
+    "django_elasticsearch_dsl_drf",
 ]
 
 LOCAL_APPS = [
@@ -352,3 +354,7 @@ WEBPACK_LOADER = {
         "IGNORE": [r".+\.hot-update.js", r".+\.map"],
     }
 }
+
+# elasticsearch-dsl
+ELASTICSEARCH_DSL = {"default": {"hosts": "localhost:9200"}}
+OPENSEARCH_DSL = ELASTICSEARCH_DSL
