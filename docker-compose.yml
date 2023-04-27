@@ -19,8 +19,8 @@ services:
       - .envs/.django
       - .envs/.postgres
     ports:
-      - "8000:8000"
-    command: sh -c "poetry run python manage.py migrate && poetry run python manage.py runserver 0.0.0.0:8000"
+      - '8000:8000'
+    command: sh -c 'poetry run python manage.py migrate && poetry run python manage.py runserver 0.0.0.0:8000'
     networks:
       - djangonetwork
 
@@ -31,7 +31,7 @@ services:
     env_file:
       - .envs/.postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     networks:
       - djangonetwork
 
@@ -42,6 +42,8 @@ services:
     read_only: true
     ports:
       - '6379:6379'
+    networks:
+      - djangonetwork
 
   celeryworker:
     <<: *django
@@ -83,7 +85,9 @@ services:
       - /app/node_modules
     command: npm run dev
     ports:
-      - "3000:3000"
+      - '3000:3000'
+    networks:
+      - djangonetwork
 
   opensearch:
     container_name: scoap3_local_opensearch
@@ -111,6 +115,9 @@ services:
       - 9200:9200
       - 9300:9300
       - 9600:9600 # performance analysis
+    networks:
+      - djangonetwork
+
 
   mq:
     image: rabbitmq:3.9.11-management
@@ -118,13 +125,17 @@ services:
     container_name: scoap3_local_mq
     ports:
       - '5672:5672'
+    networks:
+      - djangonetwork
+
 
   mailhog:
     image: mailhog/mailhog:v1.0.0
     container_name: scoap3_local_mailhog
     ports:
-      - "8025:8025"
-
+      - '8025:8025'
+    networks:
+      - djangonetwork
 
 networks:
     djangonetwork:
