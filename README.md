@@ -30,6 +30,18 @@ install `poetry` https://poetry.eustace.io/docs/
 $ curl -sSL https://install.python-poetry.org | python3 - --version 1.1.14
 ```
 
+### nodejs & npm using nvm
+
+Please follow the instructions https://github.com/nvm-sh/nvm#installing-and-updating
+
+For running the front-end pipeline, install `v18.16.0`
+
+```
+$ nvm install 18.16.0
+$ nvm use global 18.16.0
+```
+
+
 ### pre-commit
 
 install `pre-commit` https://pre-commit.com/
@@ -50,21 +62,68 @@ Follow the guide https://docs.docker.com/compose/install/
 
 ---
 
-## Run with docker
+## How to run
+### Local
+If you don't want to use the makefile, make sure the .envs/local/ files are loaded.
 
-### Start
+
+#### Start services
+```bash
+$ make services
+or
+$ docker-compose up -d mailhog mq opensearch celerybeat redis db
+```
+
+#### Apply migrations
+```bash
+$ make migrate
+or
+$ poetry run python manage.py migrate
+```
+
+#### Start celery worker
+```bash
+$ make celery
+or
+$ poetry run poetry run celery -A config.celery_app worker --loglevel=info
+```
+
+#### Start django
+```bash
+$ make django
+or
+$ poetry run python manage.py runserver 0.0.0.0:8000
+```
+
+#### Start webpack
+```bash
+$ make webpack
+or
+$ npm run dev
+```
+
+
+### Docker
+
+#### Start
 ```bash
 $ docker-compose up
 ```
 
-### Flush
+## Usage
+After startup, the application should be available at [localhost:3000](localhost:3000)
+
+#### Flush
 To flush all tables, run:
 ```bash
 docker-compose exec django python manage.py flush
+or
+poetry run python manage.py flush
 ```
 **Be sure to type `yes` otherwise the flush won't execute!**
 
-### Populate
+#### Populate
+
 To insert some demo data and create a superuser with the following credentials:
 * Username: admin
 * Password: admin
@@ -73,14 +132,12 @@ make sure the db is [flushed](#flush) otherwise it could cause some duplicate er
 
 ```bash
 docker-compose exec django python manage.py loaddata local
+or
+poetry run python manage.py loaddata local
 ```
 
-### Usage
-
-After startup, the application should be avaiable at [localhost:3000](localhost:3000)
 
 ---
-
 ## How to test
 
 ### Docker
@@ -96,4 +153,9 @@ $ docker-compose run django
 To run the tests, use:
 ```bash
 $ poetry run pytest
+```
+
+Or start the services and docker using the makefile and run:
+```bash
+$ make tests
 ```

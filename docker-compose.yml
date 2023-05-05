@@ -16,8 +16,8 @@ services:
     volumes:
       - .:/app:z
     env_file:
-      - .envs/.django
-      - .envs/.postgres
+      - .envs/docker/.django
+      - .envs/docker/.postgres
     ports:
       - '8000:8000'
     command: sh -c 'poetry run python manage.py migrate && poetry run python manage.py runserver 0.0.0.0:8000'
@@ -29,7 +29,7 @@ services:
     restart: always
     container_name: scoap3_local_db
     env_file:
-      - .envs/.postgres
+      - .envs/docker/.postgres
     ports:
       - '5432:5432'
     networks:
@@ -77,6 +77,8 @@ services:
       dockerfile: ./compose/local/node/Dockerfile
     image: scoap3_local_node
     container_name: scoap3_local_node
+    environment:
+      DJANGO_HOST: django
     depends_on:
       - django
     volumes:
