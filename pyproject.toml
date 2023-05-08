@@ -35,7 +35,7 @@ django-storages = "^1.13.2"
 django-anymail = "^9.1"
 
 [tool.poetry.dev-dependencies]
-Werkzeug = {extras = ["watchdog"], version = "^2.2.3"}
+Werkzeug = {extras = ["watchdog"], version = "^2.3.3"}
 ipdb = "^0.13.13"
 psycopg2 = "^2.9.6"
 watchfiles = "^0.19.0"
