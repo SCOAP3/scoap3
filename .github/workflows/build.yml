@@ -40,7 +40,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Set up Docker
-        uses: cern-sis/gh-workflows/.github/actions/docker-setup@v4.0.0
+        uses: cern-sis/gh-workflows/.github/actions/docker-setup@v5.6.0
 
       - name: Generate image name
         shell: bash
