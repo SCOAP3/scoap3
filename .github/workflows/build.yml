@@ -46,6 +46,7 @@ jobs:
           image: ${{ inputs.image }}
           context: ${{ inputs.context }}
           stage: ${{ inputs.stage }}
+          dockerfile: ${{ inputs.dockerfile }}
           registry: registry.cern.ch
           cache: false
           tags: |
