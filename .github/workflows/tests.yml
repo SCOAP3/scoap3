@@ -19,7 +19,7 @@ jobs:
       ref: ${{ inputs.ref }}
       image: cern-sis/scoap3/scoap3-backend
       context: .
-      dockerfile: ./compose/local/django/Dockerfile
+      dockerfile: ./compose/production/django/Dockerfile
     secrets: inherit
 
 
