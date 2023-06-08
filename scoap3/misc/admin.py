@@ -44,7 +44,8 @@ class InstitutionIdentifierAdmin(admin.ModelAdmin):
 
 
 class LicenseAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["id", "name", "url"]
+    search_fields = ["name"]
 
 
 class PublicationInfoAdmin(admin.ModelAdmin):
@@ -52,7 +53,8 @@ class PublicationInfoAdmin(admin.ModelAdmin):
 
 
 class PublisherAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["id", "name"]
+    search_fields = ["name"]
 
 
 class RelatedMaterialAdmin(admin.ModelAdmin):

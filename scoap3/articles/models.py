@@ -1,25 +1,25 @@
 from django.db import models
 
-from scoap3.authors.models import AuthorIdentifierType
+
+class AuthorIdentifierType(models.TextChoices):
+    DOI = ("DOI",)
+    ARXIV = ("arXiv",)
 
 
 class Article(models.Model):
-    reception_date = models.DateField(blank=True)
-    acceptance_date = models.DateField(blank=True)
-    publication_date = models.DateField(blank=True)
-    first_online_date = models.DateField()
-    title = models.CharField(max_length=255)
-    subtitle = models.CharField(max_length=255, blank=True)
-    abstract = models.TextField(blank=True)
+    reception_date = models.DateField(blank=True, null=True)
+    acceptance_date = models.DateField(blank=True, null=True)
+    publication_date = models.DateField(blank=True, null=True)
+    first_online_date = models.DateField(blank=True, null=True)
+    title = models.TextField()
+    subtitle = models.CharField(max_length=255, blank=True, default="")
+    abstract = models.TextField(blank=True, default="")
     related_licenses = models.ManyToManyField(
         "misc.License",
-        related_name="related_articles",
-        blank=True,
+        related_name="related_licenses",
     )
     related_materials = models.ManyToManyField(
-        "misc.RelatedMaterial",
-        related_name="related_articles",
-        blank=True,
+        "misc.RelatedMaterial", related_name="related_articles", blank=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -17,7 +17,7 @@ class Affiliation(models.Model):
     author_id = models.ManyToManyField("authors.Author")
     country = models.ForeignKey("misc.Country", on_delete=models.CASCADE)
     value = models.CharField(max_length=255)
-    organization = models.CharField(max_length=255)
+    organization = models.CharField(max_length=255, blank=True, default="")
 
     class Meta:
         ordering = ["id"]
@@ -52,18 +52,21 @@ class InstitutionIdentifier(models.Model):
 class Publisher(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self) -> str:
+        return self.name
+
     class Meta:
         ordering = ["id"]
 
 
 class PublicationInfo(models.Model):
     article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE)
-    journal_volume = models.CharField(max_length=255, blank=True)
+    journal_volume = models.CharField(max_length=255, blank=True, default="")
     journal_title = models.CharField(max_length=255)
-    journal_issue = models.CharField(max_length=255, blank=True)
-    page_start = models.PositiveIntegerField()
-    page_end = models.PositiveIntegerField()
-    artid = models.CharField(max_length=255)
+    journal_issue = models.CharField(max_length=255, blank=True, default="")
+    page_start = models.PositiveIntegerField(blank=True, null=True)
+    page_end = models.PositiveIntegerField(blank=True, null=True)
+    artid = models.CharField(max_length=255, blank=True, default="")
     volume_year = models.CharField(max_length=255)
     journal_issue_date = models.DateField()
     publisher = models.ForeignKey("misc.Publisher", on_delete=models.CASCADE)
@@ -73,8 +76,11 @@ class PublicationInfo(models.Model):
 
 
 class License(models.Model):
-    url = models.URLField(blank=True)
-    name = models.CharField(max_length=255)
+    url = models.URLField()
+    name = models.CharField(max_length=255, blank=True, default="")
+
+    def __str__(self) -> str:
+        return self.name
 
     class Meta:
         ordering = ["id"]
@@ -82,9 +88,9 @@ class License(models.Model):
 
 class Copyright(models.Model):
     article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE)
-    statement = models.CharField(max_length=255)
-    holder = models.CharField(max_length=255)
-    year = models.PositiveIntegerField()
+    statement = models.CharField(max_length=255, blank=True, default="")
+    holder = models.CharField(max_length=255, blank=True, default="")
+    year = models.PositiveIntegerField(blank=True, null=True)
 
     class Meta:
         ordering = ["id"]
@@ -100,7 +106,7 @@ class ArticleArxivCategory(models.Model):
         max_length=255,
         choices=ArxivCategoryType.choices,
     )
-    primary = models.BooleanField(null=False)
+    primary = models.BooleanField()
 
     class Meta:
         ordering = ["id"]
@@ -108,7 +114,7 @@ class ArticleArxivCategory(models.Model):
 
 class ExperimentalCollaboration(models.Model):
     article_id = models.ManyToManyField("articles.Article")
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, blank=True, default="")
     experimental_collaboration_order = models.IntegerField()
 
     class Meta:

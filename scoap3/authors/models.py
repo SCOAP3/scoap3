@@ -6,13 +6,11 @@ class AuthorIdentifierType(models.TextChoices):
 
 
 class Author(models.Model):
-    article_id = models.ForeignKey(
-        "articles.Article", on_delete=models.CASCADE, blank=True
-    )
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField()
-    author_order = models.IntegerField(blank=True)
+    article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=255, blank=True, default="")
+    last_name = models.CharField(max_length=255, blank=True, default="")
+    email = models.EmailField(blank=True, null=True)
+    author_order = models.IntegerField()
 
     class Meta:
         ordering = ["id"]
