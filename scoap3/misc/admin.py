@@ -16,23 +16,32 @@ from scoap3.misc.models import (
 
 
 class AffiliationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["country", "value", "organization"]
+    search_fields = ["value"]
+    raw_id_fields = ["author_id"]
 
 
 class ArticleArxivCategoryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["article_id", "category", "primary"]
+    search_fields = ["category"]
+    raw_id_fields = ["article_id"]
 
 
 class CopyrightAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["article_id", "statement", "holder", "year"]
+    search_fields = ["statement"]
+    raw_id_fields = ["article_id"]
 
 
 class CountryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["code", "name"]
+    search_fields = ["name"]
 
 
 class ExperimentalCollaborationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["name", "experimental_collaboration_order"]
+    search_fields = ["name"]
+    raw_id_fields = ["article_id"]
 
 
 class FunderAdmin(admin.ModelAdmin):
@@ -49,7 +58,9 @@ class LicenseAdmin(admin.ModelAdmin):
 
 
 class PublicationInfoAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["article_id", "journal_title", "volume_year", "publisher"]
+    search_fields = ["journal_title"]
+    raw_id_fields = ["article_id"]
 
 
 class PublisherAdmin(admin.ModelAdmin):

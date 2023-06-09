@@ -102,6 +102,7 @@ LOCAL_APPS = [
     "scoap3.articles",
     "scoap3.authors",
     "scoap3.misc",
+    "scoap3",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

@@ -35,6 +35,9 @@ django-storages = "^1.13.2"
 django-anymail = "^10.0"
 django-elasticsearch-dsl-drf = {git = "https://github.com/cern-sis/django-elasticsearch-dsl-drf.git", rev = "opensearch"}
 django-opensearch-dsl = "^0.5.1"
+elasticsearch = "6.8.2"
+pycountry = "^22.3.5"
+boto3 = "^1.26.161"
 
 [tool.poetry.dev-dependencies]
 Werkzeug = {extras = ["watchdog"], version = "^2.3.4"}

@@ -11,6 +11,7 @@ class ArticleAdmin(admin.ModelAdmin):
 class ArticleIdentifierAdmin(admin.ModelAdmin):
     list_display = ["article_id", "identifier_type", "identifier_value"]
     search_fields = ["article_id"]
+    raw_id_fields = ["article_id"]
 
 
 admin.site.register(Article, ArticleAdmin)

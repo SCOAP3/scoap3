@@ -23,6 +23,23 @@ CACHES = {
     }
 }
 
+# STORAGE
+# ------------------------
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "legacy-records": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": str(BASE_DIR / "legacy_records"),  # noqa: F405
+        },
+    },
+}
+
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-host

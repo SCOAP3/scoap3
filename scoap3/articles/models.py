@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class AuthorIdentifierType(models.TextChoices):
+class ArticleIdentifierType(models.TextChoices):
     DOI = ("DOI",)
     ARXIV = ("arXiv",)
 
@@ -35,7 +35,7 @@ class ArticleIdentifier(models.Model):
     )
     identifier_type = models.CharField(
         max_length=255,
-        choices=AuthorIdentifierType.choices,
+        choices=ArticleIdentifierType.choices,
     )
     identifier_value = models.CharField(
         max_length=255,

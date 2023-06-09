@@ -14,9 +14,9 @@ class Country(models.Model):
 
 
 class Affiliation(models.Model):
-    author_id = models.ManyToManyField("authors.Author")
-    country = models.ForeignKey("misc.Country", on_delete=models.CASCADE)
-    value = models.CharField(max_length=255)
+    author_id = models.ManyToManyField("authors.Author", blank=True)
+    country = models.ForeignKey("misc.Country", on_delete=models.CASCADE, null=True)
+    value = models.CharField(max_length=255, blank=True, default="")
     organization = models.CharField(max_length=255, blank=True, default="")
 
     class Meta:
@@ -64,11 +64,11 @@ class PublicationInfo(models.Model):
     journal_volume = models.CharField(max_length=255, blank=True, default="")
     journal_title = models.CharField(max_length=255)
     journal_issue = models.CharField(max_length=255, blank=True, default="")
-    page_start = models.PositiveIntegerField(blank=True, null=True)
-    page_end = models.PositiveIntegerField(blank=True, null=True)
+    page_start = models.CharField(blank=True)
+    page_end = models.CharField(blank=True)
     artid = models.CharField(max_length=255, blank=True, default="")
     volume_year = models.CharField(max_length=255)
-    journal_issue_date = models.DateField()
+    journal_issue_date = models.DateField(blank=True, null=True)
     publisher = models.ForeignKey("misc.Publisher", on_delete=models.CASCADE)
 
     class Meta:
@@ -76,7 +76,7 @@ class PublicationInfo(models.Model):
 
 
 class License(models.Model):
-    url = models.URLField()
+    url = models.URLField(blank=True, default="")
     name = models.CharField(max_length=255, blank=True, default="")
 
     def __str__(self) -> str:
@@ -98,6 +98,35 @@ class Copyright(models.Model):
 
 class ArxivCategoryType(models.TextChoices):
     QUA223 = ("qua.223",)
+    hep_lat = ("hep-lat",)
+    math_AG = ("math.AG",)
+    nucl_ex = ("nucl-ex",)
+    astro_ph_IM = ("astro-ph.IM",)
+    math_RT = ("math.RT",)
+    math_QA = ("math.QA",)
+    math_ph = ("math-ph",)
+    cond_mat_mtrl_sci = ("cond-mat.mtrl-sci",)
+    astro_ph_GA = ("astro-ph.GA",)
+    astro_ph_CO = ("astro-ph.CO",)
+    cond_mat_mes_hall = ("cond-mat.mes-hall",)
+    math_DG = ("math.DG",)
+    cond_mat_soft = ("cond-mat.soft",)
+    hep_ex = ("hep-ex",)
+    nucl_th = ("nucl-th",)
+    math_AT = ("math.AT",)
+    math_MP = ("math.MP",)
+    cond_mat_stat_mech = ("cond-mat.stat-mech",)
+    cond_mat_other = ("cond-mat.other",)
+    quant_ph = ("quant-ph",)
+    nlin_PS = ("nlin.PS",)
+    hep_ph = ("hep-ph",)
+    physics_ins_det = ("physics.ins-det",)
+    cond_mat_str_el = ("cond-mat.str-el",)
+    gr_qc = ("gr-qc",)
+    hep_th = ("hep-th",)
+    astro_ph_HE = ("astro-ph.HE",)
+    cs_LG = ("cs.LG",)
+    astro_ph_SR = ("astro-ph.SR",)
 
 
 class ArticleArxivCategory(models.Model):
@@ -113,7 +142,7 @@ class ArticleArxivCategory(models.Model):
 
 
 class ExperimentalCollaboration(models.Model):
-    article_id = models.ManyToManyField("articles.Article")
+    article_id = models.ManyToManyField("articles.Article", blank=True)
     name = models.CharField(max_length=255, blank=True, default="")
     experimental_collaboration_order = models.IntegerField()
 
