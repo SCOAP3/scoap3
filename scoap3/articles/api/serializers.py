@@ -1,11 +1,19 @@
+from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from rest_framework import serializers
 
+from scoap3.articles.documents import ArticleDocument
 from scoap3.articles.models import Article, ArticleIdentifier
 
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
+        fields = "__all__"
+
+
+class ArticleDocumentSerializer(DocumentSerializer):
+    class Meta:
+        document = ArticleDocument
         fields = "__all__"
 
 

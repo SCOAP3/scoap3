@@ -5,6 +5,7 @@ import platform
 from pathlib import Path
 
 import environ
+from opensearch_dsl import connections
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # scoap3/
@@ -92,6 +93,8 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
     "webpack_loader",
+    "django_opensearch_dsl",
+    "django_elasticsearch_dsl_drf",
 ]
 
 LOCAL_APPS = [
@@ -357,3 +360,14 @@ WEBPACK_LOADER = {
         "IGNORE": [r".+\.hot-update.js", r".+\.map"],
     }
 }
+
+# Opensearch
+# ------------------------------------------------------------------------------
+OPENSEARCH_INDEX_PREFIX = env("OPENSEARCH_INDEX_PREFIX")
+
+OPENSEARCH_DSL = {
+    "default": {"hosts": env("OPENSEARCH_HOST")},
+}
+
+# Workaround because it wont add the connection settings automatically
+connections.configure(default=OPENSEARCH_DSL["default"])
