@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, PositiveSmallIntegerField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from scoap3.users.permissions import admin_group, user_group, curator_group
+from scoap3.users.permissions import assign_permissions
 
 class User(AbstractUser):
     """
@@ -36,8 +36,8 @@ class User(AbstractUser):
 
     def assign_the_group(self):
         if self.role[0] == 1:
-            admin_group.user_set.add(self)
+            assign_permissions()["admin_group"].user_set.add(self)
         elif self.role[0] == 2:
-             curator_group.user_set.add(self)
+            assign_permissions()["curator_group"].user_set.add(self)
         else:
-            user_group.user_set.add(self)
+            assign_permissions()["user_group"].user_set.add(self)
