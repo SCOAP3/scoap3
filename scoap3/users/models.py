@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField
+from django.db.models import CharField, PositiveSmallIntegerField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
+from scoap3.users.permissions import admin_group, user_group, curator_group
 
 class User(AbstractUser):
     """
@@ -10,7 +10,16 @@ class User(AbstractUser):
     If adding fields that need to be filled at user signup,
     check forms.SignupForm and forms.SocialSignupForms accordingly.
     """
+    ADMIN = 1
+    CURATOR = 2
+    USER = 3
 
+    ROLE_CHOICES = (
+          (ADMIN, 'Administrator'),
+          (CURATOR, 'Curator'),
+          (USER, 'User')
+      )
+    role = PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=True, null=True)
     #: First and last name do not cover name patterns around the globe
     name = CharField(_("Name of User"), blank=True, max_length=255)
     first_name = None  # type: ignore
@@ -24,3 +33,11 @@ class User(AbstractUser):
 
         """
         return reverse("users:detail", kwargs={"username": self.username})
+
+    def assign_the_group(self):
+        if self.role[0] == 1:
+            admin_group.user_set.add(self)
+        elif self.role[0] == 2:
+             curator_group.user_set.add(self)
+        else:
+            user_group.user_set.add(self)
