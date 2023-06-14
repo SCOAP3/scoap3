@@ -1,25 +1,55 @@
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 
-permissions = [
-    ("add_article", "Can add article"),
-    ("update_article", "Can update article"),
-    ("delete_article", "Can delete article"),
-    ("view_article", "Can view article"),
-    ]
+from scoap3.articles.models import Article
+
 
 def assign_permissions():
-    admin_group, created = Group.objects.get_or_create(name='Admin')
-    curator_group, created = Group.objects.get_or_create(name='Curator')
-    user_group, created = Group.objects.get_or_create(name='User')
+    content_type = ContentType.objects.get_for_model(Article)
 
-    permission1 = Permission.objects.get(codename='add_article')
-    permission2 = Permission.objects.get(codename='update_article')
-    permission3 = Permission.objects.get(codename='delete_article')
-    permission4 = Permission.objects.get(codename='view_article')
+    admin_group, created = Group.objects.get_or_create(name="Admin")
+    curator_group, created = Group.objects.get_or_create(name="Curator")
+    user_group, created = Group.objects.get_or_create(name="User")
 
+    add_permission = Permission.objects.create(
+        codename="add_article",
+        name="Can add article",
+        content_type=content_type,
+    )
 
-    admin_group.permissions.add(permission1, permission2, permission3, permission4)
-    curator_group.permissions.add(permission1, permission2, permission4)
-    user_group.permissions.add(permission4)
+    change_permission = Permission.objects.create(
+        codename="change_article",
+        name="Can update article",
+        content_type=content_type,
+    )
 
-    return {"admin_group": admin_group, "curator_group": curator_group, "user_group": user_group}
+    delete_permission = Permission.objects.create(
+        codename="delete_article",
+        name="Can delete article",
+        content_type=content_type,
+    )
+    view_permission = Permission.objects.create(
+        codename="view_article",
+        name="Can view article",
+        content_type=content_type,
+    )
+    add_permission = Permission.objects.get(codename="add_article")
+    change_permission = Permission.objects.get(codename="change_article")
+    delete_permission = Permission.objects.get(codename="delete_article")
+    view_permission = Permission.objects.get(codename="view_permission")
+
+    admin_group.permissions.add(
+        add_permission, change_permission, delete_permission, view_permission
+    )
+    curator_group.permissions.add(add_permission, change_permission, view_permission)
+    user_group.permissions.add(view_permission)
+
+    admin_group.save()
+    curator_group.save()
+    user_group.save()
+
+    return {
+        "admin_group": admin_group,
+        "curator_group": curator_group,
+        "user_group": user_group,
+    }
