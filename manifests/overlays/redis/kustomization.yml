@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - github.com/cern-sis/kubernetes-bases//redis
+
+namePrefix: 'scoap3-backend-'
+
+commonLabels:
+  app.kubernetes.io/component: redis
+  app.kubernetes.io/instance: scoap3-backend-redis
+
+patches:
+  - target:
+      kind: StatefulSet
+      name: redis
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            memory: 3Gi
+          limits:
+            memory: 4Gi

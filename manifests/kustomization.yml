@@ -1,0 +1,11 @@
+resources:
+  - overlays/mq
+  - overlays/flower
+  - overlays/beat
+  - overlays/redis
+  - overlays/storage
+  - overlays/web
+  - overlays/worker
+
+commonLabels:
+  app.kubernetes.io/part-of: scoap3-backend

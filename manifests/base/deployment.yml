@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scoap3-backend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  template:
+    spec:
+      containers:
+        - name: scoap3-backend
+          image: registry.cern.ch/cern-sis/scoap3/scoap3-backend@sha256:02df70a097391229dd6022eed1173a0402ab1227b74b2d36ce99ab275e443b56
+          envFrom:
+            - configMapRef:
+                name: scoap3-backend-defaults
+            - configMapRef:
+                name: scoap3-backend-globals
+            - secretRef:
+                name: scoap3-backend-creds
+          env:
+            - name: SENTRY_ENVIRONMENT
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace

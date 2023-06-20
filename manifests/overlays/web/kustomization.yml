@@ -1,0 +1,39 @@
+---
+resources:
+  - service.yml
+  - ingress.yml
+  - ../../base
+
+nameSuffix: '-web'
+
+commonLabels:
+  app.kubernetes.io/part-of: scoap3-backend
+  app.kubernetes.io/name: gunicorn
+  app.kubernetes.io/component: web
+  app.kubernetes.io/instance: scoap3-backend-web
+
+patches:
+  - target:
+      kind: Deployment
+      name: scoap3-backend
+
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/command
+        value: ['bash']
+
+      - op: add
+        path: /spec/template/spec/containers/0/args
+        value:
+          - '-c'
+          - 'poetry run python manage.py collectstatic --noinput && gunicorn -b 0.0.0.0:8080 config.wsgi'
+
+      - op: add
+        path: /spec/template/spec/containers/0/ports
+        value:
+          - name: http
+            containerPort: 8080
+
+replicas:
+  - name: scoap3-backend
+    count: 1

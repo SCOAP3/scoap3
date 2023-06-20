@@ -1,0 +1,30 @@
+---
+resources:
+  - ../worker
+
+nameSuffix: '-beat'
+
+commonLabels:
+  app.kubernetes.io/instance: scoap3-backend-worker-beat
+
+patches:
+  - target:
+      kind: Deployment
+      name: scoap3-backend
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/command
+        value:
+          - 'celery'
+          - '--app'
+          - 'config.celery_app'
+          - 'beat'
+          - '--loglevel=INFO'
+      - op: add
+        path: /spec/strategy
+        value:
+          type: Recreate
+
+replicas:
+  - name: scoap3-backend
+    count: 1

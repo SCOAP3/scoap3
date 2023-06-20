@@ -1,0 +1,63 @@
+---
+resources:
+  - github.com/cern-sis/kubernetes-bases//rabbitmq
+  - ingress.yml
+
+namePrefix: 'scoap3-backend-'
+
+commonLabels:
+  app.kubernetes.io/component: mq
+  app.kubernetes.io/instance: scoap3-backend-mq
+
+patches:
+  - target:
+      kind: StatefulSet
+      name: mq
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              name: scoap3-backend-creds
+              key: RABBITMQ_USER
+
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: RABBITMQ_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: scoap3-backend-creds
+              key: RABBITMQ_PASSWORD
+
+      - op: add
+        path: /spec/template/spec/containers/0/envFrom/-
+        value:
+          secretRef:
+            name: scoap3-backend-creds
+
+      - op: add
+        path: /spec/template/spec/containers/1/envFrom/-
+        value:
+          secretRef:
+            name: scoap3-backend-creds
+
+      - op: add
+        path: /spec/template/spec/containers/1/env/-
+        value:
+          name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              name: scoap3-backend-creds
+              key: RABBITMQ_USER
+
+      - op: add
+        path: /spec/template/spec/containers/1/env/-
+        value:
+          name: RABBITMQ_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: scoap3-backend-creds
+              key: RABBITMQ_PASSWORD

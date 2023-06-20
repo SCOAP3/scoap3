@@ -1,0 +1,30 @@
+---
+resources:
+  - ../../base
+
+nameSuffix: '-worker'
+
+commonLabels:
+  app.kubernetes.io/part-of: scoap3-backend
+  app.kubernetes.io/name: celery
+  app.kubernetes.io/component: worker
+  app.kubernetes.io/instance: scoap3-backend-worker
+
+patches:
+  - target:
+      kind: Deployment
+      name: scoap3-backend
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/command
+        value:
+          - 'celery'
+          - '--app'
+          - 'config.celery_app'
+          - 'worker'
+          - '--loglevel=INFO'
+          - '--concurrency=1'
+
+replicas:
+  - name: scoap3-backend
+    count: 10

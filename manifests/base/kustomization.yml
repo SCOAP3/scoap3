@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - deployment.yml
+
+commonLabels:
+  app.kubernetes.io/name: scoap3-backend
+  app.kubernetes.io/component: repo
+  app.kubernetes.io/instance: scoap3-backend
+
+configMapGenerator:
+  - name: scoap3-backend-defaults
+    literals:
+      - DJANGO_SETTINGS_MODULE='config.settings.production'
+      - DJANGO_READ_DOT_ENV_FILE=False
+      - TIME_ZONE='Europe/Zurich'
+      - DJANGO_ALLOWED_HOSTS='*'
+      - DJANGO_ADMIN_URL='admin/'
+      - EMAIL_HOST='cernmx.cern.ch'
+      - DJANGO_AWS_S3_CUSTOM_DOMAIN='https://s3.cern.ch'

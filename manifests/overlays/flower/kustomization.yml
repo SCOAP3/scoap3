@@ -1,0 +1,57 @@
+---
+resources:
+  - github.com/cern-sis/kubernetes-bases//flower
+  - ingress.yml
+
+namePrefix: 'scoap3-backend-'
+
+commonLabels:
+  app.kubernetes.io/part-of: scoap3-backend
+  app.kubernetes.io/instance: scoap3-backend-flower
+
+patches:
+  - target:
+      kind: Deployment
+      name: flower
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: MQ_HOST
+          value: scoap3-backend-mq
+
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: MQ_USER
+          valueFrom:
+            secretKeyRef:
+              name: scoap3-backend-creds
+              key: RABBITMQ_USER
+
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: MQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: scoap3-backend-creds
+              key: RABBITMQ_PASSWORD
+
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: FLOWER_USER
+          valueFrom:
+            secretKeyRef:
+              name: scoap3-backend-creds
+              key: CELERY_FLOWER_USER
+
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: FLOWER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: scoap3-backend-creds
+              key: CELERY_FLOWER_PASSWORD
