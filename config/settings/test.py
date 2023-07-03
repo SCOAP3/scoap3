@@ -33,3 +33,15 @@ TEMPLATES[0]["OPTIONS"]["debug"] = True  # type: ignore # noqa: F405
 WEBPACK_LOADER["DEFAULT"][  # noqa: F405
     "LOADER_CLASS"
 ] = "webpack_loader.loader.FakeWebpackLoader"
+
+# Opensearch
+# ------------------------------------------------------------------------------
+
+OPENSEARCH_DSL = {
+    "default": {
+        "hosts": ["127.0.0.1:9200"],
+        "use_ssl": False,
+        "verify_certs": False,
+        "ssl_assert_hostname": False,
+    },
+}

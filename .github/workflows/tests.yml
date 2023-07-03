@@ -21,7 +21,10 @@ jobs:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
     secrets: inherit
-
+    steps:
+      - name: create index
+        run: |
+          python manage.py opensearch index create
 
   test-backend:
     needs: build-backend

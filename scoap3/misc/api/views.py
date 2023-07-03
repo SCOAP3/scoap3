@@ -5,6 +5,7 @@ from rest_framework.mixins import (
     RetrieveModelMixin,
     UpdateModelMixin,
 )
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 
 from scoap3.misc.api.serializers import (
@@ -45,6 +46,7 @@ class CountryViewSet(
 ):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class AffiliationViewSet(
@@ -57,6 +59,7 @@ class AffiliationViewSet(
 ):
     queryset = Affiliation.objects.all()
     serializer_class = AffiliationSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class InstitutionIdentifierViewSet(
@@ -69,6 +72,7 @@ class InstitutionIdentifierViewSet(
 ):
     queryset = InstitutionIdentifier.objects.all()
     serializer_class = InstitutionIdentifierSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class PublisherViewSet(
@@ -81,6 +85,7 @@ class PublisherViewSet(
 ):
     queryset = Publisher.objects.all()
     serializer_class = PublisherSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class PublicationInfoViewSet(
@@ -93,6 +98,7 @@ class PublicationInfoViewSet(
 ):
     queryset = PublicationInfo.objects.all()
     serializer_class = PublicationInfoSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class LicenseViewSet(
@@ -105,6 +111,7 @@ class LicenseViewSet(
 ):
     queryset = License.objects.all()
     serializer_class = LicenseSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class CopyrightViewSet(
@@ -117,6 +124,7 @@ class CopyrightViewSet(
 ):
     queryset = Copyright.objects.all()
     serializer_class = CopyrightSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ArticleArxivCategoryViewSet(
@@ -129,6 +137,7 @@ class ArticleArxivCategoryViewSet(
 ):
     queryset = ArticleArxivCategory.objects.all()
     serializer_class = ArticleArxivCategorySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ExperimentalCollaborationViewSet(
@@ -141,6 +150,7 @@ class ExperimentalCollaborationViewSet(
 ):
     queryset = ExperimentalCollaboration.objects.all()
     serializer_class = ExperimentalCollaborationSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class FunderViewSet(
@@ -153,6 +163,7 @@ class FunderViewSet(
 ):
     queryset = Funder.objects.all()
     serializer_class = FunderSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class RelatedMaterialViewSet(
@@ -165,3 +176,4 @@ class RelatedMaterialViewSet(
 ):
     queryset = RelatedMaterial.objects.all()
     serializer_class = RelatedMaterialSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]

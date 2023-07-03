@@ -7,6 +7,7 @@ from rest_framework.mixins import (
     RetrieveModelMixin,
     UpdateModelMixin,
 )
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -29,6 +30,7 @@ class ArticleViewSet(
 ):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -53,6 +55,7 @@ class ArticleDocumentView(DocumentViewSet):
     filter_backends = [SearchFilterBackend]
 
     search_fields = ("title",)
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ArticleIdentifierViewSet(
@@ -65,3 +68,4 @@ class ArticleIdentifierViewSet(
 ):
     queryset = ArticleIdentifier.objects.all()
     serializer_class = ArticleIdentifierSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]

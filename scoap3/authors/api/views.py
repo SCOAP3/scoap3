@@ -5,6 +5,7 @@ from rest_framework.mixins import (
     RetrieveModelMixin,
     UpdateModelMixin,
 )
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 
 from scoap3.authors.api.serializers import AuthorIdentifierSerializer, AuthorSerializer
@@ -21,6 +22,7 @@ class AuthorViewSet(
 ):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class AuthorIdentifierViewSet(
@@ -33,3 +35,4 @@ class AuthorIdentifierViewSet(
 ):
     queryset = AuthorIdentifier.objects.all()
     serializer_class = AuthorIdentifierSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
