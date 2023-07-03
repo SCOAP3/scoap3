@@ -299,10 +299,10 @@ task_serializer = "json"
 result_serializer = "json"
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#task-time-limit
 # TODO: set to whatever value is adequate in your circumstances
-task_time_limit = 5 * 60
+task_time_limit = 2 * 60 * 60
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#task-soft-time-limit
 # TODO: set to whatever value is adequate in your circumstances
-task_soft_time_limit = 60
+task_soft_time_limit = 60 * 60
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#beat-scheduler
 beat_scheduler = "django_celery_beat.schedulers:DatabaseScheduler"
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#worker-send-task-events
