@@ -38,7 +38,7 @@ class Command(BaseCommand):
             type=int,
             default=1000,
             required=False,
-            help="Elasticsearch index to export from.",
+            help="Batchsize for upload per task",
         )
         parser.add_argument(
             "--username",

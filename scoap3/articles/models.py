@@ -6,13 +6,19 @@ class ArticleIdentifierType(models.TextChoices):
     ARXIV = ("arXiv",)
 
 
+class ArticleFile(models.Model):
+    file = models.FileField(upload_to="files/")
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
 class Article(models.Model):
     reception_date = models.DateField(blank=True, null=True)
     acceptance_date = models.DateField(blank=True, null=True)
     publication_date = models.DateField(blank=True, null=True)
     first_online_date = models.DateField(blank=True, null=True)
     title = models.TextField()
-    subtitle = models.CharField(max_length=255, blank=True, default="")
+    subtitle = models.TextField(blank=True, default="")
     abstract = models.TextField(blank=True, default="")
     related_licenses = models.ManyToManyField(
         "misc.License",
@@ -21,8 +27,9 @@ class Article(models.Model):
     related_materials = models.ManyToManyField(
         "misc.RelatedMaterial", related_name="related_articles", blank=True
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    _files = models.ManyToManyField(ArticleFile, blank=True)
+    _created_at = models.DateTimeField(auto_now_add=True)
+    _updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["id"]

@@ -36,5 +36,5 @@ class ArticleDocument(Document):
         fields = [
             "title",
             "subtitle",
-            "created_at",
+            "_created_at",
         ]

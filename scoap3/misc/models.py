@@ -3,7 +3,7 @@ from django.db import models
 
 class Country(models.Model):
     code = models.CharField(
-        max_length=2,
+        max_length=10,
         primary_key=True,
         unique=True,
     )
@@ -11,12 +11,13 @@ class Country(models.Model):
 
     class Meta:
         ordering = ["code"]
+        verbose_name_plural = "Countries"
 
 
 class Affiliation(models.Model):
     author_id = models.ManyToManyField("authors.Author", blank=True)
     country = models.ForeignKey("misc.Country", on_delete=models.CASCADE, null=True)
-    value = models.CharField(max_length=255, blank=True, default="")
+    value = models.TextField(blank=True, default="")
     organization = models.CharField(max_length=255, blank=True, default="")
 
     class Meta:
@@ -50,7 +51,7 @@ class InstitutionIdentifier(models.Model):
 
 
 class Publisher(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     def __str__(self) -> str:
         return self.name
@@ -84,6 +85,7 @@ class License(models.Model):
 
     class Meta:
         ordering = ["id"]
+        unique_together = (("url", "name"),)
 
 
 class Copyright(models.Model):
@@ -144,7 +146,6 @@ class ArticleArxivCategory(models.Model):
 class ExperimentalCollaboration(models.Model):
     article_id = models.ManyToManyField("articles.Article", blank=True)
     name = models.CharField(max_length=255, blank=True, default="")
-    experimental_collaboration_order = models.IntegerField()
 
     class Meta:
         ordering = ["id"]

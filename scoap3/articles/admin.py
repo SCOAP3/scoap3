@@ -4,7 +4,7 @@ from scoap3.articles.models import Article, ArticleIdentifier
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ["id", "title", "subtitle", "created_at"]
+    list_display = ["id", "title", "subtitle", "_updated_at", "_created_at"]
     search_fields = ["title"]
 
 

@@ -39,7 +39,7 @@ class CountryAdmin(admin.ModelAdmin):
 
 
 class ExperimentalCollaborationAdmin(admin.ModelAdmin):
-    list_display = ["name", "experimental_collaboration_order"]
+    list_display = ["name"]
     search_fields = ["name"]
     raw_id_fields = ["article_id"]
 
