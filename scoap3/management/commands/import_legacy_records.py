@@ -1,4 +1,3 @@
-import math
 import time
 
 import environ
@@ -76,11 +75,7 @@ class Command(BaseCommand):
 
         es = Elasticsearch(es_settings)
         es.indices.refresh(options["index"])
-        total_records = int(
-            es.cat.count(options["index"], params={"format": "json"})[0]["count"]
-        )
-        self.stdout.write(f"Found {total_records} records.")
-        scroll = "30m"
+        scroll = "30s"
         response = es.search(
             index=options["index"],
             scroll=scroll,
@@ -90,13 +85,12 @@ class Command(BaseCommand):
 
         scroll_id = response["_scroll_id"]
         total_docs = response["hits"]["total"]["value"]
-        num_batches = math.ceil(total_docs / options["batch_size"])
-
-        for _ in range(num_batches):
-            response = es.scroll(scroll_id=scroll_id, scroll=scroll)
+        self.stdout.write(f"Found {total_docs} records.")
+        processed = 0
+        while processed < total_docs:
             documents = response["hits"]["hits"]
-
             doc_ids = [doc["_id"] for doc in documents]
-
             upload_index_range.delay(es_settings, options["index"], doc_ids, timestamp)
+            processed += len(doc_ids)
+            response = es.scroll(scroll_id=scroll_id, scroll=scroll)
         es.clear_scroll(scroll_id=scroll_id)
