@@ -1350,13 +1350,13 @@ test = ["pytest"]
 
 [[package]]
 name = "flower"
-version = "1.2.0"
+version = "2.0.0"
 description = "Celery Flower"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 files = [
-    {file = "flower-1.2.0-py2.py3-none-any.whl", hash = "sha256:ae2977cf7343c526cf44def8c7e7173db8dedb8249b91ba4b88cfd18e7a2d486"},
-    {file = "flower-1.2.0.tar.gz", hash = "sha256:46493c7e8d9ca2167e8a46eb97ae8d280997cb40a81993230124d74f0fe40bac"},
+    {file = "flower-2.0.0-py2.py3-none-any.whl", hash = "sha256:571f9ed1c57a622e862de35eceb8a4244f023fbcfb7175f53e45ebe679f46d90"},
+    {file = "flower-2.0.0.tar.gz", hash = "sha256:5657785d728a54914256c34fd0551fe2d7152aab08062ebc645bf86b97b8aec5"},
 ]
 
 [package.dependencies]
@@ -3386,4 +3386,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "597c90cb74a800f25ebfe6e87e167447e88da1fd8e92464f5b4b3d666311e8fa"
+content-hash = "053567683217a9fd3f20293a923c1c271a1f4268da8ab51e83b921d93bfe48c9"
