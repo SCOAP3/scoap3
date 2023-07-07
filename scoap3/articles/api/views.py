@@ -13,11 +13,12 @@ from rest_framework.viewsets import GenericViewSet
 
 from scoap3.articles.api.serializers import (
     ArticleDocumentSerializer,
+    ArticleFileSerializer,
     ArticleIdentifierSerializer,
     ArticleSerializer,
 )
 from scoap3.articles.documents import ArticleDocument
-from scoap3.articles.models import Article, ArticleIdentifier
+from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
 
 
 class ArticleViewSet(
@@ -68,4 +69,17 @@ class ArticleIdentifierViewSet(
 ):
     queryset = ArticleIdentifier.objects.all()
     serializer_class = ArticleIdentifierSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class ArticleFileViewSet(
+    ListModelMixin,
+    CreateModelMixin,
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    queryset = ArticleFile.objects.all()
+    serializer_class = ArticleFileSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]

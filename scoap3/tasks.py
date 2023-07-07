@@ -10,9 +10,10 @@ from django.core.exceptions import MultipleObjectsReturned, ValidationError
 from django.core.files.storage import storages
 from django.core.validators import URLValidator
 from elasticsearch import ConnectionError, ConnectionTimeout, Elasticsearch
+from sentry_sdk import capture_exception
 
 from config import celery_app
-from scoap3.articles.models import Article, ArticleIdentifier
+from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
 from scoap3.authors.models import Author, AuthorIdentifier
 from scoap3.misc.models import (
     Affiliation,
@@ -49,12 +50,14 @@ def _create_licenses(data):
 
         if (
             license["name"] == "CC-BY-4.0"
+            or license["name"] == "CC-BY-4"
             or license["name"] == "Creative Commons Attribution 4.0 licence"
         ):
             license["name"] = "CC-BY-4.0"
             license["url"] = "http://creativecommons.org/licenses/by/4.0/"
         elif (
             license["name"] == "CC-BY-3.0"
+            or license["name"] == "cc-by"
             or license["name"] == "Creative Commons Attribution 3.0 licence"
         ):
             license["name"] = "CC-BY-3.0"
@@ -82,6 +85,16 @@ def _create_article(data, licenses):
     article.related_licenses.set(licenses)
     article.save()
     return article
+
+
+def _create_article_file(data, article):
+    for file in data.get("_files", []):
+        article_id = article.id
+        filename = file.get("key")
+        file_path = f"files/{article_id}/{filename}"
+        article = Article.objects.get(pk=article_id)
+        article_file_data = {"article_id": article, "file": file_path}
+        ArticleFile.objects.get_or_create(**article_file_data)
 
 
 def _create_article_identifier(data, article):
@@ -204,30 +217,40 @@ def _create_author_identifier(data, authors):
 
 def _create_country(affiliation):
     country = affiliation.get("country", "")
-    if not country or country == "HUMAN CHECK":
+    try:
+        if not country or country == "HUMAN CHECK":
+            return None
+        country = country.lower()
+        if country == "cern":
+            country_data = {
+                "code": "CERN",
+                "name": "CERN",
+            }
+        elif country == "jinr":
+            country_data = {
+                "code": "JINR",
+                "name": "JINR",
+            }
+        elif country == "niger":
+            country_data = {
+                "code": "NE",
+                "name": "Niger",
+            }
+        elif country == "turkiye" or country == "turkey":
+            country_data = {
+                "code": "TR",
+                "name": "Türkiye",
+            }
+        else:
+            country_data = {
+                "code": pycountry.countries.search_fuzzy(country)[0].alpha_2,
+                "name": pycountry.countries.search_fuzzy(country)[0].name,
+            }
+        country_obj, _ = Country.objects.get_or_create(**country_data)
+        return country_obj
+    except LookupError as e:
+        capture_exception(e)
         return None
-    if country == "cern" or country == "CERN":
-        country_data = {
-            "code": "CERN",
-            "name": "CERN",
-        }
-    elif country == "JINR":
-        country_data = {
-            "code": "JINR",
-            "name": "JINR",
-        }
-    elif country == "Niger":
-        country_data = {
-            "code": "NE",
-            "name": "Niger",
-        }
-    else:
-        country_data = {
-            "code": pycountry.countries.search_fuzzy(country)[0].alpha_2,
-            "name": pycountry.countries.search_fuzzy(country)[0].name,
-        }
-    country_obj, _ = Country.objects.get_or_create(**country_data)
-    return country_obj
 
 
 def _create_affiliation(data):
@@ -252,9 +275,11 @@ def _create_institution_identifier(data, affiliation):
     pass
 
 
-def import_to_scoap3(data):
+def import_to_scoap3(data, migrate_files):
     licenses = _create_licenses(data["license"])
     article = _create_article(data, licenses)
+    if migrate_files:
+        _create_article_file(data, article)
     _create_article_identifier(data, article)
     _create_copyright(data, article)
     _create_article_arxiv_category(data, article)
@@ -283,11 +308,11 @@ def upload_index_range(es_settings, search_index, doc_ids, folder_name):
 
 
 @celery_app.task()
-def migrate_legacy_records(folder_name, index_range):
+def migrate_legacy_records(folder_name, index_range, migrate_files):
     storage = storages["legacy-records"]
     index_slice = slice(index_range[0], index_range[1])
     for filename in storage.listdir(folder_name)[1][index_slice]:
         if storage.exists(os.path.join(folder_name, filename)):
             with storage.open(os.path.join(folder_name, filename)) as file:
                 json_data = json.load(file)
-                import_to_scoap3(json_data)
+                import_to_scoap3(json_data, migrate_files)

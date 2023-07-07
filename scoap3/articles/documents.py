@@ -2,7 +2,7 @@ from django.conf import settings
 from django_opensearch_dsl import Document, fields
 from django_opensearch_dsl.registries import registry
 
-from .models import Article
+from .models import Article, ArticleFile
 
 
 @registry.register_document
@@ -25,7 +25,27 @@ class ArticleDocument(Document):
             "related_material_type": fields.TextField(),
         }
     )
-    updated_at = fields.DateField()
+    related_files = fields.NestedField(
+        properties={
+            "file": fields.TextField(),
+            "created": fields.DateField(),
+            "updated": fields.DateField(),
+        }
+    )
+
+    _updated_at = fields.DateField()
+
+    def prepare_related_files(self, instance):
+        article_files = ArticleFile.objects.filter(article_id=instance)
+        serialized_files = []
+        for file in article_files:
+            serialized_file = {
+                "file": file.file.path,
+                "created": file.created,
+                "updated": file.updated,
+            }
+            serialized_files.append(serialized_file)
+        return serialized_files
 
     class Index:
         name = f"{settings.OPENSEARCH_INDEX_PREFIX}-articles"

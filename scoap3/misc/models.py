@@ -145,7 +145,7 @@ class ArticleArxivCategory(models.Model):
 
 class ExperimentalCollaboration(models.Model):
     article_id = models.ManyToManyField("articles.Article", blank=True)
-    name = models.CharField(max_length=255, blank=True, default="")
+    name = models.TextField(blank=True, default="")
 
     class Meta:
         ordering = ["id"]

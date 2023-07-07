@@ -1,7 +1,11 @@
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from scoap3.articles.api.views import ArticleIdentifierViewSet, ArticleViewSet
+from scoap3.articles.api.views import (
+    ArticleFileViewSet,
+    ArticleIdentifierViewSet,
+    ArticleViewSet,
+)
 from scoap3.authors.api.views import AuthorIdentifierViewSet, AuthorViewSet
 from scoap3.misc.api.views import (
     AffiliationViewSet,
@@ -28,6 +32,7 @@ router.register("users", UserViewSet)
 # Articles
 router.register("articles", ArticleViewSet)
 router.register("article-identifier", ArticleIdentifierViewSet)
+router.register("article-file", ArticleFileViewSet)
 
 # Authors
 router.register("author", AuthorViewSet)
