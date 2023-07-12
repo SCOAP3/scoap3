@@ -22,7 +22,6 @@ jobs:
       dockerfile: ./compose/production/django/Dockerfile
     secrets: inherit
 
-
   test-backend:
     needs: build-backend
     strategy:
