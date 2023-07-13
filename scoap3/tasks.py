@@ -76,7 +76,6 @@ def _create_article(data, licenses):
         "abstract": data["abstracts"][0].get("value", ""),
     }
     article, _ = Article.objects.get_or_create(**article_data)
-    print(data.get("_created"))
     article._created_at = data.get("_created")
     article._updated_at = data.get("_updated")
     article.related_licenses.set(licenses)

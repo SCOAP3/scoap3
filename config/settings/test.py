@@ -38,6 +38,7 @@ WEBPACK_LOADER["DEFAULT"][  # noqa: F405
 # ------------------------------------------------------------------------------
 # OPENSEARCH_HOST overrides for the default OpenSearch host and port
 ALLOWED_HOSTS = ["127.0.0.1"]
+OPENSEARCH_DSL_AUTO_REFRESH = True
 OPENSEARCH_DSL = {
     "default": {
         "hosts": [env("OPENSEARCH_HOST")],

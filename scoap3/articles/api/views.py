@@ -54,7 +54,7 @@ class ArticleDocumentView(DocumentViewSet):
 
     filter_backends = [SearchFilterBackend]
 
-    search_fields = ("title",)
+    search_fields = ("title", "id")
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 

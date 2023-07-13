@@ -7,6 +7,7 @@ from .models import Article
 
 @registry.register_document
 class ArticleDocument(Document):
+    id = fields.IntegerField()
     reception_date = fields.DateField()
     acceptance_date = fields.DateField()
     publication_date = fields.DateField()
