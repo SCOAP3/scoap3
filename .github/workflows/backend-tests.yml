@@ -56,21 +56,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
-      - name: Create index
-        run: >
-          docker run
-          --pull always
-          --network=host
-          --entrypoint poetry
-          --env DJANGO_SETTINGS_MODULE=config.settings.test
-          --env DISABLE_SECURITY_PLUGIN=true
-          --env POSTGRES_DB=scoap3
-          --env POSTGRES_USER=scoap3
-          --env POSTGRES_PASSWORD=scoap3
-          --env POSTGRES_HOST=127.0.0.1
-          --env OPENSEARCH_HOST=127.0.0.1:9200
-          ${{ inputs.image }}
-          run python manage.py opensearch index --force create
       - name: Test
         run: >
           docker run

@@ -364,7 +364,10 @@ WEBPACK_LOADER = {
 
 # Opensearch
 # ------------------------------------------------------------------------------
-OPENSEARCH_INDEX_PREFIX = env("OPENSEARCH_INDEX_PREFIX")
+# Name of the Opensearch index
+OPENSEARCH_INDEX_NAMES = {
+    "scoap3.articles.documents": f'{env("OPENSEARCH_INDEX_PREFIX")}-articles',
+}
 
 OPENSEARCH_DSL = {
     "default": {"hosts": env("OPENSEARCH_HOST")},

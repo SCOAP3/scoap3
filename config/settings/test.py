@@ -12,6 +12,9 @@ SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
     default="wpQt7H4zQGseXwknqw5RFWSpBXxKwr3FqavY6iEzFMmRLlUJWJ8U3eftfJlh88Ie",
 )
+ALLOWED_HOSTS = ["127.0.0.1"]
+
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
 TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
@@ -36,9 +39,13 @@ WEBPACK_LOADER["DEFAULT"][  # noqa: F405
 
 # Opensearch
 # ------------------------------------------------------------------------------
-# OPENSEARCH_HOST overrides for the default OpenSearch host and port
-ALLOWED_HOSTS = ["127.0.0.1"]
+# Name of the Opensearch index
+OPENSEARCH_INDEX_NAMES = {
+    "scoap3.articles.documents": "scoap3-backend-test-articles",
+}
+# Force an index refresh with every save.
 OPENSEARCH_DSL_AUTO_REFRESH = True
+
 OPENSEARCH_DSL = {
     "default": {
         "hosts": [env("OPENSEARCH_HOST")],

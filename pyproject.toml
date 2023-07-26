@@ -77,3 +77,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.pytest.ini_options]
 addopts = ["--ds=config.settings.test", "--reuse-db"]
 python_files = ["test_*.py", "*_test.py"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning"
+    ]

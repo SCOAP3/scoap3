@@ -49,8 +49,8 @@ class ArticleDocument(Document):
         return serialized_files
 
     class Index:
-        name = f"{settings.OPENSEARCH_INDEX_PREFIX}-articles"
-        settings = {"number_of_shards": 1, "number_of_replicas": 0}
+        name = settings.OPENSEARCH_INDEX_NAMES[__name__]
+        settings = {"number_of_shards": 1, "number_of_replicas": 1}
 
     class Django:
         model = Article
