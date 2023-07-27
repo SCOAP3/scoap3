@@ -41,7 +41,7 @@ class ArticleDocument(Document):
         serialized_files = []
         for file in article_files:
             serialized_file = {
-                "file": file.file.path,
+                "file": file.file.url,
                 "created": file.created,
                 "updated": file.updated,
             }
