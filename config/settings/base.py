@@ -49,7 +49,7 @@ else:
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django_prometheus.db.backends.postgresql",
         "NAME": env("POSTGRES_DB"),
         "USER": env("POSTGRES_USER"),
         "PASSWORD": env("POSTGRES_PASSWORD"),
@@ -95,6 +95,7 @@ THIRD_PARTY_APPS = [
     "webpack_loader",
     "django_opensearch_dsl",
     "django_elasticsearch_dsl_drf",
+    "django_prometheus",
 ]
 
 LOCAL_APPS = [
@@ -150,6 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
+    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -160,6 +162,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 # STATIC
@@ -206,6 +209,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "scoap3.users.context_processors.allauth_settings",
+                "scoap3.utils.context_processors.matomo_settings",
             ],
         },
     }
@@ -372,3 +376,10 @@ OPENSEARCH_DSL = {
 
 # Workaround because it wont add the connection settings automatically
 connections.configure(default=OPENSEARCH_DSL["default"])
+
+
+# Matomo tracking server and site information
+MATOMO_URL = env("MATOMO_URL", default="")
+MATOMO_SITE_ID = env("MATOMO_SITE_ID", default="")
+
+PROMETHEUS_EXPORT_MIGRATIONS = env.bool("PROMETHEUS_EXPORT_MIGRATIONS", True)

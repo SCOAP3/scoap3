@@ -118,22 +118,12 @@ services:
     networks:
       - djangonetwork
 
-
   mq:
     image: rabbitmq:3.9.11-management
     restart: 'always'
     container_name: scoap3_local_mq
     ports:
       - '5672:5672'
-    networks:
-      - djangonetwork
-
-
-  mailhog:
-    image: mailhog/mailhog:v1.0.0
-    container_name: scoap3_local_mailhog
-    ports:
-      - '8025:8025'
     networks:
       - djangonetwork
 

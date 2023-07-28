@@ -17,6 +17,7 @@ urlpatterns = [
     # User management
     path("users/", include("scoap3.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("", include("django_prometheus.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
