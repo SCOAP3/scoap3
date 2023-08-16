@@ -40,6 +40,7 @@ pycountry = "^22.3.5"
 boto3 = "^1.26.161"
 backoff = "^2.2.1"
 django-prometheus = "^2.3.1"
+djangorestframework-csv = "^2.1.1"
 
 [tool.poetry.dev-dependencies]
 Werkzeug = {extras = ["watchdog"], version = "^2.3.4"}

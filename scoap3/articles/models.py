@@ -60,8 +60,7 @@ class ArticleFile(models.Model):
 
 class ArticleIdentifier(models.Model):
     article_id = models.ForeignKey(
-        "articles.Article",
-        on_delete=models.CASCADE,
+        "articles.Article", on_delete=models.CASCADE, related_name="article_identifiers"
     )
     identifier_type = models.CharField(
         max_length=255,

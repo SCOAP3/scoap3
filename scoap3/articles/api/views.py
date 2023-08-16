@@ -9,6 +9,7 @@ from rest_framework.mixins import (
 )
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
+from rest_framework.settings import api_settings
 from rest_framework.viewsets import GenericViewSet
 
 from scoap3.articles.api.serializers import (
@@ -16,9 +17,11 @@ from scoap3.articles.api.serializers import (
     ArticleFileSerializer,
     ArticleIdentifierSerializer,
     ArticleSerializer,
+    SearchCSVSerializer,
 )
 from scoap3.articles.documents import ArticleDocument
 from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
+from scoap3.utils.renderer import ArticleCSVRenderer
 
 
 class ArticleViewSet(
@@ -54,9 +57,16 @@ class ArticleDocumentView(DocumentViewSet):
     serializer_class = ArticleDocumentSerializer
 
     filter_backends = [SearchFilterBackend]
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES + [ArticleCSVRenderer]
 
     search_fields = ("title", "id")
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_serializer_class(self):
+        requested_renderer_format = self.request.accepted_media_type
+        if "text/csv" in requested_renderer_format:
+            return SearchCSVSerializer
+        return ArticleDocumentSerializer
 
 
 class ArticleIdentifierViewSet(

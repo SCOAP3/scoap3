@@ -1192,6 +1192,21 @@ django = ">=3.0"
 pytz = "*"
 
 [[package]]
+name = "djangorestframework-csv"
+version = "2.1.1"
+description = "CSV Tools for Django REST Framework"
+optional = false
+python-versions = "*"
+files = [
+    {file = "djangorestframework-csv-2.1.1.tar.gz", hash = "sha256:aa0ee4c894fe319c68e042b05c61dace43a9fb6e6872e1abe1724ca7ea4d15f7"},
+]
+
+[package.dependencies]
+djangorestframework = "*"
+six = "*"
+unicodecsv = "*"
+
+[[package]]
 name = "djangorestframework-stubs"
 version = "3.14.1"
 description = "PEP-484 stubs for django-rest-framework"
@@ -3140,6 +3155,16 @@ files = [
 ]
 
 [[package]]
+name = "unicodecsv"
+version = "0.14.1"
+description = "Python2's stdlib csv module is nice, but it doesn't support unicode. This module is a drop-in replacement which *does*."
+optional = false
+python-versions = "*"
+files = [
+    {file = "unicodecsv-0.14.1.tar.gz", hash = "sha256:018c08037d48649a0412063ff4eda26eaa81eff1546dbffa51fa5293276ff7fc"},
+]
+
+[[package]]
 name = "uritemplate"
 version = "4.1.1"
 description = "Implementation of RFC 6570 URI Templates"
@@ -3400,4 +3425,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "e6825e5a0db677502f625615a8eb318fc4b4ed78dbcca38a6f9b9759c4d28083"
+content-hash = "89f3883d4c724a3bc9f9883d351d989e7ddaf8133df7d5453b99495cbd28ae7d"

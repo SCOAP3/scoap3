@@ -61,7 +61,9 @@ class Publisher(models.Model):
 
 
 class PublicationInfo(models.Model):
-    article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE)
+    article_id = models.ForeignKey(
+        "articles.Article", on_delete=models.CASCADE, related_name="publication_info"
+    )
     journal_volume = models.CharField(max_length=255, blank=True, default="")
     journal_title = models.CharField(max_length=255)
     journal_issue = models.CharField(max_length=255, blank=True, default="")
@@ -132,7 +134,11 @@ class ArxivCategoryType(models.TextChoices):
 
 
 class ArticleArxivCategory(models.Model):
-    article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE)
+    article_id = models.ForeignKey(
+        "articles.Article",
+        on_delete=models.CASCADE,
+        related_name="article_arxiv_category",
+    )
     category = models.CharField(
         max_length=255,
         choices=ArxivCategoryType.choices,
