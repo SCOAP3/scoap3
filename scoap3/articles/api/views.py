@@ -1,5 +1,5 @@
 from django_elasticsearch_dsl_drf.filter_backends import SearchFilterBackend
-from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
+from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from rest_framework.mixins import (
     CreateModelMixin,
     DestroyModelMixin,
@@ -21,6 +21,7 @@ from scoap3.articles.api.serializers import (
 )
 from scoap3.articles.documents import ArticleDocument
 from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
+from scoap3.utils.pagination import StandardResultsSetPagination
 from scoap3.utils.renderer import ArticleCSVRenderer
 
 
@@ -52,15 +53,15 @@ class ArticleViewSet(
         return Response(serializer.data, status=201, headers=headers)
 
 
-class ArticleDocumentView(DocumentViewSet):
+class ArticleDocumentView(BaseDocumentViewSet):
     document = ArticleDocument
     serializer_class = ArticleDocumentSerializer
-
     filter_backends = [SearchFilterBackend]
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES + [ArticleCSVRenderer]
 
     search_fields = ("title", "id")
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = StandardResultsSetPagination
 
     def get_serializer_class(self):
         requested_renderer_format = self.request.accepted_media_type
