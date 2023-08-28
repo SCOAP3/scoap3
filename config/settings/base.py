@@ -334,6 +334,19 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "scoap3.utils.throttling.UserGroupThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": env(
+            "THROTTLE_RATE_ANON_USER", default="200/day"
+        ),  # Default rate for unauthorized users
+        "DefaultUser": env("THROTTLE_RATE_DEFAULT_USER", default="300/day"),
+        "API_user": env("THROTTLE_RATE_API_USER", default="400/day"),
+        "Advanced_user": env("THROTTLE_RATE_ADVANCED_USER", default="600/day"),
+        "Admin": env("THROTTLE_RATE_ADMIN_USER", default="1000/day"),
+    },
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "scoap3.utils.pagination.StandardResultsSetPagination",
