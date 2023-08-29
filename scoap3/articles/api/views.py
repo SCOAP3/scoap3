@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django_elasticsearch_dsl_drf.filter_backends import SearchFilterBackend
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
 from rest_framework.mixins import (
@@ -25,6 +26,7 @@ from scoap3.utils.renderer import ArticleCSVRenderer
 
 
 class ArticleViewSet(
+    PermissionRequiredMixin,
     ListModelMixin,
     CreateModelMixin,
     RetrieveModelMixin,
@@ -36,9 +38,31 @@ class ArticleViewSet(
     serializer_class = ArticleSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def list(self, request, *args, **kwargs):
+        if not request.user.has_perm("article.view_article"):
+            return Response({"error": "Permission denied"}, status=403)
+        articles = Article.objects.all()
+        serializer = self.get_serializer(articles, many=True)
+        return Response(serializer.data, status=200)
+
+    def retrieve(self, request, *args, **kwargs):
+        data = request.data
+        article_id = data.get("id")
+        article = Article.objects.get(id=article_id)
+
+        if not request.user.has_perm("article.view_article"):
+            return Response({"error": "Permission denied"}, status=403)
+
+        serializer = self.get_serializer(article)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=200, headers=headers)
+
     def create(self, request, *args, **kwargs):
         data = request.data
         article_id = data.get("id")
+
+        if not request.user.has_perm("article.add_article"):
+            return Response({"error": "Permission denied"}, status=403)
 
         if Article.objects.filter(id=article_id).exists():
             return Response({"error": "ID already exists"}, status=400)
@@ -50,6 +74,37 @@ class ArticleViewSet(
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=201, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        data = request.data
+        article_id = data.get("id")
+
+        if not request.user.has_perm("article.change_article"):
+            return Response({"error": "Permission denied"}, status=403)
+        if not Article.objects.filter(id=article_id).exists():
+            return Response({"error": "Article not found"}, status=404)
+
+        article = Article.objects.get(id=article_id)
+        serializer = self.get_serializer(article, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=200, headers=headers)
+
+    def delete(self, request, *args, **kwargs):
+        data = request.data
+        article_id = data.get("id")
+
+        if not request.user.has_perm("article.delete_article"):
+            return Response({"error": "Permission denied"}, status=403)
+        if not Article.objects.filter(id=article_id).exists():
+            return Response({"error": "Article not found"}, status=404)
+
+        article = Article.objects.get(id=article_id)
+        article.delete()
+
+        return Response(status=204)
 
 
 class ArticleDocumentView(DocumentViewSet):
@@ -70,6 +125,7 @@ class ArticleDocumentView(DocumentViewSet):
 
 
 class ArticleIdentifierViewSet(
+    PermissionRequiredMixin,
     ListModelMixin,
     CreateModelMixin,
     RetrieveModelMixin,
@@ -83,6 +139,7 @@ class ArticleIdentifierViewSet(
 
 
 class ArticleFileViewSet(
+    PermissionRequiredMixin,
     ListModelMixin,
     CreateModelMixin,
     RetrieveModelMixin,
