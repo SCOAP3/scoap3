@@ -38,25 +38,6 @@ class ArticleViewSet(
     serializer_class = ArticleSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def list(self, request, *args, **kwargs):
-        if not request.user.has_perm("article.view_article"):
-            return Response({"error": "Permission denied"}, status=403)
-        articles = Article.objects.all()
-        serializer = self.get_serializer(articles, many=True)
-        return Response(serializer.data, status=200)
-
-    def retrieve(self, request, *args, **kwargs):
-        data = request.data
-        article_id = data.get("id")
-        article = Article.objects.get(id=article_id)
-
-        if not request.user.has_perm("article.view_article"):
-            return Response({"error": "Permission denied"}, status=403)
-
-        serializer = self.get_serializer(article)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=200, headers=headers)
-
     def create(self, request, *args, **kwargs):
         data = request.data
         article_id = data.get("id")
