@@ -26,7 +26,6 @@ from scoap3.utils.renderer import ArticleCSVRenderer
 
 
 class ArticleViewSet(
-    PermissionRequiredMixin,
     ListModelMixin,
     CreateModelMixin,
     RetrieveModelMixin,
@@ -42,7 +41,7 @@ class ArticleViewSet(
         data = request.data
         article_id = data.get("id")
 
-        if not request.user.has_perm("article.add_article"):
+        if not request.user.has_perm("articles.add_article"):
             return Response({"error": "Permission denied"}, status=403)
 
         if Article.objects.filter(id=article_id).exists():
@@ -60,8 +59,8 @@ class ArticleViewSet(
         data = request.data
         article_id = data.get("id")
 
-        if not request.user.has_perm("article.change_article"):
-            return Response({"error": "Permission denied"}, status=403)
+        if not request.user.has_perm("articles.change_article"):
+            return Response({"error": "Permission denied"}, status=405)
         if not Article.objects.filter(id=article_id).exists():
             return Response({"error": "Article not found"}, status=404)
 
@@ -73,18 +72,17 @@ class ArticleViewSet(
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=200, headers=headers)
 
-    def delete(self, request, *args, **kwargs):
+    def destroy(self, request, *args, **kwargs):
         data = request.data
         article_id = data.get("id")
 
-        if not request.user.has_perm("article.delete_article"):
+        if not request.user.has_perm("articles.delete_article"):
             return Response({"error": "Permission denied"}, status=403)
         if not Article.objects.filter(id=article_id).exists():
             return Response({"error": "Article not found"}, status=404)
 
         article = Article.objects.get(id=article_id)
         article.delete()
-
         return Response(status=204)
 
 
@@ -106,7 +104,6 @@ class ArticleDocumentView(DocumentViewSet):
 
 
 class ArticleIdentifierViewSet(
-    PermissionRequiredMixin,
     ListModelMixin,
     CreateModelMixin,
     RetrieveModelMixin,
@@ -120,7 +117,6 @@ class ArticleIdentifierViewSet(
 
 
 class ArticleFileViewSet(
-    PermissionRequiredMixin,
     ListModelMixin,
     CreateModelMixin,
     RetrieveModelMixin,
