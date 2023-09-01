@@ -1,5 +1,11 @@
-from django_elasticsearch_dsl_drf.filter_backends import SearchFilterBackend
+from django_elasticsearch_dsl_drf.constants import LOOKUP_FILTER_RANGE, LOOKUP_QUERY_IN
+from django_elasticsearch_dsl_drf.filter_backends import (
+    FacetedSearchFilterBackend,
+    FilteringFilterBackend,
+    SearchFilterBackend,
+)
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
+from opensearch_dsl import DateHistogramFacet, TermsFacet
 from rest_framework.mixins import (
     CreateModelMixin,
     DestroyModelMixin,
@@ -21,7 +27,7 @@ from scoap3.articles.api.serializers import (
 )
 from scoap3.articles.documents import ArticleDocument
 from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
-from scoap3.utils.pagination import StandardResultsSetPagination
+from scoap3.utils.pagination import OSStandardResultsSetPagination
 from scoap3.utils.renderer import ArticleCSVRenderer
 
 
@@ -56,12 +62,49 @@ class ArticleViewSet(
 class ArticleDocumentView(BaseDocumentViewSet):
     document = ArticleDocument
     serializer_class = ArticleDocumentSerializer
-    filter_backends = [SearchFilterBackend]
+    filter_backends = [
+        SearchFilterBackend,
+        FacetedSearchFilterBackend,
+        FilteringFilterBackend,
+    ]
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES + [ArticleCSVRenderer]
 
-    search_fields = ("title", "id")
     permission_classes = [IsAuthenticatedOrReadOnly]
-    pagination_class = StandardResultsSetPagination
+    pagination_class = OSStandardResultsSetPagination
+
+    search_fields = ("title", "id")
+
+    filter_fields = {
+        "publication_year": {
+            "field": "publication_date",
+            "lookups": [
+                LOOKUP_FILTER_RANGE,
+                LOOKUP_QUERY_IN,
+            ],
+        },
+        "journal": {
+            "field": "publication_info.journal_title",
+            "lookups": [
+                LOOKUP_QUERY_IN,
+            ],
+        },
+    }
+
+    faceted_search_fields = {
+        "publication_year": {
+            "field": "publication_date",
+            "facet": DateHistogramFacet,
+            "options": {
+                "interval": "year",
+            },
+            "enabled": True,
+        },
+        "journal": {
+            "field": "publication_info.journal_title",
+            "facet": TermsFacet,
+            "enabled": True,
+        },
+    }
 
     def get_serializer_class(self):
         requested_renderer_format = self.request.accepted_media_type

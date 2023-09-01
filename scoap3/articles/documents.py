@@ -49,10 +49,10 @@ class ArticleDocument(Document):
         }
     )
 
-    publication_info = fields.NestedField(
+    publication_info = fields.ObjectField(
         properties={
             "journal_volume": fields.TextField(),
-            "journal_title": fields.TextField(),
+            "journal_title": fields.KeywordField(),
             "page_start": fields.TextField(),
             "page_end": fields.TextField(),
             "artid": fields.TextField(),
