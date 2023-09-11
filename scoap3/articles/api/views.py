@@ -1,5 +1,6 @@
 from django_elasticsearch_dsl_drf.filter_backends import SearchFilterBackend
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
+from rest_framework import viewsets
 from rest_framework.mixins import (
     CreateModelMixin,
     DestroyModelMixin,
@@ -31,6 +32,7 @@ class ArticleViewSet(
     UpdateModelMixin,
     DestroyModelMixin,
     GenericViewSet,
+    viewsets.ViewSet,
 ):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
@@ -39,6 +41,9 @@ class ArticleViewSet(
     def create(self, request, *args, **kwargs):
         data = request.data
         article_id = data.get("id")
+
+        if not request.user.has_perm("articles.add_article"):
+            return Response({"error": "Permission denied"}, status=403)
 
         if Article.objects.filter(id=article_id).exists():
             return Response({"error": "ID already exists"}, status=400)
@@ -50,6 +55,23 @@ class ArticleViewSet(
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=201, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        if not request.user.has_perm("articles.change_article"):
+            return Response({"error": "Permission denied"}, status=403)
+        article = self.get_object()
+        serializer = self.get_serializer(article, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(id=article.id)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=200, headers=headers)
+
+    def destroy(self, request, *args, **kwargs):
+        article = self.get_object()
+        if not request.user.has_perm("articles.delete_article"):
+            return Response({"error": "Permission denied"}, status=403)
+        article.delete()
+        return Response(status=204)
 
 
 class ArticleDocumentView(DocumentViewSet):
