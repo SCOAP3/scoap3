@@ -41,6 +41,9 @@ class ArticleViewSet(
         data = request.data
         article_id = data.get("id")
 
+        if not request.user.has_perm("articles.add_article"):
+            return Response({"error": "Permission denied"}, status=403)
+
         if Article.objects.filter(id=article_id).exists():
             return Response({"error": "ID already exists"}, status=400)
 
@@ -51,6 +54,36 @@ class ArticleViewSet(
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=201, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        data = request.data
+        article_id = data.get("id")
+
+        if not request.user.has_perm("articles.change_article"):
+            return Response({"error": "Permission denied"}, status=405)
+        if not Article.objects.filter(id=article_id).exists():
+            return Response({"error": "Article not found"}, status=404)
+
+        article = Article.objects.get(id=article_id)
+        serializer = self.get_serializer(article, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=200, headers=headers)
+
+    def destroy(self, request, *args, **kwargs):
+        data = request.data
+        article_id = data.get("id")
+
+        if not request.user.has_perm("articles.delete_article"):
+            return Response({"error": "Permission denied"}, status=403)
+        if not Article.objects.filter(id=article_id).exists():
+            return Response({"error": "Article not found"}, status=404)
+
+        article = Article.objects.get(id=article_id)
+        article.delete()
+        return Response(status=204)
 
 
 class ArticleDocumentView(BaseDocumentViewSet):
