@@ -127,6 +127,15 @@ services:
     networks:
       - djangonetwork
 
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    container_name: scoap3_local_mailhog
+    ports:
+      - '8025:8025'
+      - '1025:1025'
+    networks:
+      - djangonetwork
+
 networks:
     djangonetwork:
         driver: bridge
