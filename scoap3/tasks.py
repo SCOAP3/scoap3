@@ -78,9 +78,13 @@ def _create_article(data, licenses):
         "subtitle": data["titles"][0].get("subtitle", ""),
         "abstract": data["abstracts"][0].get("value", ""),
     }
-    article, _ = Article.objects.get_or_create(**article_data)
-    article._created_at = data.get("_created")
-    article._updated_at = data.get("_updated")
+    if Article.objects.filter(pk=article_data["id"]).exists():
+        article = Article.objects.get(pk=article_data["id"])
+        article.__dict__.update(**article_data)
+    else:
+        article, _ = Article.objects.get_or_create(**article_data)
+        article._created_at = data.get("_created")
+
     article.related_licenses.set(licenses)
     article.save()
     return article
@@ -252,26 +256,24 @@ def _create_country(affiliation):
         return None
 
 
-def _create_affiliation(data):
-    for author in data.get("authors", []):
+def _create_affiliation(data, authors):
+    affiliations = []
+    for idx, author in enumerate(data.get("authors", [])):
         for affiliation in author.get("affiliations", []):
             country = _create_country(affiliation)
-            if country is not None:
-                country = country.code
             affiliation_data = {
-                "country_id": country,
+                "country": country,
                 "value": affiliation.get("value", ""),
                 "organization": affiliation.get("organization", ""),
             }
             try:
-                Affiliation.objects.get_or_create(**affiliation_data)
+                affiliation, _ = Affiliation.objects.get_or_create(**affiliation_data)
+                affiliation.author_id.add(authors[idx].id)
+                affiliations.append(affiliation)
+
             except MultipleObjectsReturned:
                 print(affiliation_data)
-
-
-def _create_institution_identifier(data, affiliation):
-    # TODO Maybe fill with something
-    pass
+    return affiliations
 
 
 def import_to_scoap3(data, migrate_files):
@@ -285,10 +287,16 @@ def import_to_scoap3(data, migrate_files):
     publishers = _create_publisher(data)
     _create_publication_info(data, article, publishers)
     _create_experimental_collaborations(data)
-
     authors = _create_author(data, article)
-    _create_affiliation(data)
     _create_author_identifier(data, authors)
+    _create_affiliation(data, authors)
+
+
+def update_affiliations(data):
+    licenses = _create_licenses(data["license"])
+    article = _create_article(data, licenses)
+    authors = _create_author(data, article)
+    _create_affiliation(data, authors)
 
 
 @celery_app.task()
@@ -315,3 +323,14 @@ def migrate_legacy_records(folder_name, index_range, migrate_files):
             with storage.open(os.path.join(folder_name, filename)) as file:
                 json_data = json.load(file)
                 import_to_scoap3(json_data, migrate_files)
+
+
+@celery_app.task()
+def link_affiliations(folder_name, index_range):
+    storage = storages["legacy-records"]
+    index_slice = slice(index_range[0], index_range[1])
+    for filename in storage.listdir(folder_name)[1][index_slice]:
+        if storage.exists(os.path.join(folder_name, filename)):
+            with storage.open(os.path.join(folder_name, filename)) as file:
+                json_data = json.load(file)
+                update_affiliations(json_data)
