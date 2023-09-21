@@ -2,7 +2,8 @@ from django.conf import settings
 from django_opensearch_dsl import Document, fields
 from django_opensearch_dsl.registries import registry
 
-from scoap3.misc.models import ArticleArxivCategory, PublicationInfo
+from scoap3.authors.models import Author
+from scoap3.misc.models import Affiliation, ArticleArxivCategory, PublicationInfo
 
 from .models import Article, ArticleFile, ArticleIdentifier
 
@@ -61,7 +62,51 @@ class ArticleDocument(Document):
         }
     )
 
+    authors = fields.NestedField(
+        properties={
+            "first_name": fields.TextField(),
+            "last_name": fields.TextField(),
+            "affiliations": fields.NestedField(
+                properties={
+                    "value": fields.TextField(),
+                    "organization": fields.TextField(),
+                    "country": fields.NestedField(
+                        properties={
+                            "code": fields.TextField(),
+                            "name": fields.KeywordField(),
+                        }
+                    ),
+                }
+            ),
+        }
+    )
+
     _updated_at = fields.DateField()
+
+    def prepare_authors(self, instance):
+        authors = Author.objects.filter(article_id=instance)
+        serialized_authors = []
+        for author in authors:
+            affiliations = Affiliation.objects.filter(author_id=author)
+            serialized_affiliations = []
+            for affiliation in affiliations:
+                serialized_affiliation = {
+                    "value": affiliation.value,
+                    "organization": affiliation.organization,
+                    "country": {
+                        "code": affiliation.country.code,
+                        "name": affiliation.country.name,
+                    },
+                }
+                serialized_affiliations.append(serialized_affiliation)
+
+            serialized_author = {
+                "first_name": author.first_name,
+                "last_name": author.last_name,
+                "affiliations": serialized_affiliations,
+            }
+            serialized_authors.append(serialized_author)
+        return serialized_authors
 
     def prepare_article_identifiers(self, instance):
         article_identifiers = ArticleIdentifier.objects.filter(article_id=instance)
