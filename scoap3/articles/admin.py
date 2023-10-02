@@ -20,7 +20,10 @@ class ArticleFileAdmin(admin.ModelAdmin):
 
     @admin.display(description="Size (bytes)")
     def file_size(self, obj):
-        file_size = obj.file.size
+        try:
+            file_size = obj.file.size
+        except FileNotFoundError:
+            file_size = "-"
         return f"{file_size}"
 
 
