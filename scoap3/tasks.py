@@ -319,7 +319,9 @@ def migrate_legacy_records(folder_name, index_range, migrate_files):
     storage = storages["legacy-records"]
     index_slice = slice(index_range[0], index_range[1])
     for filename in storage.listdir(folder_name)[1][index_slice]:
-        if storage.exists(os.path.join(folder_name, filename)):
+        if storage.exists(os.path.join(folder_name, filename)) and filename.endswith(
+            ".json"
+        ):
             with storage.open(os.path.join(folder_name, filename)) as file:
                 json_data = json.load(file)
                 import_to_scoap3(json_data, migrate_files)

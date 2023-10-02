@@ -57,6 +57,24 @@ Follow the guide https://docs.docker.com/compose/install/
 $ docker-compose up
 ```
 
+### Flush
+To flush all tables, run:
+```bash
+docker-compose exec django python manage.py flush
+```
+**Be sure to type `yes` otherwise the flush won't execute!**
+
+### Populate
+To insert some demo data and create a superuser with the following credentials:
+* Username: admin
+* Password: admin
+
+make sure the db is [flushed](#flush) otherwise it could cause some duplicate errors and run:
+
+```bash
+docker-compose exec django python manage.py loaddata local
+```
+
 ### Usage
 
 After startup, the application should be avaiable at [localhost:3000](localhost:3000)
