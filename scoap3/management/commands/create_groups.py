@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from scoap3.utils.create_goups import create_custom_groups
+from scoap3.utils.create_groups import create_custom_groups
 
 
 class Command(BaseCommand):

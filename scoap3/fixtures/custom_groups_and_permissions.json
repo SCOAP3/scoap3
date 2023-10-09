@@ -3,90 +3,33 @@
         "model": "auth.group",
         "pk": 1,
         "fields": {
-            "name": "API_user"
+            "name": "API_user",
+            "permissions": [
+                81
+            ]
         }
     },
     {
         "model": "auth.group",
         "pk": 2,
         "fields": {
-            "name": "Advanced_user"
+            "name": "Advanced_user",
+            "permissions": [
+                81,
+                82
+            ]
         }
     },
     {
         "model": "auth.group",
         "pk": 3,
         "fields": {
-            "name": "Admin"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 1,
-        "fields": {
-            "name": "Can add article",
-            "content_type": 21,
-            "codename": "add_article"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 2,
-        "fields": {
-            "name": "Can change article",
-            "content_type": 21,
-            "codename": "change_article"
-        }
-    },
-    {
-        "model": "auth.permission",
-        "pk": 3,
-        "fields": {
-            "name": "Can delete article",
-            "content_type": 21,
-            "codename": "delete_article"
-        }
-    },
-    {
-        "model": "auth.group_permissions",
-        "fields": {
-            "group": 1,
-            "permission": 1
-        }
-    },
-    {
-        "model": "auth.group_permissions",
-        "fields": {
-            "group": 2,
-            "permission": 1
-        }
-    },
-    {
-        "model": "auth.group_permissions",
-        "fields": {
-            "group": 2,
-            "permission": 2
-        }
-    },
-    {
-        "model": "auth.group_permissions",
-        "fields": {
-            "group": 3,
-            "permission": 1
-        }
-    },
-    {
-        "model": "auth.group_permissions",
-        "fields": {
-            "group": 3,
-            "permission": 2
-        }
-    },
-    {
-        "model": "auth.group_permissions",
-        "fields": {
-            "group": 3,
-            "permission": 3
+            "name": "Admin",
+            "permissions": [
+                81,
+                82,
+                83
+            ]
         }
     }
 ]
