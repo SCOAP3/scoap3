@@ -155,7 +155,7 @@ class TestGroupPermissions:
         assert response.status_code == 200
 
         url_get_article = reverse("api:article-detail", args=[article_id])
-        response = user_with_a_group_token["client"].put(
+        response = user_with_a_group_token["client"].patch(
             url_get_article,
             data={"subtitle": "changed subtitle"},
             format="json",

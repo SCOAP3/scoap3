@@ -1,0 +1,92 @@
+[
+    {
+        "model": "auth.group",
+        "pk": 1,
+        "fields": {
+            "name": "API_user"
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 2,
+        "fields": {
+            "name": "Advanced_user"
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 3,
+        "fields": {
+            "name": "Admin"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+            "name": "Can add article",
+            "content_type": 1,
+            "codename": "add_article"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+            "name": "Can change article",
+            "content_type": 1,
+            "codename": "change_article"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+            "name": "Can delete article",
+            "content_type": 1,
+            "codename": "delete_article"
+        }
+    },
+    {
+        "model": "auth.group_permissions",
+        "fields": {
+            "group": 1,
+            "permission": 1
+        }
+    },
+    {
+        "model": "auth.group_permissions",
+        "fields": {
+            "group": 2,
+            "permission": 1
+        }
+    },
+    {
+        "model": "auth.group_permissions",
+        "fields": {
+            "group": 2,
+            "permission": 2
+        }
+    },
+    {
+        "model": "auth.group_permissions",
+        "fields": {
+            "group": 3,
+            "permission": 1
+        }
+    },
+    {
+        "model": "auth.group_permissions",
+        "fields": {
+            "group": 3,
+            "permission": 2
+        }
+    },
+    {
+        "model": "auth.group_permissions",
+        "fields": {
+            "group": 3,
+            "permission": 3
+        }
+    }
+]

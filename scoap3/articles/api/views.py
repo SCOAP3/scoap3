@@ -9,7 +9,6 @@ from rest_framework.mixins import (
     UpdateModelMixin,
 )
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from rest_framework.viewsets import GenericViewSet
 
@@ -38,32 +37,6 @@ class ArticleViewSet(
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, AdminOrReadOnly]
-
-    def create(self, request, *args, **kwargs):
-        data = request.data
-        article_id = data.get("id")
-
-        if Article.objects.filter(id=article_id).exists():
-            return Response({"error": "ID already exists"}, status=400)
-
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(id=article_id)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=201, headers=headers)
-
-    def update(self, request, *args, **kwargs):
-        article = self.get_object()
-        serializer = self.get_serializer(article, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(id=article.id)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=200, headers=headers)
-
-    def destroy(self, request, *args, **kwargs):
-        article = self.get_object()
-        article.delete()
-        return Response(status=204)
 
 
 class ArticleDocumentView(DocumentViewSet):
