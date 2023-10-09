@@ -25,7 +25,7 @@
         "pk": 1,
         "fields": {
             "name": "Can add article",
-            "content_type": 1,
+            "content_type": 21,
             "codename": "add_article"
         }
     },
@@ -34,7 +34,7 @@
         "pk": 2,
         "fields": {
             "name": "Can change article",
-            "content_type": 1,
+            "content_type": 21,
             "codename": "change_article"
         }
     },
@@ -43,7 +43,7 @@
         "pk": 3,
         "fields": {
             "name": "Can delete article",
-            "content_type": 1,
+            "content_type": 21,
             "codename": "delete_article"
         }
     },
