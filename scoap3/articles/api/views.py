@@ -41,9 +41,6 @@ class ArticleViewSet(
         data = request.data
         article_id = data.get("id")
 
-        if not request.user.has_perm("articles.add_article"):
-            return Response({"error": "Permission denied"}, status=403)
-
         if Article.objects.filter(id=article_id).exists():
             return Response({"error": "ID already exists"}, status=400)
 
