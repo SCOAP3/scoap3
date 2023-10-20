@@ -1,6 +1,10 @@
-from .base import *  # noqa
-from .base import env
+import environ
 
+from .base import *  # noqa
+from .base import BASE_DIR, env
+
+local_env = environ.Env()
+local_env.read_env(str(BASE_DIR / ".envs/local/.minio"))
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
@@ -27,10 +31,10 @@ CACHES = {
 # ------------------------
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
     },
     "legacy-records": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -39,6 +43,11 @@ STORAGES = {
         },
     },
 }
+AWS_ACCESS_KEY_ID = local_env("MINIO_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = local_env("MINIO_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = local_env("MINIO_STORAGE_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = local_env("MINIO_S3_ENDPOINT_URL")
+AWS_S3_USE_SSL = False
 
 # EMAIL
 # ------------------------------------------------------------------------------
