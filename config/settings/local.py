@@ -3,12 +3,11 @@ import environ
 from .base import *  # noqa
 from .base import BASE_DIR, env
 
-local_env = environ.Env()
-local_env.read_env(str(BASE_DIR / ".envs/local/.minio"))
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = True
+USE_DEV_S3 = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
@@ -29,25 +28,45 @@ CACHES = {
 
 # STORAGE
 # ------------------------
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-    },
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-    },
-    "legacy-records": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-        "OPTIONS": {
-            "location": str(BASE_DIR / "legacy_records"),  # noqa: F405
+if USE_DEV_S3:
+    local_env = environ.Env()
+    local_env.read_env(str(BASE_DIR / ".envs/local/.minio"))
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         },
-    },
-}
-AWS_ACCESS_KEY_ID = local_env("MINIO_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = local_env("MINIO_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = local_env("MINIO_STORAGE_BUCKET_NAME")
-AWS_S3_ENDPOINT_URL = local_env("MINIO_S3_ENDPOINT_URL")
-AWS_S3_USE_SSL = False
+        "staticfiles": {
+            "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        },
+        "legacy-records": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+            "OPTIONS": {
+                "location": str(BASE_DIR / "legacy_records"),  # noqa: F405
+            },
+        },
+    }
+    AWS_ACCESS_KEY_ID = local_env("MINIO_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = local_env("MINIO_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = local_env("MINIO_STORAGE_BUCKET_NAME")
+    AWS_S3_ENDPOINT_URL = local_env("MINIO_S3_ENDPOINT_URL")
+    AWS_S3_USE_SSL = False
+
+else:
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+        "legacy-records": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+            "OPTIONS": {
+                "location": str(BASE_DIR / "legacy_records"),  # noqa: F405
+            },
+        },
+    }
 
 # EMAIL
 # ------------------------------------------------------------------------------
