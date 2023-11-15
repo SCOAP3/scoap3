@@ -6,6 +6,7 @@ from django_elasticsearch_dsl_drf.filter_backends import (
 )
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from opensearch_dsl import DateHistogramFacet, TermsFacet
+from rest_framework import status
 from rest_framework.mixins import (
     CreateModelMixin,
     DestroyModelMixin,
@@ -16,7 +17,7 @@ from rest_framework.mixins import (
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ViewSet
 
 from scoap3.articles.api.serializers import (
     ArticleDocumentSerializer,
@@ -27,6 +28,7 @@ from scoap3.articles.api.serializers import (
 )
 from scoap3.articles.documents import ArticleDocument
 from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
+from scoap3.tasks import import_to_scoap3
 from scoap3.utils.pagination import OSStandardResultsSetPagination
 from scoap3.utils.renderer import ArticleCSVRenderer
 
@@ -39,16 +41,18 @@ class ArticleViewSet(
     DestroyModelMixin,
     GenericViewSet,
 ):
-    queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    queryset = Article.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def create(self, request, *args, **kwargs):
         data = request.data
-        article_id = data.get("id")
 
+        article_id = data.get("id")
         if Article.objects.filter(id=article_id).exists():
-            return Response({"error": "ID already exists"}, status=400)
+            return Response(
+                {"error": "ID already exists"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -56,7 +60,25 @@ class ArticleViewSet(
         serializer.save(id=article_id)
 
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=201, headers=headers)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+        article_id = data.get("id")
+
+
+class ArticleWorkflowImportView(ViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        try:
+            article = import_to_scoap3(data, True)
+        except Exception as e:
+            error_msg = str(e)
+            return Response({"message": error_msg}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = ArticleSerializer(article)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ArticleDocumentView(BaseDocumentViewSet):

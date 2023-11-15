@@ -83,7 +83,7 @@ def _create_article(data, licenses):
         article.__dict__.update(**article_data)
     else:
         article, _ = Article.objects.get_or_create(**article_data)
-        article._created_at = data.get("_created")
+        article._created_at = data.get("_created") or data.get("record_creation_date")
 
     article.related_licenses.set(licenses)
     article.save()
@@ -290,6 +290,7 @@ def import_to_scoap3(data, migrate_files):
     authors = _create_author(data, article)
     _create_author_identifier(data, authors)
     _create_affiliation(data, authors)
+    return article
 
 
 def update_affiliations(data):

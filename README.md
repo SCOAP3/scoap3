@@ -76,7 +76,7 @@ $ docker-compose up -d mailhog mq opensearch celerybeat redis db
 
 #### Apply migrations
 ```bash
-$ make migrate
+$
 or
 $ poetry run python manage.py migrate
 ```
@@ -133,7 +133,7 @@ make sure the db is [flushed](#flush) otherwise it could cause some duplicate er
 ```bash
 docker-compose exec django python manage.py loaddata local
 or
-poetry run python manage.py loaddata local
+make load-demo-data
 ```
 
 

@@ -7,7 +7,7 @@ export
 django:
 	poetry run python manage.py runserver 0.0.0.0:8000
 
-tests:
+run-tests:
 	poetry run pytest
 
 webpack:
@@ -21,3 +21,12 @@ migrate:
 
 services:
 	docker-compose up -d mailhog mq opensearch celerybeat redis db
+
+load-demo-data:
+	poetry run python manage.py loaddata local
+
+shell:
+	poetry run python manage.py shell
+
+flush:
+	poetry run python manage.py flush
