@@ -65,7 +65,7 @@ jobs:
           dockerfile: ./compose/production/ui/Dockerfile
           context: ${{ inputs.context }}
           stage: ${{ inputs.stage }}
-          image: ${{ inputs.image }}_ui
+          image: cern-sis/scoap3/scoap3-backend-ui
           registry: registry.cern.ch
           cache: false
           tags: |
