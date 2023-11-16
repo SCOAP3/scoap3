@@ -58,3 +58,22 @@ jobs:
           build-args: |
             DJANGO_AWS_STORAGE_BUCKET_NAME=${{ secrets.DEV_DJANGO_AWS_STORAGE_BUCKET_NAME }}
             DJANGO_AWS_S3_CUSTOM_DOMAIN=${{ secrets.DEV_DJANGO_AWS_S3_CUSTOM_DOMAIN }}
+      - id: build-ui
+        name: Build and export UI
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.2.0
+        with:
+          dockerfile: ./compose/production/ui/Dockerfile
+          context: ${{ inputs.context }}
+          stage: ${{ inputs.stage }}
+          image: ${{ inputs.image }}_ui
+          registry: registry.cern.ch
+          cache: false
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=ref,event=tag
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_SECRET }}
+          build-args: |
+            DJANGO_AWS_STORAGE_BUCKET_NAME=${{ secrets.DEV_DJANGO_AWS_STORAGE_BUCKET_NAME }}
+            DJANGO_AWS_S3_CUSTOM_DOMAIN=${{ secrets.DEV_DJANGO_AWS_S3_CUSTOM_DOMAIN }}
