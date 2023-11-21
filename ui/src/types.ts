@@ -4,7 +4,7 @@ export const queryTypes = [
   "search",
   "country",
   "journal",
-  "publication_year",
+  "publication_year__range",
 ] as const;
 
 export type QueryType = (typeof queryTypes)[number];
@@ -15,7 +15,7 @@ export type Params = {
   search?: string;
   country?: string | string[];
   journal?: string | string[];
-  publication_year?: string | string[];
+  publication_year__range?: string;
 };
 
 export interface Response {
@@ -143,3 +143,10 @@ export interface MenuItem {
 export type Extension = "pdf" | "pdfa" | "xml";
 
 export const supportedExtensions: Extension[] = ["pdf", "pdfa", "xml"];
+
+export interface YearFacetData {
+  // year
+  x: number;
+  // count
+  y: number;
+}

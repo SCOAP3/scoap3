@@ -28,7 +28,12 @@ const SearchPage: React.FC<SearchPageProps> = ({
           <div className="search-facets">
             {results && results.length > 0 && (
               <>
-                {/* <YearFacet /> */}
+                <YearFacet
+                  data={
+                    facets?._filter_publication_year?.publication_year?.buckets
+                  }
+                  params={query}
+                />
                 <CheckboxFacet
                   data={facets?._filter_country?.country?.buckets}
                   title="Country / Region / Territory"

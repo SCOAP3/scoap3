@@ -94,7 +94,6 @@ a {
   display: flex;
   align-items: center;
   cursor: pointer;
-  color:
 }
 
 .ant-menu-item a {
@@ -383,6 +382,53 @@ a {
 
 .search-facets-facet .ant-card-body {
   padding: 15px 10px !important;
+}
+
+.search-facets-facet .year-facet {
+  margin: 0 auto;
+}
+
+.search-facets-facet .year-facet-slider {
+  margin: 0.5rem auto 2.2rem auto;
+  width: 150px;
+}
+
+.search-facets-facet .year-facet-slider .ant-slider-rail {
+  background-color: #ccc;
+}
+
+.search-facets-facet .year-facet-slider .ant-slider-track {
+  background-color: #3498db;
+}
+
+.search-facets-facet .year-facet-slider .ant-slider-mark-text {
+  transform: rotate(-45deg) translateX(-50%) !important;
+  color: #3498db;
+}
+
+.search-facets-facet rect:hover {
+  stroke: #69c0ff !important;
+  fill: #69c0ff !important;
+  cursor: pointer;
+}
+
+.search-facets-facet .ant-btn {
+  background-color: #337ab7;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  height: fit-content;
+  margin-top: -5px;
+}
+
+.search-facets-facet .ant-btn:hover {
+  background-color: #286090 !important;
+}
+
+.rv-hint {
+  top: 10px !important;
+  left: 80% !important;
 }
 
 /* DETAIL */

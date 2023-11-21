@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card } from "antd";
+
 import { getSearchUrl } from "@/utils/utils";
 import { Country, Journal, Params } from "@/types";
 
@@ -28,7 +29,7 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
   }, []);
 
   useEffect(() => {
-    router.push(getSearchUrl({ ...params, [type]: filters }));
+    router.push(getSearchUrl({ ...params, page: 1, [type]: filters }));
   }, [filters]);
 
   const shortJournalName = (value: string) => {
