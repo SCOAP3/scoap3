@@ -455,3 +455,20 @@ a {
     margin-top: 20px;
   }
 }
+
+/* ERROR PAGES */
+
+.error-page {
+  color: #777;
+  margin: 15% auto;
+  text-align: center;
+}
+
+.error-page .anticon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+.error-page p {
+  font-size: 1.2rem;
+}
