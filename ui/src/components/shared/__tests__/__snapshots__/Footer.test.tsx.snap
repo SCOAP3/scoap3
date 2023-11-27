@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer renders footer correctly 1`] = `
+<div>
+  <div
+    class="footer"
+  >
+    <div
+      class="container flex flex-col items-center"
+    >
+      <div
+        class="container-inner flex flex-col lg:flex-row justify-between items-center lg:items-start"
+      >
+        <div
+          class="footer-box flex-1"
+        >
+          <a
+            href="https://scoap3.org/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            SCOAP3 website
+          </a>
+           |
+
+          <a
+            href="https://scoap3.org/scoap3-repository/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            About the repository
+          </a>
+           |
+
+          <a
+            href="https://scoap3.org/scoap3-repository/repository-help-2/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Search help
+          </a>
+        </div>
+        <div
+          class="footer-box text-center"
+        >
+          Articles in the SCOAP3 repository are released under a
+
+          <a
+            href="https://creativecommons.org/licenses/by/3.0/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            CC-BY
+          </a>
+           license. Metadata are provided by the corresponding publishers and released under the a
+
+          <a
+            href="https://creativecommons.org/publicdomain/zero/1.0/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            CC0
+          </a>
+           waiver.
+        </div>
+        <div
+          class="footer-box flex-1 text-right"
+        >
+          Repository contact:
+
+          <a
+            href="mailto:repo.admin@scoap3.org"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            repo.admin@scoap3.org
+          </a>
+        </div>
+      </div>
+      <div>
+        <p
+          class="text-muted"
+        >
+          SCOAP3
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

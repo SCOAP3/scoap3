@@ -11,16 +11,12 @@ import { authToken, getApiUrl, getSearchUrl } from "@/utils/utils";
 interface HomePageProps {
   count: number;
   facets: Facets;
-  query: Params;
+  activeTabKey?: string;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ count, facets, query }) => {
-  const journals: Journal[] = facets
-    ? facets?._filter_journal?.journal?.buckets
-    : [];
-  const partners: Country[] = facets
-    ? facets?._filter_country?.country?.buckets
-    : [];
+const HomePage: React.FC<HomePageProps> = ({ count, facets, activeTabKey = '1' }) => {
+  const journals: Journal[] = facets?._filter_journal?.journal?.buckets;
+  const partners: Country[] = facets?._filter_country?.country?.buckets;
 
   const tabItems = [
     {
@@ -57,7 +53,7 @@ const HomePage: React.FC<HomePageProps> = ({ count, facets, query }) => {
             className="home-searchbar mb-6"
           />
           {journals.length > 0 || partners.length > 0 ? (
-            <Tabs type="card" items={tabItems} />
+            <Tabs type="card" items={tabItems} defaultActiveKey={activeTabKey} />
           ) : (
             <Empty />
           )}
@@ -69,11 +65,13 @@ const HomePage: React.FC<HomePageProps> = ({ count, facets, query }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const query = { search: "" };
+
   const res = await fetch(`${getApiUrl() + getSearchUrl(query)}`, authToken);
   const { count, facets } = (await res?.json()) as Response;
+
   const countValue = { count: count || 0 };
   const facetsValue = { facets: facets || null };
-  return { props: Object.assign(countValue, facetsValue, query) };
+  return { props: Object.assign(countValue, facetsValue) };
 };
 
 export default HomePage;

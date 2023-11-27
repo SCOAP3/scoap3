@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const ServerErrorPage = () => {
@@ -11,7 +11,7 @@ const ServerErrorPage = () => {
       <h1>Something went wrong</h1>
       <p>
         Please try again later or{" "}
-        <a type="button" onClick={() => router.push('/')}>
+        <a type="button" data-testid="go-back" onClick={() => router.push('/')}>
           go to home page
         </a>
       </p>

@@ -26,7 +26,7 @@ const PublicationInfo: React.FC<PublicationInfoProps> = ({ data, page }) => {
   }
 
   if (journal_volume) {
-    publicationText += `<span class="publication-info-volume">, Volume ${journal_volume}</span`;
+    publicationText += `<span class="publication-info-volume">, Volume ${journal_volume}</span>`;
   }
 
   if (volume_year) {

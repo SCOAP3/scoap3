@@ -34,7 +34,7 @@ export interface Result {
   abstract: string;
   publication_info: JournalInfo[];
   related_files: File[];
-  related_materials: [];
+  related_materials: any[];
   related_licenses: License[];
   publication_date: string;
   id: number;
@@ -69,7 +69,7 @@ export interface Facets {
 
 export interface Copyright {
   statement: string;
-  year: string;
+  year: string | null;
   holder: string;
 }
 export interface ArxivCategory {
@@ -78,14 +78,14 @@ export interface ArxivCategory {
 }
 
 export interface ArticleIdentifier {
-  identifier_type: 'DOI' | 'arXiv';
+  identifier_type: string;
   identifier_value: string;
 }
 
 export interface Affiliation {
   value: string;
-  organization: string;
-  country: {
+  organization?: string;
+  country?: {
     code: string;
     name: string;
   };
@@ -104,19 +104,19 @@ export interface License {
 
 export interface File {
   file: string;
-  created: Date;
-  updated: Date;
+  created?: string;
+  updated?: string;
 }
 
 export interface JournalInfo {
   journal_volume: string;
   journal_title: string;
   journal_issue: string;
-  page_start: number;
-  page_end: number;
-  artid: number;
-  volume_year: number;
-  journal_issue_date: Date | null;
+  page_start: string;
+  page_end: string;
+  artid: string;
+  volume_year: string;
+  journal_issue_date: string | null;
   publisher: string;
 }
 
@@ -131,7 +131,7 @@ export interface Country {
 }
 
 export interface PublicationYear {
-  key: string;
+  key: number;
   doc_count: number;
 }
 

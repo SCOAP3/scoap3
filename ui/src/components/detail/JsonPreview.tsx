@@ -15,7 +15,7 @@ export const JsonPreview = ({ article }: JsonPreviewProps) => {
           key: "1",
           label: "Metadata preview. Preview of JSON metadata for this article.",
           children: (
-            <p className="p-8 json-preview-content">
+            <p className="p-8 json-preview-content" data-testid="json-preview-content" >
               <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed">
                 {JSON.stringify(article, undefined, 2)}
               </pre>
