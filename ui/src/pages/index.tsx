@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs } from "antd";
+import { Tabs, Empty } from "antd";
 import Image from "next/image";
 import { GetServerSideProps } from "next";
 
@@ -15,8 +15,12 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ count, facets, query }) => {
-  const journals: Journal[] = facets?._filter_journal?.journal?.buckets;
-  const partners: Country[] = facets?._filter_country?.country?.buckets;
+  const journals: Journal[] = facets
+    ? facets?._filter_journal?.journal?.buckets
+    : [];
+  const partners: Country[] = facets
+    ? facets?._filter_country?.country?.buckets
+    : [];
 
   const tabItems = [
     {
@@ -48,10 +52,15 @@ const HomePage: React.FC<HomePageProps> = ({ count, facets, query }) => {
             Search <b>{count} Open Access</b> articles:
           </p>
           <SearchBar
+            hide={count == 0}
             placeholder="Type and press enter to search"
             className="home-searchbar mb-6"
           />
-          <Tabs type="card" items={tabItems} />
+          {journals.length > 0 || partners.length > 0 ? (
+            <Tabs type="card" items={tabItems} />
+          ) : (
+            <Empty />
+          )}
         </div>
       </div>
     </>
@@ -60,11 +69,11 @@ const HomePage: React.FC<HomePageProps> = ({ count, facets, query }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const query = { search: "" };
-
   const res = await fetch(`${getApiUrl() + getSearchUrl(query)}`, authToken);
   const { count, facets } = (await res?.json()) as Response;
-
-  return { props: { count, facets, query } };
+  const countValue = { count: count || 0 };
+  const facetsValue = { facets: facets || null };
+  return { props: Object.assign(countValue, facetsValue, query) };
 };
 
 export default HomePage;

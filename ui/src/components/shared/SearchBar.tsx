@@ -5,11 +5,13 @@ import { getSearchUrl } from "@/utils/utils";
 
 interface SearchBarProps {
   placeholder?: string;
+  hide?: boolean;
   className?: string;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = "Search",
+  hide = false,
   className,
 }) => {
   const router = useRouter();
@@ -20,14 +22,18 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const { Search } = Input;
 
   return (
-    <Search
-      onSearch={() => router.push(getSearchUrl({ search: val }, true))}
-      placeholder={placeholder}
-      enterButton
-      className={className}
-      value={val}
-      onChange={(e) => setVal(e?.target?.value)}
-    />
+    <>
+      {!hide && (
+        <Search
+          onSearch={() => router.push(getSearchUrl({ search: val }, true))}
+          placeholder={placeholder}
+          enterButton
+          className={className}
+          value={val}
+          onChange={(e) => setVal(e?.target?.value)}
+        />
+      )}
+    </>
   );
 };
 
