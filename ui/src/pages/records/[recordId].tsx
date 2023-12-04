@@ -1,6 +1,7 @@
 import React from "react";
 import ReactHtmlParser from "react-html-parser";
 import { GetServerSideProps } from "next";
+import { MathJax } from "better-react-mathjax";
 
 import { Result } from "@/types";
 import Authors from "@/components/shared/Authors";
@@ -19,7 +20,7 @@ const RecordPage: React.FC<RecordPageProps> = ({ article }) => {
         <div id="abstract">
           <div className="detail-page-main">
             <h2 className="font-normal mb-3">
-              {ReactHtmlParser(article?.title)}
+              <MathJax inline>{ReactHtmlParser(article?.title)}</MathJax>
             </h2>
             <Authors
               authors={article?.authors}
@@ -28,7 +29,7 @@ const RecordPage: React.FC<RecordPageProps> = ({ article }) => {
               className="mb-3"
             />
             <p className="text-justify leading-relaxed">
-              {ReactHtmlParser(article?.abstract)}
+              <MathJax inline>{ReactHtmlParser(article?.abstract)}</MathJax>
             </p>
           </div>
         </div>

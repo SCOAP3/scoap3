@@ -1,5 +1,6 @@
 import React from "react";
 import ReactHtmlParser from "react-html-parser";
+import { MathJax } from "better-react-mathjax";
 
 import { ArticleIdentifier, Result } from "@/types";
 import PublicationInfo from "../shared/PublicationInfo";
@@ -26,7 +27,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ article }) => {
   return (
     <li className="search-results-record border-0 border-b border-solid border-slate-200 py-6">
       <a href={`/records/${article?.id}`} className="mb-2 block text-lg">
-        {ReactHtmlParser(article?.title)}
+        <MathJax inline>{ReactHtmlParser(article?.title)}</MathJax>
       </a>
       <div className="mb-2">
         <Authors authors={article?.authors} page="search" />
@@ -36,7 +37,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ article }) => {
         </small>
       </div>
       <p className="search-results-record-abstract mb-4">
-        {ReactHtmlParser(article?.abstract)}
+        <MathJax inline>{ReactHtmlParser(article?.abstract)}</MathJax>
       </p>
       <div className="lg:flex justify-between items-end">
         <div>
