@@ -1,0 +1,297 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      X-USER-AGENT:
+      - python-requests/2.31.0 habanero/1.2.3
+    method: GET
+    uri: https://api.crossref.org/works/10.1007/JHEP11(2019)001
+  response:
+    body:
+      string: '{"status":"ok","message-type":"work","message-version":"1.0.0","message":{"indexed":{"date-parts":[[2023,10,29]],"date-time":"2023-10-29T00:03:46Z","timestamp":1698537826473},"reference-count":60,"publisher":"Springer
+        Science and Business Media LLC","issue":"11","license":[{"start":{"date-parts":[[2019,11,1]],"date-time":"2019-11-01T00:00:00Z","timestamp":1572566400000},"content-version":"tdm","delay-in-days":0,"URL":"https:\/\/creativecommons.org\/licenses\/by\/4.0"},{"start":{"date-parts":[[2019,11,4]],"date-time":"2019-11-04T00:00:00Z","timestamp":1572825600000},"content-version":"vor","delay-in-days":3,"URL":"https:\/\/creativecommons.org\/licenses\/by\/4.0"}],"content-domain":{"domain":["link.springer.com"],"crossmark-restriction":false},"short-container-title":["J.
+        High Energ. Phys."],"published-print":{"date-parts":[[2019,11]]},"abstract":"<jats:title>A<jats:sc>bstract<\/jats:sc>\n                     <\/jats:title><jats:p>Triggered
+        by ongoing dark matter searches in the top quark sector at the Large Hadron
+        Collider we report on the calculation of the next-to-leading order QCD corrections
+        to the Standard Model process <jats:italic>pp \u2192 t<\/jats:italic><jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        \\overline{t} $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:mover>\n                    <mml:mi>t<\/mml:mi>\n                    <mml:mo>\u00af<\/mml:mo>\n                  <\/mml:mover>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula>
+        + <jats:italic>Z<\/jats:italic> (<jats:italic>Z \u2192 \u03bd<\/jats:italic><jats:sub>\u2113<\/jats:sub><jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        \\overline{v} $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:mover>\n                    <mml:mi>v<\/mml:mi>\n                    <mml:mo>\u00af<\/mml:mo>\n                  <\/mml:mover>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula><jats:sub>\u2113<\/jats:sub>).
+        This calculation is based on matrix elements for <jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        {e}^{+}{\\nu}_e{\\mu}^{-}{\\overline{\\nu}}_{\\mu }b\\overline{b}\\kern0.33em
+        {\\nu}_{\\tau }{\\overline{\\nu}}_{\\tau } $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:msup>\n                    <mml:mi>e<\/mml:mi>\n                    <mml:mo>+<\/mml:mo>\n                  <\/mml:msup>\n                  <mml:msub>\n                    <mml:mi>\u03bd<\/mml:mi>\n                    <mml:mi>e<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:msup>\n                    <mml:mi>\u03bc<\/mml:mi>\n                    <mml:mo>\u2212<\/mml:mo>\n                  <\/mml:msup>\n                  <mml:msub>\n                    <mml:mover>\n                      <mml:mi>\u03bd<\/mml:mi>\n                      <mml:mo>\u00af<\/mml:mo>\n                    <\/mml:mover>\n                    <mml:mi>\u03bc<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:mi>b<\/mml:mi>\n                  <mml:mover>\n                    <mml:mi>b<\/mml:mi>\n                    <mml:mo>\u00af<\/mml:mo>\n                  <\/mml:mover>\n                  <mml:mspace
+        \/>\n                  <mml:msub>\n                    <mml:mi>\u03bd<\/mml:mi>\n                    <mml:mi>\u03c4<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:msub>\n                    <mml:mover>\n                      <mml:mi>\u03bd<\/mml:mi>\n                      <mml:mo>\u00af<\/mml:mo>\n                    <\/mml:mover>\n                    <mml:mi>\u03c4<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:mspace
+        \/>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula>
+        production and includes all non-resonant diagrams, interferences, and off-shell
+        effects of the top quarks. Non-resonant and off-shell effects due to the finite
+        <jats:italic>W<\/jats:italic> -boson width are also consistently taken into
+        account. As it is common for such studies, we present results for both integrated
+        and differential cross sections for a few renormalisation and factorisation
+        scale choices and three different parton distribution functions. Already with
+        the fairly inclusive cut selection and independently of the scale choice and
+        the parton distribution function non-flat differential <jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        \\mathcal{K} $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:mi>K<\/mml:mi>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula>
+        -factors are obtained for <jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        {p}_T^{miss} $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:msubsup>\n                    <mml:mi>p<\/mml:mi>\n                    <mml:mi>T<\/mml:mi>\n                    <mml:mtext>miss<\/mml:mtext>\n                  <\/mml:msubsup>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula><jats:italic>,<\/jats:italic>
+        \u2206<jats:sub>\ud835\udf19<jats:italic>\u2113\u2113<\/jats:italic><\/jats:sub><jats:italic>,<\/jats:italic>
+        \u2206<jats:sub>\ud835\udcb4<jats:italic>\u2113\u2113<\/jats:italic><\/jats:sub><jats:italic>,<\/jats:italic>
+        cos <jats:italic>\u03b8<\/jats:italic><jats:sub><jats:italic>\u2113\u2113<\/jats:italic><\/jats:sub><jats:italic>,
+        H<\/jats:italic><jats:sub><jats:italic>T<\/jats:italic><\/jats:sub><jats:italic>,<\/jats:italic><jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        {H}_T^{\\prime } $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:msubsup>\n                    <mml:mi>H<\/mml:mi>\n                    <mml:mi>T<\/mml:mi>\n                    <mml:mo>\u2032<\/mml:mo>\n                  <\/mml:msubsup>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula>
+        observables that are relevant for new physics searches. Good theoretical control
+        over the Standard Model background is a fundamental prerequisite for a correct
+        interpretation of possible signals of new physics that may arise in this channel.
+        Thus, these observables need to be carefully reexamined in the presence of
+        more exclusive cuts before any realistic strategies for the detection of new
+        physics signal can be further developed. Since from the experimental point
+        of view both <jats:italic>t<\/jats:italic><jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        \\overline{t} $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:mover>\n                    <mml:mi>t<\/mml:mi>\n                    <mml:mo>\u00af<\/mml:mo>\n                  <\/mml:mover>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula>
+        and <jats:italic>t<\/jats:italic><jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        \\overline{t} $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:mover>\n                    <mml:mi>t<\/mml:mi>\n                    <mml:mo>\u00af<\/mml:mo>\n                  <\/mml:mover>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula>
+        + <jats:italic>Z<\/jats:italic> (<jats:italic>Z \u2192 \u03bd<\/jats:italic><jats:sub>\u2113<\/jats:sub><jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        \\overline{v} $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:mover>\n                    <mml:mi>v<\/mml:mi>\n                    <mml:mo>\u00af<\/mml:mo>\n                  <\/mml:mover>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula><jats:sub>\u2113<\/jats:sub>)
+        comprise the same final states, we additionally study the impact of the enlarged
+        missing transverse momentum on various differential cross section distributions.
+        To this end normalised differential distributions for <jats:italic>pp \u2192<\/jats:italic><jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        {e}^{+}{\\nu}_e{\\mu}^{-}{\\overline{\\nu}}_{\\mu }b\\overline{b}\\kern0.33em
+        {\\nu}_{\\tau }{\\overline{\\nu}}_{\\tau } $$<\/jats:tex-math><mml:math xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:msup>\n                    <mml:mi>e<\/mml:mi>\n                    <mml:mo>+<\/mml:mo>\n                  <\/mml:msup>\n                  <mml:msub>\n                    <mml:mi>\u03bd<\/mml:mi>\n                    <mml:mi>e<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:msup>\n                    <mml:mi>\u03bc<\/mml:mi>\n                    <mml:mo>\u2212<\/mml:mo>\n                  <\/mml:msup>\n                  <mml:msub>\n                    <mml:mover>\n                      <mml:mi>\u03bd<\/mml:mi>\n                      <mml:mo>\u00af<\/mml:mo>\n                    <\/mml:mover>\n                    <mml:mi>\u03bc<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:mi>b<\/mml:mi>\n                  <mml:mover>\n                    <mml:mi>b<\/mml:mi>\n                    <mml:mo>\u00af<\/mml:mo>\n                  <\/mml:mover>\n                  <mml:mspace
+        \/>\n                  <mml:msub>\n                    <mml:mi>\u03bd<\/mml:mi>\n                    <mml:mi>\u03c4<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:msub>\n                    <mml:mover>\n                      <mml:mi>\u03bd<\/mml:mi>\n                      <mml:mo>\u00af<\/mml:mo>\n                    <\/mml:mover>\n                    <mml:mi>\u03c4<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:mspace
+        \/>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula>
+        and <jats:italic>pp \u2192<\/jats:italic><jats:inline-formula><jats:alternatives><jats:tex-math>$$
+        {e}^{+}{\\nu}_e{\\mu}^{-}{\\overline{\\nu}}_{\\mu }b\\overline{b} $$<\/jats:tex-math><mml:math
+        xmlns:mml=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">\n                  <mml:msup>\n                    <mml:mi>e<\/mml:mi>\n                    <mml:mo>+<\/mml:mo>\n                  <\/mml:msup>\n                  <mml:msub>\n                    <mml:mi>\u03bd<\/mml:mi>\n                    <mml:mi>e<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:msup>\n                    <mml:mi>\u03bc<\/mml:mi>\n                    <mml:mo>\u2212<\/mml:mo>\n                  <\/mml:msup>\n                  <mml:msub>\n                    <mml:mover>\n                      <mml:mi>\u03bd<\/mml:mi>\n                      <mml:mo>\u00af<\/mml:mo>\n                    <\/mml:mover>\n                    <mml:mi>\u03bc<\/mml:mi>\n                  <\/mml:msub>\n                  <mml:mi>b<\/mml:mi>\n                  <mml:mover>\n                    <mml:mi>b<\/mml:mi>\n                    <mml:mo>\u00af<\/mml:mo>\n                  <\/mml:mover>\n                <\/mml:math><\/jats:alternatives><\/jats:inline-formula>
+        are compared.<\/jats:p>","DOI":"10.1007\/jhep11(2019)001","type":"journal-article","created":{"date-parts":[[2019,11,11]],"date-time":"2019-11-11T05:04:12Z","timestamp":1573448652000},"update-policy":"http:\/\/dx.doi.org\/10.1007\/springer_crossmark_policy","source":"Crossref","is-referenced-by-count":18,"title":["Towards
+        constraining dark matter at the LHC: higher order QCD predictions for t$$
+        \\overline{t} $$ + Z (Z \u2192 \u03bd\u2113$$ \\overline{v} $$\u2113)"],"prefix":"10.1007","volume":"2019","author":[{"given":"G.","family":"Bevilacqua","sequence":"first","affiliation":[]},{"given":"H.B.","family":"Hartanto","sequence":"additional","affiliation":[]},{"given":"M.","family":"Kraus","sequence":"additional","affiliation":[]},{"given":"T.","family":"Weber","sequence":"additional","affiliation":[]},{"ORCID":"http:\/\/orcid.org\/0000-0002-6495-9136","authenticated-orcid":false,"given":"M.","family":"Worek","sequence":"additional","affiliation":[]}],"member":"297","published-online":{"date-parts":[[2019,11,4]]},"reference":[{"key":"11717_CR1","doi-asserted-by":"publisher","first-page":"111","DOI":"10.1007\/JHEP11(2016)111","volume":"11","author":"C
+        Arina","year":"2016","unstructured":"C. Arina et al., A comprehensive approach
+        to dark matter studies: exploration of simplified top-philic models, JHEP
+        11 (2016) 111 [arXiv:1605.09242] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR2","doi-asserted-by":"crossref","unstructured":"G.
+        D\u2019Ambrosio, G.F. Giudice, G. Isidori and A. Strumia, Minimal flavor violation:
+        an effective field theory approach, Nucl. Phys. B 645 (2002) 155 [hep-ph\/0207036]
+        [INSPIRE].","DOI":"10.1016\/S0550-3213(02)00836-2"},{"key":"11717_CR3","unstructured":"ATLAS
+        collaboration, Search for dark matter in events with heavy quarks and missing
+        transverse momentum in pp collisions with the ATLAS detector, Eur. Phys. J.
+        C 75 (2015) 92 [arXiv:1410.4031] [INSPIRE]."},{"key":"11717_CR4","unstructured":"CMS
+        collaboration, Search for the production of dark matter in association with
+        top-quark pairs in the single-lepton final state in proton-proton collisions
+        at $$ \\sqrt{s} $$ = 8 TeV, JHEP 06 (2015) 121 [arXiv:1504.03198] [INSPIRE]."},{"key":"11717_CR5","unstructured":"CMS
+        collaboration, Search for dark matter produced in association with heavy-flavor
+        quark pairs in proton-proton collisions at $$ \\sqrt{s} $$ = 13 TeV, Eur.
+        Phys. J. C 77 (2017) 845 [arXiv:1706.02581] [INSPIRE]."},{"key":"11717_CR6","unstructured":"ATLAS
+        collaboration, Search for direct top squark pair production in final states
+        with two leptons in $$ \\sqrt{s} $$ = 13 TeV pp collisions with the ATLAS
+        detector, Eur. Phys. J. C 77 (2017) 898 [arXiv:1708.03247] [INSPIRE]."},{"key":"11717_CR7","unstructured":"ATLAS
+        collaboration, Search for dark matter produced in association with bottom
+        or top quarks in $$ \\sqrt{s} $$ = 13 TeV pp collisions with the ATLAS detector,
+        Eur. Phys. J. C 78 (2018) 18 [arXiv:1710.11412] [INSPIRE]."},{"key":"11717_CR8","unstructured":"CMS
+        collaboration, Search for top squarks and dark matter particles in opposite-charge
+        dilepton final states at $$ \\sqrt{s} $$ = 13 TeV, Phys. Rev. D 97 (2018)
+        032009 [arXiv:1711.00752] [INSPIRE]."},{"key":"11717_CR9","unstructured":"CMS
+        collaboration, Inclusive search for supersymmetry in pp collisions at $$ \\sqrt{s}
+        $$ = 13 TeV using razor variables and boosted object identification in zero
+        and one lepton final states, JHEP 03 (2019) 031 [arXiv:1812.06302] [INSPIRE]."},{"key":"11717_CR10","unstructured":"CMS
+        collaboration, Search for dark matter produced in association with a single
+        top quark or a top quark pair in proton-proton collisions at $$ \\sqrt{s}
+        $$ = 13 TeV, JHEP 03 (2019) 141 [arXiv:1901.01553] [INSPIRE]."},{"key":"11717_CR11","doi-asserted-by":"publisher","first-page":"081","DOI":"10.1007\/JHEP10(2010)081","volume":"10","author":"K
+        Cheung","year":"2010","unstructured":"K. Cheung et al., The top window for
+        dark matter, JHEP 10 (2010) 081 [arXiv:1009.0618] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR12","doi-asserted-by":"crossref","unstructured":"T.
+        Lin, E.W. Kolb and L.-T. Wang, Probing dark matter couplings to top and bottom
+        quarks at the LHC, Phys. Rev. D 88 (2013) 063510 [arXiv:1303.6638] [INSPIRE].","DOI":"10.1103\/PhysRevD.88.063510"},{"key":"11717_CR13","doi-asserted-by":"publisher","first-page":"078","DOI":"10.1007\/JHEP06(2015)078","volume":"06","author":"U
+        Haisch","year":"2015","unstructured":"U. Haisch and E. Re, Simplified dark
+        matter top-quark interactions at the LHC, JHEP 06 (2015) 078 [arXiv:1503.00691]
+        [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR14","doi-asserted-by":"publisher","first-page":"131","DOI":"10.1007\/JHEP02(2017)131","volume":"02","author":"U
+        Haisch","year":"2017","unstructured":"U. Haisch, P. Pani and G. Polesello,
+        Determining the CP nature of spin-0 mediators in associated production of
+        dark matter and tt pairs, JHEP 02 (2017) 131 [arXiv:1611.09841] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR15","doi-asserted-by":"crossref","unstructured":"Y.
+        Bai, H.-C. Cheng, J. Gallicchio and J. Gu, Stop the top background of the
+        stop search, JHEP 07 (2012) 110 [arXiv:1203.4813] [INSPIRE].","DOI":"10.1007\/JHEP07(2012)110"},{"key":"11717_CR16","doi-asserted-by":"publisher","first-page":"62","DOI":"10.1016\/j.physletb.2008.06.073","volume":"B
+        666","author":"A Lazopoulos","year":"2008","unstructured":"A. Lazopoulos,
+        T. McElmurry, K. Melnikov and F. Petriello, Next-to-leading order QCD corrections
+        to t$$ \\overline{t} $$Z production at the LHC, Phys. Lett. B 666 (2008) 62
+        [arXiv:0804.2220] [INSPIRE].","journal-title":"Phys. Lett."},{"key":"11717_CR17","doi-asserted-by":"crossref","unstructured":"A.
+        Kardos, Z. Tr\u00f3cs\u00e1nyi and C. Papadopoulos, Top quark pair production
+        in association with a Z-boson at NLO accuracy, Phys. Rev. D 85 (2012) 054015
+        [arXiv:1111.0610] [INSPIRE].","DOI":"10.1103\/PhysRevD.85.054015"},{"key":"11717_CR18","unstructured":"M.V.
+        Garzelli, A. Kardos, C.G. Papadopoulos and Z. Tr\u00f3cs\u00e1nyi, Z 0 -boson
+        production in association with a top anti-top pair at NLO accuracy with parton
+        shower effects, Phys. Rev. D 85 (2012) 074022 [arXiv:1111.1444] [INSPIRE]."},{"key":"11717_CR19","doi-asserted-by":"crossref","unstructured":"M.V.
+        Garzelli, A. Kardos, C.G. Papadopoulos and Z. Tr\u00f3cs\u00e1nyi, t$$ \\overline{t}
+        $$ W +\u2212 and t $$ \\overline{t} $$ Z Hadroproduction at NLO accuracy in
+        QCD with Parton Shower and Hadronization effects, JHEP 11 (2012) 056 [arXiv:1208.2665]
+        [INSPIRE].","DOI":"10.1007\/JHEP11(2012)056"},{"key":"11717_CR20","doi-asserted-by":"publisher","first-page":"052","DOI":"10.1007\/JHEP05(2016)052","volume":"05","author":"O
+        Bessidskaia Bylund","year":"2016","unstructured":"O. Bessidskaia Bylund et
+        al., Probing top quark neutral couplings in the standard model effective field
+        theory at NLO in QCD, JHEP 05 (2016) 052 [arXiv:1601.08193] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR21","doi-asserted-by":"crossref","unstructured":"R.
+        R\u00f6ntsch and M. Schulze, Constraining couplings of top quarks to the Z
+        boson in t$$ \\overline{t} $$ + Z production at the LHC, JHEP 07 (2014) 091
+        [Erratum ibid. 09 (2015) 132] [arXiv:1404.1005] [INSPIRE].","DOI":"10.1007\/JHEP07(2014)091"},{"key":"11717_CR22","doi-asserted-by":"publisher","first-page":"184","DOI":"10.1007\/JHEP06(2015)184","volume":"06","author":"S
+        Frixione","year":"2015","unstructured":"S. Frixione et al., Electroweak and
+        QCD corrections to top-pair hadroproduction in association with heavy bosons,
+        JHEP 06 (2015) 184 [arXiv:1504.03446] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR23","doi-asserted-by":"publisher","first-page":"249","DOI":"10.1140\/epjc\/s10052-019-6746-z","volume":"C
+        79","author":"A Kulesza","year":"2019","unstructured":"A. Kulesza et al.,
+        Associated production of a top quark pair with a heavy electroweak gauge boson
+        at NLO+NNLL accuracy, Eur. Phys. J. C 79 (2019) 249 [arXiv:1812.08622] [INSPIRE].","journal-title":"Eur.
+        Phys. J."},{"key":"11717_CR24","doi-asserted-by":"publisher","first-page":"105","DOI":"10.1007\/JHEP04(2017)105","volume":"04","author":"A
+        Broggio","year":"2017","unstructured":"A. Broggio et al., Associated production
+        of a top pair and a Z boson at the LHC to NNLL accuracy, JHEP 04 (2017) 105
+        [arXiv:1702.00800] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR25","doi-asserted-by":"publisher","first-page":"085","DOI":"10.1088\/1126-6708\/2009\/08\/085","volume":"08","author":"M
+        Czakon","year":"2009","unstructured":"M. Czakon, C.G. Papadopoulos and M.
+        Worek, Polarizing the dipoles, JHEP 08 (2009) 085 [arXiv:0905.0883] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR26","doi-asserted-by":"publisher","first-page":"1941","DOI":"10.1016\/j.cpc.2009.04.023","volume":"180","author":"A
+        Cafarella","year":"2009","unstructured":"A. Cafarella, C.G. Papadopoulos and
+        M. Worek, Helac-Phegas: a generator for all parton level processes, Comput.
+        Phys. Commun. 180 (2009) 1941 [arXiv:0710.2427] [INSPIRE].","journal-title":"Comput.
+        Phys. Commun."},{"key":"11717_CR27","first-page":"259","volume":"B 40","author":"A
+        van Hameren","year":"2009","unstructured":"A. van Hameren, PARNI for importance
+        sampling and density estimation, Acta Phys. Polon. B 40 (2009) 259 [arXiv:0710.2448]
+        [INSPIRE].","journal-title":"Acta Phys. Polon."},{"key":"11717_CR28","unstructured":"A.
+        van Hameren, Kaleu: a general-purpose parton-level phase space generator,
+        arXiv:1003.4953 [INSPIRE]."},{"key":"11717_CR29","doi-asserted-by":"crossref","unstructured":"A.
+        Denner, S. Dittmaier, M. Roth and D. Wackeroth, Predictions for all processes
+        e+ e\u2212 \u2192 4 fermions + \ud835\udefe, Nucl. Phys. B 560 (1999) 33 [hep-ph\/9904472]
+        [INSPIRE].","DOI":"10.1016\/S0550-3213(99)00437-X"},{"key":"11717_CR30","doi-asserted-by":"crossref","unstructured":"A.
+        Denner, S. Dittmaier, M. Roth and L.H. Wieders, Electroweak corrections to
+        charged-current e+ e\u2212 \u2192 4 fermion processes: technical details and
+        further results, Nucl. Phys. B 724 (2005) 247 [Erratum ibid. B 854 (2012)
+        504] [hep-ph\/0505042] [INSPIRE].","DOI":"10.1016\/j.nuclphysb.2005.06.033"},{"key":"11717_CR31","doi-asserted-by":"publisher","first-page":"083","DOI":"10.1007\/JHEP02(2011)083","volume":"02","author":"G
+        Bevilacqua","year":"2011","unstructured":"G. Bevilacqua et al., Complete off-shell
+        effects in top quark pair hadroproduction with leptonic decay at next-to-leading
+        order, JHEP 02 (2011) 083 [arXiv:1012.4230] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR32","doi-asserted-by":"publisher","first-page":"110","DOI":"10.1007\/JHEP10(2012)110","volume":"10","author":"A
+        Denner","year":"2012","unstructured":"A. Denner, S. Dittmaier, S. Kallweit
+        and S. Pozzorini, NLO QCD corrections to off-shell top-antitop production
+        with leptonic decays at hadron colliders, JHEP 10 (2012) 110 [arXiv:1207.5018]
+        [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR33","doi-asserted-by":"publisher","first-page":"279","DOI":"10.1006\/jcph.1993.1074","volume":"105","author":"P
+        Nogueira","year":"1993","unstructured":"P. Nogueira, Automatic Feynman graph
+        generation, J. Comput. Phys. 105 (1993) 279 [INSPIRE].","journal-title":"J.
+        Comput. Phys."},{"key":"11717_CR34","doi-asserted-by":"publisher","first-page":"079","DOI":"10.1007\/JHEP07(2014)079","volume":"07","author":"J
+        Alwall","year":"2014","unstructured":"J. Alwall et al., The automated computation
+        of tree-level and next-to-leading order differential cross sections and their
+        matching to parton shower simulations, JHEP 07 (2014) 079 [arXiv:1405.0301]
+        [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR35","doi-asserted-by":"publisher","first-page":"106","DOI":"10.1088\/1126-6708\/2009\/09\/106","volume":"09","author":"A
+        van Hameren","year":"2009","unstructured":"A. van Hameren, C.G. Papadopoulos
+        and R. Pittau, Automated one-loop calculations: a proof of concept, JHEP 09
+        (2009) 106 [arXiv:0903.4665] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR36","doi-asserted-by":"publisher","first-page":"042","DOI":"10.1088\/1126-6708\/2008\/03\/042","volume":"03","author":"G
+        Ossola","year":"2008","unstructured":"G. Ossola, C.G. Papadopoulos and R.
+        Pittau, CutTools: a program implementing the OPP reduction method to compute
+        one-loop amplitudes, JHEP 03 (2008) 042 [arXiv:0711.3596] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR37","doi-asserted-by":"publisher","first-page":"2427","DOI":"10.1016\/j.cpc.2011.06.011","volume":"182","author":"A
+        van Hameren","year":"2011","unstructured":"A. van Hameren, OneLOop: for the
+        evaluation of one-loop scalar functions, Comput. Phys. Commun. 182 (2011)
+        2427 [arXiv:1007.4716] [INSPIRE].","journal-title":"Comput. Phys. Commun."},{"key":"11717_CR38","doi-asserted-by":"crossref","unstructured":"G.
+        Ossola, C.G. Papadopoulos and R. Pittau, Reducing full one-loop amplitudes
+        to scalar integrals at the integrand level, Nucl. Phys. B 763 (2007) 147 [hep-ph\/0609007]
+        [INSPIRE].","DOI":"10.1016\/j.nuclphysb.2006.11.012"},{"key":"11717_CR39","doi-asserted-by":"crossref","unstructured":"S.
+        Catani and M.H. Seymour, A general algorithm for calculating jet cross-sections
+        in NLO QCD, Nucl. Phys. B 485 (1997) 291 [Erratum ibid. B 510 (1998) 503]
+        [hep-ph\/9605323] [INSPIRE].","DOI":"10.1016\/S0550-3213(96)00589-5"},{"key":"11717_CR40","doi-asserted-by":"crossref","unstructured":"S.
+        Catani, S. Dittmaier, M.H. Seymour and Z. Tr\u00f3cs\u00e1nyi, The Dipole
+        formalism for next-to-leading order QCD calculations with massive partons,
+        Nucl. Phys. B 627 (2002) 189 [hep-ph\/0201036] [INSPIRE].","DOI":"10.1016\/S0550-3213(02)00098-6"},{"key":"11717_CR41","doi-asserted-by":"publisher","first-page":"204","DOI":"10.1007\/JHEP10(2013)204","volume":"10","author":"G
+        Bevilacqua","year":"2013","unstructured":"G. Bevilacqua, M. Czakon, M. Kubocz
+        and M. Worek, Complete Nagy-Soper subtraction for next-to-leading order calculations
+        in QCD, JHEP 10 (2013) 204 [arXiv:1308.5605] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR42","doi-asserted-by":"publisher","first-page":"986","DOI":"10.1016\/j.cpc.2012.10.033","volume":"184","author":"G
+        Bevilacqua","year":"2013","unstructured":"G. Bevilacqua et al., HELAC-NLO,
+        Comput. Phys. Commun. 184 (2013) 986 [arXiv:1110.1499] [INSPIRE].","journal-title":"Comput.
+        Phys. Commun."},{"key":"11717_CR43","doi-asserted-by":"crossref","unstructured":"G.
+        Bevilacqua, H.B. Hartanto, M. Kraus and M. Worek, Top quark pair production
+        in association with a jet with next-to-leading-order QCD off-shell effects
+        at the Large Hadron Collider, Phys. Rev. Lett. 116 (2016) 052003 [arXiv:1509.09242]
+        [INSPIRE].","DOI":"10.1103\/PhysRevLett.116.052003"},{"key":"11717_CR44","doi-asserted-by":"publisher","first-page":"098","DOI":"10.1007\/JHEP11(2016)098","volume":"11","author":"G
+        Bevilacqua","year":"2016","unstructured":"G. Bevilacqua, H.B. Hartanto, M.
+        Kraus and M. Worek, Off-shell top quarks with one jet at the LHC: a comprehensive
+        analysis at NLO QCD, JHEP 11 (2016) 098 [arXiv:1609.01659] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR45","doi-asserted-by":"publisher","first-page":"158","DOI":"10.1007\/JHEP10(2018)158","volume":"10","author":"G
+        Bevilacqua","year":"2018","unstructured":"G. Bevilacqua et al., Hard photons
+        in hadroproduction of top quarks with realistic final states, JHEP 10 (2018)
+        158 [arXiv:1803.09916] [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR46","doi-asserted-by":"crossref","unstructured":"J.
+        Alwall et al., A standard format for Les Houches event files, Comput. Phys.
+        Commun. 176 (2007) 300 [hep-ph\/0609017] [INSPIRE].","DOI":"10.1016\/j.cpc.2006.11.010"},{"key":"11717_CR47","doi-asserted-by":"publisher","first-page":"2499","DOI":"10.1016\/j.cpc.2009.08.005","volume":"180","author":"I
+        Antcheva","year":"2009","unstructured":"I. Antcheva et al., ROOT: a C++ framework
+        for petabyte data storage, statistical analysis and visualization, Comput.
+        Phys. Commun. 180 (2009) 2499 [arXiv:1508.07749] [INSPIRE].","journal-title":"Comput.
+        Phys. Commun."},{"key":"11717_CR48","doi-asserted-by":"publisher","first-page":"1443","DOI":"10.1016\/j.cpc.2014.01.011","volume":"185","author":"Z
+        Bern","year":"2014","unstructured":"Z. Bern et al., Ntuples for NLO events
+        at hadron colliders, Comput. Phys. Commun. 185 (2014) 1443 [arXiv:1310.7439]
+        [INSPIRE].","journal-title":"Comput. Phys. Commun."},{"key":"11717_CR49","doi-asserted-by":"publisher","first-page":"1","DOI":"10.1016\/0550-3213(89)90108-9","volume":"B
+        314","author":"M Jezabek","year":"1989","unstructured":"M. Jezabek and J.H.
+        Kuhn, QCD corrections to semileptonic decays of heavy quarks, Nucl. Phys.
+        B 314 (1989) 1 [INSPIRE].","journal-title":"Nucl. Phys."},{"key":"11717_CR50","doi-asserted-by":"crossref","unstructured":"K.G.
+        Chetyrkin, R. Harlander, T. Seidensticker and M. Steinhauser, Second order
+        QCD corrections to \u0393(t \u2192 W b), Phys. Rev. D 60 (1999) 114015 [hep-ph\/9906273]
+        [INSPIRE].","DOI":"10.1103\/PhysRevD.60.114015"},{"key":"11717_CR51","doi-asserted-by":"publisher","first-page":"063","DOI":"10.1088\/1126-6708\/2008\/04\/063","volume":"04","author":"M
+        Cacciari","year":"2008","unstructured":"M. Cacciari, G.P. Salam and G. Soyez,
+        The anti-kt jet clustering algorithm, JHEP 04 (2008) 063 [arXiv:0802.1189]
+        [INSPIRE].","journal-title":"JHEP"},{"key":"11717_CR52","doi-asserted-by":"publisher","first-page":"132","DOI":"10.1140\/epjc\/s10052-015-3318-8","volume":"C
+        75","author":"A Buckley","year":"2015","unstructured":"A. Buckley et al.,
+        LHAPDF6: parton density access in the LHC precision era, Eur. Phys. J. C 75
+        (2015) 132 [arXiv:1412.7420] [INSPIRE].","journal-title":"Eur. Phys. J."},{"key":"11717_CR53","doi-asserted-by":"crossref","unstructured":"J.
+        Butterworth et al., PDF4LHC recommendations for LHC Run II, J. Phys. G 43
+        (2016) 023001 [arXiv:1510.03865] [INSPIRE].","DOI":"10.1088\/0954-3899\/43\/2\/023001"},{"key":"11717_CR54","doi-asserted-by":"crossref","unstructured":"S.
+        Dulat et al., New parton distribution functions from a global analysis of
+        quantum chromodynamics, Phys. Rev. D 93 (2016) 033006 [arXiv:1506.07443] [INSPIRE].","DOI":"10.1103\/PhysRevD.93.033006"},{"key":"11717_CR55","doi-asserted-by":"crossref","unstructured":"NNPDF
+        collaboration, Parton distributions for the LHC Run II, JHEP 04 (2015) 040
+        [arXiv:1410.8849] [INSPIRE].","DOI":"10.1007\/JHEP04(2015)040"},{"key":"11717_CR56","doi-asserted-by":"publisher","first-page":"204","DOI":"10.1140\/epjc\/s10052-015-3397-6","volume":"C
+        75","author":"LA Harland-Lang","year":"2015","unstructured":"L.A. Harland-Lang,
+        A.D. Martin, P. Motylinski and R.S. Thorne, Parton distributions in the LHC
+        era: MMHT 2014 PDFs, Eur. Phys. J. C 75 (2015) 204 [arXiv:1412.3989] [INSPIRE].","journal-title":"Eur.
+        Phys. J."},{"key":"11717_CR57","doi-asserted-by":"publisher","first-page":"192002","DOI":"10.1103\/PhysRevLett.110.192002","volume":"110","author":"R
+        Boughezal","year":"2013","unstructured":"R. Boughezal and M. Schulze, Precise
+        predictions for top-quark\u2013plus\u2013missing-energy signatures at the
+        LHC, Phys. Rev. Lett. 110 (2013) 192002 [arXiv:1212.0898] [INSPIRE].","journal-title":"Phys.
+        Rev. Lett."},{"key":"11717_CR58","doi-asserted-by":"crossref","unstructured":"R.
+        Boughezal and M. Schulze, t$$ \\overline{t} $$+large missing energy from top-quark
+        partners: a comprehensive study at next-to-leading order QCD, Phys. Rev. D
+        88 (2013) 114002 [arXiv:1309.2316] [INSPIRE].","DOI":"10.1103\/PhysRevD.88.114002"},{"key":"11717_CR59","doi-asserted-by":"crossref","unstructured":"M.
+        Bauer, U. Haisch and F. Kahlhoefer, Simplified dark matter models with two
+        Higgs doublets: I. Pseudoscalar mediators, JHEP 05 (2017) 138 [arXiv:1701.07427]
+        [INSPIRE].","DOI":"10.1007\/JHEP05(2017)138"},{"key":"11717_CR60","doi-asserted-by":"publisher","first-page":"188","DOI":"10.1007\/JHEP01(2019)188","volume":"01","author":"G
+        Bevilacqua","year":"2019","unstructured":"G. Bevilacqua, H.B. Hartanto, M.
+        Kraus, T. Weber and M. Worek, Precise predictions for t$$ \\overline{t} $$\ud835\udefe
+        \/t$$ \\overline{t} $$ cross section ratios at the LHC, JHEP 01 (2019) 188
+        [arXiv:1809.08562] [INSPIRE].","journal-title":"JHEP"}],"container-title":["Journal
+        of High Energy Physics"],"original-title":[],"language":"en","link":[{"URL":"https:\/\/link.springer.com\/content\/pdf\/10.1007\/JHEP11(2019)001.pdf","content-type":"application\/pdf","content-version":"vor","intended-application":"text-mining"},{"URL":"https:\/\/link.springer.com\/article\/10.1007\/JHEP11(2019)001\/fulltext.html","content-type":"text\/html","content-version":"vor","intended-application":"text-mining"},{"URL":"https:\/\/link.springer.com\/content\/pdf\/10.1007\/JHEP11(2019)001.pdf","content-type":"application\/pdf","content-version":"vor","intended-application":"similarity-checking"}],"deposited":{"date-parts":[[2022,5,31]],"date-time":"2022-05-31T20:11:12Z","timestamp":1654027872000},"score":1,"resource":{"primary":{"URL":"https:\/\/link.springer.com\/10.1007\/JHEP11(2019)001"}},"subtitle":[],"short-title":[],"issued":{"date-parts":[[2019,11]]},"references-count":60,"journal-issue":{"issue":"11","published-print":{"date-parts":[[2019,11]]}},"alternative-id":["11717"],"URL":"http:\/\/dx.doi.org\/10.1007\/jhep11(2019)001","relation":{},"ISSN":["1029-8479"],"issn-type":[{"value":"1029-8479","type":"electronic"}],"subject":["Nuclear
+        and High Energy Physics"],"published":{"date-parts":[[2019,11]]},"assertion":[{"value":"25
+        July 2019","order":1,"name":"received","label":"Received","group":{"name":"ArticleHistory","label":"Article
+        History"}},{"value":"18 October 2019","order":2,"name":"revised","label":"Revised","group":{"name":"ArticleHistory","label":"Article
+        History"}},{"value":"22 October 2019","order":3,"name":"accepted","label":"Accepted","group":{"name":"ArticleHistory","label":"Article
+        History"}},{"value":"4 November 2019","order":4,"name":"first_online","label":"First
+        Online","group":{"name":"ArticleHistory","label":"Article History"}}],"article-number":"1"}}'
+    headers:
+      access-control-allow-headers:
+      - X-Requested-With, Accept, Accept-Encoding, Accept-Charset, Accept-Language,
+        Accept-Ranges, Cache-Control
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Link
+      connection:
+      - close
+      content-length:
+      - '33032'
+      content-type:
+      - application/json
+      date:
+      - Tue, 12 Dec 2023 09:31:04 GMT
+      permissions-policy:
+      - interest-cohort=()
+      server:
+      - Jetty(9.4.40.v20210413)
+      vary:
+      - Accept-Encoding
+      x-api-pool:
+      - public
+      x-rate-limit-interval:
+      - 1s
+      x-rate-limit-limit:
+      - '50'
+      x-ratelimit-interval:
+      - 1s
+      x-ratelimit-limit:
+      - '50'
+    status:
+      code: 200
+      message: OK
+version: 1

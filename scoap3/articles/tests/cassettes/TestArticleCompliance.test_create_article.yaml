@@ -1,0 +1,125 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      X-USER-AGENT:
+      - python-requests/2.31.0 habanero/1.2.3
+    method: GET
+    uri: https://api.crossref.org/works/10.1016/j.ijheatmasstransfer.2023.124726
+  response:
+    body:
+      string: '{"status":"ok","message-type":"work","message-version":"1.0.0","message":{"indexed":{"date-parts":[[2023,11,11]],"date-time":"2023-11-11T00:24:43Z","timestamp":1699662283411},"reference-count":39,"publisher":"Elsevier
+        BV","license":[{"start":{"date-parts":[[2024,1,1]],"date-time":"2024-01-01T00:00:00Z","timestamp":1704067200000},"content-version":"tdm","delay-in-days":0,"URL":"https:\/\/www.elsevier.com\/tdm\/userlicense\/1.0\/"},{"start":{"date-parts":[[2023,9,19]],"date-time":"2023-09-19T00:00:00Z","timestamp":1695081600000},"content-version":"vor","delay-in-days":0,"URL":"http:\/\/creativecommons.org\/licenses\/by\/4.0\/"}],"content-domain":{"domain":["elsevier.com","sciencedirect.com"],"crossmark-restriction":true},"short-container-title":["International
+        Journal of Heat and Mass Transfer"],"published-print":{"date-parts":[[2024,1]]},"DOI":"10.1016\/j.ijheatmasstransfer.2023.124726","type":"journal-article","created":{"date-parts":[[2023,9,29]],"date-time":"2023-09-29T17:03:31Z","timestamp":1696007011000},"page":"124726","update-policy":"http:\/\/dx.doi.org\/10.1016\/elsevier_cm_policy","source":"Crossref","is-referenced-by-count":0,"title":["Design
+        and performance of a novel compact high-effectiveness transparent-wall counter-flow
+        heat exchanger fabricated using additive manufacturing"],"prefix":"10.1016","volume":"218","author":[{"ORCID":"http:\/\/orcid.org\/0000-0002-6533-0233","authenticated-orcid":false,"given":"A.","family":"Onufrena","sequence":"first","affiliation":[]},{"given":"T.","family":"Koettig","sequence":"additional","affiliation":[]},{"given":"B.","family":"Naydenov","sequence":"additional","affiliation":[]},{"given":"J.","family":"Bremer","sequence":"additional","affiliation":[]},{"given":"T.","family":"Tirolien","sequence":"additional","affiliation":[]},{"given":"H.J.M.","family":"ter
+        Brake","sequence":"additional","affiliation":[]}],"member":"78","reference":[{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0010","doi-asserted-by":"crossref","article-title":"Cryogenic
+        performance of a compact high-effectiveness mesh-based counter-flow heat exchanger","author":"Onufrena","year":"2022","journal-title":"Cryogenics","DOI":"10.1016\/j.cryogenics.2022.103495"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0020","author":"Fernandes"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0030","author":"Fernandes"},{"issue":"1","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0040","doi-asserted-by":"crossref","first-page":"61","DOI":"10.1016\/j.cryogenics.2007.11.004","article-title":"Construction
+        and test of a cryocooler-cooled low-Tc SQUID gradiometer system","volume":"48","author":"Rijpma","year":"2008","journal-title":"Cryogenics"},{"issue":"1","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0050","doi-asserted-by":"crossref","DOI":"10.1088\/1742-6596\/1342\/1\/012014","article-title":"The
+        status of KAGRA underground cryogenic gravitational wave telescope","volume":"1342","author":"Akutsu","year":"2020","journal-title":"J.
+        Phys. Conf. Ser."},{"issue":"12","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0060","doi-asserted-by":"crossref","DOI":"10.1088\/0264-9381\/29\/12\/124007","article-title":"Detector
+        configuration of KAGRA\u2013the Japanese cryogenic gravitational-wave detector","volume":"29","author":"Somiya","year":"2012","journal-title":"Class.
+        Quantum Gravity"},{"issue":"1","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0070","doi-asserted-by":"crossref","DOI":"10.1088\/1742-6596\/1857\/1\/012002","article-title":"Radiative
+        cooling of the thermally isolated system in KAGRA gravitational wave telescope","volume":"1857","author":"Akutsu","year":"2021","journal-title":"J.
+        Phys. Conf. Ser."},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0080","series-title":"Einstein
+        gravitational wave Telescope (ET) conceptual design study","author":"Abernathy","year":"2011"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0090","author":"Kleiven"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0100","author":"Will"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0110","author":"Wollmann"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0120","doi-asserted-by":"crossref","DOI":"10.1016\/j.ijheatmasstransfer.2021.122107","article-title":"Design
+        of a compact mesh-based high-effectiveness counter-flow heat exchanger and
+        its integration in remote cooling systems","volume":"183","author":"Onufrena","year":"2022","journal-title":"Int.
+        J. Heat Mass Transf."},{"issue":"1","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0130","doi-asserted-by":"crossref","DOI":"10.1088\/1757-899X\/1240\/1\/012049","article-title":"Remote
+        cooling systems with mesh-based heat exchangers for cryogenic applications","volume":"1240","author":"Onufrena","year":"2022","journal-title":"IOP
+        Conf. Ser., Mater. Sci. Eng."},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0140","series-title":"IOP
+        Conference Series: Materials Science and Engineering, Advances in Cryogenic
+        Engineering","article-title":"Remote cooling system study based on a two-stage
+        cryocooler with a helium circulation loop","author":"Onufrena","year":"2022"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0150","series-title":"FCC-ee:
+        the Lepton Collider: Future Circular Collider Conceptual Design Report Volume
+        2. Future Circular Collider","author":"Benedikt","year":"2018"},{"issue":"2","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0160","doi-asserted-by":"crossref","first-page":"73","DOI":"10.1016\/S0011-2275(02)00002-4","article-title":"3He\/4He
+        dilution refrigerator with pulse-tube refrigerator precooling","volume":"42","author":"Uhlig","year":"2002","journal-title":"Cryogenics"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0170","doi-asserted-by":"crossref","DOI":"10.1088\/1757-899X\/502\/1\/012097","article-title":"Test
+        stand for the characterization of superconducting magnets cooled with cryocoolers","volume":"502","author":"Zoller","year":"2019","journal-title":"IOP
+        Conf. Ser., Mater. Sci. Eng."},{"issue":"3","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0180","doi-asserted-by":"crossref","first-page":"1","DOI":"10.1109\/TASC.2013.2281033","article-title":"Development
+        of curved combined-function superconducting magnets for a heavy-ion rotating-gantry","volume":"24","author":"Iwata","year":"2014","journal-title":"IEEE
+        Trans. Appl. Supercond."},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0190","series-title":"Cryocoolers
+        20","article-title":"A 40 K turbo-Brayton cryocooler for earth observation
+        applications","author":"Tanchon","year":"2018"},{"issue":"2","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0200","doi-asserted-by":"crossref","first-page":"169","DOI":"10.1016\/j.cryogenics.2005.11.018","article-title":"High-capacity
+        turbo-Brayton cryocoolers for space applications","volume":"46","author":"Zagarola","year":"2006","journal-title":"Cryogenics"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0210","series-title":"Thermal
+        and Fluids Analysis Workshop (TFAWS)","article-title":"An active broad-area
+        cooling model of a cryogenic propellant tank with a single-stage reverse turbo-Brayton
+        cycle cryocooler","author":"Guzik","year":"2001"},{"issue":"12","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0220","doi-asserted-by":"crossref","first-page":"989","DOI":"10.1016\/S0011-2275(99)00117-4","article-title":"Developments
+        in Turbo Brayton technology for low temperature applications","volume":"39","author":"Swift","year":"1999","journal-title":"Cryogenics"},{"issue":"1","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0230","doi-asserted-by":"crossref","first-page":"1489","DOI":"10.1063\/1.2202572","article-title":"Hybrid
+        Stirling \/ reverse Brayton and multi-stage Brayton cryocoolers for space
+        applications","volume":"823","author":"Kirkconnell","year":"2006","journal-title":"AIP
+        Conf. Proc."},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0240","doi-asserted-by":"crossref","DOI":"10.1088\/1757-899X\/279\/1\/012015","article-title":"A
+        4 K tactical cryocooler using reverse-Brayton machines","volume":"279","author":"Zagarola","year":"2017","journal-title":"IOP
+        Conf. Ser., Mater. Sci. Eng."},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0250","series-title":"Cryocoolers
+        13","first-page":"633","article-title":"The NICMOS turbo-Brayton cryocooler
+        \u2014 two years in orbit","author":"Swift","year":"2005"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0260","series-title":"Proceedings
+        of the Sixth European Symposium on Space Environmental Control Systems","article-title":"\u201380\u2218C
+        Brayton cycle cooler for ISS","author":"Crespi","year":"1997"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0270","series-title":"Low
+        flow velocity, fine-screen heat exchangers and vapor-cooled cryogenic current
+        leads","author":"Steyert","year":"1978"},{"issue":"1","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0280","doi-asserted-by":"crossref","first-page":"192","DOI":"10.1299\/jtst.6.192","article-title":"Performance
+        analysis of woven wire screen matrix heat exchanger units","volume":"6","author":"Zhao","year":"2011","journal-title":"J.
+        Therm. Sci. Technol."},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0290","series-title":"Cryocoolers
+        21","article-title":"Characterization of woven copper mesh as a heat transfer
+        matrix at low temperatures","author":"Onufrena","year":"2020"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0300","article-title":"Str\u00f6mungstechnische
+        Optimierung von Regeneratoren f\u00fcr Gask\u00e4ltemaschinen","author":"R\u00fchlich","year":"1999"},{"issue":"1","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0310","doi-asserted-by":"crossref","first-page":"135","DOI":"10.1016\/S0011-2275(97)00124-0","article-title":"Helium
+        permeation in composite materials for cryogenic application","volume":"38","author":"Disdier","year":"1998","journal-title":"Cryogenics"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0320","series-title":"Cryocoolers
+        19","article-title":"A Turbo-Brayton Cryocooler for Future European Observation
+        Satellite Generation","author":"Tanchon","year":"2016"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0330","author":"Kotsubo"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0340","series-title":"Python
+        3","author":"Van Rossum","year":"2009"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0350","series-title":"Cryogenic
+        Heat Transfer","author":"Barron","year":"1999"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0360","series-title":"Duennschichtsysteme
+        fur die effektive Tieftemperaturregeneration","author":"Koettig","year":"2008"},{"issue":"7","key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0370","doi-asserted-by":"crossref","first-page":"1381","DOI":"10.1088\/0960-1317\/17\/7\/021","article-title":"Pressure
+        drop of laminar gas flows in a microchannel containing various pillar matrices","volume":"17","author":"Vanapalli","year":"2007","journal-title":"J.
+        Micromech. Microeng."},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0380","series-title":"Compact
+        Heat Exchangers","author":"Kays","year":"1984"},{"key":"10.1016\/j.ijheatmasstransfer.2023.124726_br0390","series-title":"Cryocoolers
+        15","article-title":"Micro channel recuperator for a reverse Brayton cycle
+        cryocooler","author":"Becnel","year":"2009"}],"container-title":["International
+        Journal of Heat and Mass Transfer"],"original-title":[],"language":"en","link":[{"URL":"https:\/\/api.elsevier.com\/content\/article\/PII:S0017931023008712?httpAccept=text\/xml","content-type":"text\/xml","content-version":"vor","intended-application":"text-mining"},{"URL":"https:\/\/api.elsevier.com\/content\/article\/PII:S0017931023008712?httpAccept=text\/plain","content-type":"text\/plain","content-version":"vor","intended-application":"text-mining"}],"deposited":{"date-parts":[[2023,11,10]],"date-time":"2023-11-10T10:38:46Z","timestamp":1699612726000},"score":1,"resource":{"primary":{"URL":"https:\/\/linkinghub.elsevier.com\/retrieve\/pii\/S0017931023008712"}},"subtitle":[],"short-title":[],"issued":{"date-parts":[[2024,1]]},"references-count":39,"alternative-id":["S0017931023008712"],"URL":"http:\/\/dx.doi.org\/10.1016\/j.ijheatmasstransfer.2023.124726","relation":{},"ISSN":["0017-9310"],"issn-type":[{"value":"0017-9310","type":"print"}],"subject":["Fluid
+        Flow and Transfer Processes","Mechanical Engineering","Condensed Matter Physics"],"published":{"date-parts":[[2024,1]]},"assertion":[{"value":"Elsevier","name":"publisher","label":"This
+        article is maintained by"},{"value":"Design and performance of a novel compact
+        high-effectiveness transparent-wall counter-flow heat exchanger fabricated
+        using additive manufacturing","name":"articletitle","label":"Article Title"},{"value":"International
+        Journal of Heat and Mass Transfer","name":"journaltitle","label":"Journal
+        Title"},{"value":"https:\/\/doi.org\/10.1016\/j.ijheatmasstransfer.2023.124726","name":"articlelink","label":"CrossRef
+        DOI link to publisher maintained version"},{"value":"article","name":"content_type","label":"Content
+        Type"},{"value":"\u00a9 2023 The Author(s). Published by Elsevier Ltd.","name":"copyright","label":"Copyright"}],"article-number":"124726"}}'
+    headers:
+      access-control-allow-headers:
+      - X-Requested-With, Accept, Accept-Encoding, Accept-Charset, Accept-Language,
+        Accept-Ranges, Cache-Control
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Link
+      connection:
+      - close
+      content-length:
+      - '13220'
+      content-type:
+      - application/json
+      date:
+      - Tue, 12 Dec 2023 09:31:34 GMT
+      permissions-policy:
+      - interest-cohort=()
+      server:
+      - Jetty(9.4.40.v20210413)
+      vary:
+      - Accept-Encoding
+      x-api-pool:
+      - public
+      x-rate-limit-interval:
+      - 1s
+      x-rate-limit-limit:
+      - '50'
+      x-ratelimit-interval:
+      - 1s
+      x-ratelimit-limit:
+      - '50'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -91,8 +91,6 @@ class ArticleDocument(Document):
         }
     )
 
-    _updated_at = fields.DateField()
-
     def prepare_authors(self, instance):
         authors = Author.objects.filter(article_id=instance)
         serialized_authors = []
@@ -184,4 +182,5 @@ class ArticleDocument(Document):
             "title",
             "subtitle",
             "_created_at",
+            "_updated_at",
         ]

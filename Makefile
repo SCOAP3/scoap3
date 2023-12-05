@@ -30,3 +30,9 @@ shell:
 
 flush:
 	poetry run python manage.py flush
+
+make-migrations:
+	poetry run python manage.py makemigrations
+
+migrate:
+	poetry run python manage.py migrate

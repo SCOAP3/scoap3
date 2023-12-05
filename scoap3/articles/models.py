@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.fields.files import FieldFile
+from django_lifecycle import AFTER_CREATE, AFTER_UPDATE, LifecycleModelMixin, hook
 
 
 class ArticleIdentifierType(models.TextChoices):
@@ -24,7 +25,7 @@ class CustomFileField(models.FileField):
     attr_class = CustomFieldFile
 
 
-class Article(models.Model):
+class Article(LifecycleModelMixin, models.Model):
     reception_date = models.DateField(blank=True, null=True)
     acceptance_date = models.DateField(blank=True, null=True)
     publication_date = models.DateField(blank=True, null=True)
@@ -44,6 +45,13 @@ class Article(models.Model):
 
     class Meta:
         ordering = ["id"]
+
+    @hook(AFTER_UPDATE, on_commit=True)
+    @hook(AFTER_CREATE, on_commit=True)
+    def on_save(self):
+        from scoap3.articles.tasks import compliance_checks
+
+        compliance_checks.delay(self.id)
 
 
 class ArticleFile(models.Model):
@@ -75,3 +83,35 @@ class ArticleIdentifier(models.Model):
         indexes = [
             models.Index(fields=["article_id", "identifier_type", "identifier_value"])
         ]
+
+
+class ComplianceReport(models.Model):
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="report"
+    )
+    report_date = models.DateTimeField(auto_now_add=True)
+
+    check_license = models.BooleanField(default=False)
+    check_license_description = models.TextField(blank=True, default="")
+    check_file_formats = models.BooleanField(default=False)
+    check_file_formats_description = models.TextField(blank=True, default="")
+    check_arxiv_category = models.BooleanField(default=False)
+    check_arxiv_category_description = models.TextField(blank=True, default="")
+    check_article_type = models.BooleanField(default=False)
+    check_article_type_description = models.TextField(blank=True, default="")
+    check_doi_registration_time = models.BooleanField(default=False)
+    check_doi_registration_time_description = models.TextField(blank=True, default="")
+
+    def __str__(self):
+        return f"Compliance Report for {self.article.title} on {self.report_date.strftime('%Y-%m-%d')}"
+
+    def is_compliant(self):
+        return all(
+            [
+                self.check_license,
+                self.check_file_formats,
+                self.check_arxiv_category,
+                self.check_article_type,
+                self.check_doi_registration_time,
+            ]
+        )
