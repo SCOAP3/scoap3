@@ -21,6 +21,10 @@ const SearchPage: React.FC<SearchPageProps> = ({
   query,
   facets,
 }) => {
+  const years = facets?._filter_publication_year?.publication_year?.buckets;
+  const countries = facets?._filter_country?.country?.buckets;
+  const journals = facets?._filter_journal?.journal?.buckets;
+
   return (
     <div className="container">
       <div className="container-inner">
@@ -28,24 +32,26 @@ const SearchPage: React.FC<SearchPageProps> = ({
           <div className="search-facets">
             {results && results.length > 0 && (
               <>
-                <YearFacet
-                  data={
-                    facets?._filter_publication_year?.publication_year?.buckets
-                  }
-                  params={query}
-                />
-                <CheckboxFacet
-                  data={facets?._filter_country?.country?.buckets}
-                  title="Country / Region / Territory"
-                  type={"country"}
-                  params={query}
-                />
-                <CheckboxFacet
-                  data={facets?._filter_journal?.journal?.buckets}
-                  title="Journal"
-                  type={"journal"}
-                  params={query}
-                />
+                {years && years.length > 0 && (
+                  <YearFacet data={years} params={query} />
+                )}
+                {countries && countries.length > 0 && (
+                  <CheckboxFacet
+                    data={countries}
+                    title="Country / Region / Territory"
+                    type={"country"}
+                    params={query}
+                  />
+                )}
+
+                {journals && journals.length > 0 && (
+                  <CheckboxFacet
+                    data={journals}
+                    title="Journal"
+                    type={"journal"}
+                    params={query}
+                  />
+                )}
               </>
             )}
           </div>
