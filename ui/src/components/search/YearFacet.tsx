@@ -56,7 +56,6 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
     return initial?.map((item) => ({
       x: new Date(item?.key)?.getFullYear(),
       y: item?.doc_count,
-      y0: 0
     }));
   };
 

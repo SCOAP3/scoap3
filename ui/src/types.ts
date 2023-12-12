@@ -5,6 +5,7 @@ export const queryTypes = [
   "country",
   "journal",
   "publication_year__range",
+  "ordering"
 ] as const;
 
 export type QueryType = (typeof queryTypes)[number];

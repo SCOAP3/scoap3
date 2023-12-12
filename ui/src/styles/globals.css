@@ -340,6 +340,14 @@ a {
   color: white !important;
 }
 
+.sort-dropdown {
+  width: 120px;
+}
+
+.sort-dropdown .ant-select-selection-placeholder {
+  color: #333;
+}
+
 .search-results-record-date {
   color: #ccc;
 }
