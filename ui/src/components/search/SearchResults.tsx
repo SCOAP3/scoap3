@@ -49,16 +49,19 @@ const SearchResults: React.FC<SearchResultsProps> = ({
         <SearchPagination count={count} params={params} />
         <div className="sort flex items-center">
           {count > 0 && (
-            <Select
-              options={sortOptions}
-              placeholder="Sort by"
-              className="sort-dropdown"
-              onChange={sortResults}
-            >
-              <div>
-                Sort by <DownOutlined />
-              </div>
-            </Select>
+            <div>
+              Sort by
+              <Select
+                options={sortOptions}
+                className="sort-dropdown ml-3"
+                onChange={sortResults}
+                defaultValue="_updated_at"
+              >
+                <div>
+                  <DownOutlined />
+                </div>
+              </Select>
+            </div>
           )}
         </div>
       </div>
