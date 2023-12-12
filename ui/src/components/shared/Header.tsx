@@ -6,6 +6,7 @@ import { Button } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 
 import { MenuItem } from "@/types";
+import { BASE_URL } from "@/utils/utils";
 
 interface MenuProps {
   items: MenuItem[];
@@ -40,7 +41,9 @@ const labels = [
   >
     Documentation
   </a>,
-  <Link href="/login">Login</Link>,
+  <a href={`${BASE_URL}/admin/login`} target="_blank" rel="noopener noreferrer">
+    Login
+  </a>,
 ];
 
 const Menu: React.FC<MenuProps> = ({
