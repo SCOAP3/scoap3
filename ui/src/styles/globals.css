@@ -414,6 +414,11 @@ a {
   cursor: pointer;
 }
 
+.search-facets-facet .skeleton-data rect:hover {
+  stroke: #e3eaee !important;
+  fill: #e3eaee !important;
+}
+
 .search-facets-facet .ant-btn {
   background-color: #337ab7;
   padding: 5px 10px;

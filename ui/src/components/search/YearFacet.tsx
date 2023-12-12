@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlexibleWidthXYPlot, VerticalBarSeries, Hint } from "react-vis";
-import 'react-vis/dist/style.css';
+import { XYPlot, VerticalBarSeries, Hint } from "react-vis";
 import { Button, Card, Slider } from "antd";
 import { SliderMarks } from "antd/es/slider";
 import { useRouter } from "next/navigation";
 import isEqual from "lodash.isequal";
+import "react-vis/dist/style.css";
 
 import { getSearchUrl } from "@/utils/utils";
 import { PublicationYear, YearFacetData, Params } from "@/types";
@@ -38,10 +38,17 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
       getSearchUrl({
         ...params,
         page: 1,
-        publication_year__range: sliderEndpoints.join("__"),
+        publication_year__range: resolveYearQuery(),
       })
     );
   }, [filters]);
+
+  const resolveYearQuery = () => {
+    if (sliderEndpoints[0] === sliderEndpoints[1]) {
+      return sliderEndpoints[0]?.toString();
+    }
+    return sliderEndpoints.join("__");
+  };
 
   const mapInitialDataToYears = (
     initial: PublicationYear[]
@@ -49,6 +56,7 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
     return initial?.map((item) => ({
       x: new Date(item?.key)?.getFullYear(),
       y: item?.doc_count,
+      y0: 0
     }));
   };
 
@@ -70,16 +78,11 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
   };
 
   const updateStateAndMarks = (newFilters: YearFacetData[]) => {
-    setFilters(newFilters);
     setSliderEndpoints(getSliderEndpoints(newFilters));
     setMarks(getMarks(newFilters));
   };
 
-  const onBarClick = (value: YearFacetData) => {
-    updateStateAndMarks([value]);
-  };
-
-  const onSliderChange = (data: number[]) => {
+  const sliderDataToGraphData = (data: number[]) => {
     const firstIndex = initialData.findIndex(
       (item: YearFacetData) => item.x === data[0]
     );
@@ -88,7 +91,24 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
     );
     const range = initialData.slice(firstIndex, lastIndex + 1);
 
-    updateStateAndMarks(range);
+    if (range.length === 1) {
+      return [range, range].flat();
+    }
+
+    return range;
+  };
+
+  const onSliderChange = (data: number[]) => {
+    updateStateAndMarks(sliderDataToGraphData(data));
+  };
+
+  const onSliderAfterChange = (data: number[]) => {
+    setFilters(sliderDataToGraphData(data));
+  };
+
+  const onBarClick = (value: YearFacetData) => {
+    updateStateAndMarks([value, value]);
+    setFilters([value, value]);
   };
 
   const onBarMouseHover = (bar: YearFacetData) => {
@@ -100,6 +120,7 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
   const resetFilters = () => {
     setReset(!reset);
     updateStateAndMarks(initialData);
+    setFilters(initialData);
   };
 
   return (
@@ -107,33 +128,44 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
       <div>
         {!isEqual(initialData, filters) && (
           <div className="text-right">
-            <Button onClick={resetFilters} className="ml-1" type="primary" size="small">
+            <Button
+              onClick={resetFilters}
+              className="ml-1"
+              type="primary"
+              size="small"
+            >
               Reset
             </Button>
           </div>
         )}
-        <FlexibleWidthXYPlot
+        <XYPlot
           height={80}
           width={150}
           margin={0}
           className="year-facet"
         >
           <VerticalBarSeries
-            className="pointer"
+            className="skeleton-data"
+            color="#f5f5f5"
+            data={initialData}
+            onValueClick={onBarClick}
+          />
+          {hoveredBar && <Hint value={hoveredBar} />}
+          <VerticalBarSeries
+            className="current-data"
             color="#3498db"
-            barWidth={0.6}
             data={filters}
             onValueClick={onBarClick}
             onValueMouseOver={onBarMouseHover}
             onValueMouseOut={onBarMouseOut}
           />
-          {hoveredBar && <Hint value={hoveredBar} />}
-        </FlexibleWidthXYPlot>
+        </XYPlot>
       </div>
       <Slider
         range
         className="year-facet-slider"
         onChange={onSliderChange}
+        onAfterChange={onSliderAfterChange}
         value={sliderEndpoints}
         min={initialEndpoints[0]}
         max={initialEndpoints[1]}
