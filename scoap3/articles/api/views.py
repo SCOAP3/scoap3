@@ -96,6 +96,8 @@ class ArticleDocumentView(BaseDocumentViewSet):
 
     search_fields = ("title", "id", "authors.first_name", "authors.last_name")
 
+    ordering = ["-updated_at"]
+
     filter_fields = {
         "publication_year": {
             "field": "publication_date",
