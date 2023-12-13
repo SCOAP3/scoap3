@@ -1,0 +1,1988 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchPage renders search with correct articles count 1`] = `
+<div>
+  <div
+    class="container"
+  >
+    <div
+      class="container-inner"
+    >
+      <div
+        class="search flex"
+      >
+        <div
+          class="search-facets"
+        >
+          <div
+            class="ant-card ant-card-bordered search-facets-facet mb-5 css-dev-only-do-not-override-2q8sxy"
+          >
+            <div
+              class="ant-card-head"
+            >
+              <div
+                class="ant-card-head-wrapper"
+              >
+                <div
+                  class="ant-card-head-title"
+                >
+                  Year
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-card-body"
+            >
+              <div>
+                <div
+                  style="width: 100%; height: 100%;"
+                >
+                  <div
+                    class="rv-xy-plot year-facet"
+                    style="width: 150px; height: 80px;"
+                  >
+                    <svg
+                      class="rv-xy-plot__inner"
+                      height="80"
+                      width="150"
+                    >
+                      <g
+                        class="rv-xy-plot__series rv-xy-plot__series--bar pointer"
+                        transform="translate(0,0)"
+                      >
+                        <rect
+                          height="80"
+                          style="opacity: 1; stroke: #3498db; fill: #3498db;"
+                          width="90"
+                          x="30"
+                          y="0"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-slider year-facet-slider css-dev-only-do-not-override-2q8sxy ant-slider-horizontal ant-slider-with-marks"
+              >
+                <div
+                  class="ant-slider-rail"
+                />
+                <div
+                  class="ant-slider-step"
+                >
+                  <span
+                    class="ant-slider-dot ant-slider-dot-active"
+                    style="left: 0%; transform: translateX(-50%);"
+                  />
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-orientation="horizontal"
+                  aria-valuemax="100"
+                  aria-valuemin="2014"
+                  aria-valuenow="2014"
+                  class="ant-slider-handle ant-slider-handle-1"
+                  role="slider"
+                  style="left: 0%; transform: translateX(-50%);"
+                  tabindex="0"
+                />
+                <div
+                  class="ant-slider-mark"
+                >
+                  <span
+                    class="ant-slider-mark-text ant-slider-mark-text-active"
+                    style="left: 0%; transform: translateX(-50%);"
+                  >
+                    2014
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-card ant-card-bordered search-facets-facet mb-5 css-dev-only-do-not-override-2q8sxy"
+          >
+            <div
+              class="ant-card-head"
+            >
+              <div
+                class="ant-card-head-wrapper"
+              >
+                <div
+                  class="ant-card-head-title"
+                >
+                  Country / Region / Territory
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-card-body"
+            >
+              <div>
+                <div
+                  class="flex items-center justify-between"
+                >
+                  <label>
+                    <input
+                      class="mr-1"
+                      name="Poland"
+                      type="checkbox"
+                    />
+                    Poland
+                  </label>
+                  <span
+                    class="badge dark"
+                  >
+                    2137
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-card ant-card-bordered search-facets-facet mb-5 css-dev-only-do-not-override-2q8sxy"
+          >
+            <div
+              class="ant-card-head"
+            >
+              <div
+                class="ant-card-head-wrapper"
+              >
+                <div
+                  class="ant-card-head-title"
+                >
+                  Journal
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-card-body"
+            >
+              <div>
+                <div
+                  class="flex items-center justify-between"
+                >
+                  <label>
+                    <input
+                      class="mr-1"
+                      name="Journal of High Energy Physics"
+                      type="checkbox"
+                    />
+                    J. High Energy Phys.
+                  </label>
+                  <span
+                    class="badge dark"
+                  >
+                    666
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="search-results"
+        >
+          <span
+            class="ant-input-group-wrapper ant-input-search ant-input-search-with-button search-results-searchbar css-dev-only-do-not-override-2q8sxy"
+          >
+            <span
+              class="ant-input-wrapper ant-input-group css-dev-only-do-not-override-2q8sxy"
+            >
+              <input
+                class="ant-input css-dev-only-do-not-override-2q8sxy"
+                placeholder="Search"
+                type="text"
+                value=""
+              />
+              <span
+                class="ant-input-group-addon"
+              >
+                <button
+                  class="ant-btn css-dev-only-do-not-override-2q8sxy ant-btn-primary ant-input-search-button"
+                  type="button"
+                >
+                  <span
+                    class="ant-btn-icon"
+                  >
+                    <span
+                      aria-label="search"
+                      class="anticon anticon-search"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="search"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </span>
+          <div>
+            <div
+              class="mt-4 mb-6 flex justify-between align-center"
+            >
+              <p
+                class="flex items-center"
+              >
+                Found
+                10
+                 results.
+              </p>
+              <div
+                class="sort flex items-center"
+              >
+                Add sort here
+              </div>
+            </div>
+            <ul
+              class="border-0 border-t border-solid border-slate-200"
+            >
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/784"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Freeze-in through portals
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Blennow, Mattias
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Fernandez-Martínez, Enrique
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Zaldívar, Bryan
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-03
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    The popular freeze-out paradigm for Dark Matter (DM) production, relies on DM-baryon couplings of the order of the weak interactions. However, different search strategies for DM have failed to provide a conclusive evidence of such (non-gravitational) interactions, while greatly reducing the parameter space of many representative models. This motivates the study of alternative mechanisms for DM genesis. In the freeze-in framework, the DM is slowly populated from the thermal bath while never reaching equilibrium. In this work, we analyse in detail the possibility of producing a frozen-in DM via a mediator particle which acts as a portal. We give analytical estimates of different freeze-in regimes and support them with full numerical analyses, taking into account the proper distribution functions of bath particles. Finally, we constrain the parameter space of generic models by requiring agreement with DM relic abundance observations.
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of Cosmology and Astroparticle Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                      <span
+                        class="publication-info-issue"
+                      >
+                         Issue 1
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 3
+                      </span>
+                      ) by
+                      <b>
+                        Institute of Physics Publishing/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1088/1475-7516/2014/01/003"
+                        >
+                          10.1088/1475-7516/2014/01/003
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1309.7348"
+                        >
+                          1309.7348
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/784/10.1088/1475-7516/2014/01/003.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/784/10.1088/1475-7516/2014/01/003.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/786"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Universality classes of inflation
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Roest, Diederik
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-07
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    We investigate all single-field, slow-roll inflationary models whose slow-roll parameters scale as 1/N in the limit of a large number of e-folds N. We proof that all such models belong to two universality classes, characterised by a single parameter. One class contains small field models like hilltop inflation, while the other class consists of large field models like chaotic inflation. We give the leading expressions for the spectral index and tensor-to-scalar ratio r, which are universal for each class, plus subleading corrections for a number of models. This predicts r either to be unobservably small, r &lt; 0.01, or close to the present observational limit, r ≈ 0.07.
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of Cosmology and Astroparticle Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                      <span
+                        class="publication-info-issue"
+                      >
+                         Issue 1
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 7
+                      </span>
+                      ) by
+                      <b>
+                        Institute of Physics Publishing/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1088/1475-7516/2014/01/007"
+                        >
+                          10.1088/1475-7516/2014/01/007
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1309.1285"
+                        >
+                          1309.1285
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/786/10.1088/1475-7516/2014/01/007.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/786/10.1088/1475-7516/2014/01/007.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/787"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Bounce cosmology from F(R) gravity and F(R) bigravity
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Bamba, Kazuharu
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Makarenko, Andrey N.
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Myagky, Alexandr N.
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Nojiri, Shin'ichi
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Odintsov, Sergei D.
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-08
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    We reconstruct F(R) gravity models with exponential and power-law forms of the scale factor in which bounce cosmology can be realized. We explore the stability of the reconstructed models with analyzing the perturbations from the background solutions. Furthermore, we study an F(R) gravity model with a sum of exponentials form of the scale factor, where the bounce in the early universe as well as the late-time cosmic acceleration can be realized in a unified manner. As a result, we build a second order polynomial type model in terms of R and show that it could be stable. Moreover, when the scale factor is expressed by an exponential form, we derive F(R) gravity models of a polynomial type in case of the non-zero spatial curvature and that of a generic type in that of the zero spatial curvature. In addition, for an exponential form of the scale factor, an F(R) bigravity model realizing the bouncing behavior is reconstructed. It is found that in both the physical and reference metrics the bouncing phenomenon can occur, although in general the contraction and expansion rates are different each other.
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of Cosmology and Astroparticle Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                      <span
+                        class="publication-info-issue"
+                      >
+                         Issue 1
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 8
+                      </span>
+                      ) by
+                      <b>
+                        Institute of Physics Publishing/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1088/1475-7516/2014/01/008"
+                        >
+                          10.1088/1475-7516/2014/01/008
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1309.3748"
+                        >
+                          1309.3748
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/787/10.1088/1475-7516/2014/01/008.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/787/10.1088/1475-7516/2014/01/008.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/794"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Monopole operators and Hilbert series of Coulomb branches of 3 d $ \\mathcal{N} $ = 4 gauge theories
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Cremonesi, Stefano
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Hanany, Amihay
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Zaﬀaroni, Alberto
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-03
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    This paper addresses a long standing problem - to identify the chiral ring and moduli space (i.e. as an algebraic variety) on the Coulomb branch of an $ \\mathcal{N} $ = 4 superconformal field theory in 2+1 dimensions. Previous techniques involved a computation of the metric on the moduli space and/or mirror symmetry. These methods are limited to sufficiently small moduli spaces, with enough symmetry, or to Higgs branches of sufficiently small gauge theories. We introduce a simple formula for the Hilbert series of the Coulomb branch, which applies to any good or ugly three-dimensional $ \\mathcal{N} $ = 4 gauge theory. The formula counts monopole operators which are dressed by classical operators, the Casimir invariants of the residual gauge group that is left unbroken by the magnetic flux. We apply our formula to several classes of gauge theories. Along the way we make various tests of mirror symmetry, successfully comparing the Hilbert series of the Coulomb branch with the Hilbert series of the Higgs branch of the mirror theory.
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of High Energy Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 5
+                      </span>
+                      ) by
+                      <b>
+                        Springer/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1007/JHEP01(2014)005"
+                        >
+                          10.1007/JHEP01(2014)005
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1309.2657"
+                        >
+                          1309.2657
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/794/10.1007/JHEP01(2014)005.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/794/10.1007/JHEP01(2014)005_a.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF/A
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/795"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    1 /N 2 corrections to the holographic Weyl anomaly
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Ardehali, Arash Arabi
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Liu, James T.
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Szepietowski, Phillip
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-02
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    We compute the $ \\mathcal{O} $ (1) contribution to holographic c − a for IIB supergravity on AdS 5 × S 5 / $ {{\\mathbb{Z}}_n} $ and on AdS 5 × T 1,1 / $ {{\\mathbb{Z}}_n} $ . In both cases, we find agreement with the dual field theory results, thus providing 1 /N 2 checks of AdS/CFT with reduced supersymmetry. Since the holographic computation involves a sum over shortened multiplets in the KK tower, we provide some details on the S 5 and T 1,1 spectra in a form that is convenient when considering their $ {{\\mathbb{Z}}_n} $ orbifolds. The computation for the even $ {{\\mathbb{Z}}_n} $ orbifolds of S 5 includes a sum over the multiplets in the twisted sector that is essential for obtaining agreement with the dual field theory.
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of High Energy Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 2
+                      </span>
+                      ) by
+                      <b>
+                        Springer/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1007/JHEP01(2014)002"
+                        >
+                          10.1007/JHEP01(2014)002
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1310.2611"
+                        >
+                          1310.2611
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/795/10.1007/JHEP01(2014)002.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/795/10.1007/JHEP01(2014)002_a.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF/A
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/796"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Higher spin currents in the holographic $ \\mathcal{N} $ = 1 coset minimal model
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Ahn, Changhyun
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Paeng, Jinsub
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-03
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    In the $ \\mathcal{N} $ = 1 supersymmetric coset minimal model based on $ \\left( {B_N^{(1)}\\oplus D_N^{(1) },\\ D_N^{(1) }} \\right) $ at level ( k , 1) studied recently, the standard $ \\mathcal{N} $ = 1 super stress tensor of spins $ \\left( {\\frac{3}{2},2} \\right) $ is reviewed. By considering the stress tensor in the coset $ \\left( {B_N^{(1) },\\ D_N^{(1) }} \\right) $ at level k , the higher spin-2 ′ Casimir current was obtained previously. By acting the above spin- $ \\frac{2}{3} $ current on the higher spin-2 ′ Casimir current, its superpartner, the higher spin- $ \\frac{5}{2} $ current, can be generated and combined as the first higher spin supercurrent with spins $ \\left( {{2^{\\prime }},\\frac{5}{2}} \\right) $ . By calculating the operator product expansions (OPE) between the higher spin supercurrent and itself, the next higher spin supercurrent can be generated with spins $ \\left( {\\frac{7}{2},4} \\right) $ . Moreover, the other higher spin supercurrent with spins $ \\left( {{4^{\\prime }},\\frac{9}{2}} \\right) $ can be generated by calculating the OPE between the first higher spin supercurrent with spins $ \\left( {{2^{\\prime }},\\frac{5}{2}} \\right) $ and the second higher spin supercurrent with spins $ \\left( {\\frac{7}{2},\\ 4} \\right) $ . Finally, the higher spin supercurrent, $ \\left( {\\frac{11 }{2},6} \\right) $ , can be extracted from the right hand side of OPE between the higher spin supercurrents, $ \\left( {{2^{\\prime }},\\frac{5}{2}} \\right) $ and $ \\left( {{4^{\\prime }},\\frac{9}{2}} \\right) $ .
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of High Energy Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 7
+                      </span>
+                      ) by
+                      <b>
+                        Springer/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1007/JHEP01(2014)007"
+                        >
+                          10.1007/JHEP01(2014)007
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1310.6185"
+                        >
+                          1310.6185
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/796/10.1007/JHEP01(2014)007.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/796/10.1007/JHEP01(2014)007_a.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF/A
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/797"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Exact results for Wilson loops in arbitrary representations
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Fiol, Bartomeu
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Torrents, Genís
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-08
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    We compute the exact vacuum expectation value of 1/2 BPS circular Wilson loops of $ \\mathcal{N} $ = 4 U(N) super Yang-Mills in arbitrary irreducible representations. By localization arguments, the computation reduces to evaluating certain integrals in a Gaussian matrix model, which we do using the method of orthogonal polynomials. Our results are particularly simple for Wilson loops in antisymmetric representations; in this case, we observe that the final answers admit an expansion where the coefficients are positive integers, and can be written in terms of sums over skew Young diagrams. As an application of our results, we use them to discuss the exact Bremsstrahlung functions associated to the corresponding heavy probes.
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of High Energy Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 20
+                      </span>
+                      ) by
+                      <b>
+                        Springer/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1007/JHEP01(2014)020"
+                        >
+                          10.1007/JHEP01(2014)020
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1311.2058"
+                        >
+                          1311.2058
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/797/10.1007/JHEP01(2014)020.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/797/10.1007/JHEP01(2014)020_a.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF/A
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/798"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Discrete R symmetries and anomalies
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Dine, Michael
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Monteux, Angelo
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-07
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    We comment on aspects of discrete anomaly conditions focussing particularly on R symmetries. We review the Green-Schwarz cancellation of discrete anomalies, providing a heuristic explanation why, in the heterotic string, only the “model-independent dilaton” transforms non-linearly under discrete symmetries; this argument suggests that, in other theories, multiple fields might play a role in anomaly cancellations, further weakening any anomaly constraints at low energies. We provide examples in open string theories of non-universal discrete anomalies at low energies. We then consider the fact that R symmetries are necessarily broken at low energies. We exhibit dynamical models, in which fields charged under the Standard Model gauge group (for example, a doublet and a triplet) gain roughly equal masses, but where the doublet and the triplet possess different discrete charges and the low-energy anomaly conditions fail.
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of High Energy Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 11
+                      </span>
+                      ) by
+                      <b>
+                        Springer/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1007/JHEP01(2014)011"
+                        >
+                          10.1007/JHEP01(2014)011
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1212.4371"
+                        >
+                          1212.4371
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/798/10.1007/JHEP01(2014)011.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/798/10.1007/JHEP01(2014)011_a.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF/A
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/799"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Generalized Hitchin system, spectral curve and $ \\mathcal{N} $ =1 dynamics
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Xie, Dan
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Yonekura, Kazuya
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-02
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    A generalized Hitchin equation was proposed as the BPS equation for a large class of four dimensional $ \\mathcal{N} $ = 1 theories engineered using M5 branes. In this paper, we show how to write down the spectral curve for the moduli space of generalized Hitchin equations, and extract interesting $ \\mathcal{N} $ = 1 dynamics out of it, such as deformed modui space, chiral ring relation, SUSY breaking, etc. Holomorphy plays a crucial role in our construction.
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of High Energy Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 1
+                      </span>
+                      ) by
+                      <b>
+                        Springer/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1007/JHEP01(2014)001"
+                        >
+                          10.1007/JHEP01(2014)001
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1310.0467"
+                        >
+                          1310.0467
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/799/10.1007/JHEP01(2014)001.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/799/10.1007/JHEP01(2014)001_a.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF/A
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="search-results-record border-0 border-b border-solid border-slate-200 py-6"
+              >
+                <a
+                  class="mb-2 block text-lg"
+                  href="/records/804"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Slepton mass splittings and cLFV in the SUSY seesaw in the light of recent experimental results
+                  </span>
+                </a>
+                <div
+                  class="mb-2"
+                >
+                  <p
+                    class="search-authors  inline-block"
+                  >
+                    <span>
+                      <i>
+                        Figueiredo, A.J.R.
+                      </i>
+                    </span>
+                    <span>
+                      ;
+                      <i>
+                        Teixeira, A.M.
+                      </i>
+                    </span>
+                  </p>
+                  <small
+                    class="search-results-record-date"
+                  >
+
+                    -
+                    2014-01-07
+                  </small>
+                </div>
+                <p
+                  class="search-results-record-abstract mb-4"
+                >
+                  <span
+                    style="display: inline;"
+                  >
+                    Following recent experimental developments, in this study we re-evaluate if the interplay of high- and low-energy lepton flavour violating observables remains a viable probe to test the high-scale type-I supersymmetric seesaw. Our analysis shows that fully constrained supersymmetric scenarios no longer allow to explore this interplay, since recent LHC data precludes the possibility of having sizeable slepton mass differences for a slepton spectrum sufficiently light to be produced, and in association to BR( μ  →  e γ) within experimental reach. However, relaxing the strict universality of supersymmetric soft-breaking terms and fully exploring heavy neutrino dynamics, still allows to have slepton mass splittings $ \\mathcal{O}\\left( {\\mathrm{few}\\;\\%} \\right) $ , for slepton masses accessible at the LHC, with associated μ  →  e γ rates within future sensitivity. For these scenarios, we illustrate how the correlation between high- and low-energy lepton flavour violating observables allows to probe the high-scale supersymmetric seesaw.
+                  </span>
+                </p>
+                <div
+                  class="lg:flex justify-between items-end"
+                >
+                  <div>
+                    <span
+                      class="text-sm"
+                    >
+                      Published in:
+                    </span>
+                    <p
+                      class="publication-info-search text-sm inline-block mb-1"
+                    >
+                      <span
+                        class="publication-info-title"
+                      >
+                        Journal of High Energy Physics
+                      </span>
+                      <span
+                        class="publication-info-volume_year"
+                      >
+                         (2014)
+                      </span>
+                       (
+                      <span
+                        class="publication-info-pages"
+                      >
+                        Page 15
+                      </span>
+                      ) by
+                      <b>
+                        Springer/SISSA
+                      </b>
+                    </p>
+                    <p
+                      class="text-sm"
+                    >
+                      <span>
+                        DOI
+                        :
+
+                        <a
+                          href="https://doi.org/10.1007/JHEP01(2014)015"
+                        >
+                          10.1007/JHEP01(2014)015
+                        </a>
+
+                      </span>
+                      <span>
+                        arXiv
+                        :
+
+                        <a
+                          href="https://arxiv.org/abs/1309.7951"
+                        >
+                          1309.7951
+                        </a>
+
+                      </span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex justify-end mt-2"
+                  >
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/804/10.1007/JHEP01(2014)015.xml"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-text"
+                        class="anticon anticon-file-text"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-text"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                          />
+                        </svg>
+                      </span>
+                       XML
+                    </a>
+                    <a
+                      class="file-small mr-2"
+                      download=""
+                      href="https://scoap3-dev-backend.s3.cern.ch/media/files/804/10.1007/JHEP01(2014)015_a.pdf"
+                      target="_blank"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                       PDF/A
+                    </a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div
+              class="flex justify-center"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

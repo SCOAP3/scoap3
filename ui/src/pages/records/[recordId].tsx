@@ -7,7 +7,7 @@ import { Result } from "@/types";
 import Authors from "@/components/shared/Authors";
 import DetailPageInfo from "@/components/detail/DetailPageInfo";
 import { authToken, getApiUrl } from "@/utils/utils";
-import { JsonPreview } from "@/components/shared/JsonPreview";
+import { JsonPreview } from "@/components/detail/JsonPreview";
 
 interface RecordPageProps {
   article: Result;

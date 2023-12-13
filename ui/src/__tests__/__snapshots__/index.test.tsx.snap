@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage renders homepage with correct articles count 1`] = `
+<div>
+  <img
+    alt="Background picture of Scope3"
+    class="banner"
+    data-nimg="1"
+    decoding="async"
+    fetchpriority="high"
+    height="0"
+    sizes="100vw"
+    src="/_next/image?url=%2Fimages%2Fbackground.jpeg&w=3840&q=75"
+    srcset="/_next/image?url=%2Fimages%2Fbackground.jpeg&w=640&q=75 640w, /_next/image?url=%2Fimages%2Fbackground.jpeg&w=750&q=75 750w, /_next/image?url=%2Fimages%2Fbackground.jpeg&w=828&q=75 828w, /_next/image?url=%2Fimages%2Fbackground.jpeg&w=1080&q=75 1080w, /_next/image?url=%2Fimages%2Fbackground.jpeg&w=1200&q=75 1200w, /_next/image?url=%2Fimages%2Fbackground.jpeg&w=1920&q=75 1920w, /_next/image?url=%2Fimages%2Fbackground.jpeg&w=2048&q=75 2048w, /_next/image?url=%2Fimages%2Fbackground.jpeg&w=3840&q=75 3840w"
+    style="color: transparent;"
+    width="0"
+  />
+  <div
+    class="container"
+  >
+    <div
+      class="container-inner"
+    >
+      <p
+        class="text-center mb-4"
+      >
+        Search
+        <b>
+          4321
+           Open Access
+        </b>
+         articles:
+      </p>
+      <span
+        class="ant-input-group-wrapper ant-input-search ant-input-search-with-button home-searchbar mb-6 css-dev-only-do-not-override-2q8sxy"
+      >
+        <span
+          class="ant-input-wrapper ant-input-group css-dev-only-do-not-override-2q8sxy"
+        >
+          <input
+            class="ant-input css-dev-only-do-not-override-2q8sxy"
+            placeholder="Type and press enter to search"
+            type="text"
+            value=""
+          />
+          <span
+            class="ant-input-group-addon"
+          >
+            <button
+              class="ant-btn css-dev-only-do-not-override-2q8sxy ant-btn-primary ant-input-search-button"
+              type="button"
+            >
+              <span
+                class="ant-btn-icon"
+              >
+                <span
+                  aria-label="search"
+                  class="anticon anticon-search"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="search"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </button>
+          </span>
+        </span>
+      </span>
+      <div
+        class="ant-tabs ant-tabs-top ant-tabs-card css-dev-only-do-not-override-2q8sxy"
+      >
+        <div
+          class="ant-tabs-nav"
+          role="tablist"
+        >
+          <div
+            class="ant-tabs-nav-wrap"
+          >
+            <div
+              class="ant-tabs-nav-list"
+              style="transform: translate(0px, 0px);"
+            >
+              <div
+                class="ant-tabs-tab ant-tabs-tab-active"
+                data-node-key="1"
+              >
+                <div
+                  aria-controls="rc-tabs-test-panel-1"
+                  aria-selected="true"
+                  class="ant-tabs-tab-btn"
+                  id="rc-tabs-test-tab-1"
+                  role="tab"
+                  tabindex="0"
+                >
+                  Journals
+                </div>
+              </div>
+              <div
+                class="ant-tabs-tab"
+                data-node-key="2"
+              >
+                <div
+                  aria-controls="rc-tabs-test-panel-2"
+                  aria-selected="false"
+                  class="ant-tabs-tab-btn"
+                  id="rc-tabs-test-tab-2"
+                  role="tab"
+                  tabindex="0"
+                >
+                  SCOAP3 partners
+                </div>
+              </div>
+              <div
+                class="ant-tabs-ink-bar ant-tabs-ink-bar-animated"
+              />
+            </div>
+          </div>
+          <div
+            class="ant-tabs-nav-operations ant-tabs-nav-operations-hidden"
+          >
+            <button
+              aria-controls="rc-tabs-test-more-popup"
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-hidden="true"
+              class="ant-tabs-nav-more"
+              id="rc-tabs-test-more"
+              style="visibility: hidden; order: 1;"
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                aria-label="ellipsis"
+                class="anticon anticon-ellipsis"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="ellipsis"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M176 511a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="ant-tabs-content-holder"
+        >
+          <div
+            class="ant-tabs-content ant-tabs-content-top"
+          >
+            <div
+              aria-hidden="false"
+              aria-labelledby="rc-tabs-test-tab-1"
+              class="ant-tabs-tabpane ant-tabs-tabpane-active"
+              id="rc-tabs-test-panel-1"
+              role="tabpanel"
+              tabindex="0"
+            >
+              <div
+                class="tab-content"
+              >
+                <ul>
+                  <li
+                    class="journal flex justify-between"
+                  >
+                    <a
+                      href="/search?page=1&page_size=20&journal=Journal of High Energy Physics"
+                    >
+                      Journal of High Energy Physics
+                    </a>
+                    <span
+                      class="badge"
+                    >
+                      666
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

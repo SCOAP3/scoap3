@@ -1,0 +1,293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecordPage renders article details correctly 1`] = `
+<div>
+  <div
+    class="container grid grid-cols-4 gap-8"
+  >
+    <div
+      class="col-span-3"
+      id="abstract_and_preview"
+    >
+      <div
+        id="abstract"
+      >
+        <div
+          class="detail-page-main"
+        >
+          <h2
+            class="font-normal mb-3"
+          >
+            <span
+              style="display: inline;"
+            >
+              Strings from 3D gravity: asymptotic dynamics of AdS 3 gravity with free boundary conditions
+            </span>
+          </h2>
+          <p
+            class="detail-authors mb-3 inline-block"
+          >
+            <span>
+              <i>
+                <a
+                  href="/search?page=1&page_size=20&search=Luis Apolo"
+                >
+                  Luis Apolo
+                </a>
+              </i>
+
+              (
+              <a
+                href="/search?page=1&page_size=20&search=Department of Physics & The Oskar Klein Centre, Stockholm University, AlbaNova University Centre, SE-106 91, Stockholm, Sweden"
+              >
+                Department of Physics & The Oskar Klein Centre, Stockholm University, AlbaNova University Centre, SE-106 91, Stockholm, Sweden
+              </a>
+              )
+            </span>
+            <span>
+              ;
+              <i>
+                <a
+                  href="/search?page=1&page_size=20&search=Bo Sundborg"
+                >
+                  Bo Sundborg
+                </a>
+              </i>
+
+              (
+              <a
+                href="/search?page=1&page_size=20&search=Department of Physics & The Oskar Klein Centre, Stockholm University, AlbaNova University Centre, SE-106 91, Stockholm, Sweden"
+              >
+                Department of Physics & The Oskar Klein Centre, Stockholm University, AlbaNova University Centre, SE-106 91, Stockholm, Sweden
+              </a>
+              )
+            </span>
+          </p>
+          <p
+            class="text-justify leading-relaxed"
+          >
+            <span
+              style="display: inline;"
+            >
+              Pure three-dimensional gravity in anti-de Sitter space can be formulated as an SL(2 , R ) × SL(2 , R ) Chern-Simons theory, and the latter can be reduced to a WZW theory at the boundary. In this paper we show that AdS 3 gravity with free boundary conditions is described by a string at the boundary whose target spacetime is also AdS 3 . While boundary conditions in the standard construction of Coussaert, Henneaux, and van Driel are enforced through constraints on the WZW currents, we find that free boundary conditions are partially enforced through the string Virasoro constraints.
+            </span>
+          </p>
+        </div>
+      </div>
+      <div
+        id="preview"
+      >
+        <div
+          class="ant-collapse ant-collapse-icon-position-start css-dev-only-do-not-override-2q8sxy"
+        >
+          <div
+            class="ant-collapse-item"
+          >
+            <div
+              aria-disabled="false"
+              aria-expanded="false"
+              class="ant-collapse-header"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="ant-collapse-expand-icon"
+              >
+                <span
+                  aria-label="right"
+                  class="anticon anticon-right ant-collapse-arrow"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="right"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <span
+                class="ant-collapse-header-text"
+              >
+                Metadata preview. Preview of JSON metadata for this article.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col-span-1 detail-page-right"
+      id="abstract_and_preview"
+    >
+      <dl
+        class="m-0 pb-5"
+      >
+        <dt>
+          Published on:
+        </dt>
+        <dd>
+          25 June 2015
+        </dd>
+        <dt>
+          Created on:
+        </dt>
+        <dd>
+          30 April 2018
+        </dd>
+        <dt>
+          Publisher:
+        </dt>
+        <dd>
+          Springer/SISSA
+        </dd>
+        <dt>
+          Published in:
+        </dt>
+        <dd>
+          <p
+            class="publication-info-detail false inline-block mb-1"
+          >
+            <span
+              class="publication-info-title"
+            >
+              Journal of High Energy Physics
+            </span>
+            <span
+              class="publication-info-volume_year"
+            >
+               (2015)
+            </span>
+            <span
+              class="publication-info-pages"
+            >
+              Pages 171-189
+            </span>
+          </p>
+        </dd>
+        <dd>
+          Article ID:
+          123456
+        </dd>
+        <div>
+          <dt>
+            DOI
+            :
+          </dt>
+          <dd>
+            <a
+              href="https://doi.org/10.1007/JHEP06(2015)171"
+            >
+              10.1007/JHEP06(2015)171
+            </a>
+          </dd>
+        </div>
+        <div>
+          <dt>
+            arXiv
+            :
+          </dt>
+          <dd>
+            hep-th
+          </dd>
+          <dd>
+            <a
+              href="https://arxiv.org/abs/1504.07579"
+            >
+              1504.07579
+            </a>
+          </dd>
+        </div>
+        <dt>
+          Copyrights:
+        </dt>
+        <dd>
+          The Author(s)
+        </dd>
+        <dt>
+          Licence:
+        </dt>
+        <dd>
+          <a
+            href="http://creativecommons.org/licenses/by/4.0/"
+          >
+            CC-BY-4.0
+          </a>
+        </dd>
+        <div
+          class="ant-divider css-dev-only-do-not-override-2q8sxy ant-divider-horizontal"
+          role="separator"
+        />
+        <dt>
+          Fulltext files:
+        </dt>
+        <dd
+          class="flex mt-2"
+        >
+          <a
+            class="file-big mr-2"
+            download=""
+            href="https://scoap3-dev-backend.s3.cern.ch/media/files/10913/10.1007/JHEP06(2015)171.xml"
+            target="_blank"
+          >
+            <span
+              aria-label="file-text"
+              class="anticon anticon-file-text"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="file-text"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z"
+                />
+              </svg>
+            </span>
+             XML
+          </a>
+          <a
+            class="file-big mr-2"
+            download=""
+            href="https://scoap3-dev-backend.s3.cern.ch/media/files/10913/10.1007/JHEP06(2015)171_a.pdf"
+            target="_blank"
+          >
+            <span
+              aria-label="file-pdf"
+              class="anticon anticon-file-pdf"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="file-pdf"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                />
+              </svg>
+            </span>
+             PDF/A
+          </a>
+        </dd>
+      </dl>
+    </div>
+  </div>
+</div>
+`;

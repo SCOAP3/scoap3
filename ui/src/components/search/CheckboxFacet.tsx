@@ -59,7 +59,7 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
       <div>
         {displayedData?.map((item) => (
           <div key={item?.key} className="flex items-center justify-between">
-            <span>
+            <label>
               <input
                 className="mr-1"
                 type="checkbox"
@@ -68,7 +68,7 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
                 onChange={() => onCheckboxChange(item?.key)}
               />
               {shortJournalName(item?.key)}
-            </span>
+            </label>
             <span className="badge dark">{item?.doc_count}</span>
           </div>
         ))}
