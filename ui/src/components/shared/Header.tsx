@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "antd";
@@ -10,6 +10,7 @@ import { BASE_URL } from "@/utils/utils";
 
 interface MenuProps {
   items: MenuItem[];
+  onClick?: MouseEventHandler<HTMLLIElement>;
   mobile?: boolean;
   collapsed?: boolean;
 }
@@ -48,6 +49,7 @@ const labels = [
 
 const Menu: React.FC<MenuProps> = ({
   items,
+  onClick = () => {},
   mobile = false,
   collapsed = true,
 }) => (
@@ -57,7 +59,7 @@ const Menu: React.FC<MenuProps> = ({
     }`}
   >
     {items.map((item: MenuItem) => (
-      <li className="ant-menu-item" key={item.key}>
+      <li className="ant-menu-item" key={item.key} onClick={onClick}>
         {item.label}
       </li>
     ))}
@@ -90,7 +92,12 @@ const Header: React.FC = () => {
         <Menu items={headerItems} />
         <Button onClick={toggleCollapsed}>{<MenuOutlined />}</Button>
       </div>
-      <Menu mobile items={headerItems} collapsed={collapsed} />
+      <Menu
+        mobile
+        items={headerItems}
+        collapsed={collapsed}
+        onClick={toggleCollapsed}
+      />
     </div>
   );
 };

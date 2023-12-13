@@ -10,6 +10,7 @@ interface JsonPreviewProps {
 export const JsonPreview = ({ article }: JsonPreviewProps) => {
   return (
     <Collapse
+      className="mt-5"
       items={[
         {
           key: "1",

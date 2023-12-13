@@ -44,8 +44,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 
   return (
     <div>
-      <div className="mt-4 mb-6 flex justify-between align-center">
-        <p className="flex items-center">Found {count} results.</p>
+      <div className="mt-4 mb-6 flex justify-center md:justify-between items-center flex-col md:flex-row">
+        <p className="flex items-center md:mb-0 mb-3">Found {count} results.</p>
         <SearchPagination count={count} params={params} />
         <div className="sort flex items-center">
           {count > 0 && (
@@ -72,7 +72,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
             <ResultItem key={article?.id} article={article} />
           ))}
       </ul>
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-7">
         <SearchPagination count={count} params={params} />
       </div>
     </div>

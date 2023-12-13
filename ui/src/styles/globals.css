@@ -125,7 +125,7 @@ a {
     align-items: flex-start;
     margin: 10px 0;
     border-top: 1px solid #7a5380;
-    height: 280px;
+    height: 300px;
   }
 
   .header .ant-btn {
@@ -297,11 +297,6 @@ a {
   padding: 15px 0;
 }
 
-.search-facets {
-  width: 25%;
-  padding: 0 15px;
-}
-
 .search-results {
   width: 75%;
   padding: 0 15px;
@@ -364,7 +359,25 @@ a {
   font-size: 85%;
 }
 
+@media (max-width: 1024px) {
+  .search {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .search-results {
+    order: 1;
+    width: 100%;
+  }
+}
+
 /* Facets */
+.search-facets {
+  width: 25%;
+  padding: 0 15px;
+}
+
 .badge.dark {
   font-weight: bold;
   color: #fff;
@@ -446,10 +459,23 @@ a {
   left: 80% !important;
 }
 
+@media (max-width: 1024px) {
+  .search-facets {
+    order: 2;
+    width: 100%;
+  }
+}
+
 /* DETAIL */
 
 .detail-page-main {
   padding: 0 15px;
+  width: 75%;
+}
+
+.detail-page-right {
+  width: 20%;
+  padding-left: 15px;
 }
 
 .detail-page-right dt {
@@ -498,7 +524,12 @@ a {
   display: block;
 }
 
-@media (max-width: 1024px) {
+.json-preview-content {
+  background: rgba(0, 0, 0, 0.02);
+  line-break: anywhere;
+}
+
+@media (max-width: 767px) {
   .detail-page-main {
     width: 100%;
     padding: 0;
@@ -512,31 +543,6 @@ a {
 }
 
 /* ERROR PAGES */
-
-.error-page {
-  color: #777;
-  margin: 15% auto;
-  text-align: center;
-}
-
-.error-page .anticon {
-  font-size: 5rem;
-  margin-bottom: 1rem;
-}
-
-.error-page p {
-  font-size: 1.2rem;
-}
-
-.json-preview-content {
-  background: rgba(0, 0, 0, 0.02);
-}
-
-#json-preview-card .ant-card-body {
-  padding: 0;
-}
-
- /* ERROR PAGES */
 
 .error-page {
   color: #777;

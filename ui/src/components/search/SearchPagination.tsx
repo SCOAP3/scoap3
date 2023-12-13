@@ -26,6 +26,7 @@ const SearchPagination: React.FC<SearchPagination> = ({ count, params }) => {
       showSizeChanger={false}
       current={Number(params?.page) || 1}
       hideOnSinglePage
+      className="md:mb-0 mb-3"
     />
   );
 };
