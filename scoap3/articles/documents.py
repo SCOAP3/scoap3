@@ -10,6 +10,12 @@ from .models import Article, ArticleFile, ArticleIdentifier
 
 @registry.register_document
 class ArticleDocument(Document):
+    settings = {
+        "number_of_shards": 1,
+        "number_of_replicas": 0,
+        "max_result_window": 70000,
+    }
+
     id = fields.TextField()
     reception_date = fields.DateField()
     acceptance_date = fields.DateField()
