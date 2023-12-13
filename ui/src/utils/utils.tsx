@@ -2,7 +2,7 @@ import { ArticleIdentifier, Params, QueryType, queryTypes } from "@/types";
 import { Token } from "../../token";
 
 export const BASE_URL =  process.env.NEXT_API_BASE_URL || 'https://backend.dev.scoap3.org';
-const SEARCH_URL = "/search/article";
+const SEARCH_URL = "/api/search/article";
 
 export const authToken = Token
   ? {
