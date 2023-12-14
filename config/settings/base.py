@@ -1,11 +1,13 @@
 """
 Base settings to build other settings files upon.
 """
+import logging
 import platform
 from pathlib import Path
 
 import environ
 from opensearch_dsl import connections
+from urllib3.exceptions import InsecureRequestWarning
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # scoap3/
@@ -256,14 +258,22 @@ ADMINS = [("""CERN SIS-TS""", "cern-sis-ts-admins@cern.ch")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
+
 # LOGGING
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # See https://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+class IgnoreInsecureRequestWarning(logging.Filter):
+    def filter(self, record):
+        log_warning = isinstance(record.getMessage(), InsecureRequestWarning)
+        return not log_warning
+
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    "filters": {"ignore_insecure_requests": {"()": IgnoreInsecureRequestWarning}},
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
