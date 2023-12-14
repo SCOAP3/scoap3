@@ -23,6 +23,9 @@ class Affiliation(models.Model):
     class Meta:
         ordering = ["id"]
 
+    def __str__(self) -> str:
+        return f"{self.value} ({self.organization}) - {self.country.name}"
+
 
 class InstitutionIdentifierType(models.TextChoices):
     ROR = ("ROR",)

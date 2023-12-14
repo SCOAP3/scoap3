@@ -7,6 +7,7 @@ from scoap3.articles.models import (
     ComplianceReport,
 )
 from scoap3.articles.tasks import compliance_checks
+from scoap3.authors.models import Author
 
 
 class ComplianceReportAdmin(admin.ModelAdmin):
@@ -121,6 +122,43 @@ class ArticleComplianceReportInline(admin.StackedInline):
     )
 
 
+class ArticleAuthorsInline(admin.StackedInline):
+    model = Author
+    extra = 0
+    can_delete = False
+    show_change_link = True
+    readonly_fields = [
+        "first_name",
+        "last_name",
+        "email",
+        "get_countries",
+        "get_affiliations",
+        "get_identifiers",
+    ]
+    fields = readonly_fields
+
+    @admin.display(description="Countries")
+    def get_countries(self, obj):
+        return ", ".join(
+            [affiliation.country.name for affiliation in obj.affiliation_set.all()]
+        )
+
+    @admin.display(description="Affiliations")
+    def get_affiliations(self, obj):
+        return ", ".join(
+            [affiliation.value for affiliation in obj.affiliation_set.all()]
+        )
+
+    @admin.display(description="Identifiers")
+    def get_identifiers(self, obj):
+        return ", ".join(
+            [
+                f"{_id.identifier_type}: {_id.identifier_value}"
+                for _id in obj.identifiers.all()
+            ]
+        )
+
+
 class ArticleAdmin(admin.ModelAdmin):
     list_display = [
         "id",
@@ -152,7 +190,7 @@ class ArticleAdmin(admin.ModelAdmin):
         "report__check_article_type",
         "report__check_doi_registration_time",
     ]
-    inlines = [ArticleComplianceReportInline]
+    inlines = [ArticleAuthorsInline, ArticleComplianceReportInline]
 
     @admin.display(description="Journal")
     def journal_title(self, obj):
