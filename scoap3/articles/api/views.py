@@ -82,6 +82,10 @@ class ArticleWorkflowImportView(ViewSet):
 
 
 class ArticleDocumentView(BaseDocumentViewSet):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.search.extra(track_total_hits=True)
+
     document = ArticleDocument
     serializer_class = ArticleDocumentSerializer
     filter_backends = [
