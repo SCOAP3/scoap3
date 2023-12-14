@@ -9,7 +9,7 @@ from scoap3.articles.models import (
     ComplianceReport,
 )
 from scoap3.articles.tasks import compliance_checks
-from scoap3.misc.models import License, PublicationInfo, Publisher
+from scoap3.misc.models import ArticleArxivCategory, License, PublicationInfo, Publisher
 
 
 @pytest.mark.django_db
@@ -56,6 +56,11 @@ class TestArticleCompliance(TestCase):
         ArticleIdentifier.objects.create(
             identifier_type="arxiv",
             identifier_value=" hep-th/9711200",
+            article_id=self.article,
+        )
+        ArticleArxivCategory.objects.create(
+            primary=True,
+            category="hep-th",
             article_id=self.article,
         )
 
@@ -121,11 +126,43 @@ class TestArticleCompliance(TestCase):
             f"Missing required file formats: {self.file_formats[-1]}.",
         )
 
-    @pytest.mark.skip(reason="Not implemented yet, waiting for requirements")
     def test_create_article_with_not_compliant_arxiv_category(self):
         ArticleIdentifier.objects.create(
             identifier_type="arxiv",
             identifier_value="eess.AS/9711200",
+            article_id=self.article,
+        )
+        PublicationInfo.objects.create(
+            journal_title="Physical Review D",
+            article_id=self.article,
+            publisher=self.publisher,
+        )
+        ArticleArxivCategory.objects.create(
+            primary=True,
+            category="eess-as",
+            article_id=self.article,
+        )
+        compliance_checks(self.article.id)
+        article = Article.objects.get(id=self.article.id)
+        report = article.report.first()
+        self.assertEqual(report.check_arxiv_category, False)
+
+    def test_create_article_with_not_compliant_category_having_not_partial_journal(
+        self,
+    ):
+        ArticleIdentifier.objects.create(
+            identifier_type="arxiv",
+            identifier_value="eess.AS/9711200",
+            article_id=self.article,
+        )
+        PublicationInfo.objects.create(
+            journal_title="Some other journal",
+            article_id=self.article,
+            publisher=self.publisher,
+        )
+        ArticleArxivCategory.objects.create(
+            primary=True,
+            category="hep-th",
             article_id=self.article,
         )
         compliance_checks(self.article.id)
@@ -138,3 +175,4 @@ class TestArticleCompliance(TestCase):
         ArticleFile.objects.all().delete()
         ComplianceReport.objects.all().delete()
         PublicationInfo.objects.all().delete()
+        ArticleArxivCategory.objects.all().delete()
