@@ -53,6 +53,12 @@ class Article(LifecycleModelMixin, models.Model):
 
         compliance_checks.delay(self.id)
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            max_id = Article.objects.aggregate(max_id=models.Max("id"))["max_id"]
+            self.id = (max_id if max_id is not None else 0) + 1
+        super().save(*args, **kwargs)
+
 
 class ArticleFile(models.Model):
     article_id = models.ForeignKey(
