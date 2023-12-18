@@ -81,11 +81,11 @@ class ArticleDocument(Document):
         properties={
             "first_name": fields.KeywordField(),
             "last_name": fields.KeywordField(),
-            "affiliations": fields.ObjectField(
+            "affiliations": fields.NestedField(
                 properties={
                     "value": fields.TextField(),
                     "organization": fields.TextField(),
-                    "country": fields.ObjectField(
+                    "country": fields.NestedField(
                         properties={
                             "code": fields.TextField(),
                             "name": fields.KeywordField(),

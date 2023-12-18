@@ -1,20 +1,20 @@
-{% extends "admin/base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 <h3>Tools</h3>
 
 
-<form action="/admin/tools/" method="post">
+<form action="/tools/export" method="post">
     <h4>Affiliations Export</h4>
     {% csrf_token %}
-    {{ affiliation_form }}
+    {{ form.as_p }}
     <input type="submit" name="affiliation_export" value="Download">
 </form>
 
-<form action="/admin/tools/" method="post">
+<form action="/tools/export" method="post">
     <h4>Authors Export</h4>
     {% csrf_token %}
-    {{ author_form }}
+    {{ form2.as_p }}
     <input type="submit" name="author_export" value="Download">
 </form>
 

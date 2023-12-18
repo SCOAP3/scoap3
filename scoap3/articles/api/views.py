@@ -141,7 +141,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
             "facet": TermsFacet,
             "enabled": True,
             "options": {
-                "size": 10,
+                "size": 15,
                 "order": {
                     "_key": "asc",
                 },
@@ -151,9 +151,8 @@ class ArticleDocumentView(BaseDocumentViewSet):
             "field": "authors.affiliations.country.name",
             "facet": TermsFacet,
             "enabled": True,
-            "state": "authors.affiliations.country.partner",
             "options": {
-                "size": 30,
+                "size": 300,
                 "order": {
                     "_key": "asc",
                 },
