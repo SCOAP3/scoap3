@@ -84,7 +84,7 @@ class ArticleWorkflowImportView(ViewSet):
 class ArticleDocumentView(BaseDocumentViewSet):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.search.extra(track_total_hits=True)
+        self.search = self.search.extra(track_total_hits=True)
 
     document = ArticleDocument
     serializer_class = ArticleDocumentSerializer
@@ -98,7 +98,13 @@ class ArticleDocumentView(BaseDocumentViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     pagination_class = OSStandardResultsSetPagination
 
-    search_fields = ("title", "id", "authors.first_name", "authors.last_name")
+    search_fields = (
+        "title",
+        "id",
+        "authors.first_name",
+        "authors.last_name",
+        "article_identifiers.identifier_value",
+    )
 
     ordering = ["-updated_at"]
 
@@ -134,11 +140,17 @@ class ArticleDocumentView(BaseDocumentViewSet):
             "field": "publication_info.journal_title",
             "facet": TermsFacet,
             "enabled": True,
+            "options": {
+                "size": 100,
+            },
         },
         "country": {
             "field": "authors.affiliations.country.name",
             "facet": TermsFacet,
             "enabled": True,
+            "options": {
+                "size": 250,
+            },
         },
     }
 

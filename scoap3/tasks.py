@@ -4,7 +4,6 @@ import logging
 import os
 import re
 
-import backoff
 import pycountry
 from django.core.exceptions import MultipleObjectsReturned, ValidationError
 from django.core.files.storage import storages
@@ -220,6 +219,7 @@ def _create_author_identifier(data, authors):
 
 def _create_country(affiliation):
     country = affiliation.get("country", "")
+    logger.info("Creating country:%s for affiliation:%s", country, affiliation)
     try:
         if not country or country == "HUMAN CHECK":
             return None
@@ -250,6 +250,7 @@ def _create_country(affiliation):
                 "name": pycountry.countries.search_fuzzy(country)[0].name,
             }
         country_obj, _ = Country.objects.get_or_create(**country_data)
+        logger.info("Country:%s created.", country_obj.name)
         return country_obj
     except LookupError as e:
         capture_exception(e)
@@ -266,6 +267,12 @@ def _create_affiliation(data, authors):
                 "value": affiliation.get("value", ""),
                 "organization": affiliation.get("organization", ""),
             }
+            logger.info(
+                "Created country:%s for author:%s affiliation:%s",
+                country.name if country else "No Country",
+                author.get("full_name", "No author name"),
+                affiliation.get("value", "No affiliation value"),
+            )
             try:
                 affiliation, _ = Affiliation.objects.get_or_create(**affiliation_data)
                 affiliation.author_id.add(authors[idx].id)
@@ -300,8 +307,12 @@ def update_affiliations(data):
     _create_affiliation(data, authors)
 
 
-@celery_app.task()
-@backoff.on_exception(backoff.expo, (ConnectionError, ConnectionTimeout))
+@celery_app.task(
+    acks_late=True,
+    max_retries=5,
+    retry_backoff=60,
+    autoretry_for=(ConnectionError, ConnectionTimeout),
+)
 def upload_index_range(es_settings, search_index, doc_ids, folder_name):
     es = Elasticsearch(es_settings)
     response = es.mget(index=search_index, body={"ids": doc_ids})
@@ -315,7 +326,7 @@ def upload_index_range(es_settings, search_index, doc_ids, folder_name):
         storage.save(f"{folder_name}/{file_name}.json", json_data)
 
 
-@celery_app.task()
+@celery_app.task(acks_late=True)
 def migrate_legacy_records(folder_name, index_range, migrate_files):
     storage = storages["legacy-records"]
     index_slice = slice(index_range[0], index_range[1])
@@ -328,7 +339,7 @@ def migrate_legacy_records(folder_name, index_range, migrate_files):
                 import_to_scoap3(json_data, migrate_files)
 
 
-@celery_app.task()
+@celery_app.task(acks_late=True)
 def link_affiliations(folder_name, index_range):
     storage = storages["legacy-records"]
     index_slice = slice(index_range[0], index_range[1])
