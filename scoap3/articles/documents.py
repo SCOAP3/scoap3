@@ -2,10 +2,9 @@ from django.conf import settings
 from django_opensearch_dsl import Document, fields
 from django_opensearch_dsl.registries import registry
 
+from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
 from scoap3.authors.models import Author
 from scoap3.misc.models import Affiliation, ArticleArxivCategory, PublicationInfo
-
-from .models import Article, ArticleFile, ArticleIdentifier
 
 
 @registry.register_document

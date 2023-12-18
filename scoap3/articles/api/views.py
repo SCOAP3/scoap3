@@ -141,15 +141,22 @@ class ArticleDocumentView(BaseDocumentViewSet):
             "facet": TermsFacet,
             "enabled": True,
             "options": {
-                "size": 100,
+                "size": 10,
+                "order": {
+                    "_key": "asc",
+                },
             },
         },
         "country": {
             "field": "authors.affiliations.country.name",
             "facet": TermsFacet,
             "enabled": True,
+            "state": "authors.affiliations.country.partner",
             "options": {
-                "size": 250,
+                "size": 30,
+                "order": {
+                    "_key": "asc",
+                },
             },
         },
     }
