@@ -36,5 +36,5 @@ def vcr_config():
         "decode_compressed_response": True,
         "filter_headers": ("Authorization", "User-Agent"),
         "record_mode": "once",
-        "ignore_hosts": ["127.0.0.1", "localhost"],
+        "ignore_hosts": ["127.0.0.1", "localhost", "opensearch"],
     }
