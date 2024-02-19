@@ -126,7 +126,7 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
     <Card title="Year" className="search-facets-facet mb-5">
       <div>
         {!isEqual(initialData, filters) && (
-          <div className="text-right">
+          <div className="text-right mb-3">
             <Button
               onClick={resetFilters}
               className="ml-1"
@@ -143,12 +143,6 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
           margin={0}
           className="year-facet"
         >
-          <VerticalBarSeries
-            className="skeleton-data"
-            color="#f5f5f5"
-            data={initialData}
-            onValueClick={onBarClick}
-          />
           {hoveredBar && <Hint value={hoveredBar} />}
           <VerticalBarSeries
             className="current-data"
@@ -157,6 +151,7 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
             onValueClick={onBarClick}
             onValueMouseOver={onBarMouseHover}
             onValueMouseOut={onBarMouseOut}
+            barWidth={0.5}
           />
         </XYPlot>
       </div>
