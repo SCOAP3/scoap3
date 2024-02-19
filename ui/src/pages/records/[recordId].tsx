@@ -1,12 +1,16 @@
 import React from "react";
-import ReactHtmlParser from "react-html-parser";
 import { GetServerSideProps } from "next";
-import { MathJax } from "better-react-mathjax";
+import { Text } from "react-mathjax2";
 
 import { Result } from "@/types";
 import Authors from "@/components/shared/Authors";
 import DetailPageInfo from "@/components/detail/DetailPageInfo";
-import { authToken, getApiUrl } from "@/utils/utils";
+import {
+  authToken,
+  cleanText,
+  getApiUrl,
+  renderComplexSytnax,
+} from "@/utils/utils";
 import { JsonPreview } from "@/components/shared/JsonPreview";
 
 interface RecordPageProps {
@@ -19,18 +23,32 @@ const RecordPage: React.FC<RecordPageProps> = ({ article }) => {
       <div className="container-inner">
         <div className="flex flex-col md:flex-row">
           <div className="detail-page-main">
-            <h2 className="font-normal mb-3">
-              <MathJax inline>{ReactHtmlParser(article?.title)}</MathJax>
-            </h2>
+            <Text
+              text={
+                <h2
+                  className="font-normal mb-3"
+                  dangerouslySetInnerHTML={{
+                    __html: renderComplexSytnax(cleanText(article?.title)),
+                  }}
+                />
+              }
+            />
             <Authors
               authors={article?.authors}
               page="detail"
               affiliations
               className="mb-3"
             />
-            <p className="text-justify leading-relaxed">
-              <MathJax inline>{ReactHtmlParser(article?.abstract)}</MathJax>
-            </p>
+            <Text
+              text={
+                <p
+                  className="text-justify leading-relaxed"
+                  dangerouslySetInnerHTML={{
+                    __html: renderComplexSytnax(cleanText(article?.abstract)),
+                  }}
+                />
+              }
+            />
             <JsonPreview article={article} />
           </div>
           <div className="detail-page-right">
