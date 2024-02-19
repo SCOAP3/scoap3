@@ -23,6 +23,11 @@ a {
   cursor: pointer;
 }
 
+[class*="MJX"][class*="-display"],
+div.MathJax_Display {
+  display: inline !important;
+}
+
 .app {
   min-height: 100vh;
 }
