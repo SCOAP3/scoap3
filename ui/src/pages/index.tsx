@@ -6,7 +6,7 @@ import { GetServerSideProps } from "next";
 import TabContent from "@/components/home/TabContent";
 import SearchBar from "@/components/shared/SearchBar";
 import { Journal, Country, Facets, Response, Params } from "@/types";
-import { authToken, getApiUrl, getSearchUrl } from "@/utils/utils";
+import { authToken, filterCountries, mapCountryNames, getApiUrl, getSearchUrl } from "@/utils/utils";
 
 interface HomePageProps {
   count: number;
@@ -14,12 +14,12 @@ interface HomePageProps {
   query: Params;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ count, facets, query }) => {
+const HomePage: React.FC<HomePageProps> = ({ count, facets }) => {
   const journals: Journal[] = facets
     ? facets?._filter_journal?.journal?.buckets
     : [];
   const partners: Country[] = facets
-    ? facets?._filter_country?.country?.buckets
+    ? mapCountryNames(filterCountries(facets?._filter_country?.country?.buckets))
     : [];
 
   const tabItems = [
