@@ -63,7 +63,6 @@ class ArticleViewSet(
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
-        article_id = data.get("id")
 
 
 class ArticleWorkflowImportView(ViewSet):

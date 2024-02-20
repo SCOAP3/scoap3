@@ -21,7 +21,6 @@ def generate_csv_response(data, action_name, write_header=True):
     writer = csv.writer(response)
     if write_header:
         writer.writerow(data.get("header"))
-    print(data)
     for row in data.get("data", []):
         writer.writerow(row)
 

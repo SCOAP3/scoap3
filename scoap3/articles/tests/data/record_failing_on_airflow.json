@@ -1,0 +1,116 @@
+{
+    "dois":[
+       {
+          "value":"10.1103/PhysRevD.109.046003"
+       }
+    ],
+    "page_nr":[
+       17
+    ],
+    "arxiv_eprints":[
+       {
+          "value":"2312.06750",
+          "categories":[
+             "hep-th",
+             "gr-qc",
+             "math-ph",
+             "math.MP"
+          ]
+       }
+    ],
+    "authors":[
+       {
+          "full_name":"Chatwin-Davies, Aidan",
+          "given_names":"Aidan",
+          "surname":"Chatwin-Davies",
+          "affiliations":[
+             {
+                "value":"Okinawa Institute of Science and Technology, 1919-1 Tancha, Onna-son, Kunigami-gun, Okinawa, 904-0495, Japan",
+                "organization":"Okinawa Institute of Science and Technology, 1919-1 Tancha, Onna-son, Kunigami-gun, Okinawa, 904-0495",
+                "country":"Japan"
+             }
+          ]
+       },
+       {
+          "full_name":"Leung, Pompey",
+          "given_names":"Pompey",
+          "surname":"Leung",
+          "affiliations":[
+             {
+                "value":"Department of Physics and Astronomy, University of British Columbia, 6224 Agricultural Road, Vancouver, British Columbia, V6T 1Z1, Canada",
+                "organization":"Department of Physics and Astronomy, University of British Columbia, 6224 Agricultural Road, Vancouver, British Columbia, V6T 1Z1",
+                "country":"Canada"
+             }
+          ]
+       },
+       {
+          "full_name":"Remmen, Grant N.",
+          "given_names":"Grant N.",
+          "surname":"Remmen",
+          "affiliations":[
+             {
+                "value":"Center for Cosmology and Particle Physics, Department of Physics, New York University, New York, New York, 10003, USA",
+                "organization":"Center for Cosmology and Particle Physics, Department of Physics, New York University, New York, New York, 10003",
+                "country":"USA"
+             }
+          ]
+       }
+    ],
+    "license":[
+       {
+          "url":"https://creativecommons.org/licenses/by/4.0/",
+          "license":"CC-BY-4.0"
+       }
+    ],
+    "collections":[
+       {
+          "primary":"HEP"
+       },
+       {
+          "primary":"Citeable"
+       },
+       {
+          "primary":"Published"
+       }
+    ],
+    "publication_info":[
+       {
+          "journal_title":"Physical Review D",
+          "journal_volume":"109",
+          "year":2024,
+          "journal_issue":"4",
+          "material":"article"
+       }
+    ],
+    "abstracts":[
+       {
+          "value":"<p>Holographic screens are codimension-one hypersurfaces that extend the notion of apparent horizons to general (non-black hole) spacetimes and that display interesting thermodynamic properties. We show that if a spacetime contains a codimension-two, boundary-homologous, minimal extremal spacelike surface <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mi>X</mi></math> (known as an HRT surface in <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>AdS</mi><mo>/</mo><mi>CFT</mi></mrow></math>), then any holographic screens are sequestered to the causal wedges of <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mi>X</mi></math>. That is, any single connected component of a holographic screen can be located in at most one of the causal future, causal past, inner wedge, or outer wedge of <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mi>X</mi></math>. We comment on how this result informs possible coarse grained entropic interpretations of generic holographic screens, as well as on connections to semiclassical objects such as quantum extremal surfaces.</p>",
+          "source":"APS"
+       }
+    ],
+    "acquisition_source":{
+       "source":"APS",
+       "method":"APS",
+       "date":"2024-02-08T00:00:16.954712"
+    },
+    "copyright":[
+       {
+          "year":2024,
+          "statement":"Published by the American Physical Society"
+       }
+    ],
+    "imprints":[
+       {
+          "date":"2024-02-07",
+          "publisher":"APS"
+       }
+    ],
+    "record_creation_date":"2024-02-08T00:00:16.954712",
+    "titles":[
+       {
+          "title":"Holographic screen sequestration",
+          "source":"APS"
+       }
+    ],
+    "$schema":"https://repo.qa.scoap3.org/schemas/hep.json"
+ }
