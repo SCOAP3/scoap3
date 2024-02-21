@@ -6,6 +6,8 @@ from django.core.paginator import Paginator
 from django_opensearch_dsl.registries import registry
 
 from scoap3.articles.models import Article, ComplianceReport
+from scoap3.authors.models import Author
+from scoap3.misc.models import Affiliation
 from scoap3.misc.utils import fetch_doi_registration_date
 
 logger = logging.getLogger(__name__)
@@ -122,6 +124,20 @@ def check_doi_registration_time(obj):
     return False, "DOI not found in our system."
 
 
+def check_authors_affiliation(article_id):
+    try:
+        article = Article.objects.get(id=article_id)
+        authors = Author.objects.filter(article_id=article)
+        for author in authors:
+            affiliations = Affiliation.objects.filter(author_id=author)
+            if len(affiliations) < 1:
+                return False, "Author does not have affiliations"
+        return True, "Authors' affiliations are compliant"
+    except Article.DoesNotExist:
+        logger.error("Article %s not found.", article_id)
+        return False, "Article not found"
+
+
 @shared_task(name="compliance_checks", acks_late=True)
 def compliance_checks(article_id):
     try:
@@ -145,6 +161,10 @@ def compliance_checks(article_id):
         article
     )
     check_license_compliance, check_license_description = check_license(article)
+    (
+        check_affiliations_compliance,
+        check_affiliations_description,
+    ) = check_authors_affiliation(article_id)
 
     article.report.all().delete()
 
@@ -160,6 +180,8 @@ def compliance_checks(article_id):
         check_file_formats_description=check_file_formats_description,
         check_license=check_license_compliance,
         check_license_description=check_license_description,
+        check_authors_affiliation=check_affiliations_compliance,
+        check_authors_affiliation_description=check_affiliations_description,
     )
     report.save()
     logger.info("Compliance checks completed for article %s", article_id)
