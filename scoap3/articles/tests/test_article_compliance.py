@@ -9,7 +9,15 @@ from scoap3.articles.models import (
     ComplianceReport,
 )
 from scoap3.articles.tasks import compliance_checks
-from scoap3.misc.models import ArticleArxivCategory, License, PublicationInfo, Publisher
+from scoap3.authors.models import Author
+from scoap3.misc.models import (
+    Affiliation,
+    ArticleArxivCategory,
+    Country,
+    License,
+    PublicationInfo,
+    Publisher,
+)
 
 
 @pytest.mark.django_db
@@ -146,6 +154,46 @@ class TestArticleCompliance(TestCase):
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
         self.assertEqual(report.check_arxiv_category, False)
+
+    def test_create_author_with_no_affiliation(self):
+        Author.objects.create(
+            article_id=self.article,
+            last_name="ExampleSurname",
+            first_name="ExampleName",
+            email="ExampleName.ExampleSurname@gmail.com",
+            author_order=100,
+        )
+        compliance_checks(self.article.id)
+        article = Article.objects.get(id=self.article.id)
+        report = article.report.first()
+        self.assertEqual(report.check_authors_affiliation, False)
+
+    def test_create_author_with_affiliation(self):
+        Author.objects.create(
+            article_id=self.article,
+            last_name="ExampleSurname",
+            first_name="ExampleName",
+            email="ExampleName.ExampleSurname@gmail.com",
+            author_order=100,
+        )
+        Country.objects.create(
+            code="BE",
+            name="Belgium",
+        )
+        author_id = (
+            Author.objects.get(last_name="ExampleSurname", first_name="ExampleName"),
+        )
+        affiliation = Affiliation.objects.create(
+            country=Country.objects.get(code="BE", name="Belgium"),
+            value="Example",
+            organization="Example Organization",
+        )
+        affiliation.author_id.set(author_id)
+
+        compliance_checks(self.article.id)
+        article = Article.objects.get(id=self.article.id)
+        report = article.report.first()
+        self.assertEqual(report.check_authors_affiliation, True)
 
     def test_create_article_with_not_compliant_category_having_not_partial_journal(
         self,
