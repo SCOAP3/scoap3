@@ -124,18 +124,13 @@ def check_doi_registration_time(obj):
     return False, "DOI not found in our system."
 
 
-def check_authors_affiliation(article_id):
-    try:
-        article = Article.objects.get(id=article_id)
-        authors = Author.objects.filter(article_id=article)
-        for author in authors:
-            affiliations = Affiliation.objects.filter(author_id=author)
-            if len(affiliations) < 1:
-                return False, "Author does not have affiliations"
-        return True, "Authors' affiliations are compliant"
-    except Article.DoesNotExist:
-        logger.error("Article %s not found.", article_id)
-        return False, "Article not found"
+def check_authors_affiliation(article):
+    authors = Author.objects.filter(article_id=article)
+    for author in authors:
+        affiliations = Affiliation.objects.filter(author_id=author)
+        if len(affiliations) < 1:
+            return False, "Author does not have affiliations"
+    return True, "Authors' affiliations are compliant"
 
 
 @shared_task(name="compliance_checks", acks_late=True)
@@ -164,7 +159,7 @@ def compliance_checks(article_id):
     (
         check_affiliations_compliance,
         check_affiliations_description,
-    ) = check_authors_affiliation(article_id)
+    ) = check_authors_affiliation(article)
 
     article.report.all().delete()
 
