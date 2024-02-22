@@ -132,7 +132,6 @@ def check_authors_affiliation(article):
             return False, "Author does not have affiliations"
     return True, "Authors' affiliations are compliant"
 
-
 @shared_task(name="compliance_checks", acks_late=True)
 def compliance_checks(article_id):
     try:
