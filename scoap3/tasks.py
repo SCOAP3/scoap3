@@ -71,17 +71,21 @@ def _create_licenses(data):
 
 def _create_article(data, licenses):
     article_data = {
-        "id": data.get("control_number"),
         "publication_date": data["imprints"][0].get("date"),
         "title": data["titles"][0].get("title"),
         "subtitle": data["titles"][0].get("subtitle", ""),
         "abstract": data["abstracts"][0].get("value", ""),
     }
+    doi = data.get("dois")[0].get("value")
     if (
-        article_data.get("id")
-        and Article.objects.filter(pk=article_data["id"]).exists()
+        doi
+        and ArticleIdentifier.objects.filter(
+            identifier_type="DOI", identifier_value=doi
+        ).exists()
     ):
-        article = Article.objects.get(pk=article_data["id"])
+        article = ArticleIdentifier.objects.get(
+            identifier_type="DOI", identifier_value=doi
+        ).article_id
         article.__dict__.update(**article_data)
     else:
         article = Article.objects.create(**article_data)
@@ -110,14 +114,22 @@ def _create_article_identifier(data, article):
             "identifier_value": doi.get("value"),
         }
         ArticleIdentifier.objects.get_or_create(**article_identifier_data)
-
     for arxiv in data.get("arxiv_eprints", []):
         article_identifier_data = {
             "article_id": article,
             "identifier_type": "arXiv",
             "identifier_value": arxiv.get("value"),
         }
-        ArticleIdentifier.objects.get_or_create(**article_identifier_data)
+        doi = data.get("dois")[0].get("value")
+        if ArticleIdentifier.objects.filter(
+            identifier_type="arXiv", article_id=article
+        ).exists():
+            article_identifier = ArticleIdentifier.objects.get(
+                article_id=article, identifier_type="arXiv"
+            )
+            article_identifier.__dict__.update(**article_identifier_data)
+        else:
+            ArticleIdentifier.objects.get_or_create(**article_identifier_data)
 
 
 def _create_copyright(data, article):
@@ -128,7 +140,11 @@ def _create_copyright(data, article):
             "holder": copyright.get("holder", ""),
             "year": copyright.get("year"),
         }
-        Copyright.objects.get_or_create(**copyright_data)
+        if Copyright.objects.filter(article_id=article).exists():
+            copyright = Copyright.objects.get(article_id=article)
+            copyright.__dict__.update(**copyright_data)
+        else:
+            Copyright.objects.get_or_create(**copyright_data)
 
 
 def _create_article_arxiv_category(data, article):
@@ -141,8 +157,15 @@ def _create_article_arxiv_category(data, article):
                 "category": arxiv_category,
                 "primary": True if idx == 0 else False,
             }
-
-            ArticleArxivCategory.objects.get_or_create(**article_arxiv_category_data)
+            if ArticleArxivCategory.objects.filter(article_id=article).exists():
+                article_arxiv_category = ArticleArxivCategory.objects.get(
+                    article_id=article
+                )
+                article_arxiv_category.__dict__.update(**article_arxiv_category_data)
+            else:
+                ArticleArxivCategory.objects.get_or_create(
+                    **article_arxiv_category_data
+                )
 
 
 def _create_publisher(data):
@@ -170,7 +193,11 @@ def _create_publication_info(data, article, publishers):
             "journal_issue_date": publication_info.get("journal_issue_date"),
             "publisher_id": publishers[idx].id,
         }
-        PublicationInfo.objects.get_or_create(**publication_info_data)
+        if PublicationInfo.objects.filter(article_id=article).exists():
+            publication_info = PublicationInfo.objects.get(article_id=article)
+            publication_info.__dict__.update(**publication_info_data)
+        else:
+            PublicationInfo.objects.get_or_create(**publication_info_data)
 
 
 def _create_experimental_collaborations(data):
