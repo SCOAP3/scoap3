@@ -27,6 +27,7 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "check_arxiv_category",
         "check_article_type",
         "check_doi_registration_time",
+        "check_authors_affiliation",
         "get_is_compliant",
         "report_date",
     ]
@@ -50,6 +51,8 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "check_article_type_description",
         "check_doi_registration_time",
         "check_doi_registration_time_description",
+        "check_authors_affiliation",
+        "check_authors_affiliation_description",
     ]
     readonly_fields = [
         "article",
@@ -65,6 +68,8 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "check_article_type_description",
         "check_doi_registration_time",
         "check_doi_registration_time_description",
+        "check_authors_affiliation",
+        "check_authors_affiliation_description",
     ]
 
     list_filter = [
@@ -77,6 +82,7 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "article_id__report__check_arxiv_category",
         "article_id__report__check_article_type",
         "article_id__report__check_doi_registration_time",
+        "article_id__report__check_authors_affiliation",
     ]
 
     actions = ["export_as_csv"]
@@ -154,6 +160,8 @@ class ArticleComplianceReportInline(admin.StackedInline):
         "check_article_type_description",
         "check_doi_registration_time",
         "check_doi_registration_time_description",
+        "check_authors_affiliation",
+        "check_authors_affiliation_description",
     ]
     can_delete = False
     can_create = False
@@ -171,6 +179,10 @@ class ArticleComplianceReportInline(admin.StackedInline):
                     (
                         "check_doi_registration_time",
                         "check_doi_registration_time_description",
+                    ),
+                    (
+                        "check_authors_affiliation",
+                        "check_authors_affiliation_description",
                     ),
                 ]
             },
@@ -228,6 +240,7 @@ class ArticleAdmin(admin.ModelAdmin):
         "check_arxiv_category",
         "check_article_type",
         "check_doi_registration_time",
+        "check_authors_affiliation",
         "_updated_at",
         "_created_at",
     ]
@@ -247,6 +260,7 @@ class ArticleAdmin(admin.ModelAdmin):
         "report__check_arxiv_category",
         "report__check_article_type",
         "report__check_doi_registration_time",
+        "report__check_authors_affiliation",
     ]
     inlines = [ArticleAuthorsInline, ArticleComplianceReportInline]
 
@@ -322,6 +336,13 @@ class ArticleAdmin(admin.ModelAdmin):
         report = obj.report.first()
         if report:
             return report.check_doi_registration_time
+        return False
+
+    @admin.display(description="Author affiliations", boolean=True)
+    def check_authors_affiliation(self, obj):
+        report = obj.report.first()
+        if report:
+            return report.check_authors_affiliation
         return False
 
 
