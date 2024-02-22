@@ -1,3 +1,5 @@
+import ReactHtmlParser from "react-html-parser";
+
 import { ArticleIdentifier, Params, QueryType, queryTypes } from "@/types";
 import { Token } from "../../token";
 
@@ -65,4 +67,14 @@ const resolveIdentifierLink = (identifier: ArticleIdentifier) => {
   }
 };
 
-export { getSearchUrl, getApiUrl, resolveIdentifierLink };
+  // strip <p> and <italic> tags to resolve errors: <p> cannot appear as a descendant of <p> and <italic> is not a valid tag.
+  const cleanText = (text: string) => text.replace(/<\/?(p|italic|sup|i|inf)>/g, "") ?? "";
+
+  const renderComplexSytnax = (abstract: string) => {
+    if (abstract.includes("<math")) {
+      return abstract;
+    }
+    return ReactHtmlParser(abstract);
+  };
+
+export { getSearchUrl, getApiUrl, resolveIdentifierLink, cleanText, renderComplexSytnax };

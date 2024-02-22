@@ -4,7 +4,6 @@
 /* GENERAL */
 
 body {
-  font-family: PT Sans Narrow, sans-serif;
   margin: 0;
   color: #333;
   line-height: 1.43;
@@ -22,6 +21,11 @@ a {
   color: #337ab7 !important;
   text-decoration: none;
   cursor: pointer;
+}
+
+[class*="MJX"][class*="-display"],
+div.MathJax_Display {
+  display: inline !important;
 }
 
 .app {

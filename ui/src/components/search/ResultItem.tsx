@@ -1,11 +1,14 @@
 import React from "react";
-import ReactHtmlParser from "react-html-parser";
-import { MathJax } from "better-react-mathjax";
+import { Text } from "react-mathjax2";
 
 import { ArticleIdentifier, Result } from "@/types";
 import PublicationInfo from "../shared/PublicationInfo";
 import Authors from "../shared/Authors";
-import { resolveIdentifierLink } from "@/utils/utils";
+import {
+  cleanText,
+  renderComplexSytnax,
+  resolveIdentifierLink,
+} from "@/utils/utils";
 import FulltextFiles from "../shared/FulltextFiles";
 
 interface ResultItemProps {
@@ -27,7 +30,15 @@ const ResultItem: React.FC<ResultItemProps> = ({ article }) => {
   return (
     <li className="search-results-record border-0 border-b border-solid border-slate-200 py-6">
       <a href={`/records/${article?.id}`} className="mb-2 block text-lg">
-        <MathJax inline>{ReactHtmlParser(article?.title)}</MathJax>
+        <Text
+          text={
+            <span
+              dangerouslySetInnerHTML={{
+                __html: renderComplexSytnax(cleanText(article?.title)),
+              }}
+            />
+          }
+        />
       </a>
       <div className="mb-2">
         <Authors authors={article?.authors} page="search" />
@@ -36,9 +47,16 @@ const ResultItem: React.FC<ResultItemProps> = ({ article }) => {
           - {article?.publication_date}
         </small>
       </div>
-      <p className="search-results-record-abstract mb-4">
-        <MathJax inline>{ReactHtmlParser(article?.abstract)}</MathJax>
-      </p>
+      <Text
+        text={
+          <p
+            className="search-results-record-abstract mb-4"
+            dangerouslySetInnerHTML={{
+              __html: renderComplexSytnax(cleanText(article?.abstract)),
+            }}
+          />
+        }
+      />
       <div className="lg:flex justify-between items-end">
         <div>
           <span className="text-sm">Published in: </span>

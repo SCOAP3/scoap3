@@ -57,9 +57,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({
                 onChange={sortResults}
                 defaultValue="_updated_at"
               >
-                <div>
+                <Select.OptGroup>
                   <DownOutlined />
-                </div>
+                </Select.OptGroup>
               </Select>
             </div>
           )}
