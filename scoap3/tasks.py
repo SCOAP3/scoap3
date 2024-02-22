@@ -76,15 +76,20 @@ def _create_article(data, licenses):
         "subtitle": data["titles"][0].get("subtitle", ""),
         "abstract": data["abstracts"][0].get("value", ""),
     }
-    doi = data.get("dois")[0].get("value")
     if (
-        doi
+        article_data.get("id")
+        and Article.objects.filter(pk=article_data["id"]).exists()
+    ):
+        article = Article.objects.get(pk=article_data["id"])
+        article.__dict__.update(**article_data)
+    elif (
+        data.get("dois")[0].get("value")
         and ArticleIdentifier.objects.filter(
-            identifier_type="DOI", identifier_value=doi
+            identifier_type="DOI", identifier_value=data.get("dois")[0].get("value")
         ).exists()
     ):
         article = ArticleIdentifier.objects.get(
-            identifier_type="DOI", identifier_value=doi
+            identifier_type="DOI", identifier_value=data.get("dois")[0].get("value")
         ).article_id
         article.__dict__.update(**article_data)
     else:
