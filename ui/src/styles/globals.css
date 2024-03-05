@@ -504,7 +504,7 @@ div.MathJax_Display {
 }
 
 .ant-modal-header {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5 !important;
   padding-bottom: 15px !important;
 }
 
