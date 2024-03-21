@@ -40,7 +40,6 @@ const SearchPage: React.FC<SearchPageProps> = ({
                     data={countries}
                     title="Country / Region / Territory"
                     type={"country"}
-                    params={query}
                   />
                 )}
 
@@ -49,7 +48,6 @@ const SearchPage: React.FC<SearchPageProps> = ({
                     data={journals}
                     title="Journal"
                     type={"journal"}
-                    params={query}
                   />
                 )}
               </>
@@ -68,7 +66,8 @@ const SearchPage: React.FC<SearchPageProps> = ({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context?.query as unknown as Params;
 
-  const res = await fetch(getApiUrl() + getSearchUrl({ ...query }), authToken);
+  const url = getApiUrl() + getSearchUrl(query);
+  const res = await fetch(url, authToken);
   const { results, count, facets } = (await res.json()) as Response;
 
   return { props: { results, count, query, facets } };

@@ -25,21 +25,18 @@ const isValue = (value: any): boolean =>
   value !== undefined && value !== null && value !== "";
 
 const buildSearchParams = (q: Params): string => {
-  const query = { ...defaultQueryValues, ...q };
+  const searchParams = new URLSearchParams();
 
-  const values = Object.entries(query).flatMap(([key, value]) => {
-    if (queryTypes.includes(key as QueryType)) {
-      if (Array.isArray(value)) {
-        return value.filter(isValue).map((v) => `${key}=${v}`);
-      } else if (isValue(value)) {
-        return [`${key}=${value}`];
-      }
+  Object.entries(q).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach(item => searchParams.append(key, item));
+    } else {
+      searchParams.set(key, `${value}`);
     }
-    return [];
   });
 
-  return values.join("&");
-};
+  return searchParams.toString();
+}
 
 const getSearchUrl = (query: Params, local?: boolean) => {
   const searchParams = buildSearchParams(query);

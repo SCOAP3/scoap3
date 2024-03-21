@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { XYPlot, VerticalBarSeries, Hint } from "react-vis";
 import { Button, Card, Slider } from "antd";
-import { SliderMarks } from "antd/es/slider";
-import { useRouter } from "next/navigation";
-import isEqual from "lodash.isequal";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import "react-vis/dist/style.css";
 
-import { getSearchUrl } from "@/utils/utils";
 import { PublicationYear, YearFacetData, Params } from "@/types";
 
 interface YearFacetProps {
@@ -14,100 +11,67 @@ interface YearFacetProps {
   params: Params;
 }
 
+const mapInitialDataToYears = (
+  initial: PublicationYear[]
+): YearFacetData[] => {
+  return initial?.map((item) => ({
+    x: new Date(item?.key)?.getFullYear(),
+    y: item?.doc_count,
+  }));
+};
+
 const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
   const [hoveredBar, setHoveredBar] = useState<any>(null);
   const [filters, setFilters] = useState<YearFacetData[]>([]);
-  const [initialData, setInitialData] = useState<YearFacetData[]>([]);
   const [initialEndpoints, setInitialEndpoints] = useState<number[]>([]);
   const [sliderEndpoints, setSliderEndpoints] = useState<number[]>([]);
-  const [marks, setMarks] = useState<SliderMarks>(undefined);
-  const [reset, setReset] = useState<boolean>(false);
+
   const router = useRouter();
+  const pathname = usePathname()
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const initialData = mapInitialDataToYears(data);
     setFilters(initialData);
-    setInitialData(initialData);
     setSliderEndpoints(getSliderEndpoints(initialData));
     setInitialEndpoints(getSliderEndpoints(initialData));
-    setMarks(getMarks(initialData));
-  }, []);
+  }, [data]);
 
-  useEffect(() => {
-    router.push(
-      getSearchUrl({
-        ...params,
-        page: 1,
-        publication_year__range: resolveYearQuery(),
-      })
-    );
-  }, [filters]);
-
-  const resolveYearQuery = () => {
-    if (sliderEndpoints[0] === sliderEndpoints[1]) {
-      return sliderEndpoints[0]?.toString();
+  const resolveYearQuery = (range: number[]) => {
+    if (range[0] === range[1]) {
+      return range[0]?.toString();
     }
-    return sliderEndpoints.join("__");
+    return range.join("__");
   };
 
-  const mapInitialDataToYears = (
-    initial: PublicationYear[]
-  ): YearFacetData[] => {
-    return initial?.map((item) => ({
-      x: new Date(item?.key)?.getFullYear(),
-      y: item?.doc_count,
-    }));
-  };
+  const createQueryString = useCallback(
+    (name: string, value: any) => {
+      const params = new URLSearchParams(searchParams)
+
+      params.delete(name);
+      params.set(name, resolveYearQuery([value[0].x, value[1].x]));
+
+      return params.toString()
+    },
+    [searchParams]
+  )
 
   const getSliderEndpoints = (initial: YearFacetData[]): number[] => {
     if (initial.length === 1) return [initial[0]?.x];
     return [initial[0]?.x, initial[initial.length - 1]?.x];
   };
 
-  const getMarks = (initial: YearFacetData[]): SliderMarks => {
-    if (initial.length === 1) {
-      return {
-        [initial[0]?.x]: [initial[0]?.x],
-      };
-    }
-    return {
-      [initial[0]?.x]: [initial[0]?.x],
-      [initial[initial.length - 1]?.x]: [initial[initial.length - 1]?.x],
-    };
-  };
-
-  const updateStateAndMarks = (newFilters: YearFacetData[]) => {
-    setSliderEndpoints(getSliderEndpoints(newFilters));
-    setMarks(getMarks(newFilters));
-  };
-
-  const sliderDataToGraphData = (data: number[]) => {
-    const firstIndex = initialData.findIndex(
-      (item: YearFacetData) => item.x === data[0]
-    );
-    const lastIndex = initialData.findIndex(
-      (item: YearFacetData) => item.x === data[data.length - 1]
-    );
-    const range = initialData.slice(firstIndex, lastIndex + 1);
-
-    if (range.length === 1) {
-      return [range, range].flat();
-    }
-
-    return range;
-  };
-
   const onSliderChange = (data: number[]) => {
-    updateStateAndMarks(sliderDataToGraphData(data));
+    setSliderEndpoints(data)
   };
 
-  const onSliderAfterChange = (data: number[]) => {
-    setFilters(sliderDataToGraphData(data));
+  const onSliderChange2 = (data: number[]) => {
+    setSliderEndpoints(data)
+    router.replace(pathname + '?' + createQueryString('publication_year__range',  [{x:data[0]}, {x:data[1]}]))
   };
 
   const onBarClick = (value: YearFacetData) => {
-    updateStateAndMarks([value, value]);
-    setFilters([value, value]);
+    router.replace(pathname + '?' + createQueryString('publication_year__range', [value, value]))
   };
 
   const onBarMouseHover = (bar: YearFacetData) => {
@@ -117,15 +81,24 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
   const onBarMouseOut = () => setHoveredBar(null);
 
   const resetFilters = () => {
-    setReset(!reset);
-    updateStateAndMarks(initialData);
-    setFilters(initialData);
+    const params = new URLSearchParams(searchParams);
+    params.delete('publication_year__range');
+    router.replace(pathname + params.toString())
   };
+
+  let marks:any = {}
+  filters.map(
+    (i, idx) => {
+      marks[`${i.x}`] = {
+        label: idx == 0 || idx == filters.length-1 ? `${i.x}` : ` `
+      };
+    }
+  );
 
   return (
     <Card title="Year" className="search-facets-facet mb-5">
       <div>
-        {!isEqual(initialData, filters) && (
+        {searchParams.get('publication_year__range') && (
           <div className="text-right mb-3">
             <Button
               onClick={resetFilters}
@@ -157,10 +130,12 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
       </div>
       <Slider
         range
+        step={null}
         className="year-facet-slider"
         onChange={onSliderChange}
-        onAfterChange={onSliderAfterChange}
+        onAfterChange={onSliderChange2}
         value={sliderEndpoints}
+        defaultValue={initialEndpoints}
         min={initialEndpoints[0]}
         max={initialEndpoints[1]}
         marks={marks}

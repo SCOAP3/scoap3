@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect, useCallback } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Card } from "antd";
 
 import { getSearchUrl } from "@/utils/utils";
@@ -9,28 +9,40 @@ import { Country, Journal, Params } from "@/types";
 interface CheckboxFacetProps {
   type: "country" | "journal";
   title: string;
-  params: Params;
   data: Country[] | Journal[];
 }
 
 const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
   type,
   title,
-  params,
   data,
 }) => {
   const [filters, setFilters] = useState<any[]>([]);
   const [showMore, setShowMore] = useState(false);
   const displayedData = showMore ? data : data?.slice(0, 13);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname()
+
+  const createQueryString = useCallback(
+    (name: string, value: any) => {
+      const params = new URLSearchParams(searchParams)
+
+      params.delete(name);
+
+      if (!Array.isArray(value)) value = [value];
+      value.forEach((val: string) => {
+        params.append(name, val);
+      });
+
+      return params.toString()
+    },
+    [searchParams]
+  )
 
   useEffect(() => {
-    setFilters([params[type]].flat());
+    setFilters(searchParams.getAll(type));
   }, []);
-
-  useEffect(() => {
-    router.push(getSearchUrl({ ...params, page: 1, [type]: filters }));
-  }, [filters]);
 
   const shortJournalName = (value: string) => {
     const journalMapping: Record<string, string> = {
@@ -46,12 +58,16 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
   };
 
   const onCheckboxChange = (value: string) => {
+    let updated_filters = [];
+
     if (filters.includes(value)) {
-      const newFilters = filters.filter((item: string) => item !== value);
-      setFilters(newFilters);
+      updated_filters = filters.filter((item: string) => item !== value);
     } else {
-      setFilters((oldFilters) => [...oldFilters, value]);
+      updated_filters = [...filters, value]
     }
+
+    setFilters(updated_filters);
+    router.replace(pathname + '?' + createQueryString(type, updated_filters))
   };
 
   return (
