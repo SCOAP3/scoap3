@@ -22,6 +22,9 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
   const [sliderEndpoints, setSliderEndpoints] = useState<number[]>([]);
   const [marks, setMarks] = useState<SliderMarks>(undefined);
   const [reset, setReset] = useState<boolean>(false);
+  const [shouldPush, setShouldPush] = useState<boolean>(
+    !!params.publication_year__range
+  );
   const router = useRouter();
 
   useEffect(() => {
@@ -34,14 +37,17 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
   }, []);
 
   useEffect(() => {
-    router.push(
-      getSearchUrl({
-        ...params,
-        page: 1,
-        publication_year__range: resolveYearQuery(),
-      })
-    );
-  }, [filters]);
+    if (shouldPush) {
+      router.push(
+        getSearchUrl({
+          ...params,
+          page: 1,
+          publication_year__range: resolveYearQuery(),
+        })
+      );
+      setShouldPush(false);
+    }
+  }, [filters, shouldPush]);
 
   const resolveYearQuery = () => {
     if (sliderEndpoints[0] === sliderEndpoints[1]) {
@@ -103,11 +109,13 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
 
   const onSliderAfterChange = (data: number[]) => {
     setFilters(sliderDataToGraphData(data));
+    setShouldPush(true);
   };
 
   const onBarClick = (value: YearFacetData) => {
     updateStateAndMarks([value, value]);
     setFilters([value, value]);
+    setShouldPush(true);
   };
 
   const onBarMouseHover = (bar: YearFacetData) => {
@@ -120,6 +128,7 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
     setReset(!reset);
     updateStateAndMarks(initialData);
     setFilters(initialData);
+    setShouldPush(true);
   };
 
   return (
@@ -137,12 +146,7 @@ const YearFacet: React.FC<YearFacetProps> = ({ data, params }) => {
             </Button>
           </div>
         )}
-        <XYPlot
-          height={80}
-          width={150}
-          margin={0}
-          className="year-facet"
-        >
+        <XYPlot height={80} width={150} margin={0} className="year-facet">
           {hoveredBar && <Hint value={hoveredBar} />}
           <VerticalBarSeries
             className="current-data"

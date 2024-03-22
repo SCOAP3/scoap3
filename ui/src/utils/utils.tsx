@@ -68,7 +68,8 @@ const resolveIdentifierLink = (identifier: ArticleIdentifier) => {
 };
 
 // strip <p> and <italic> tags to resolve errors: <p> cannot appear as a descendant of <p> and <italic> is not a valid tag.
-const cleanText = (text: string) => text.replace(/<\/?(p|italic|sup|i|inf)>/g, "") ?? "";
+const cleanText = (text: string) =>
+  text.replace(/<\/?(p|italic|sup|i|inf)>/g, "") ?? "";
 
 const renderComplexSytnax = (abstract: string) => {
   if (abstract.includes("<math")) {
@@ -80,24 +81,32 @@ const renderComplexSytnax = (abstract: string) => {
 function filterCountries(
   countryObjects: { key: string; doc_count: number }[]
 ): { key: string; doc_count: number }[] {
-  return countryObjects.filter(obj => PARTNER_COUNTRIES.includes(obj.key));
+  return countryObjects.filter((obj) => PARTNER_COUNTRIES.includes(obj.key));
 }
 
 function mapCountryNames(
   countryObjects: { key: string; doc_count: number }[]
 ): { key: string; doc_count: number }[] {
-  const correctCountries = countryObjects.map(country => {
-    if (country.key === 'Taiwan, Province of China') {
-      country.key = 'Taiwan';
+  const correctCountries = countryObjects.map((country) => {
+    if (country.key === "Taiwan, Province of China") {
+      country.key = "Taiwan";
     }
-    if (country.key === 'Korea, Republic of') {
-      country.key = 'South Korea';
+    if (country.key === "Korea, Republic of") {
+      country.key = "South Korea";
     }
     return country;
   });
 
-  correctCountries.sort((a, b) => a.key.localeCompare(b.key))
+  correctCountries.sort((a, b) => a.key.localeCompare(b.key));
   return correctCountries;
 }
 
-export { getSearchUrl, getApiUrl, resolveIdentifierLink, cleanText, renderComplexSytnax, filterCountries, mapCountryNames };
+export {
+  getSearchUrl,
+  getApiUrl,
+  resolveIdentifierLink,
+  cleanText,
+  renderComplexSytnax,
+  filterCountries,
+  mapCountryNames,
+};
