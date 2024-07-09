@@ -2,6 +2,7 @@ from django_elasticsearch_dsl_drf.constants import LOOKUP_FILTER_RANGE, LOOKUP_Q
 from django_elasticsearch_dsl_drf.filter_backends import (
     FacetedSearchFilterBackend,
     FilteringFilterBackend,
+    OrderingFilterBackend,
     SearchFilterBackend,
 )
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
@@ -91,6 +92,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
         SearchFilterBackend,
         FacetedSearchFilterBackend,
         FilteringFilterBackend,
+        OrderingFilterBackend,
     ]
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES + [ArticleCSVRenderer]
 
@@ -106,7 +108,8 @@ class ArticleDocumentView(BaseDocumentViewSet):
         "article_identifiers.identifier_value",
     )
 
-    ordering = ["-updated_at"]
+    ordering_fields = {"_updated_at": "_updated_at"}
+    ordering = ["-_updated_at"]
 
     filter_fields = {
         "publication_year": {
