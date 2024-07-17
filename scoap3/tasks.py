@@ -1,18 +1,32 @@
+import csv
 import io
 import json
 import logging
 import os
 import re
+import tempfile
+from datetime import datetime, timedelta
+from itertools import chain
 
 import pycountry
+from django.conf import settings
 from django.core.exceptions import MultipleObjectsReturned, ValidationError
 from django.core.files.storage import default_storage, storages
+from django.core.mail import EmailMessage
 from django.core.validators import URLValidator
+from django.db.models import Q
 from elasticsearch import ConnectionError, ConnectionTimeout, Elasticsearch
 from sentry_sdk import capture_exception
 
 from config import celery_app
-from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
+from scoap3.articles.models import (
+    Article,
+    ArticleFile,
+    ArticleIdentifier,
+    ComplianceReport,
+)
+from scoap3.articles.tasks import compliance_checks
+from scoap3.articles.util import generate_compliance_csv
 from scoap3.authors.models import Author, AuthorIdentifier
 from scoap3.misc.models import (
     Affiliation,
@@ -381,3 +395,63 @@ def link_affiliations(folder_name, index_range):
             with storage.open(os.path.join(folder_name, filename)) as file:
                 json_data = json.load(file)
                 update_affiliations(json_data)
+
+
+@celery_app.task(acks_late=True)
+def send_weekly_compliance_report():
+    now = datetime.now()
+    last_week = now - timedelta(days=7)
+    start_of_day = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    articles_created = Article.objects.filter(Q(_created_at__gte=last_week))
+    articles_updated = Article.objects.filter(Q(_updated_at__gte=last_week))
+
+    for article in chain(articles_created, articles_updated):
+        compliance_checks(article.id)
+
+    reports = ComplianceReport.objects.filter(
+        report_date__gte=start_of_day
+    ).select_related("article")
+    host = settings.CURRENT_HOST
+    response = generate_compliance_csv(reports, host)
+    content = response.content.decode("utf-8")
+    csv_reader = csv.reader(io.StringIO(content))
+    rows = list(csv_reader)[1:]
+    compliant = 0
+    non_compliant = 0
+    for row in rows:
+        row = [
+            True if column == "True" else False if column == "False" else column
+            for column in row
+        ]
+        if all(row):
+            compliant += +1
+        else:
+            non_compliant += 1
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".csv") as tmp_file:
+        tmp_file.write(response.content)
+        tmp_file_path = tmp_file.name
+
+    total_count_articles = compliant + non_compliant
+    updated_articles = articles_updated.count()
+    created_articles = articles_created.count()
+    articles_created_and_updated = total_count_articles - updated_articles
+    updated_older_articles = updated_articles - created_articles
+
+    subject = "Weekly Compliance Report"
+    body = (
+        "Please find the attached weekly compliance report.\n\n"
+        "Summary:\n"
+        f"All new created articles in the last week, total: {created_articles}.\n"
+        f"Articles both created and updated in the last week, total: {articles_created_and_updated}.\n"
+        f"Older articles updated (older than last week), total: {max(updated_older_articles, 0)}.\n"
+        f"Compliant articles received in the last week, total: {compliant}.\n"
+        f"Non-compliant articles received in the last week, total: {non_compliant}."
+    )
+    to_email = settings.DEFAULT_TO_EMAIL
+
+    email = EmailMessage(subject, body, to=to_email)
+    email.attach_file(tmp_file_path)
+    email.send()
+
+    tmp_file.close()

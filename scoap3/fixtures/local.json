@@ -66,7 +66,7 @@
             "subtitle": "",
             "abstract": "We present a gauge mediated supersymmetry breaking model having weak SU(2) triplet, color SU(3) octet and SU(5) 5-plet messengers, that can simultaneously explain the muon (g−2) data within 1 σ and the observed Higgs boson mass of 125 GeV. Gauge coupling unification is nontrivially maintained. Most of the parameter space satisfying both is accessible to the 14 TeV LHC. The lighter of the two staus weighs around (100–200) GeV, which can be a potential target of the ILC.",
             "_created_at": "2018-04-17T14:23:42.320Z",
-            "_updated_at": "2023-10-02T15:40:23.725Z",
+            "_updated_at": "2024-07-15T15:40:23.725Z",
             "related_licenses": [
                 2
             ],
@@ -85,7 +85,7 @@
             "subtitle": "",
             "abstract": "Pseudoscalar meson decay leads to an entangled state of charged leptons ( μ,e ) and massive neutrinos. Tracing out the neutrino degrees of freedom leads to a reduced density matrix for the charged leptons whose off-diagonal elements reveal charged lepton oscillations . Although these decohere on unobservably small time scales ≲10−23 s they indicate charged lepton mixing as a result of common intermediate states. The charged lepton self-energy up to one loop features flavor off-diagonal terms responsible for charged lepton mixing: a dominant “short distance” contribution with W bosons and massive neutrinos in the intermediate state, and a subdominant “large distance” contribution with pseudoscalar mesons and massive neutrinos in the intermediate state. Mixing angle(s) are GIM suppressed, and are momentum and chirality dependent . The difference of negative chirality mixing angles near the muon and electron mass shells is θL(Mμ2)−θL(Me2)∝GF∑Uμjmj2Uje⁎ with mj the mass of the neutrino in the intermediate state. Recent results from TRIUMF, suggest an upper bound θL(p2≃Mμ2)−θL(p2≃Me2)&lt;10−14(MS/100 MeV)2 for one generation of a heavy sterile neutrino with mass MS . We obtain the wavefunctions for the propagating modes, and discuss the relation between the lepton flavor violating process μ→eγ and charged lepton mixing, highlighting that a measurement of such process implies a mixed propagator μ , e . Furthermore writing flavor diagonal vertices in terms of mass eigenstates yields novel interactions suggesting further contributions to lepton flavor violating process as a consequence of momentum and chirality dependent mixing angles.",
             "_created_at": "2018-04-17T10:45:46.022Z",
-            "_updated_at": "2023-10-02T15:40:23.166Z",
+            "_updated_at": "2024-07-15T15:40:23.166Z",
             "related_licenses": [
                 2
             ],
@@ -103,8 +103,8 @@
             "title": "Charmed tetraquarks Tcc and Tcs from dynamical lattice QCD simulations",
             "subtitle": "",
             "abstract": "Charmed tetraquarks Tcc=(ccu¯d¯) and Tcs=(csu¯d¯) are studied through the S-wave meson–meson interactions, D – D , K¯ – D , D – D⁎ and K¯ – D⁎ , on the basis of the (2+1) -flavor lattice QCD simulations with the pion mass mπ≃410 , 570 and 700 MeV. For the charm quark, the relativistic heavy quark action is employed to treat its dynamics on the lattice. Using the HAL QCD method, we extract the S-wave potentials in lattice QCD simulations, from which the meson–meson scattering phase shifts are calculated. The phase shifts in the isospin triplet ( I=1 ) channels indicate repulsive interactions, while those in the I=0 channels suggest attraction, growing as mπ decreases. This is particularly prominent in the Tcc(JP=1+,I=0) channel, though neither bound state nor resonance are found in the range mπ=410–700 MeV . We make a qualitative comparison of our results with the phenomenological diquark picture.",
-            "_created_at": "2018-04-17T14:23:39.742Z",
-            "_updated_at": "2023-10-02T15:40:30.875Z",
+            "_created_at": "2024-07-14T14:23:39.742Z",
+            "_updated_at": "2024-07-15T15:40:30.875Z",
             "related_licenses": [
                 2
             ],
@@ -503,7 +503,7 @@
             "subtitle": "",
             "abstract": "In Ref. [1] we have presented the results of an exploratory lattice QCD computation of the long-distance contribution to the <math><msup><mi>K</mi><mo>+</mo></msup><mo>→</mo><msup><mi>π</mi><mo>+</mo></msup><mi>ν</mi><mover><mi>ν</mi><mo>¯</mo></mover></math> decay amplitude. In the present paper we describe the details of this calculation, which includes the implementation of a number of novel techniques. The <math><mrow><msup><mrow><mi>K</mi></mrow><mrow><mo>+</mo></mrow></msup><mo>→</mo><msup><mrow><mi>π</mi></mrow><mrow><mo>+</mo></mrow></msup><mi>ν</mi><mover><mrow><mi>ν</mi></mrow><mrow><mo>¯</mo></mrow></mover></mrow></math> decay amplitude is dominated by short-distance contributions which can be computed in perturbation theory with the only required nonperturbative input being the relatively well-known form factors of semileptonic kaon decays. The long-distance contributions, which are the target of this work, are expected to be of <math><mi>O</mi><mo>(</mo><mn>5</mn><mo>%</mo><mo>)</mo></math> in the branching ratio. Our study demonstrates the feasibility of lattice QCD computations of the <math><mrow><msup><mrow><mi>K</mi></mrow><mrow><mo>+</mo></mrow></msup><mo>→</mo><msup><mrow><mi>π</mi></mrow><mrow><mo>+</mo></mrow></msup><mi>ν</mi><mover><mrow><mi>ν</mi></mrow><mrow><mo>¯</mo></mrow></mover></mrow></math> decay amplitude, and in particular of the long-distance component. Though this calculation is performed on a small lattice (<math><mrow><mn>1</mn><msup><mrow><mn>6</mn></mrow><mrow><mn>3</mn></mrow></msup><mo>×</mo><mn>32</mn></mrow></math>) and at unphysical pion, kaon and charm quark masses, <math><mrow><msub><mrow><mi>m</mi></mrow><mrow><mi>π</mi></mrow></msub><mo>=</mo><mn>420</mn><mtext> </mtext><mtext> </mtext><mi>MeV</mi></mrow></math>, <math><mrow><msub><mrow><mi>m</mi></mrow><mrow><mi>K</mi></mrow></msub><mo>=</mo><mn>563</mn><mtext> </mtext><mtext> </mtext><mi>MeV</mi></mrow></math> and <math><mrow><msubsup><mrow><mi>m</mi></mrow><mrow><mi>c</mi></mrow><mrow><mover><mrow><mi>MS</mi></mrow><mrow><mo>¯</mo></mrow></mover></mrow></msubsup><mo>(</mo><mrow><mn>2</mn><mtext> </mtext><mtext> </mtext><mi>GeV</mi></mrow><mo>)</mo><mo>=</mo><mn>863</mn><mtext> </mtext><mtext> </mtext><mi>MeV</mi></mrow></math>, the techniques presented in this work can readily be applied to a future realistic calculation.",
             "_created_at": "2018-10-15T15:31:38.021Z",
-            "_updated_at": "2024-02-02T15:40:25.576Z",
+            "_updated_at": "2023-10-02T15:40:25.576Z",
             "related_licenses": [
                 1
             ],
