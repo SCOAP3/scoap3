@@ -248,7 +248,7 @@ EMAIL_BACKEND = env(
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
-
+DEFAULT_TO_EMAIL = ["scoap3repo.admin@cern.ch"]
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.

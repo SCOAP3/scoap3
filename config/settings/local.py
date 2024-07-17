@@ -46,6 +46,7 @@ STORAGES = {
 EMAIL_HOST = env("EMAIL_HOST", default="mailhog")
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 EMAIL_PORT = 1025
+CURRENT_HOST = "http://localhost:8080/"
 
 # WhiteNoise
 # ------------------------------------------------------------------------------

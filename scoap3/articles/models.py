@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.db.models.fields.files import FieldFile
 from django_lifecycle import AFTER_CREATE, AFTER_UPDATE, LifecycleModelMixin, hook
@@ -45,6 +47,9 @@ class Article(LifecycleModelMixin, models.Model):
 
     class Meta:
         ordering = ["id"]
+
+    def get_url_to_record(self):
+        return f"http://{os.environ.get('DJANGO_HOST')}/records/"
 
     @hook(AFTER_UPDATE, on_commit=True)
     @hook(AFTER_CREATE, on_commit=True)

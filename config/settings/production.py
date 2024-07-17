@@ -138,6 +138,7 @@ EMAIL_SUBJECT_PREFIX = env(
     "DJANGO_EMAIL_SUBJECT_PREFIX",
     default="[SCOAP3]",
 )
+CURRENT_HOST = "https://backend.dev.scoap3.org/"
 
 # ADMIN
 # ------------------------------------------------------------------------------
