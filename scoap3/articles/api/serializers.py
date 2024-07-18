@@ -40,6 +40,12 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = "__all__"
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if instance.publication_date is None:
+            representation["publication_date"] = instance._created_at
+        return representation
+
 
 class ArticleDocumentSerializer(DocumentSerializer):
     class Meta:

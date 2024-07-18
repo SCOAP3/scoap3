@@ -83,16 +83,19 @@ def _create_licenses(data):
 
 def _create_article(data, licenses):
     article_data = {
-        "publication_date": data["imprints"][0].get("date"),
         "title": data["titles"][0].get("title"),
         "subtitle": data["titles"][0].get("subtitle", ""),
         "abstract": data["abstracts"][0].get("value", ""),
     }
+    publication_date = data["imprints"][0].get("date")
     if (
         article_data.get("id")
         and Article.objects.filter(pk=article_data["id"]).exists()
     ):
         article = Article.objects.get(pk=article_data["id"])
+
+        if publication_date:
+            article_data["publication_date"] = publication_date
         article.__dict__.update(**article_data)
     elif (
         data.get("dois")[0].get("value")
@@ -103,11 +106,13 @@ def _create_article(data, licenses):
         article = ArticleIdentifier.objects.get(
             identifier_type="DOI", identifier_value=data.get("dois")[0].get("value")
         ).article_id
+        if publication_date:
+            article_data["publication_date"] = publication_date
         article.__dict__.update(**article_data)
     else:
+        article_data["publication_date"] = publication_date
         article = Article.objects.create(**article_data)
         article._created_at = data.get("_created") or data.get("record_creation_date")
-
     article.related_licenses.set(licenses)
     article.save()
     return article

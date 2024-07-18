@@ -9,20 +9,24 @@ from scoap3.articles.models import Article
 pytestmark = pytest.mark.django_db
 
 
+@pytest.fixture
+def record(shared_datadir):
+    contents = (shared_datadir / "workflow_record.json").read_text()
+    return json.loads(contents)
+
+
 class TestArticleViewSet:
     def test_get_article(self, client):
         url = reverse("api:article-list")
         response = client.get(url)
         assert response.status_code == status.HTTP_200_OK
 
-    def test_create_article_from_workflow(self, client, user, shared_datadir):
+    def test_create_article_from_workflow(self, client, user, record):
         client.force_login(user)
-        contents = (shared_datadir / "workflow_record.json").read_text()
-        data = json.loads(contents)
 
         response = client.post(
             reverse("api:article-workflow-import-list"),
-            data,
+            record,
             content_type="application/json",
         )
         assert response.status_code == status.HTTP_200_OK
@@ -34,13 +38,11 @@ class TestArticleViewSet:
             == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
         )
 
-    def test_update_article_from_workflow(self, client, user, shared_datadir):
+    def test_update_article_from_workflow(self, client, user, record):
         client.force_login(user)
-        contents = (shared_datadir / "workflow_record.json").read_text()
-        data = json.loads(contents)
         response = client.post(
             reverse("api:article-workflow-import-list"),
-            data,
+            record,
             content_type="application/json",
         )
         assert response.status_code == status.HTTP_200_OK
@@ -52,10 +54,10 @@ class TestArticleViewSet:
             == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
         )
 
-        data["titles"][0]["title"] = "New title"
+        record["titles"][0]["title"] = "New title"
         response = client.post(
             reverse("api:article-workflow-import-list"),
-            data,
+            record,
             content_type="application/json",
         )
         assert response.status_code == status.HTTP_200_OK
@@ -70,6 +72,98 @@ class TestArticleViewSet:
         assert article.title == "New title"
         assert len(expected_dois) == 1
         assert "10.5506/APhysPolB.54.10-A3" in expected_dois
+
+    def test_create_article_from_workflow_without_publication_date(
+        self, client, user, record
+    ):
+        client.force_login(user)
+        del record["imprints"][0]["date"]
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data["publication_date"] == response.data["_created_at"]
+
+        article_id = response.data["id"]
+        article = Article.objects.get(id=article_id)
+        assert article.publication_date is None
+
+    def test_create_update_from_workflow_without_publication_date(
+        self, client, user, record
+    ):
+        client.force_login(user)
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id_with_publication_date = response.data["id"]
+        article_with_publication_date = Article.objects.get(
+            id=article_id_with_publication_date
+        )
+        assert article_with_publication_date.publication_date is not None
+
+        del record["imprints"][0]["date"]
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id_without_publication_date = response.data["id"]
+        assert article_id_with_publication_date == article_id_without_publication_date
+        article_without_publication_date = Article.objects.get(
+            id=article_id_without_publication_date
+        )
+        assert article_without_publication_date.publication_date is not None
+
+    def test_create_update_from_workflow_with_publication_date(
+        self,
+        client,
+        user,
+        record,
+    ):
+        client.force_login(user)
+
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id_with_publication_date = response.data["id"]
+        article_with_publication_date = Article.objects.get(
+            id=article_id_with_publication_date
+        )
+        assert (
+            article_with_publication_date.publication_date.strftime("%Y-%m-%d")
+            == "2023-10-31"
+        )
+        record["imprints"][0]["date"] = "2024-06-20"
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id_with_updated_publication_date = response.data["id"]
+        assert (
+            article_id_with_publication_date == article_id_with_updated_publication_date
+        )
+        article_with_updated_publication_date = Article.objects.get(
+            id=article_id_with_updated_publication_date
+        )
+        assert (
+            article_with_updated_publication_date.publication_date.strftime("%Y-%m-%d")
+            == "2024-06-20"
+        )
 
 
 class TestArticleIdentifierViewSet:
