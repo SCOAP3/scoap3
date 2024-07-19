@@ -73,7 +73,7 @@ class PublicationInfo(models.Model):
     page_start = models.CharField(blank=True)
     page_end = models.CharField(blank=True)
     artid = models.CharField(max_length=255, blank=True, default="")
-    volume_year = models.CharField(max_length=255)
+    volume_year = models.CharField(max_length=255, blank=True, null=True)
     journal_issue_date = models.DateField(blank=True, null=True)
     publisher = models.ForeignKey("misc.Publisher", on_delete=models.CASCADE)
 

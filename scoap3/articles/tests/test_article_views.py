@@ -5,6 +5,8 @@ from django.urls import reverse
 from rest_framework import status
 
 from scoap3.articles.models import Article
+from scoap3.articles.util import parse_string_to_date_object
+from scoap3.misc.models import PublicationInfo
 
 pytestmark = pytest.mark.django_db
 
@@ -164,6 +166,94 @@ class TestArticleViewSet:
             article_with_updated_publication_date.publication_date.strftime("%Y-%m-%d")
             == "2024-06-20"
         )
+
+    def test_create_update_from_workflow_with_journal_year(
+        self,
+        client,
+        user,
+        record,
+    ):
+        client.force_login(user)
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id_with_journal_year = response.data["id"]
+        publication_info_with_journal_year = PublicationInfo.objects.get(
+            article_id=article_id_with_journal_year
+        )
+        assert publication_info_with_journal_year.volume_year == "2023"
+
+        record["publication_info"][0]["year"] = "2024"
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        article_id_with_updated_journal_year = response.data["id"]
+        assert article_id_with_journal_year == article_id_with_updated_journal_year
+        journal_info_with_updated_journal_year = PublicationInfo.objects.get(
+            article_id=article_id_with_updated_journal_year
+        )
+        assert journal_info_with_updated_journal_year.volume_year == "2024"
+
+        del record["publication_info"][0]["year"]
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+        journal_info_with_deleted_journal_year = PublicationInfo.objects.get(
+            article_id=article_id_with_journal_year
+        )
+        assert journal_info_with_deleted_journal_year.volume_year == "2024"
+
+    def test_create_update_from_workflow_without_journal_year(
+        self,
+        client,
+        user,
+        record,
+    ):
+        client.force_login(user)
+        del record["publication_info"][0]["year"]
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id_with_publication_date = response.data["id"]
+        article_with_publication_date = PublicationInfo.objects.get(
+            article_id=article_id_with_publication_date
+        )
+        assert article_with_publication_date.volume_year is None
+
+        assert (
+            response.data["publication_info"][0]["volume_year"]
+            == parse_string_to_date_object(response.data["_created_at"]).year
+        )
+
+        record["publication_info"][0]["year"] = "2024"
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            record,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id_with_updated_publication_date = response.data["id"]
+        assert (
+            article_id_with_publication_date == article_id_with_updated_publication_date
+        )
+        article_with_updated_publication_date = PublicationInfo.objects.get(
+            article_id=article_id_with_updated_publication_date
+        )
+        assert article_with_updated_publication_date.volume_year == "2024"
 
 
 class TestArticleIdentifierViewSet:

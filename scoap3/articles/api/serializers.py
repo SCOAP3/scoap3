@@ -10,6 +10,7 @@ from scoap3.articles.models import (
     ArticleIdentifier,
     ArticleIdentifierType,
 )
+from scoap3.articles.util import parse_string_to_date_object
 from scoap3.misc.api.serializers import (
     ArticleArxivCategorySerializer,
     CopyrightSerializer,
@@ -44,6 +45,12 @@ class ArticleSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         if instance.publication_date is None:
             representation["publication_date"] = instance._created_at
+        if instance.publication_info.exists():
+            for pub_info in representation["publication_info"]:
+                if pub_info.get("volume_year") is None:
+                    pub_info["volume_year"] = parse_string_to_date_object(
+                        instance._created_at
+                    ).year
         return representation
 
 

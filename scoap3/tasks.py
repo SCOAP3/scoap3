@@ -193,19 +193,31 @@ def _create_publisher(data):
 def _create_publication_info(data, article, publishers):
     for idx, publication_info in enumerate(data.get("publication_info", [])):
         publication_info_data = {
-            "article_id": article,
             "journal_volume": publication_info.get("journal_volume", ""),
             "journal_title": publication_info.get("journal_title", ""),
             "journal_issue": publication_info.get("journal_issue", ""),
             "page_start": publication_info.get("page_start", ""),
             "page_end": publication_info.get("page_end", ""),
             "artid": publication_info.get("artid", ""),
-            "volume_year": publication_info.get("year"),
             "journal_issue_date": publication_info.get("journal_issue_date"),
             "publisher_id": publishers[idx].id,
         }
-
-        PublicationInfo.objects.get_or_create(**publication_info_data)
+        volume_year = publication_info.get("year", "")
+        if PublicationInfo.objects.filter(article_id=article.id).exists():
+            if volume_year:
+                publication_info_data["volume_year"] = volume_year
+            publication_info_obj = PublicationInfo.objects.filter(
+                article_id=article.id
+            ).first()
+            publication_info_obj.__dict__.update(**publication_info_data)
+        else:
+            if volume_year:
+                publication_info_data["volume_year"] = volume_year
+            publication_info_data["article_id"] = article
+            publication_info_obj = PublicationInfo.objects.create(
+                **publication_info_data
+            )
+        publication_info_obj.save()
 
 
 def _create_experimental_collaborations(data):
