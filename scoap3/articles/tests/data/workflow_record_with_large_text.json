@@ -1,0 +1,65 @@
+{
+  "dois": [{ "value": "10.1103/PhysRevD.110.025020" }],
+  "page_nr": [7],
+  "arxiv_eprints": [{ "value": "2309.15307", "categories": ["hep-th"] }],
+  "authors": [
+    {
+      "full_name": "Nakayama, Yu",
+      "given_names": "Yu",
+      "surname": "Nakayama",
+      "affiliations": [
+        {
+          "value": "Department of Physics, <a href=\"https://ror.org/00x194q47\">Rikkyo University</a>, Toshima, Tokyo 171-8501, Japan and <a href=\"https://ror.org/0589kgd85\">Yukawa Institute for Theoretical Physics</a>, <a href=\"https://ror.org/02kpeqv85\">Kyoto University</a>, Kitashirakawa Oiwakecho, Sakyo-ku, Kyoto 606-8502, Japan",
+          "organization": "Department of Physics, <a href=\"https://ror.org/00x194q47\">Rikkyo University</a>, Toshima, Tokyo 171-8501, Japan and <a href=\"https://ror.org/0589kgd85\">Yukawa Institute for Theoretical Physics</a>, <a href=\"https://ror.org/02kpeqv85\">Kyoto University</a>, Kitashirakawa Oiwakecho, Sakyo-ku, Kyoto 606-8502",
+          "country": "Japan"
+        }
+      ]
+    }
+  ],
+  "license": [
+    {
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "license": "CC-BY-4.0"
+    }
+  ],
+  "collections": [
+    { "primary": "HEP" },
+    { "primary": "Citeable" },
+    { "primary": "Published" }
+  ],
+  "publication_info": [
+    {
+      "journal_title": "Physical Review D",
+      "journal_volume": "110",
+      "year": 2024,
+      "journal_issue": "2",
+      "material": "article"
+    }
+  ],
+  "abstracts": [
+    {
+      "value": "<p>A dipolar fixed point introduced by Aharony and Fisher is a physical example of interacting scale-invariant but nonconformal field theories. We find that the perturbative critical exponents computed in <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mi>ε</mi></math> expansions violate the conformal bootstrap bound. We formulate the functional renormalization group equations <i>à la</i> Wetterich and Polchinski to study the fixed point. We present some results in three dimensions within (uncontrolled) local potential approximations (with or without perturbative anomalous dimensions).</p>",
+      "source": "APS"
+    }
+  ],
+  "acquisition_source": {
+    "source": "APS",
+    "method": "APS",
+    "date": "2024-08-20T19:16:38.813135"
+  },
+  "copyright": [
+    { "year": 2024, "statement": "Published by the American Physical Society" }
+  ],
+  "imprints": [{ "date": "2024-07-23", "publisher": "APS" }],
+  "record_creation_date": "2024-08-20T19:16:38.813135",
+  "titles": [
+    {
+      "title": "Functional renormalization group approach to dipolar fixed point which is scale invariant but nonconformal",
+      "source": "APS"
+    }
+  ],
+  "files": {
+    "pdf": "scoap3-dev-backend/media/harvested_files/10.1103/PhysRevD.110.025020/PhysRevD.110.025020.pdf",
+    "xml": "scoap3-dev-backend/media/harvested_files/10.1103/PhysRevD.110.025020/PhysRevD.110.025020.xml"
+  }
+}

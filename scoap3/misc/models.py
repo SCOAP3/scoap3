@@ -18,7 +18,7 @@ class Affiliation(models.Model):
     author_id = models.ManyToManyField("authors.Author", blank=True)
     country = models.ForeignKey("misc.Country", on_delete=models.CASCADE, null=True)
     value = models.TextField(blank=True, default="")
-    organization = models.CharField(max_length=255, blank=True, default="")
+    organization = models.TextField(blank=True, default="")
 
     class Meta:
         ordering = ["id"]

@@ -36,6 +36,26 @@ class TestArticleViewSet:
             == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
         )
 
+    def test_create_article_from_workflow_with_large_text(self, client, user, shared_datadir):
+        client.force_login(user)
+        contents = (shared_datadir / "workflow_record_with_large_text.json").read_text()
+        data = json.loads(contents)
+
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            data,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id = response.data["id"]
+        article = Article.objects.get(id=article_id)
+        assert (
+            article.title
+            == "Functional renormalization group approach to dipolar fixed "
+            "point which is scale invariant but nonconformal"
+        )
+
     def test_create_article_from_legacy(self, client, user, shared_datadir):
         client.force_login(user)
         contents = (shared_datadir / "legacy_record.json").read_text()
