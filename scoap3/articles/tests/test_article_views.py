@@ -36,7 +36,9 @@ class TestArticleViewSet:
             == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
         )
 
-    def test_create_article_from_workflow_with_large_text(self, client, user, shared_datadir):
+    def test_create_article_from_workflow_with_large_text(
+        self, client, user, shared_datadir
+    ):
         client.force_login(user)
         contents = (shared_datadir / "workflow_record_with_large_text.json").read_text()
         data = json.loads(contents)

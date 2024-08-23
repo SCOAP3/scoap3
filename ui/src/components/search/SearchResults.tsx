@@ -24,11 +24,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   const sortOptions = [
     {
       label: "Most recent",
-      value: "_updated_at",
+      value: "-publication_date",
     },
     {
       label: "Least recent",
-      value: "-_updated_at",
+      value: "publication_date",
     },
   ];
 
@@ -55,7 +55,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
                 options={sortOptions}
                 className="sort-dropdown ml-3"
                 onChange={sortResults}
-                defaultValue="_updated_at"
+                defaultValue="-publication_date"
               >
                 <Select.OptGroup>
                   <DownOutlined />
