@@ -11,6 +11,7 @@ from scoap3.articles.models import (
     ArticleIdentifierType,
 )
 from scoap3.authors.api.serializers import AuthorSerializer
+from scoap3.authors.models import AuthorIdentifierType
 from scoap3.misc.api.serializers import (
     ArticleArxivCategorySerializer,
     CopyrightSerializer,
@@ -56,8 +57,8 @@ class ArticleSerializer(serializers.ModelSerializer):
 class LegacyArticleSerializer(serializers.ModelSerializer):
     metadata = serializers.SerializerMethodField()
     updated = serializers.SerializerMethodField()
-    created = serializers.SerializerMethodField()
     id = serializers.SerializerMethodField()
+    created = serializers.SerializerMethodField()
 
     class Meta:
         model = Article
@@ -111,6 +112,14 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
                     "full_name": entry.full_name,
                     "given_names": entry.first_name,
                     "surname": entry.last_name,
+                    "orcid": {
+                        orcid
+                        for orcid in entry.identifiers.filter(
+                            identifier_type=AuthorIdentifierType.ORCID
+                        )
+                        .values_list("identifier_value", flat=True)
+                        .all()
+                    },
                 }
                 for entry in obj.authors.all()
             ],
@@ -144,7 +153,11 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
                 }
                 for entry in obj.related_licenses.all()
             ],
-            "page_nr": [int(entry.page_end) for entry in obj.publication_info.all()],
+            "page_nr": [
+                int(entry.page_end)
+                for entry in obj.publication_info.all()
+                if entry.page_end.isdigit()
+            ],
             "publication_info": [
                 {
                     "artid": entry.artid,
