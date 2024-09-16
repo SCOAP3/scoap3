@@ -76,7 +76,9 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
             ],
             "abstracts": [
                 {
-                    "source": obj.publication_info.first().publisher.name,
+                    "source": {
+                        entry.publisher.name for entry in obj.publication_info.all()
+                    },
                     "value": obj.abstract,
                 }
             ],
