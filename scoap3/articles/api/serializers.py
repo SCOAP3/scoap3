@@ -53,6 +53,120 @@ class ArticleSerializer(serializers.ModelSerializer):
         return representation
 
 
+class LegacyArticleSerializer(serializers.ModelSerializer):
+    metadata = serializers.SerializerMethodField()
+    updated = serializers.SerializerMethodField()
+    id = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Article
+        fields = ["id", "metadata", "updated"]
+
+    def get_id(self, obj):
+        return obj.id
+
+    def get_metadata(self, obj):
+        return {
+            "_files": [
+                {
+                    "filetype": entry.file.type,
+                    "size": entry.file.size,
+                }
+                for entry in obj.related_files.all()
+            ],
+            "abstracts": [
+                {
+                    "source": obj.publication_info.first().publisher.name,
+                    "value": obj.abstract,
+                }
+            ],
+            "arxiv_eprints": [
+                {
+                    "categories": {
+                        entry.category for entry in obj.article_arxiv_category.all()
+                    },
+                    "value": {
+                        entry.identifier_value
+                        for entry in obj.article_identifiers.all()
+                    },
+                }
+            ],
+            "authors": [
+                {
+                    "affiliations": [
+                        {
+                            "country": affiliation.country.name
+                            if affiliation.country
+                            else None,
+                            "organization": affiliation.organization,
+                            "value": affiliation.value,
+                        }
+                        for affiliation in entry.affiliations.all()
+                    ],
+                    "email": entry.email,
+                    "full_name": entry.full_name,
+                    "given_names": entry.first_name,
+                    "surname": entry.last_name,
+                }
+                for entry in obj.authors.all()
+            ],
+            "collections": [
+                {"primary": entry.journal_title} for entry in obj.publication_info.all()
+            ],
+            "control_number": obj.id,
+            "copyright": [
+                {
+                    "statement": entry.statement,
+                    "holder": entry.holder,
+                    "year": entry.year,
+                }
+                for entry in obj.copyright.all()
+            ],
+            "dois": [
+                {"value": entry.identifier_value}
+                for entry in obj.article_identifiers.all()
+            ],
+            "imprints": [
+                {
+                    "date": entry.journal_issue_date,
+                    "publisher": entry.publisher.name,
+                }
+                for entry in obj.publication_info.all()
+            ],
+            "license": [
+                {
+                    "license": entry.name,
+                    "url": entry.url,
+                }
+                for entry in obj.related_licenses.all()
+            ],
+            "page_nr": [{entry.page_end for entry in obj.publication_info.all()}],
+            "publication_info": [
+                {
+                    "artid": entry.artid,
+                    "journal_issue": entry.journal_issue,
+                    "journal_title": entry.journal_title,
+                    "journal_volume": entry.journal_volume,
+                    "page_end": entry.page_end,
+                    "page_start": entry.page_start,
+                    "year": entry.volume_year,
+                }
+                for entry in obj.publication_info.all()
+            ],
+            "record_creation_date": obj._created_at,
+            "titles": [
+                {
+                    "source": entry.publisher.name,
+                    "title": obj.title,
+                }
+                for entry in obj.publication_info.all()
+            ],
+        }
+
+    def get_updated(self, obj):
+        return obj._updated_at
+
+
 class ArticleDocumentSerializer(DocumentSerializer):
     class Meta:
         document = ArticleDocument

@@ -25,6 +25,7 @@ from scoap3.articles.api.serializers import (
     ArticleFileSerializer,
     ArticleIdentifierSerializer,
     ArticleSerializer,
+    LegacyArticleSerializer,
     SearchCSVSerializer,
 )
 from scoap3.articles.documents import ArticleDocument
@@ -64,6 +65,16 @@ class ArticleViewSet(
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
+
+
+class RecordViewSet(
+    RetrieveModelMixin,
+    ListModelMixin,
+    GenericViewSet,
+):
+    serializer_class = LegacyArticleSerializer
+    queryset = Article.objects.all()
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ArticleWorkflowImportView(ViewSet):

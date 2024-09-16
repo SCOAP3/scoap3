@@ -18,7 +18,9 @@ class Country(models.Model):
 
 
 class Affiliation(models.Model):
-    author_id = models.ManyToManyField("authors.Author", blank=True)
+    author_id = models.ManyToManyField(
+        "authors.Author", blank=True, related_name="affiliations"
+    )
     country = models.ForeignKey("misc.Country", on_delete=models.CASCADE, null=True)
     value = models.TextField(blank=True, default="")
     organization = models.TextField(blank=True, default="")

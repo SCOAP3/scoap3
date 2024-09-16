@@ -1,3 +1,5 @@
+import mimetypes
+
 from django.db import models
 from django.db.models.fields.files import FieldFile
 from django_lifecycle import AFTER_CREATE, AFTER_UPDATE, LifecycleModelMixin, hook
@@ -19,6 +21,14 @@ class CustomFieldFile(FieldFile):
             return super().size
         else:
             return "-"
+
+    @property
+    def type(self):
+        mime_type, _ = mimetypes.guess_type(self.path)
+
+        if mime_type:
+            return mime_type.split("/")[-1]
+        return "-"
 
 
 class CustomFileField(models.FileField):
