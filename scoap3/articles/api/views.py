@@ -120,7 +120,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
     )
 
     ordering_fields = {"publication_date": "publication_date"}
-    ordering = ["publication_date"]
+    ordering = ["-publication_date"]
 
     filter_fields = {
         "publication_year": {
