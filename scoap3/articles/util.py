@@ -1,5 +1,7 @@
 from datetime import datetime
 
+import fitz
+
 from scoap3.articles.models import ArticleIdentifierType
 
 
@@ -25,3 +27,23 @@ def get_arxiv_primary_category(article_document):
 
 def parse_string_to_date_object(date_string):
     return datetime.fromisoformat(date_string.replace("Z", "+00:00"))
+
+
+def is_string_in_pdf(pdf_path, search_string):
+    try:
+        document = fitz.open(pdf_path)
+        search_string_lower = search_string.lower()
+
+        for page_num in range(document.page_count):
+            page = document[page_num]
+            page_text = page.get_text().lower()
+            if search_string_lower in page_text:
+                document.close()
+                return True
+
+        document.close()
+        return False
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File not found: {pdf_path}")
+    except Exception as e:
+        raise Exception(f"An error occurred while reading the PDF: {str(e)}")

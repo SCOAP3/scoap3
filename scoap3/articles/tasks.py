@@ -5,7 +5,8 @@ from celery import shared_task
 from django.core.paginator import Paginator
 from django_opensearch_dsl.registries import registry
 
-from scoap3.articles.models import Article, ComplianceReport
+from scoap3.articles.models import Article, ArticleFile, ComplianceReport
+from scoap3.articles.util import is_string_in_pdf
 from scoap3.authors.models import Author
 from scoap3.misc.models import Affiliation
 from scoap3.misc.utils import fetch_doi_registration_date
@@ -133,6 +134,29 @@ def check_authors_affiliation(article):
     return True, "Authors' affiliations are compliant"
 
 
+def check_contains_funded_by_scoap3(article):
+    try:
+        article_files = ArticleFile.objects.filter(article_id=article)
+
+        if not article_files.exists():
+            return False, "No files found for the given article."
+
+        for article_file in article_files:
+            file_path = article_file.file.path
+            try:
+                if is_string_in_pdf(file_path, "Funded by SCOAP3"):
+                    return (
+                        True,
+                        f"Files contain the required text: 'Funded by SCOAP3'. File: {file_path}",
+                    )
+            except FileNotFoundError:
+                return False, f"File not found: {file_path}"
+
+        return False, "Files do not contain the required text: 'Funded by SCOAP3'"
+    except Exception as e:
+        return False, f"An unexpected error occurred: {str(e)}"
+
+
 @shared_task(name="compliance_checks", acks_late=True)
 def compliance_checks(article_id):
     try:
@@ -160,6 +184,10 @@ def compliance_checks(article_id):
         check_affiliations_compliance,
         check_affiliations_description,
     ) = check_authors_affiliation(article)
+    (
+        check_funded_by_scoap3_compliance,
+        check_funded_by_scoap3_description,
+    ) = check_contains_funded_by_scoap3(article)
 
     article.report.all().delete()
 
@@ -177,6 +205,8 @@ def compliance_checks(article_id):
         check_license_description=check_license_description,
         check_authors_affiliation=check_affiliations_compliance,
         check_authors_affiliation_description=check_affiliations_description,
+        check_contains_funded_by_scoap3=check_funded_by_scoap3_compliance,
+        check_contains_funded_by_scoap3_description=check_funded_by_scoap3_description,
     )
     report.save()
     logger.info("Compliance checks completed for article %s", article_id)
