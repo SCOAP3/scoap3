@@ -56,11 +56,12 @@ class ArticleSerializer(serializers.ModelSerializer):
 class LegacyArticleSerializer(serializers.ModelSerializer):
     metadata = serializers.SerializerMethodField()
     updated = serializers.SerializerMethodField()
+    created = serializers.SerializerMethodField()
     id = serializers.SerializerMethodField()
 
     class Meta:
         model = Article
-        fields = ["id", "metadata", "updated"]
+        fields = ["id", "metadata", "updated", "created"]
 
     def get_id(self, obj):
         return obj.id
@@ -167,6 +168,9 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
 
     def get_updated(self, obj):
         return obj._updated_at
+
+    def get_created(self, obj):
+        return obj._created_at
 
 
 class ArticleDocumentSerializer(DocumentSerializer):

@@ -53,6 +53,7 @@ class TestRecordViewSet:
         assert "id" in data["results"][0]
         assert "metadata" in data["results"][0]
         assert "updated" in data["results"][0]
+        assert "created" in data["results"][0]
 
         metadata = data["results"][0]["metadata"]
         assert "control_number" in metadata
