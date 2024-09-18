@@ -175,6 +175,23 @@ class ArticleDocumentView(BaseDocumentViewSet):
         },
     }
 
+    def get_queryset(self):
+        get_all = self.request.query_params.get("all", "false").lower() == "true"
+        search = super().get_queryset()
+
+        if get_all and self.request.user.is_staff:
+            search = search.extra(size=10000)
+
+        return search
+
+    def list(self, request, *args, **kwargs):
+        get_all = request.query_params.get("all", "false").lower() == "true"
+
+        if get_all and self.request.user.is_staff:
+            self.pagination_class = None
+
+        return super().list(request, *args, **kwargs)
+
     def get_serializer_class(self):
         requested_renderer_format = self.request.accepted_media_type
         if "text/csv" in requested_renderer_format:

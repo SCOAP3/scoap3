@@ -25,5 +25,8 @@ class ArticleCSVRenderer(CSVRenderer):
     }
 
     def render(self, data, accepted_media_type=None, renderer_context=None):
-        modified_data = data.get("results", [])
+        if "results" in data:
+            modified_data = data.get("results", [])
+        else:
+            modified_data = data
         return super().render(modified_data, accepted_media_type, renderer_context)
