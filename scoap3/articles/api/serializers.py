@@ -72,14 +72,15 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
                 {
                     "filetype": entry.file.type,
                     "size": entry.file.size,
+                    "key": entry.file.name,
                 }
                 for entry in obj.related_files.all()
             ],
             "abstracts": [
                 {
-                    "source": {
-                        entry.publisher.name for entry in obj.publication_info.all()
-                    },
+                    "source": "".join(
+                        [entry.publisher.name for entry in obj.publication_info.all()]
+                    ),
                     "value": obj.abstract,
                 }
             ],
@@ -143,7 +144,7 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
                 }
                 for entry in obj.related_licenses.all()
             ],
-            "page_nr": [{entry.page_end for entry in obj.publication_info.all()}],
+            "page_nr": [int(entry.page_end) for entry in obj.publication_info.all()],
             "publication_info": [
                 {
                     "artid": entry.artid,
