@@ -131,7 +131,6 @@ class ComplianceReportAdmin(admin.ModelAdmin):
             "Check DOI Registration": "check_doi_registration_time_description",
         }
 
-
         response = HttpResponse(content_type="text/csv")
         response["Content-Disposition"] = f"attachment; filename={filename}"
         writer = csv.writer(response)

@@ -104,7 +104,9 @@ class ComplianceReport(models.Model):
     check_authors_affiliation = models.BooleanField(default=False)
     check_authors_affiliation_description = models.TextField(blank=True, default="")
     check_contains_funded_by_scoap3 = models.BooleanField(default=False)
-    check_contains_funded_by_scoap3_description = models.TextField(blank=True, default="")
+    check_contains_funded_by_scoap3_description = models.TextField(
+        blank=True, default=""
+    )
 
     def __str__(self):
         return f"Compliance Report for {self.article.title} on {self.report_date.strftime('%Y-%m-%d')}"
