@@ -22,7 +22,9 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "article_publisher",
         "article_journal",
         "article_doi",
+        "compliant",
         "check_license",
+        "check_required_file_formats",
         "check_file_formats",
         "check_arxiv_category",
         "check_article_type",
@@ -41,9 +43,11 @@ class ComplianceReportAdmin(admin.ModelAdmin):
     fields = [
         "article",
         "report_date",
-        "get_is_compliant",
+        "compliant",
         "check_license",
         "check_license_description",
+        "check_required_file_formats",
+        "check_required_file_formats_description",
         "check_file_formats",
         "check_file_formats_description",
         "check_arxiv_category",
@@ -60,7 +64,7 @@ class ComplianceReportAdmin(admin.ModelAdmin):
     readonly_fields = [
         "article",
         "report_date",
-        "get_is_compliant",
+        "compliant",
         "check_license",
         "check_license_description",
         "check_file_formats",
@@ -84,7 +88,7 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "article_id__publication_info__journal_title",
         "article_id__publication_date",
         "article_id__report__check_license",
-        "article_id__report__check_file_formats",
+        "article_id__report__check_required_file_formats",
         "article_id__report__check_arxiv_category",
         "article_id__report__check_article_type",
         "article_id__report__check_doi_registration_time",
@@ -97,10 +101,6 @@ class ComplianceReportAdmin(admin.ModelAdmin):
     @admin.display(description="ID")
     def article_id(self, obj):
         return obj.article.id
-
-    @admin.display(boolean=True, description="Compliant")
-    def get_is_compliant(self, obj):
-        return obj.is_compliant()
 
     @admin.display(description="DOI")
     def article_doi(self, obj):
@@ -125,7 +125,7 @@ class ComplianceReportAdmin(admin.ModelAdmin):
             "DOI": "article_doi",
             "Journal": "article_journal",
             "Check License": "check_license",
-            "Check File Formats": "check_file_formats",
+            "Check File Formats": "check_required_file_formats",
             "Check Arxiv Category": "check_arxiv_category",
             "Check Article Type": "check_article_type",
             "Check DOI Registration": "check_doi_registration_time_description",
@@ -160,8 +160,8 @@ class ArticleComplianceReportInline(admin.StackedInline):
     readonly_fields = [
         "check_license",
         "check_license_description",
-        "check_file_formats",
-        "check_file_formats_description",
+        "check_required_file_formats",
+        "check_required_file_formats_description",
         "check_arxiv_category",
         "check_arxiv_category_description",
         "check_article_type",
@@ -183,7 +183,10 @@ class ArticleComplianceReportInline(admin.StackedInline):
             {
                 "fields": [
                     ("check_license", "check_license_description"),
-                    ("check_file_formats", "check_file_formats_description"),
+                    (
+                        "check_required_file_formats",
+                        "check_required_file_formats_description",
+                    ),
                     ("check_arxiv_category", "check_arxiv_category_description"),
                     ("check_article_type", "check_article_type_description"),
                     (
@@ -249,8 +252,9 @@ class ArticleAdmin(admin.ModelAdmin):
         "journal_title",
         "publisher",
         "doi",
+        "check_compliance",
         "check_license",
-        "check_file_formats",
+        "check_required_file_formats",
         "check_arxiv_category",
         "check_article_type",
         "check_doi_registration_time",
@@ -266,12 +270,13 @@ class ArticleAdmin(admin.ModelAdmin):
     ]
     actions = ["make_compliance_check"]
     list_filter = [
+        "report__compliant",
         "_updated_at",
         "_created_at",
         "publication_date",
         "publication_info__journal_title",
         "report__check_license",
-        "report__check_file_formats",
+        "report__check_required_file_formats",
         "report__check_arxiv_category",
         "report__check_article_type",
         "report__check_doi_registration_time",
@@ -322,6 +327,13 @@ class ArticleAdmin(admin.ModelAdmin):
             """,
         )
 
+    @admin.display(boolean=True, description="Compliant")
+    def check_compliance(self, obj):
+        report = obj.report.first()
+        if report:
+            return report.compliant
+        return False
+
     @admin.display(boolean=True, description="License")
     def check_license(self, obj):
         report = obj.report.first()
@@ -330,10 +342,10 @@ class ArticleAdmin(admin.ModelAdmin):
         return False
 
     @admin.display(description="File formats", boolean=True)
-    def check_file_formats(self, obj):
+    def check_required_file_formats(self, obj):
         report = obj.report.first()
         if report:
-            return report.check_file_formats
+            return report.check_required_file_formats
         return False
 
     @admin.display(description="ArXiv category", boolean=True)
