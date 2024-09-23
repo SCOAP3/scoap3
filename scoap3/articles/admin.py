@@ -31,7 +31,6 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "check_doi_registration_time",
         "check_authors_affiliation",
         "check_contains_funded_by_scoap3",
-        "get_is_compliant",
         "report_date",
     ]
     search_fields = [
