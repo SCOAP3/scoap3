@@ -25,6 +25,7 @@ from scoap3.articles.api.serializers import (
     ArticleFileSerializer,
     ArticleIdentifierSerializer,
     ArticleSerializer,
+    LegacyArticleSerializer,
     SearchCSVSerializer,
 )
 from scoap3.articles.documents import ArticleDocument
@@ -64,6 +65,16 @@ class ArticleViewSet(
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
+
+
+class RecordViewSet(
+    RetrieveModelMixin,
+    ListModelMixin,
+    GenericViewSet,
+):
+    serializer_class = LegacyArticleSerializer
+    queryset = Article.objects.all()
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ArticleWorkflowImportView(ViewSet):
@@ -109,7 +120,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
     )
 
     ordering_fields = {"publication_date": "publication_date"}
-    ordering = ["publication_date"]
+    ordering = ["-publication_date"]
 
     filter_fields = {
         "publication_year": {
@@ -163,6 +174,23 @@ class ArticleDocumentView(BaseDocumentViewSet):
             },
         },
     }
+
+    def get_queryset(self):
+        get_all = self.request.query_params.get("all", "false").lower() == "true"
+        search = super().get_queryset()
+
+        if get_all and self.request.user.is_staff:
+            search = search.extra(size=10000)
+
+        return search
+
+    def list(self, request, *args, **kwargs):
+        get_all = request.query_params.get("all", "false").lower() == "true"
+
+        if get_all and self.request.user.is_staff:
+            self.pagination_class = None
+
+        return super().list(request, *args, **kwargs)
 
     def get_serializer_class(self):
         requested_renderer_format = self.request.accepted_media_type

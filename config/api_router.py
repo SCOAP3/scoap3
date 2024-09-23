@@ -6,6 +6,7 @@ from scoap3.articles.api.views import (
     ArticleIdentifierViewSet,
     ArticleViewSet,
     ArticleWorkflowImportView,
+    RecordViewSet,
 )
 from scoap3.authors.api.views import AuthorIdentifierViewSet, AuthorViewSet
 from scoap3.misc.api.views import (
@@ -39,6 +40,9 @@ router.register(
     ArticleWorkflowImportView,
     basename="article-workflow-import",
 )
+
+# Records
+router.register("records", RecordViewSet, basename="records")
 
 # Authors
 router.register("author", AuthorViewSet)

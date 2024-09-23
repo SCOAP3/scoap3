@@ -16,6 +16,10 @@ class Author(models.Model):
     email = models.EmailField(blank=True, null=True)
     author_order = models.IntegerField()
 
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     class Meta:
         ordering = ["id"]
 

@@ -18,7 +18,6 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ["id", "article_id", "first_name", "last_name"]
     search_fields = ["article_id"]
     raw_id_fields = ["article_id"]
-    # inlines = [AuthorAffiliationInline, AuthorIdentifierInline]
     fields = [
         "article_id",
         "first_name",
