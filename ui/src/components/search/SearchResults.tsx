@@ -6,7 +6,7 @@ import { Result } from "@/types";
 import ResultItem from "./ResultItem";
 import SearchPagination from "./SearchPagination";
 import { useRouter } from "next/navigation";
-import { getSearchUrl, getApiUrl } from "@/utils/utils";
+import { getSearchUrl } from "@/utils/utils";
 
 interface SearchResultsProps {
   results: Result[];
@@ -42,22 +42,10 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     );
   };
 
-  const downloadUrl = () => {
-      let exportSearchParams = getSearchUrl({
-        ...params,
-        all: true,
-        format: "csv"
-      })
-      const export_search_url = getApiUrl()+"/"+exportSearchParams;
-      return export_search_url;
-    }
-
   return (
     <div>
       <div className="mt-4 mb-6 flex justify-center md:justify-between items-center flex-col md:flex-row">
-        <p className="flex items-center md:mb-0 mb-3">
-          <a href={downloadUrl()} download="scoap3-search-export" >Found {count} results.</a>
-        </p>
+        <p className="flex items-center md:mb-0 mb-3">Found {count} results.</p>
         <SearchPagination count={count} params={params} />
         <div className="sort flex items-center">
           {count > 0 && (

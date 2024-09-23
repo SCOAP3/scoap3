@@ -1,5 +1,3 @@
-import mimetypes
-
 from django.db import models
 from django.db.models.fields.files import FieldFile
 from django_lifecycle import AFTER_CREATE, AFTER_UPDATE, LifecycleModelMixin, hook
@@ -21,14 +19,6 @@ class CustomFieldFile(FieldFile):
             return super().size
         else:
             return "-"
-
-    @property
-    def type(self):
-        mime_type, _ = mimetypes.guess_type(self.path)
-
-        if mime_type:
-            return mime_type.split("/")[-1]
-        return "-"
 
 
 class CustomFileField(models.FileField):
@@ -103,8 +93,6 @@ class ComplianceReport(models.Model):
 
     check_license = models.BooleanField(default=False)
     check_license_description = models.TextField(blank=True, default="")
-    check_required_file_formats = models.BooleanField(default=False)
-    check_required_file_formats_description = models.TextField(blank=True, default="")
     check_file_formats = models.BooleanField(default=False)
     check_file_formats_description = models.TextField(blank=True, default="")
     check_arxiv_category = models.BooleanField(default=False)
@@ -119,7 +107,6 @@ class ComplianceReport(models.Model):
     check_contains_funded_by_scoap3_description = models.TextField(
         blank=True, default=""
     )
-    compliant = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Compliance Report for {self.article.title} on {self.report_date.strftime('%Y-%m-%d')}"
@@ -143,7 +130,7 @@ class ComplianceReport(models.Model):
         return all(
             [
                 self.check_license,
-                self.check_required_file_formats,
+                self.check_file_formats,
                 _check_arxiv_category,
                 self.check_article_type,
                 self.check_doi_registration_time,

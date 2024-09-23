@@ -7,7 +7,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
     dependencies = [
         ("articles", "0015_compliancereport_check_contains_funded_by_scoap3_and_more"),
-        ("articles", "0014_compliancereport_check_authors_affiliation_and_more"),
         ("authors", "0004_alter_authoridentifier_author_id"),
     ]
 
