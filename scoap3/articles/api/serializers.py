@@ -112,14 +112,19 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
                     "full_name": entry.full_name,
                     "given_names": entry.first_name,
                     "surname": entry.last_name,
-                    "orcid": {
-                        orcid
-                        for orcid in entry.identifiers.filter(
+                    **(
+                        {
+                            "orcid": entry.identifiers.filter(
+                                identifier_type=AuthorIdentifierType.ORCID
+                            )
+                            .values_list("identifier_value", flat=True)
+                            .first()
+                        }
+                        if entry.identifiers.filter(
                             identifier_type=AuthorIdentifierType.ORCID
-                        )
-                        .values_list("identifier_value", flat=True)
-                        .all()
-                    },
+                        ).exists()
+                        else {}
+                    ),
                 }
                 for entry in obj.authors.all()
             ],
