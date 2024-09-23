@@ -19,11 +19,19 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_orcid(self, obj):
-        return {
-            orcid
-            for orcid in obj.identifiers.filter(
-                identifier_type=AuthorIdentifierType.ORCID
+        if obj.identifiers.filter(identifier_type=AuthorIdentifierType.ORCID).exists():
+            return (
+                obj.identifiers.filter(identifier_type=AuthorIdentifierType.ORCID)
+                .values_list("identifier_value", flat=True)
+                .first()
             )
-            .values_list("identifier_value", flat=True)
-            .all()
-        }
+        else:
+            return None
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        if representation.get("orcid") is None:
+            representation.pop("orcid", None)
+
+        return representation
