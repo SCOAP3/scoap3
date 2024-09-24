@@ -3,7 +3,7 @@ from django_opensearch_dsl import Document, fields
 from django_opensearch_dsl.registries import registry
 
 from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
-from scoap3.authors.models import Author
+from scoap3.authors.models import Author, AuthorIdentifierType
 from scoap3.misc.models import Affiliation, ArticleArxivCategory, PublicationInfo
 
 
@@ -143,6 +143,19 @@ class ArticleDocument(Document):
                 "first_name": author.first_name.strip(),
                 "last_name": author.last_name.strip(),
                 "affiliations": serialized_affiliations,
+                **(
+                    {
+                        "orcid": author.identifiers.filter(
+                            identifier_type=AuthorIdentifierType.ORCID
+                        )
+                        .values_list("identifier_value", flat=True)
+                        .first()
+                    }
+                    if author.identifiers.filter(
+                        identifier_type=AuthorIdentifierType.ORCID
+                    ).exists()
+                    else {}
+                ),
             }
             serialized_authors.append(serialized_author)
         return serialized_authors
