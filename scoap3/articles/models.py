@@ -1,4 +1,6 @@
+import datetime
 import mimetypes
+from datetime import date
 
 from django.db import models
 from django.db.models.fields.files import FieldFile
@@ -71,6 +73,7 @@ class ArticleFile(models.Model):
     file = CustomFileField(upload_to=article_file_upload_path)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    filetype = models.TextField(blank=True, default="")
 
     def __str__(self) -> str:
         return self.file.name
@@ -105,8 +108,6 @@ class ComplianceReport(models.Model):
     check_license_description = models.TextField(blank=True, default="")
     check_required_file_formats = models.BooleanField(default=False)
     check_required_file_formats_description = models.TextField(blank=True, default="")
-    check_file_formats = models.BooleanField(default=False)
-    check_file_formats_description = models.TextField(blank=True, default="")
     check_arxiv_category = models.BooleanField(default=False)
     check_arxiv_category_description = models.TextField(blank=True, default="")
     check_article_type = models.BooleanField(default=False)
@@ -135,6 +136,11 @@ class ComplianceReport(models.Model):
             pub_info[0].journal_title in JOURNALS_SKIP_COMPLIANCE
         ):
             _check_arxiv_category = self.check_arxiv_category
+
+        if isinstance(
+            self.article.publication_date, datetime.date
+        ) and self.article.publication_date < date(2023, 1, 1):
+            return True
 
         return all(
             [

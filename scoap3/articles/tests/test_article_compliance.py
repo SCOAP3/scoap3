@@ -1,7 +1,10 @@
+from datetime import date
+
 import pytest
 from django.test import TestCase
 from freezegun import freeze_time
 
+from scoap3.articles.admin import make_compliant
 from scoap3.articles.models import (
     Article,
     ArticleFile,
@@ -30,7 +33,7 @@ class TestArticleCompliance(TestCase):
         self.publisher = Publisher.objects.create(
             name="Elsevier",
         )
-        self.file_formats = ["pdf", "pdf_a", "xml"]
+        self.file_formats = ["pdf", "pdf/a", "xml"]
         with freeze_time("2023-09-29"):
             self.article = Article.objects.create(
                 title="Test Article",
@@ -48,6 +51,13 @@ class TestArticleCompliance(TestCase):
             title="Test editorial Article",
             subtitle="Test Subtitle",
             abstract="Test Abstract",
+        )
+
+        self.article_published_before_2023 = Article.objects.create(
+            title="Test Article",
+            subtitle="Test Subtitle",
+            abstract="Test Abstract",
+            publication_date=date(2022, 1, 1),
         )
 
     def test_create_article(self):
@@ -76,6 +86,7 @@ class TestArticleCompliance(TestCase):
             ArticleFile.objects.create(
                 file=f"test.{file_format}",
                 article_id=self.article,
+                filetype=file_format,
             )
         self.article.related_licenses.add(self.license)
         self.article.save()
@@ -85,7 +96,7 @@ class TestArticleCompliance(TestCase):
         report = article.report.first()
 
         self.assertEqual(report.check_license, True)
-        self.assertEqual(report.check_file_formats, True)
+        self.assertEqual(report.check_required_file_formats, True)
         self.assertEqual(report.check_article_type, True)
         self.assertEqual(report.check_arxiv_category, True)
         self.assertEqual(report.check_doi_registration_time, True)
@@ -117,22 +128,65 @@ class TestArticleCompliance(TestCase):
 
         self.assertEqual(report.check_article_type, False)
 
-    def test_create_article_with_not_compliant_file_format(self):
-        for file_format in self.file_formats[:2]:
+    def test_create_article_with_not_compliant_file_format_no_publication_info(self):
+        for file_format in self.file_formats:
             ArticleFile.objects.create(
                 file=f"test.{file_format}",
                 article_id=self.article,
+                filetype=file_format,
             )
 
         compliance_checks(self.article.id)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
 
-        self.assertEqual(report.check_file_formats, False)
+        self.assertEqual(report.check_required_file_formats, False)
         self.assertEqual(
-            report.check_file_formats_description,
-            f"Missing required file formats: {self.file_formats[-1]}.",
+            report.check_required_file_formats_description,
+            "No publication information found.",
         )
+
+    def test_create_article_with_compliant_file_format(self):
+        PublicationInfo.objects.create(
+            journal_title="Adv. High Energy Phys.",
+            article_id=self.article,
+            publisher=self.publisher,
+        )
+
+        for file_format in self.file_formats:
+            ArticleFile.objects.create(
+                file=f"test.{file_format}",
+                article_id=self.article,
+                filetype=file_format,
+            )
+
+        compliance_checks(self.article.id)
+        article = Article.objects.get(id=self.article.id)
+        report = article.report.first()
+        self.assertEqual(report.check_required_file_formats, True)
+        self.assertEqual(
+            report.check_required_file_formats_description,
+            "All required file formats are present.",
+        )
+
+    def test_create_article_with_not_compliant_file_format(self):
+        PublicationInfo.objects.create(
+            journal_title="Adv. High Energy Phys.",
+            article_id=self.article,
+            publisher=self.publisher,
+        )
+
+        for file_format in self.file_formats[:1]:
+            ArticleFile.objects.create(
+                file=f"test.{file_format}",
+                article_id=self.article,
+                filetype=file_format,
+            )
+
+        compliance_checks(self.article.id)
+        article = Article.objects.get(id=self.article.id)
+        report = article.report.first()
+        self.assertEqual(report.check_required_file_formats, False)
 
     def test_create_article_with_not_compliant_arxiv_category(self):
         ArticleIdentifier.objects.create(
@@ -217,6 +271,28 @@ class TestArticleCompliance(TestCase):
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
         self.assertEqual(report.check_arxiv_category, False)
+
+    def test_create_article_published_before_2023(self):
+        compliance_checks(self.article_published_before_2023.id)
+        report = self.article_published_before_2023.report.first()
+
+        self.assertEqual(report.compliant, True)
+
+    def test_mark_article_with_reports_as_compliant(self):
+        compliance_checks(self.article.id)
+        make_compliant(self.article)
+        report = self.article.report.first()
+
+        self.assertEqual(report.compliant, True)
+
+    def test_mark_article_without_reports_as_compliant(self):
+        make_compliant(self.article)
+        reports = self.article.report.all()
+
+        for report in reports:
+            self.assertEqual(
+                report.compliant, "No reports available for selected articles"
+            )
 
     def tearDown(self):
         ArticleIdentifier.objects.all().delete()

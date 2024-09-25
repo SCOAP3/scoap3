@@ -7,7 +7,7 @@ from django_opensearch_dsl.registries import registry
 
 from scoap3.articles.models import Article, ComplianceReport
 from scoap3.authors.models import Author
-from scoap3.misc.models import Affiliation
+from scoap3.misc.models import Affiliation, PublicationInfo
 from scoap3.misc.utils import fetch_doi_registration_date
 
 logger = logging.getLogger(__name__)
@@ -27,34 +27,39 @@ def check_license(obj):
 
 
 def check_required_file_formats(obj):
-    required_formats = ["pdf", "xml"]
-    available_formats = [
-        file.file.name.split(".")[-1] for file in obj.related_files.all()
-    ]
+    publication_info = PublicationInfo.objects.filter(article_id=obj).first()
+
+    if not publication_info:
+        return False, "No publication information found."
+
+    journal_format_mapping = {
+        "Acta Physica Polonica B": ["pdf", "pdf/a"],
+        "Adv. High Energy Phys.": ["pdf", "pdf/a", "xml"],
+        "Prog. of Theor. and Exp. Phys.": ["pdf", "pdf/a", "xml"],
+        "European Physical Journal C": ["pdf/a", "xml"],
+        "Journal of High Energy Physics": ["pdf/a", "xml"],
+        "Nuclear Physics B": ["pdf", "pdf/a", "xml"],
+        "Physics Letters B": ["pdf", "pdf/a", "xml"],
+        "Physical review letters": ["pdf", "xml"],
+        "Physical review C": ["pdf", "xml"],
+        "Physical review D": ["pdf", "xml"],
+        "Chinese Physics C": ["pdf", "xml"],
+    }
+
+    default_required_formats = ["pdf", "pdf/a", "xml"]
+
+    required_formats = journal_format_mapping.get(
+        publication_info.journal_title, default_required_formats
+    )
+
+    available_formats = []
+    for file in obj.related_files.all():
+        available_formats.append(file.filetype)
 
     missing_formats = [f for f in required_formats if f not in available_formats]
 
     if missing_formats:
-        return (
-            False,
-            f"Missing required file formats: {', '.join(missing_formats)}.",
-        )
-    return True, "All required file formats are present."
-
-
-def check_file_formats(obj):
-    required_formats = ["pdf", "pdf_a", "xml"]
-    available_formats = [
-        file.file.name.split(".")[-1] for file in obj.related_files.all()
-    ]
-
-    missing_formats = [f for f in required_formats if f not in available_formats]
-
-    if missing_formats:
-        return (
-            False,
-            f"Missing required file formats: {', '.join(missing_formats)}.",
-        )
+        return False, f"Missing required file formats: {', '.join(missing_formats)}."
     return True, "All required file formats are present."
 
 
@@ -172,9 +177,6 @@ def compliance_checks(article_id):
         check_required_file_formats_compliance,
         check_required_file_formats_description,
     ) = check_required_file_formats(article)
-    check_file_formats_compliance, check_file_formats_description = check_file_formats(
-        article
-    )
     check_license_compliance, check_license_description = check_license(article)
     (
         check_affiliations_compliance,
@@ -193,8 +195,6 @@ def compliance_checks(article_id):
         check_doi_registration_time_description=check_doi_registration_description,
         check_required_file_formats=check_required_file_formats_compliance,
         check_required_file_formats_description=check_required_file_formats_description,
-        check_file_formats=check_file_formats_compliance,
-        check_file_formats_description=check_file_formats_description,
         check_license=check_license_compliance,
         check_license_description=check_license_description,
         check_authors_affiliation=check_affiliations_compliance,

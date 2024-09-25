@@ -25,7 +25,6 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "compliant",
         "check_license",
         "check_required_file_formats",
-        "check_file_formats",
         "check_arxiv_category",
         "check_article_type",
         "check_doi_registration_time",
@@ -46,8 +45,6 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "check_license_description",
         "check_required_file_formats",
         "check_required_file_formats_description",
-        "check_file_formats",
-        "check_file_formats_description",
         "check_arxiv_category",
         "check_arxiv_category_description",
         "check_article_type",
@@ -63,8 +60,6 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "compliant",
         "check_license",
         "check_license_description",
-        "check_file_formats",
-        "check_file_formats_description",
         "check_arxiv_category",
         "check_arxiv_category_description",
         "check_article_type",
@@ -231,6 +226,18 @@ class ArticleAuthorsInline(admin.StackedInline):
         )
 
 
+def make_compliant(obj):
+    article = obj
+
+    reports = article.report.all()
+
+    for report in reports:
+        report.compliant = True
+        report.save()
+
+    return f"Articles marked as compliant {article.id}"
+
+
 class ArticleAdmin(admin.ModelAdmin):
     list_display = [
         "id",
@@ -255,7 +262,7 @@ class ArticleAdmin(admin.ModelAdmin):
         "publication_info__journal_title",
         "article_identifiers__identifier_value",
     ]
-    actions = ["make_compliance_check"]
+    actions = ["make_compliance_check", "mark_as_compliant"]
     list_filter = [
         "report__compliant",
         "_updated_at",
@@ -305,6 +312,20 @@ class ArticleAdmin(admin.ModelAdmin):
         ids = []
         for obj in queryset:
             compliance_checks.delay(obj.id)
+            ids.append(str(obj.id))
+        messages.success(
+            request,
+            f"""
+            Selected articles are being processed, it might take some time before seeing
+            the results in the reports. {', '.join(ids)}.
+            """,
+        )
+
+    @admin.action(description="Mark as compliant")
+    def mark_as_compliant(self, request, queryset):
+        ids = []
+        for obj in queryset:
+            make_compliant(obj)
             ids.append(str(obj.id))
         messages.success(
             request,

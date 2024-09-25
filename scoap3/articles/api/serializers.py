@@ -71,7 +71,7 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
         return {
             "_files": [
                 {
-                    "filetype": entry.file.type,
+                    "filetype": entry.filetype,
                     "size": entry.file.size,
                     "key": entry.file.name,
                 }
