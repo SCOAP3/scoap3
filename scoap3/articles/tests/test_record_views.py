@@ -146,6 +146,7 @@ class TestRecordViewSet:
                         assert "country" in affiliation
                         assert "organization" in affiliation
                         assert "value" in affiliation
+                        assert "ror" in affiliation
 
         assert "collections" in metadata
         collections = metadata["collections"]

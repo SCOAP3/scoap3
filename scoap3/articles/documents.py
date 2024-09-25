@@ -4,7 +4,12 @@ from django_opensearch_dsl.registries import registry
 
 from scoap3.articles.models import Article, ArticleFile, ArticleIdentifier
 from scoap3.authors.models import Author, AuthorIdentifierType
-from scoap3.misc.models import Affiliation, ArticleArxivCategory, PublicationInfo
+from scoap3.misc.models import (
+    Affiliation,
+    ArticleArxivCategory,
+    InstitutionIdentifierType,
+    PublicationInfo,
+)
 
 
 @registry.register_document
@@ -136,6 +141,19 @@ class ArticleDocument(Document):
                     "value": affiliation.value,
                     "organization": affiliation.organization,
                     "country": country,
+                    **(
+                        {
+                            "ror": affiliation.institutionidentifier_set.filter(
+                                identifier_type=InstitutionIdentifierType.ROR
+                            )
+                            .values_list("identifier_value", flat=True)
+                            .first(),
+                        }
+                        if affiliation.institutionidentifier_set.filter(
+                            identifier_type=InstitutionIdentifierType.ROR
+                        ).exists()
+                        else {}
+                    ),
                 }
                 serialized_affiliations.append(serialized_affiliation)
 

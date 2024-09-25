@@ -17,6 +17,7 @@ from scoap3.misc.api.serializers import (
     CopyrightSerializer,
     PublicationInfoSerializer,
 )
+from scoap3.misc.models import InstitutionIdentifierType
 
 
 class ArticleFileSerializer(serializers.ModelSerializer):
@@ -105,6 +106,19 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
                             else None,
                             "organization": affiliation.organization,
                             "value": affiliation.value,
+                            **(
+                                {
+                                    "ror": affiliation.institutionidentifier_set.filter(
+                                        identifier_type=InstitutionIdentifierType.ROR
+                                    )
+                                    .values_list("identifier_value", flat=True)
+                                    .first(),
+                                }
+                                if affiliation.institutionidentifier_set.filter(
+                                    identifier_type=InstitutionIdentifierType.ROR
+                                ).exists()
+                                else {}
+                            ),
                         }
                         for affiliation in entry.affiliations.all()
                     ],

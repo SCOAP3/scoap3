@@ -8,6 +8,7 @@ from scoap3.misc.models import (
     ExperimentalCollaboration,
     Funder,
     InstitutionIdentifier,
+    InstitutionIdentifierType,
     License,
     PublicationInfo,
     Publisher,
@@ -22,9 +23,25 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class AffiliationSerializer(serializers.ModelSerializer):
+    ror = serializers.SerializerMethodField()
+
     class Meta:
         model = Affiliation
         fields = "__all__"
+
+    def get_ror(self, obj):
+        if obj.institutionidentifier_set.filter(
+            identifier_type=InstitutionIdentifierType.ROR
+        ).exists():
+            return (
+                obj.institutionidentifier_set.filter(
+                    identifier_type=InstitutionIdentifierType.ROR
+                )
+                .values_list("identifier_value", flat=True)
+                .first()
+            )
+        else:
+            return None
 
 
 class InstitutionIdentifierSerializer(serializers.ModelSerializer):
