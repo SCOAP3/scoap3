@@ -280,19 +280,15 @@ class TestArticleCompliance(TestCase):
 
     def test_mark_article_with_reports_as_compliant(self):
         compliance_checks(self.article.id)
-        make_compliant(self.article)
+        make_compliant(Article.objects.all())
         report = self.article.report.first()
 
         self.assertEqual(report.compliant, True)
 
     def test_mark_article_without_reports_as_compliant(self):
-        make_compliant(self.article)
-        reports = self.article.report.all()
+        ids = make_compliant(Article.objects.all())
 
-        for report in reports:
-            self.assertEqual(
-                report.compliant, "No reports available for selected articles"
-            )
+        self.assertEqual(list(ids), [])
 
     def tearDown(self):
         ArticleIdentifier.objects.all().delete()

@@ -226,16 +226,14 @@ class ArticleAuthorsInline(admin.StackedInline):
         )
 
 
-def make_compliant(obj):
-    article = obj
+def make_compliant(article_queryset):
+    article_ids = article_queryset.values_list("id", flat=True)
 
-    reports = article.report.all()
+    reports = ComplianceReport.objects.filter(article_id__in=article_ids)
+    reports.update(compliant=True)
 
-    for report in reports:
-        report.compliant = True
-        report.save()
-
-    return f"Articles marked as compliant {article.id}"
+    ids = map(str, reports.values_list("article_id", flat=True))
+    return ids
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -323,10 +321,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
     @admin.action(description="Mark as compliant")
     def mark_as_compliant(self, request, queryset):
-        ids = []
-        for obj in queryset:
-            make_compliant(obj)
-            ids.append(str(obj.id))
+        ids = make_compliant(queryset)
         messages.success(
             request,
             f"""
