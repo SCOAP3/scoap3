@@ -116,6 +116,10 @@ class ComplianceReport(models.Model):
     check_doi_registration_time_description = models.TextField(blank=True, default="")
     check_authors_affiliation = models.BooleanField(default=False)
     check_authors_affiliation_description = models.TextField(blank=True, default="")
+    check_contains_funded_by_scoap3 = models.BooleanField(default=False)
+    check_contains_funded_by_scoap3_description = models.TextField(
+        blank=True, default=""
+    )
     compliant = models.BooleanField(default=False)
 
     def __str__(self):

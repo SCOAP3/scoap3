@@ -29,6 +29,7 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "check_article_type",
         "check_doi_registration_time",
         "check_authors_affiliation",
+        "check_contains_funded_by_scoap3",
         "report_date",
     ]
     search_fields = [
@@ -53,6 +54,8 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "check_doi_registration_time_description",
         "check_authors_affiliation",
         "check_authors_affiliation_description",
+        "check_contains_funded_by_scoap3",
+        "check_contains_funded_by_scoap3_description",
     ]
     readonly_fields = [
         "article",
@@ -68,6 +71,8 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "check_doi_registration_time_description",
         "check_authors_affiliation",
         "check_authors_affiliation_description",
+        "check_contains_funded_by_scoap3",
+        "check_contains_funded_by_scoap3_description",
     ]
 
     list_filter = [
@@ -82,6 +87,7 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         "article_id__report__check_article_type",
         "article_id__report__check_doi_registration_time",
         "article_id__report__check_authors_affiliation",
+        "article_id__report__check_contains_funded_by_scoap3",
     ]
 
     actions = ["export_as_csv"]
@@ -158,6 +164,8 @@ class ArticleComplianceReportInline(admin.StackedInline):
         "check_doi_registration_time_description",
         "check_authors_affiliation",
         "check_authors_affiliation_description",
+        "check_contains_funded_by_scoap3",
+        "check_contains_funded_by_scoap3_description",
     ]
     can_delete = False
     can_create = False
@@ -182,6 +190,10 @@ class ArticleComplianceReportInline(admin.StackedInline):
                     (
                         "check_authors_affiliation",
                         "check_authors_affiliation_description",
+                    ),
+                    (
+                        "check_contains_funded_by_scoap3",
+                        "check_contains_funded_by_scoap3_description",
                     ),
                 ]
             },
