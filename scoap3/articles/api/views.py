@@ -1,5 +1,6 @@
 from django_elasticsearch_dsl_drf.constants import LOOKUP_FILTER_RANGE, LOOKUP_QUERY_IN
 from django_elasticsearch_dsl_drf.filter_backends import (
+    DefaultOrderingFilterBackend,
     FacetedSearchFilterBackend,
     FilteringFilterBackend,
     OrderingFilterBackend,
@@ -104,6 +105,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
         FacetedSearchFilterBackend,
         FilteringFilterBackend,
         OrderingFilterBackend,
+        DefaultOrderingFilterBackend,
     ]
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES + [ArticleCSVRenderer]
 
