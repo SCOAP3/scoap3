@@ -326,7 +326,7 @@ class ArticleAdmin(admin.ModelAdmin):
     def make_compliance_check(self, request, queryset):
         ids = []
         for obj in queryset:
-            compliance_checks.apply_async(args=[obj.id], priority=9)
+            compliance_checks.apply_async(args=[obj.id, True], priority=9)
             ids.append(str(obj.id))
         messages.success(
             request,
