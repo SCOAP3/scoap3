@@ -90,7 +90,7 @@ class TestArticleCompliance(TestCase):
             )
         self.article.related_licenses.add(self.license)
         self.article.save()
-        compliance_checks(self.article.id)
+        compliance_checks(self.article.id, False)
 
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
@@ -108,21 +108,21 @@ class TestArticleCompliance(TestCase):
             article_id=self.article_with_not_compliant_doi,
         )
 
-        compliance_checks(self.article_with_not_compliant_doi.id)
+        compliance_checks(self.article_with_not_compliant_doi.id, False)
         article = Article.objects.get(id=self.article_with_not_compliant_doi.id)
         report = article.report.first()
 
         self.assertEqual(report.check_doi_registration_time, False)
 
     def test_create_article_with_missing_compliant_doi(self):
-        compliance_checks(self.article_with_not_compliant_doi.id)
+        compliance_checks(self.article_with_not_compliant_doi.id, False)
         article = Article.objects.get(id=self.article_with_not_compliant_doi.id)
         report = article.report.first()
 
         self.assertEqual(report.check_doi_registration_time, False)
 
     def test_create_article_with_not_compliant_title(self):
-        compliance_checks(self.article_with_not_compliant_title.id)
+        compliance_checks(self.article_with_not_compliant_title.id, False)
         article = Article.objects.get(id=self.article_with_not_compliant_title.id)
         report = article.report.first()
 
@@ -136,7 +136,7 @@ class TestArticleCompliance(TestCase):
                 filetype=file_format,
             )
 
-        compliance_checks(self.article.id)
+        compliance_checks(self.article.id, False)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
 
@@ -160,7 +160,7 @@ class TestArticleCompliance(TestCase):
                 filetype=file_format,
             )
 
-        compliance_checks(self.article.id)
+        compliance_checks(self.article.id, False)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
         self.assertEqual(report.check_required_file_formats, True)
@@ -183,7 +183,7 @@ class TestArticleCompliance(TestCase):
                 filetype=file_format,
             )
 
-        compliance_checks(self.article.id)
+        compliance_checks(self.article.id, False)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
         self.assertEqual(report.check_required_file_formats, False)
@@ -204,7 +204,7 @@ class TestArticleCompliance(TestCase):
             category="eess-as",
             article_id=self.article,
         )
-        compliance_checks(self.article.id)
+        compliance_checks(self.article.id, False)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
         self.assertEqual(report.check_arxiv_category, False)
@@ -217,7 +217,7 @@ class TestArticleCompliance(TestCase):
             email="ExampleName.ExampleSurname@gmail.com",
             author_order=100,
         )
-        compliance_checks(self.article.id)
+        compliance_checks(self.article.id, False)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
         self.assertEqual(report.check_authors_affiliation, False)
@@ -244,7 +244,7 @@ class TestArticleCompliance(TestCase):
         )
         affiliation.author_id.set(author_id)
 
-        compliance_checks(self.article.id)
+        compliance_checks(self.article.id, False)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
         self.assertEqual(report.check_authors_affiliation, True)
@@ -267,19 +267,28 @@ class TestArticleCompliance(TestCase):
             category="hep-th",
             article_id=self.article,
         )
-        compliance_checks(self.article.id)
+        compliance_checks(self.article.id, False)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
         self.assertEqual(report.check_arxiv_category, False)
 
     def test_create_article_published_before_2023(self):
-        compliance_checks(self.article_published_before_2023.id)
+        compliance_checks(self.article_published_before_2023.id, False)
         report = self.article_published_before_2023.report.first()
 
         self.assertEqual(report.compliant, True)
 
+    def test_update_non_compliant_article_published_before_2023(self):
+        compliance_checks(self.article_published_before_2023.id, False)
+        report = self.article_published_before_2023.report.first()
+        self.assertEqual(report.compliant, True)
+
+        compliance_checks(self.article_published_before_2023.id, True)
+        report = self.article_published_before_2023.report.first()
+        self.assertEqual(report.compliant, False)
+
     def test_mark_article_with_reports_as_compliant(self):
-        compliance_checks(self.article.id)
+        compliance_checks(self.article.id, False)
         make_compliant(Article.objects.all())
         report = self.article.report.first()
 
