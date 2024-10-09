@@ -278,6 +278,15 @@ class TestArticleCompliance(TestCase):
 
         self.assertEqual(report.compliant, True)
 
+    def test_update_non_compliant_article_published_before_2023(self):
+        compliance_checks(self.article_published_before_2023.id, False)
+        report = self.article_published_before_2023.report.first()
+        self.assertEqual(report.compliant, True)
+
+        compliance_checks(self.article_published_before_2023.id, True)
+        report = self.article_published_before_2023.report.first()
+        self.assertEqual(report.compliant, False)
+
     def test_mark_article_with_reports_as_compliant(self):
         compliance_checks(self.article.id, False)
         make_compliant(Article.objects.all())
