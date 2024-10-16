@@ -219,14 +219,12 @@ class ArticleAuthorsInline(admin.StackedInline):
     @admin.display(description="Countries")
     def get_countries(self, obj):
         return ", ".join(
-            [affiliation.country.name for affiliation in obj.affiliation_set.all()]
+            [affiliation.country.name for affiliation in obj.affiliations.all()]
         )
 
     @admin.display(description="Affiliations")
     def get_affiliations(self, obj):
-        return ", ".join(
-            [affiliation.value for affiliation in obj.affiliation_set.all()]
-        )
+        return ", ".join([affiliation.value for affiliation in obj.affiliations.all()])
 
     @admin.display(description="Identifiers")
     def get_identifiers(self, obj):
