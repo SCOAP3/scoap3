@@ -319,7 +319,7 @@ class ArticleAdmin(admin.ModelAdmin):
     def make_compliance_check(self, request, queryset):
         ids = []
         for obj in queryset:
-            compliance_checks.delay(obj.id)
+            compliance_checks.delay(obj.id, True)
             ids.append(str(obj.id))
         messages.success(
             request,
