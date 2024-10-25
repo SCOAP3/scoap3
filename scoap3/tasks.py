@@ -144,17 +144,35 @@ def _create_article_file(data, article):
         article_id = article.id
         filename = file.get("key")
         file_path = f"files/{article_id}/{filename}"
+        filetype = file.get("filetype", "")
+
+        if filetype in ["pdfa", "pdf/a", "pdf_a"]:
+            filetype = "pdf/a"
+
         article = Article.objects.get(pk=article_id)
-        article_file_data = {"article_id": article, "file": file_path}
+        article_file_data = {
+            "article_id": article,
+            "file": file_path,
+            "filetype": filetype,
+        }
         ArticleFile.objects.get_or_create(**article_file_data)
 
     for file in data.get("files", {}):
         article_id = article.id
         file_path = data["files"][file]
+        filetype = file
+
+        if filetype in ["pdfa", "pdf/a", "pdf_a"]:
+            filetype = "pdf/a"
+
         if DEFAULT_STORAGE_PATH:
             file_path = file_path.replace(DEFAULT_STORAGE_PATH, "")
         article = Article.objects.get(pk=article_id)
-        article_file_data = {"article_id": article, "file": file_path}
+        article_file_data = {
+            "article_id": article,
+            "file": file_path,
+            "filetype": filetype,
+        }
         ArticleFile.objects.get_or_create(**article_file_data)
 
 

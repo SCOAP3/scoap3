@@ -58,6 +58,60 @@ class TestArticleViewSet:
             "point which is scale invariant but nonconformal"
         )
 
+    @pytest.mark.parametrize(
+        "file_name",
+        [
+            "workflow_record_with_large_text_pdfa.json",
+            "workflow_record_with_large_text_pdf_a.json",
+            "workflow_record_with_large_text_pdf_slash_a.json",
+        ],
+    )
+    def test_create_article_from_workflow_pdfa_behaviour(
+        self, client, user, shared_datadir, file_name
+    ):
+        client.force_login(user)
+
+        contents = (shared_datadir / file_name).read_text()
+        data = json.loads(contents)
+
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            data,
+            content_type="application/json",
+        )
+
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id = response.data["id"]
+        article = Article.objects.get(id=article_id)
+        assert article.related_files.first().filetype == "pdf/a"
+
+    @pytest.mark.parametrize(
+        "file_name",
+        [
+            "legacy_record_pdfa.json",
+            "legacy_record_pdf_a.json",
+            "legacy_record_pdf_slash_a.json",
+        ],
+    )
+    def test_create_article_from_legacy_pdfa_behaviour(
+        self, client, user, shared_datadir, file_name
+    ):
+        client.force_login(user)
+        contents = (shared_datadir / file_name).read_text()
+        data = json.loads(contents)
+
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            data,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id = response.data["id"]
+        article = Article.objects.get(id=article_id)
+        assert article.related_files.first().filetype == "pdf/a"
+
     def test_create_article_from_legacy(self, client, user, shared_datadir):
         client.force_login(user)
         contents = (shared_datadir / "legacy_record.json").read_text()

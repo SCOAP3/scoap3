@@ -1,0 +1,99 @@
+{
+  "_updated": "2019-08-01T09:35:25.710805+00:00",
+  "license": [
+    {
+      "url": "http://creativecommons.org/licenses/by/3.0/",
+      "license": "CC-BY-3.0"
+    }
+  ],
+  "copyright": [{ "statement": "The Authors" }],
+  "control_number": "9999",
+  "_oai": {
+    "updated": "2018-04-16T09:24:31Z",
+    "id": "oai:repo.scoap3.org:9999",
+    "sets": ["PLB"]
+  },
+  "authors": [
+    {
+      "surname": "Ballesteros",
+      "given_names": "Angel",
+      "raw_name": "Ballesteros, Angel",
+      "affiliations": [
+        {
+          "country": "Spain",
+          "value": "Departamento de Física, Universidad de Burgos, E-09001 Burgos, Spain"
+        }
+      ],
+      "full_name": "Ballesteros, Angel",
+      "orcid": "0000-0003-4085-3094"
+    },
+    {
+      "surname": "Herranz",
+      "given_names": "Francisco J.",
+      "raw_name": "Herranz, Francisco J.",
+      "affiliations": [
+        {
+          "country": "Spain",
+          "value": "Departamento de Física, Universidad de Burgos, E-09001 Burgos, Spain"
+        }
+      ],
+      "full_name": "Herranz, Francisco J.",
+      "orcid": "0000-0002-5323-616X"
+    },
+    {
+      "raw_name": "Naranjo, Pedro",
+      "affiliations": [
+        {
+          "country": "Spain",
+          "value": "Departamento de Física, Universidad de Burgos, E-09001 Burgos, Spain"
+        }
+      ],
+      "surname": "Naranjo",
+      "given_names": "Pedro",
+      "full_name": "Naranjo, Pedro"
+    }
+  ],
+  "year": "2015",
+  "_files": [
+    {
+      "checksum": "md5:02dd280d11186230f94462d56214deeb",
+      "filetype": "pdf/a",
+      "bucket": "109371f9-38ae-4240-ac32-1e2e7b947248",
+      "version_id": "65caa9d3-2e35-4ba2-b653-0c81ef299eb9",
+      "key": "10.1016/j.physletb.2015.04.041_a.pdf",
+      "size": 688328
+    }
+  ],
+  "record_creation_date": "2015-04-23T00:00:00",
+  "titles": [
+    {
+      "source": "Elsevier",
+      "title": "Towards ( 3+1 ) gravity through Drinfel'd doubles with cosmological constant"
+    }
+  ],
+  "_created": "2018-04-15T00:45:56.757634+00:00",
+  "dois": [{ "value": "10.1016/j.physletb.2015.04.041" }],
+  "publication_info": [
+    {
+      "page_end": "43",
+      "page_start": "37",
+      "material": "article",
+      "journal_title": "Physics Letters B",
+      "year": 2015
+    }
+  ],
+  "$schema": "http://repo.scoap3.org/schemas/hep.json",
+  "abstracts": [
+    {
+      "source": "Elsevier",
+      "value": "We present the generalisation to ( 3+1 ) dimensions of a quantum deformation of the ( 2+1 ) (Anti)-de Sitter and Poincaré Lie algebras that is compatible with the conditions imposed by the Chern–Simons formulation of ( 2+1 ) gravity. Since such compatibility is automatically fulfilled by deformations coming from Drinfel'd double structures, we believe said structures are worth being analysed also in the ( 3+1 ) scenario as a possible guiding principle towards the description of ( 3+1 ) gravity. To this aim, a canonical classical r -matrix arising from a Drinfel'd double structure for the three ( 3+1 ) Lorentzian algebras is obtained. This r -matrix turns out to be a twisted version of the one corresponding to the ( 3+1 ) κ -deformation, and the main properties of its associated noncommutative spacetime are analysed. In particular, it is shown that this new quantum spacetime is not isomorphic to the κ -Minkowski one, and that the isotropy of the quantum space coordinates can be preserved through a suitable change of basis of the quantum algebra generators. Throughout the paper the cosmological constant appears as an explicit parameter, thus allowing the (flat) Poincaré limit to be straightforwardly obtained."
+    }
+  ],
+  "imprints": [{ "date": "2015-04-25", "publisher": "Elsevier" }],
+  "acquisition_source": {
+    "date": "2015-04-23T00:00:00",
+    "source": "Elsevier",
+    "method": "scoap3",
+    "submission_number": "61850faa40f811e881c402163e01809a"
+  }
+}
