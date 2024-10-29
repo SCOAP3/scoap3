@@ -1,0 +1,12 @@
+[general]
+ignore=body-is-missing
+extra-path=./scripts/gitlint_rules/
+debug=true
+verbosity=3
+contrib = contrib-body-requires-signed-off-by, contrib-title-conventional-commits
+
+[title-max-length]
+line-length=50
+
+[body-max-line-length]
+line-length=72
