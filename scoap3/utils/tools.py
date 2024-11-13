@@ -1,5 +1,6 @@
 import logging
 from collections import Counter
+from datetime import datetime
 
 from django.db import connection
 from django.db.models import Max
@@ -159,6 +160,85 @@ def author_export(search_year, search_country):
                     doi, missing_author_affiliations, total_authors
                 )
             )
+    return {"header": result_headers, "data": result_data}
+
+
+def year_export(start_date=None, end_date=None, publisher_name=None):
+    result_headers = [
+        "year",
+        "journal",
+        "doi",
+        "arxiv number",
+        "primary arxiv category",
+        "total number of authors",
+        "total number of ORCIDs linked to the authors",
+        "total number of affiliations",
+        "total number of ROR linked with the affiliations",
+        "total number of related materials, type dataset",
+        "total number of related materials, type software",
+    ]
+    result_data = []
+
+    search = ArticleDocument.search()
+
+    if start_date or end_date:
+        date_range = {}
+        if start_date:
+            date_range["gte"] = datetime.strptime(start_date, "%Y-%m-%d")
+        if end_date:
+            date_range["lte"] = datetime.strptime(end_date, "%Y-%m-%d")
+
+        search = search.filter("range", publication_date=date_range)
+
+    for article in search.scan():
+        year = article.publication_date.year
+        journal = article.publication_info[0].journal_title
+        publisher = article.publication_info[0].publisher
+        doi = get_first_doi(article)
+        arxiv = get_first_arxiv(article)
+        arxiv_category = get_arxiv_primary_category(article)
+
+        article_data = article.to_dict()
+        authors = article_data.get("authors", [])
+        total_authors = len(authors)
+
+        total_orcid = sum(1 for author in authors if author.get("orcid"))
+
+        total_affiliations = 0
+        total_ror = 0
+        for author in authors:
+            affiliations = author.get("affiliations", [])
+            total_affiliations += len(affiliations)
+
+            for affiliation in affiliations:
+                if affiliation.get("ror"):
+                    total_ror += 1
+
+        total_related_materials_dataset = 0
+        total_related_materials_software = 0
+        for related_material in article.related_materials:
+            if related_material.related_material_type == "dataset":
+                total_related_materials_dataset += 1
+            elif related_material.related_material_type == "software":
+                total_related_materials_software += 1
+
+        if (publisher == publisher_name) or (publisher_name is None):
+            result_data.append(
+                [
+                    year,
+                    journal,
+                    doi,
+                    arxiv,
+                    arxiv_category,
+                    total_authors,
+                    total_orcid,
+                    total_affiliations,
+                    total_ror,
+                    total_related_materials_dataset,
+                    total_related_materials_software,
+                ]
+            )
+
     return {"header": result_headers, "data": result_data}
 
 
