@@ -43,6 +43,14 @@ class AffiliationSerializer(serializers.ModelSerializer):
         else:
             return None
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        if representation.get("ror") is None:
+            representation.pop("ror", None)
+
+        return representation
+
 
 class InstitutionIdentifierSerializer(serializers.ModelSerializer):
     class Meta:
