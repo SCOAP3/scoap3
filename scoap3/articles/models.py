@@ -59,11 +59,20 @@ class Article(LifecycleModelMixin, models.Model):
         ordering = ["id"]
 
     @hook(AFTER_UPDATE, on_commit=True)
+    def on_update(self):
+        self.on_save(after_update=True)
+
     @hook(AFTER_CREATE, on_commit=True)
-    def on_save(self):
+    def on_create(self):
+        self.on_save(after_update=False)
+
+    def on_save(self, after_update):
         from scoap3.articles.tasks import compliance_checks
 
-        compliance_checks.delay(self.id)
+        if after_update:
+            compliance_checks.delay(self.id, True)
+        else:
+            compliance_checks.delay(self.id, False)
 
 
 class ArticleFile(models.Model):
@@ -125,7 +134,7 @@ class ComplianceReport(models.Model):
     def __str__(self):
         return f"Compliance Report for {self.article.title} on {self.report_date.strftime('%Y-%m-%d')}"
 
-    def is_compliant(self):
+    def is_compliant(self, after_update):
         # If article is part of the following jouranls list, we
         # should not take into account the ARXIV category compliance
         JOURNALS_SKIP_COMPLIANCE = [
@@ -141,10 +150,11 @@ class ComplianceReport(models.Model):
         ):
             _check_arxiv_category = self.check_arxiv_category
 
-        if isinstance(
-            self.article.publication_date, datetime.date
-        ) and self.article.publication_date < date(2023, 1, 1):
-            return True
+        if not after_update:
+            if isinstance(
+                self.article.publication_date, datetime.date
+            ) and self.article.publication_date < date(2023, 1, 1):
+                return True
 
         return all(
             [
