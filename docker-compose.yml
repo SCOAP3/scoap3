@@ -13,6 +13,7 @@ services:
       - db
       - redis
       - mq
+      - s3
     volumes:
       - .:/app:z
     env_file:
@@ -126,6 +127,27 @@ services:
     container_name: scoap3_local_mq
     ports:
       - '5672:5672'
+    networks:
+      - djangonetwork
+
+  s3:
+    image: minio/minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=scoap3
+      - MINIO_ROOT_PASSWORD=Scoap1234
+    command: server /data --console-address ":9001"
+    networks:
+      - djangonetwork
+
+  create_buckets:
+    image: minio/mc
+    depends_on:
+      - s3
+    entrypoint: >
+      /bin/sh -c " sleep 10; /usr/bin/mc alias set scoap3 http://s3:9000 scoap3 Scoap1234; /usr/bin/mc mb scoap3/scoap3-dev-backend; /usr/bin/mc anonymous set download scoap3/scoap3-dev-backend; exit 0; "
     networks:
       - djangonetwork
 
