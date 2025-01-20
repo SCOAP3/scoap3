@@ -199,6 +199,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
         requested_renderer_format = self.request.accepted_media_type
         if "text/csv" in requested_renderer_format:
             return SearchCSVSerializer
+
         return ArticleDocumentSerializer
 
 

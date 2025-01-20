@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
+from drf_queryfields import QueryFieldsMixin
 from rest_framework import serializers
 
 from scoap3.articles.documents import ArticleDocument
@@ -206,7 +207,7 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
         return obj._created_at
 
 
-class ArticleDocumentSerializer(DocumentSerializer):
+class ArticleDocumentSerializer(QueryFieldsMixin, DocumentSerializer):
     class Meta:
         document = ArticleDocument
         fields = "__all__"
