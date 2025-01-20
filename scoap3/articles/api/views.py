@@ -6,7 +6,7 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     OrderingFilterBackend,
     SearchFilterBackend,
     SimpleQueryStringSearchFilterBackend,
-    SourceBackend
+    SourceBackend,
 )
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from opensearch_dsl import DateHistogramFacet, TermsFacet
