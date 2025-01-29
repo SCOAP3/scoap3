@@ -1,6 +1,7 @@
 import logging
 import xml.etree.ElementTree as ET
 from collections import Counter
+from datetime import datetime
 
 from django.db import connection
 from django.db.models import Max
@@ -298,3 +299,85 @@ def parse_springer_xml(root):
         authors.append(author_data)
 
     return authors, affiliation_map
+
+
+def year_export(start_date=None, end_date=None, publisher_name=None):
+    result_headers = [
+        "year",
+        "journal",
+        "doi",
+        "publication date",
+        "arxiv number",
+        "primary arxiv category",
+        "total number of authors",
+        "total number of ORCIDs linked to the authors",
+        "total number of affiliations",
+        "total number of ROR linked with the affiliations",
+        "total number of related materials, type dataset",
+        "total number of related materials, type software",
+    ]
+    result_data = []
+
+    search = ArticleDocument.search()
+
+    if start_date or end_date:
+        date_range = {}
+        if start_date:
+            date_range["gte"] = datetime.strptime(start_date, "%Y-%m-%d")
+        if end_date:
+            date_range["lte"] = datetime.strptime(end_date, "%Y-%m-%d")
+
+        search = search.filter("range", publication_date=date_range)
+
+    for article in search.scan():
+        year = article.publication_date.year
+        journal = article.publication_info[0].journal_title
+        publisher = article.publication_info[0].publisher
+        doi = get_first_doi(article)
+        publication_date = article.publication_date
+        arxiv = get_first_arxiv(article)
+        arxiv_category = get_arxiv_primary_category(article)
+
+        article_data = article.to_dict()
+        authors = article_data.get("authors", [])
+        total_authors = len(authors)
+
+        total_related_materials_dataset = 0
+        total_related_materials_software = 0
+        for related_material in article.related_materials:
+            if related_material.related_material_type == "dataset":
+                total_related_materials_dataset += 1
+            elif related_material.related_material_type == "software":
+                total_related_materials_software += 1
+
+        parsed_authors, parsed_affiliations = parse_article_xml(article, publisher)
+
+        orcid_nr = 0
+        for author in parsed_authors:
+            if author.author_info.get("orcid", []):
+                orcid_nr += 1
+
+        ror_nr = 0
+        for affiliation in parsed_affiliations:
+            if affiliation.ror:
+                ror_nr += 1
+
+        if (publisher == publisher_name) or (publisher_name is None):
+            result_data.append(
+                [
+                    year,
+                    journal,
+                    doi,
+                    publication_date,
+                    arxiv,
+                    arxiv_category,
+                    total_authors,
+                    orcid_nr,
+                    len(parsed_affiliations),
+                    ror_nr,
+                    total_related_materials_dataset,
+                    total_related_materials_software,
+                ]
+            )
+
+    return {"header": result_headers, "data": result_data}
