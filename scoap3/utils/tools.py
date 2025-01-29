@@ -1,11 +1,12 @@
 import logging
+import xml.etree.ElementTree as ET
 from collections import Counter
 
 from django.db import connection
 from django.db.models import Max
 
 from scoap3.articles.documents import ArticleDocument
-from scoap3.articles.models import Article
+from scoap3.articles.models import Article, ArticleFile
 from scoap3.articles.util import (
     get_arxiv_primary_category,
     get_first_arxiv,
@@ -180,3 +181,120 @@ def update_article_db_model_sequence(new_start_sequence):
         f"Sequence for {app_label}_{model_name} updated to start with {new_start_sequence}."
     )
     return True
+
+
+# article: ArticleDocument
+# publisher: string
+# example usage:
+# > authors, affiliations = parse_article_xml(article_doc, publisher)
+def parse_article_xml(article, publisher):
+    files = article.related_files
+    xml_files = [f for f in files if f.file.endswith(".xml")]
+
+    for file in xml_files:
+        url = file.file
+        file_obj = ArticleFile.objects.filter(
+            file__contains=url.split("ch/media/")[-1]
+        )[0]
+        parsed_authors, parsed_affiliations = parse_xml_from_s3(file_obj, publisher)
+
+    return parsed_authors, parsed_affiliations
+
+
+def parse_xml_from_s3(file_path, publisher):
+    with file_path.file.open() as file:
+        xml_content = file.read()
+        xml_content = xml_content.decode("utf8")
+
+    root = ET.fromstring(xml_content)
+
+    if publisher in ["APS", "Hindawi"]:
+        authors, affiliation_map = parse_aps_hindawi_xml(root)
+
+    elif publisher == "Springer":
+        authors, affiliation_map = parse_springer_xml(root)
+
+    return authors, affiliation_map
+
+
+def parse_aps_hindawi_xml(root):
+    authors_data = []
+    affiliations_list = []
+    affiliations = {}
+
+    for aff_element in root.findall(".//aff"):
+        aff_id = aff_element.get("id")
+        institution = (
+            aff_element.find("institution-wrap/institution").text
+            if aff_element.find("institution-wrap/institution") is not None
+            else None
+        )
+        ror = (
+            aff_element.find(
+                "institution-wrap/institution-id[@institution-id-type='ror']"
+            ).text
+            if aff_element.find(
+                "institution-wrap/institution-id[@institution-id-type='ror']"
+            )
+            is not None
+            else None
+        )
+
+        affiliations[aff_id] = {"name": institution, "ror": ror}
+        affiliations_list.append({"id": aff_id, "name": institution, "ror": ror})
+
+    for author in root.findall(".//contrib-group/contrib[@contrib-type='author']"):
+        author_info = {
+            "given_name": f"{author.find('./name/given-names').text}",
+            "family_name": f"{author.find('./name/surname').text}",
+            "orcid": author.find("./contrib-id[@contrib-id-type='orcid']").text
+            if author.find("./contrib-id[@contrib-id-type='orcid']") is not None
+            else None,
+            "affiliations": [],
+        }
+        for aff_ref in author.findall("xref[@ref-type='aff']"):
+            aff_id = aff_ref.get("rid")
+            if aff_id in affiliations:
+                author_info["affiliations"].append(affiliations[aff_id])
+
+        authors_data.append(author_info)
+
+    return authors_data, affiliations_list
+
+
+def parse_springer_xml(root):
+    affiliation_map = {}
+    affiliations_list = []
+    for affiliation in root.findall(".//Affiliation"):
+        aff_id = affiliation.get("ID")
+        institution_name = affiliation.findtext("OrgName")
+        ror_id = affiliation.findtext("OrgID[@Type='ROR']")
+
+        if aff_id:
+            affiliation_map[aff_id] = {
+                "InstitutionName": institution_name,
+                "ror": ror_id,
+            }
+            affiliations_list.append(
+                {"id": aff_id, "name": institution_name, "ror": ror_id}
+            )
+
+    authors = []
+    for author in root.findall(".//AuthorGroup/Author"):
+        given_name = author.findtext("AuthorName/GivenName")
+        family_name = author.findtext("AuthorName/FamilyName")
+        orcid = author.get("ORCID")
+        affiliation_ids = author.get("AffiliationIDS", "").split()
+
+        author_data = {
+            "given_name": f"{given_name}",
+            "family_name": f"{family_name}",
+            "orcid": orcid,
+            "Affiliations": [
+                affiliation_map.get(aff_id, {}) for aff_id in affiliation_ids
+            ],
+        }
+
+        authors.append(author_data)
+
+    return authors, affiliation_map
