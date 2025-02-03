@@ -48,6 +48,7 @@ numpy = "<2"
 django-select2 = "^8.2.1"
 pymupdf = "^1.24.10"
 djangorestframework-queryfields = "^1.1.0"
+django-admin-rangefilter = "^0.13.2"
 
 [tool.poetry.dev-dependencies]
 Werkzeug = {extras = ["watchdog"], version = "^3.0.1"}

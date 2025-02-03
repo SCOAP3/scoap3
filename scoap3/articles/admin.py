@@ -1,10 +1,13 @@
 import csv
 import datetime
+from datetime import timedelta
 
 from django.contrib import admin, messages
 from django.http import HttpResponse
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.html import format_html
+from rangefilter.filters import DateRangeQuickSelectListFilter
 
 from scoap3.articles.models import (
     Article,
@@ -14,6 +17,38 @@ from scoap3.articles.models import (
 )
 from scoap3.articles.tasks import compliance_checks
 from scoap3.authors.models import Author
+
+
+class CustomDateRangeQuickSelectListFilter(DateRangeQuickSelectListFilter):
+    def choices(self, changelist):
+        now = timezone.now()
+        today = now.date()
+
+        quick_select_ranges = {
+            "Today": (today, today),
+            "Past 7 Days": (today - timedelta(days=7), today),
+            "Past 30 Days": (today - timedelta(days=30), today),
+            "Past 60 Days": (today - timedelta(days=60), today),
+            "Past 90 Days": (today - timedelta(days=90), today),
+            "This Year": (timezone.datetime(today.year, 1, 1).date(), today),
+        }
+
+        return [
+            {
+                "display": title,
+                "query_string": changelist.get_query_string(
+                    {
+                        self.lookup_kwarg_gte: str(start_date),
+                        self.lookup_kwarg_lte: str(end_date),
+                    }
+                ),
+                "selected": (
+                    self.used_parameters.get(self.lookup_kwarg_gte) == str(start_date)
+                    and self.used_parameters.get(self.lookup_kwarg_lte) == str(end_date)
+                ),
+            }
+            for title, (start_date, end_date) in quick_select_ranges.items()
+        ]
 
 
 class ComplianceReportAdmin(admin.ModelAdmin):
@@ -76,7 +111,8 @@ class ComplianceReportAdmin(admin.ModelAdmin):
     ]
 
     list_filter = [
-        "report_date",
+        ("report_date", CustomDateRangeQuickSelectListFilter),
+        "article_id__publication_info__publisher",
         "article_id___updated_at",
         "article_id___created_at",
         "article_id__publication_info__journal_title",
@@ -273,9 +309,10 @@ class ArticleAdmin(admin.ModelAdmin):
     actions = ["make_compliance_check", "mark_as_compliant"]
     list_filter = [
         "report__compliant",
-        "_updated_at",
-        "_created_at",
-        "publication_date",
+        ("_updated_at", CustomDateRangeQuickSelectListFilter),
+        ("_created_at", CustomDateRangeQuickSelectListFilter),
+        ("publication_date", CustomDateRangeQuickSelectListFilter),
+        "publication_info__publisher",
         "publication_info__journal_title",
         "report__check_license",
         "report__check_required_file_formats",

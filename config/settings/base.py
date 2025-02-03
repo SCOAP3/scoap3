@@ -80,6 +80,7 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
+    "rangefilter",
     "django.contrib.admin",
     "django.forms",
 ]
