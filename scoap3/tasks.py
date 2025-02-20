@@ -24,6 +24,7 @@ from scoap3.misc.models import (
     PublicationInfo,
     Publisher,
 )
+from scoap3.utils.legacy import construct_legacy_filepath
 
 logger = logging.getLogger(__name__)
 cc = coco.CountryConverter()
@@ -147,7 +148,7 @@ def _create_article(data):
     return article
 
 
-def _create_article_file(data, article):
+def _create_article_file(data, article, copy_files=False):
     for file in data.get("_files", []):
         article_id = article.id
         filename = file.get("key")
@@ -164,6 +165,8 @@ def _create_article_file(data, article):
             "filetype": filetype,
         }
         ArticleFile.objects.get_or_create(**article_file_data)
+        if copy_files:
+            construct_legacy_filepath(article_id, file)
 
     for file in data.get("files", {}):
         article_id = article.id
@@ -387,10 +390,10 @@ def get_articles_by_doi(dois):
     return articles
 
 
-def import_to_scoap3(data, migrate_files):
+def import_to_scoap3(data, migrate_files, copy_files=False):
     article = _create_article(data)
     if migrate_files:
-        _create_article_file(data, article)
+        _create_article_file(data, article, copy_files)
     _create_article_identifier(data, article)
     _create_copyright(data, article)
     _create_article_arxiv_category(data, article)
