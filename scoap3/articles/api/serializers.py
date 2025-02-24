@@ -1,5 +1,4 @@
 import os
-from datetime import datetime
 
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_queryfields import QueryFieldsMixin
@@ -219,14 +218,12 @@ class ArticleDocumentSerializer(QueryFieldsMixin, DocumentSerializer):
 
 
 class SearchCSVSerializer(DocumentSerializer):
-    _created_at = serializers.SerializerMethodField()
+    _created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+
     doi = serializers.SerializerMethodField()
     arxiv_id = serializers.SerializerMethodField()
     arxiv_primary_category = serializers.SerializerMethodField()
     journal = serializers.SerializerMethodField()
-
-    def get__created_at(self, obj):
-        return datetime.strptime(obj._created_at, "%Y-%m-%dT%H:%M:%S.%f%z").date()
 
     def get_doi(self, obj):
         for article_identifier in obj.article_identifiers:
