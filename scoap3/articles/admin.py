@@ -5,6 +5,7 @@ from django.contrib import admin, messages
 from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.html import format_html
+from more_admin_filters import MultiSelectRelatedFilter
 from rangefilter.filters import DateRangeQuickSelectListFilterBuilder
 
 from scoap3.articles.models import (
@@ -278,7 +279,7 @@ class ArticleAdmin(admin.ModelAdmin):
         ("_updated_at", DateRangeQuickSelectListFilterBuilder()),
         ("_created_at", DateRangeQuickSelectListFilterBuilder()),
         ("publication_date", DateRangeQuickSelectListFilterBuilder()),
-        "publication_info__publisher",
+        ("publication_info__publisher", MultiSelectRelatedFilter),
         "publication_info__journal_title",
         "report__check_license",
         "report__check_required_file_formats",

@@ -100,6 +100,7 @@ THIRD_PARTY_APPS = [
     "django_opensearch_dsl",
     "django_elasticsearch_dsl_drf",
     "django_prometheus",
+    "more_admin_filters",
 ]
 
 LOCAL_APPS = [
