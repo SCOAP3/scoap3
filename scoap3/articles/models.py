@@ -56,6 +56,7 @@ class Article(LifecycleModelMixin, models.Model):
     )
     _created_at = models.DateTimeField(auto_now_add=True)
     _updated_at = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     class Meta:
         ordering = ["id"]

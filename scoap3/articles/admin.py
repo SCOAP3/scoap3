@@ -250,7 +250,7 @@ def make_compliant(article_queryset):
     return ids
 
 
-class ArticleAdmin(admin.ModelAdmin):
+class ArticleAdmin(SimpleHistoryAdmin):
     list_display = [
         "id",
         "preview_link",
