@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from more_admin_filters import MultiSelectRelatedFilter
 from rangefilter.filters import DateRangeQuickSelectListFilterBuilder
+from simple_history.admin import SimpleHistoryAdmin
 
 from scoap3.articles.models import (
     Article,
@@ -400,7 +401,7 @@ class ArticleIdentifierAdmin(admin.ModelAdmin):
     raw_id_fields = ["article_id"]
 
 
-class ArticleFileAdmin(admin.ModelAdmin):
+class ArticleFileAdmin(SimpleHistoryAdmin):
     list_display = ["id", "article_id", "file", "file_size", "updated", "created"]
     search_fields = ["article_id__id"]
 

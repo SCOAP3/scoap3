@@ -50,6 +50,7 @@ pymupdf = "^1.24.10"
 djangorestframework-queryfields = "^1.1.0"
 django-admin-rangefilter = "^0.13.2"
 django-more-admin-filters = "^1.10"
+django-simple-history = "^3.8.0"
 
 [tool.poetry.dev-dependencies]
 Werkzeug = {extras = ["watchdog"], version = "^3.0.1"}
