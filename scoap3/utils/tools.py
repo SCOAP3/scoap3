@@ -50,7 +50,7 @@ def affiliation_export(search_year, search_country):
 
         extracted_affiliations = Counter()
         for author in authors:
-            # if there are no affiliations, we cannot add this author
+            # if ther are no affiliations, we cannot add this author
             # (this also means the record is not valid according to the schema)
             if not author.affiliations:
                 missing_author_affiliations += 1
