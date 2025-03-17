@@ -72,6 +72,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const { count, facets } = (await res?.json()) as Response;
   const countValue = { count: count || 0 };
   const facetsValue = { facets: facets || null };
+  console.log("fetch::", url, res.status, res.headers)
   return { props: Object.assign(countValue, facetsValue) };
 };
 
