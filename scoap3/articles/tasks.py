@@ -167,7 +167,7 @@ def check_contains_funded_by_scoap3(article):
         for article_file in article_files:
             if article_file.filetype in ["pdf", "pdf/a"]:
                 try:
-                    if is_string_in_pdf(article_file, "Funded by SCOAP3"):
+                    if is_string_in_pdf(article_file, "Funded by SCOAP"):
                         return (
                             True,
                             f"Files contain the required text: 'Funded by SCOAP3'. File: {article_file.file.url}",
