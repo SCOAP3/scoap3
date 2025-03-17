@@ -18,7 +18,7 @@ interface MenuProps {
 const labels = [
   <Link href="/">Home</Link>,
   <Link href="https://scoap3.org/" target="_blank" rel="noopener noreferrer">
-    Scoap³ project
+    SCOAP3 project
   </Link>,
   <Link href="/partners">Partners</Link>,
   <a
