@@ -6,7 +6,13 @@ import { GetServerSideProps } from "next";
 import TabContent from "@/components/home/TabContent";
 import SearchBar from "@/components/shared/SearchBar";
 import { Journal, Country, Facets, Response, Params } from "@/types";
-import { authToken, filterCountries, mapCountryNames, getApiUrl, getSearchUrl } from "@/utils/utils";
+import {
+  authToken,
+  filterCountries,
+  mapCountryNames,
+  getApiUrl,
+  getSearchUrl,
+} from "@/utils/utils";
 
 interface HomePageProps {
   count: number;
@@ -18,7 +24,9 @@ const HomePage: React.FC<HomePageProps> = ({ count, facets }) => {
     ? facets?._filter_journal?.journal?.buckets
     : [];
   const partners: Country[] = facets
-    ? mapCountryNames(filterCountries(facets?._filter_country?.country?.buckets))
+    ? mapCountryNames(
+        filterCountries(facets?._filter_country?.country?.buckets)
+      )
     : [];
 
   const tabItems = [
@@ -72,7 +80,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const { count, facets } = (await res?.json()) as Response;
   const countValue = { count: count || 0 };
   const facetsValue = { facets: facets || null };
-  console.log("fetch::", url, res.status, res.headers)
   return { props: Object.assign(countValue, facetsValue) };
 };
 
