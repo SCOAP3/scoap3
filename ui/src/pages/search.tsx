@@ -66,14 +66,21 @@ const SearchPage: React.FC<SearchPageProps> = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context?.query as unknown as Params;
+  const req = context?.req;
 
+  const clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   const searchParams = new URLSearchParams(encode(query))
   const params = searchParams ? `?${searchParams}` : "";
   const url = getApiUrl() + params
-  let results = [], count = 0 , facets =[];
+  let results = [], count = 0, facets = [];
 
   try {
-    const res = await fetch(url, authToken);
+    const res = await fetch(url, {
+      "headers": {
+        ...authToken?.headers,
+        "X-Forwarded-For": clientIp as string,
+      }
+    });
 
     const contentType = res.headers.get("content-type");
     if (contentType && contentType.indexOf("application/json") !== -1) {

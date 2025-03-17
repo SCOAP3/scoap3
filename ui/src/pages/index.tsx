@@ -74,9 +74,17 @@ const HomePage: React.FC<HomePageProps> = ({ count, facets }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const url = `${getApiUrl() + getSearchUrl({})}`;
-  const res = await fetch(url, authToken);
+
+  const clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
+  const res = await fetch(url, {
+    "headers": {
+      ...authToken?.headers,
+      "X-Forwarded-For": clientIp as string,
+    }
+  });
   const { count, facets } = (await res?.json()) as Response;
   const countValue = { count: count || 0 };
   const facetsValue = { facets: facets || null };

@@ -62,8 +62,15 @@ const RecordPage: React.FC<RecordPageProps> = ({ article }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const recordId = context.query["recordId"];
+  const req = context?.req;
+  const clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
-  const res = await fetch(getApiUrl() + `/${recordId}`, authToken);
+  const res = await fetch(getApiUrl() + `/${recordId}`, {
+    "headers": {
+      ...authToken?.headers,
+      "X-Forwarded-For": clientIp as string,
+    }
+  });
   const article = (await res.json()) as Result;
 
   return { props: { article } };
