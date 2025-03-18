@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 from scoap3.articles.api.views import (
     ArticleFileViewSet,
     ArticleIdentifierViewSet,
+    ArticleStatsViewSet,
     ArticleViewSet,
     ArticleWorkflowImportView,
     LegacyArticleDocumentView,
@@ -37,6 +38,7 @@ router.register("users", UserViewSet)
 router.register("articles", ArticleViewSet)
 router.register("article-identifier", ArticleIdentifierViewSet)
 router.register("article-file", ArticleFileViewSet)
+router.register("article-stats", ArticleStatsViewSet, basename="article-stats")
 router.register(
     "article-workflow-import",
     ArticleWorkflowImportView,

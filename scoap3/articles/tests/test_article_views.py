@@ -1,13 +1,16 @@
 import json
+from datetime import datetime, timedelta
 
 import pytest
 from django.urls import reverse
+from freezegun import freeze_time
 from rest_framework import status
 
+from scoap3.articles.documents import ArticleDocument
 from scoap3.articles.models import Article
 from scoap3.articles.util import parse_string_to_date_object
 from scoap3.authors.models import Author
-from scoap3.misc.models import PublicationInfo
+from scoap3.misc.models import PublicationInfo, Publisher
 
 pytestmark = pytest.mark.django_db
 
@@ -632,3 +635,110 @@ class TestArticleIdentifierViewSet:
         url = reverse("api:articleidentifier-detail", kwargs={"pk": 0})
         response = client.get(url)
         assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+class TestArticleStatsViewSet:
+    @freeze_time("2022-03-16")
+    def test_get_article_stats(self, client, user):
+        client.force_login(user)
+
+        try:
+            ArticleDocument._index.delete(ignore=404)
+        except Exception:
+            pass
+        ArticleDocument.init()
+
+        today = datetime.now().date()
+
+        publisher = Publisher.objects.create(name="Test Publisher")
+
+        article1 = Article.objects.create(
+            publication_date=today - timedelta(days=1), title="Article 1"
+        )
+        PublicationInfo.objects.create(
+            article_id=article1,
+            journal_title="Journal A",
+            journal_volume="1",
+            journal_issue="1",
+            page_start="1",
+            page_end="10",
+            artid="A1",
+            volume_year="2022",
+            journal_issue_date=today - timedelta(days=1),
+            publisher=publisher,
+        )
+
+        article2 = Article.objects.create(
+            publication_date=today - timedelta(days=10), title="Article 2"
+        )
+        PublicationInfo.objects.create(
+            article_id=article2,
+            journal_title="Journal B",
+            journal_volume="1",
+            journal_issue="1",
+            page_start="1",
+            page_end="10",
+            artid="A2",
+            volume_year="2022",
+            journal_issue_date=today - timedelta(days=10),
+            publisher=publisher,
+        )
+
+        article3 = Article.objects.create(
+            publication_date=today - timedelta(days=5), title="Article 3"
+        )
+        PublicationInfo.objects.create(
+            article_id=article3,
+            journal_title="Journal A",
+            journal_volume="1",
+            journal_issue="1",
+            page_start="1",
+            page_end="10",
+            artid="A3",
+            volume_year="2022",
+            journal_issue_date=today - timedelta(days=5),
+            publisher=publisher,
+        )
+
+        article4 = Article.objects.create(
+            publication_date=today - timedelta(days=40), title="Article 4"
+        )
+        PublicationInfo.objects.create(
+            article_id=article4,
+            journal_title="Journal C",
+            journal_volume="1",
+            journal_issue="1",
+            page_start="1",
+            page_end="10",
+            artid="A4",
+            volume_year="2022",
+            journal_issue_date=today - timedelta(days=40),
+            publisher=publisher,
+        )
+
+        ArticleDocument().update(article1, action="index")
+        ArticleDocument().update(article2, action="index")
+        ArticleDocument().update(article3, action="index")
+        ArticleDocument().update(article4, action="index")
+
+        ArticleDocument._index.refresh()
+
+        url = reverse("api:article-stats-list")
+        response = client.get(url)
+        assert response.status_code == status.HTTP_200_OK
+
+        data = response.json()
+
+        expected_other = {
+            "yesterday": 1,
+            "last_30_days": 3,
+            "this_year": 4,
+        }
+        assert data.get("other") == expected_other
+
+        expected_journals = {
+            "Journal A": 2,
+            "Journal B": 1,
+            "Journal C": 1,
+        }
+        assert data.get("journals") == expected_journals
