@@ -640,10 +640,8 @@ class TestArticleIdentifierViewSet:
 class TestArticleStatsViewSet:
     @freeze_time("2022-03-16")
     def test_get_article_stats(self, client, user):
-        # Force login to bypass permission restrictions.
         client.force_login(user)
 
-        # Reinitialize the index to ensure correct mappings.
         try:
             ArticleDocument._index.delete(ignore=404)
         except Exception:
@@ -654,7 +652,6 @@ class TestArticleStatsViewSet:
 
         publisher = Publisher.objects.create(name="Test Publisher")
 
-        # Article 1: published yesterday (2022-03-15) in Journal A.
         article1 = Article.objects.create(
             publication_date=today - timedelta(days=1), title="Article 1"
         )
@@ -671,7 +668,6 @@ class TestArticleStatsViewSet:
             publisher=publisher,
         )
 
-        # Article 2: published 10 days ago (2022-03-06) in Journal B.
         article2 = Article.objects.create(
             publication_date=today - timedelta(days=10), title="Article 2"
         )
@@ -688,7 +684,6 @@ class TestArticleStatsViewSet:
             publisher=publisher,
         )
 
-        # Article 3: published 5 days ago (2022-03-11) in Journal A.
         article3 = Article.objects.create(
             publication_date=today - timedelta(days=5), title="Article 3"
         )
@@ -705,7 +700,6 @@ class TestArticleStatsViewSet:
             publisher=publisher,
         )
 
-        # Article 4: published 40 days ago (2022-02-04) in Journal C.
         article4 = Article.objects.create(
             publication_date=today - timedelta(days=40), title="Article 4"
         )
@@ -722,23 +716,19 @@ class TestArticleStatsViewSet:
             publisher=publisher,
         )
 
-        # Update the OpenSearch documents so that publication_info is included.
         ArticleDocument().update(article1, action="index")
         ArticleDocument().update(article2, action="index")
         ArticleDocument().update(article3, action="index")
         ArticleDocument().update(article4, action="index")
 
-        # Refresh the index to ensure all updates are visible.
         ArticleDocument._index.refresh()
 
-        # Call the endpoint.
         url = reverse("api:article-stats-list")
         response = client.get(url)
         assert response.status_code == status.HTTP_200_OK
 
         data = response.json()
 
-        # Expected "other" counts (note: "all" includes all 4 articles).
         expected_other = {
             "yesterday": 1,
             "last_30_days": 3,
@@ -747,7 +737,6 @@ class TestArticleStatsViewSet:
         }
         assert data.get("other") == expected_other
 
-        # Expected journals aggregation.
         expected_journals = {
             "Journal A": 2,
             "Journal B": 1,
