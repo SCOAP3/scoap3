@@ -378,7 +378,8 @@ class ArticleStatsViewSet(ViewSet):
             count = search_query.count()
             other_data[key] = count
 
-        journal_search = ArticleDocument.search()
+        journal_search = ArticleDocument.search().extra(track_total_hits=True)
+        other_data["all"] = journal_search.count()
         journal_search.aggs.bucket(
             "journals", "terms", field="publication_info.journal_title", size=100
         )
