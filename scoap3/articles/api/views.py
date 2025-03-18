@@ -350,6 +350,8 @@ class LegacyArticleDocumentView(BaseDocumentViewSet):
 
 
 class ArticleStatsViewSet(ViewSet):
+    permission_classes = [IsSuperUserOrReadOnly]
+
     def list(self, request):
         today = datetime.now().date()
 
