@@ -91,7 +91,7 @@ AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default=None)
 AWS_S3_CUSTOM_DOMAIN = (
     f'{env("DJANGO_AWS_STORAGE_BUCKET_NAME")}.{env("DJANGO_AWS_S3_CUSTOM_DOMAIN")}'
 )
-AWS_S3_ENDPOINT_URL = f'https://{env("DJANGO_AWS_S3_CUSTOM_DOMAIN")}'
+AWS_S3_ENDPOINT_URL = f'https://{env("DJANGO_AWS_S3_CUSTOM_DOMAIN")}'  # noqa: E231
 
 # STORAGE
 # ------------------------
@@ -246,3 +246,8 @@ OPENSEARCH_DSL = {
 
 # Workaround because it wont add the connection settings automatically
 connections.configure(default=OPENSEARCH_DSL["default"])
+
+CORS_ALLOWED_ORIGINS = [
+    "https://scoap3.org",
+    "https://www.scoap3.org",
+]
