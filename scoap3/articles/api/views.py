@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django_elasticsearch_dsl_drf.constants import LOOKUP_FILTER_RANGE, LOOKUP_QUERY_IN
 from django_elasticsearch_dsl_drf.filter_backends import (
     DefaultOrderingFilterBackend,
@@ -345,3 +347,45 @@ class LegacyArticleDocumentView(BaseDocumentViewSet):
 
     def get_serializer_class(self):
         return LegacyArticleDocumentSerializer
+
+
+class ArticleStatsViewSet(ViewSet):
+    def list(self, request):
+        today = datetime.now().date()
+
+        date_ranges = {
+            "yesterday": {
+                "gte": (today - timedelta(days=1)).strftime("%Y-%m-%d"),
+                "lte": (today - timedelta(days=1)).strftime("%Y-%m-%d"),
+            },
+            "last_30_days": {
+                "gte": (today - timedelta(days=30)).strftime("%Y-%m-%d"),
+                "lte": today.strftime("%Y-%m-%d"),
+            },
+            "this_year": {
+                "gte": today.replace(month=1, day=1).strftime("%Y-%m-%d"),
+                "lte": today.strftime("%Y-%m-%d"),
+            },
+        }
+
+        other_data = {}
+        for key, range_values in date_ranges.items():
+            search_query = ArticleDocument.search().query(
+                "range", publication_date=range_values
+            )
+            count = search_query.count()
+            other_data[key] = count
+
+        journal_search = ArticleDocument.search()
+        journal_search.aggs.bucket(
+            "journals", "terms", field="publication_info.journal_title", size=100
+        )
+        journals_result = journal_search.execute()
+        journal_buckets = journals_result.aggregations.journals.buckets
+        journals_data = {bucket.key: bucket.doc_count for bucket in journal_buckets}
+
+        data = {
+            "other": other_data,
+            "journals": journals_data,
+        }
+        return Response(data)
