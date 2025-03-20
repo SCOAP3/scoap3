@@ -155,6 +155,7 @@ def _create_article_file(data, article, copy_files=False):
         filename = file.get("key")
         file_path = f"files/{article_id}/{filename}"
         filetype = file.get("filetype", "")
+        version_id = file.get("version_id", "")
 
         if filetype in ["pdfa", "pdf/a", "pdf_a"]:
             filetype = "pdf/a"
@@ -164,6 +165,7 @@ def _create_article_file(data, article, copy_files=False):
             "article_id": article,
             "file": file_path,
             "filetype": filetype,
+            "version_id": version_id,
         }
         ArticleFile.objects.get_or_create(**article_file_data)
         if copy_files:
@@ -185,7 +187,7 @@ def _create_article_file(data, article, copy_files=False):
             "article_id": article,
             "file": file_path,
             "filetype": filetype,
-            "version_id": version_id
+            "version_id": version_id,
         }
         ArticleFile.objects.get_or_create(**article_file_data)
 
