@@ -24,6 +24,8 @@ from scoap3.misc.models import (
     Copyright,
     Country,
     ExperimentalCollaboration,
+    InstitutionIdentifier,
+    InstitutionIdentifierType,
     License,
     PublicationInfo,
     Publisher,
@@ -371,10 +373,20 @@ def _create_affiliation(data, authors):
                 "value": affiliation.get("value", ""),
                 "organization": affiliation.get("organization", ""),
             }
+            ror_url = affiliation.get("ror", "")
+            ror = re.sub(r"^https:\/\/ror\.org\/", "", ror_url)
             try:
-                affiliation, _ = Affiliation.objects.get_or_create(**affiliation_data)
-                affiliation.author_id.add(authors[idx].id)
-                affiliations.append(affiliation)
+                affiliation_obj, _ = Affiliation.objects.get_or_create(
+                    **affiliation_data
+                )
+                affiliation_obj.author_id.add(authors[idx].id)
+                affiliations.append(affiliation_obj)
+                if ror:
+                    InstitutionIdentifier.objects.get_or_create(
+                        affiliation_id=affiliation_obj,
+                        identifier_type=InstitutionIdentifierType.ROR,
+                        identifier_value=ror,
+                    )
 
             except MultipleObjectsReturned:
                 logger.error(

@@ -116,6 +116,23 @@ class TestArticleViewSet:
         article = Article.objects.get(id=article_id)
         assert article.related_files.first().filetype == "pdf/a"
 
+    def test_create_article_from_workflow_ror(self, client, user, shared_datadir):
+        client.force_login(user)
+
+        contents = (shared_datadir / "workflow_article.json").read_text()
+        data = json.loads(contents)
+
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            data,
+            content_type="application/json",
+        )
+
+        assert response.status_code == status.HTTP_200_OK
+
+        ror = response.data["authors"][0]["affiliations"][0]["ror"]
+        assert ror == "00x194q47"
+
     def test_create_article_from_legacy(self, client, user, shared_datadir):
         client.force_login(user)
         contents = (shared_datadir / "legacy_record.json").read_text()
