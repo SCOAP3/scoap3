@@ -81,6 +81,7 @@ class ArticleFile(models.Model):
     updated = models.DateTimeField(auto_now=True)
     filetype = models.TextField(blank=True, default="")
     history = HistoricalRecords()
+    version_id = models.TextField(blank=True, default="")
 
     def __str__(self) -> str:
         return self.file.name
