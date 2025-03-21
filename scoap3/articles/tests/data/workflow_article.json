@@ -11,7 +11,8 @@
           {
             "value": "Department of Physics, <a href=\"https://ror.org/00x194q47\">Rikkyo University</a>, Toshima, Tokyo 171-8501, Japan and <a href=\"https://ror.org/0589kgd85\">Yukawa Institute for Theoretical Physics</a>, <a href=\"https://ror.org/02kpeqv85\">Kyoto University</a>, Kitashirakawa Oiwakecho, Sakyo-ku, Kyoto 606-8502, Japan",
             "organization": "Department of Physics, <a href=\"https://ror.org/00x194q47\">Rikkyo University</a>, Toshima, Tokyo 171-8501, Japan and <a href=\"https://ror.org/0589kgd85\">Yukawa Institute for Theoretical Physics</a>, <a href=\"https://ror.org/02kpeqv85\">Kyoto University</a>, Kitashirakawa Oiwakecho, Sakyo-ku, Kyoto 606-8502",
-            "country": "Japan"
+            "country": "Japan",
+            "ror": "https://ror.org/00x194q47"
           }
         ]
       }
