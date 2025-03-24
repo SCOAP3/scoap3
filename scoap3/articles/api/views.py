@@ -357,7 +357,7 @@ class ArticleStatsViewSet(ViewSet):
 
         date_ranges = {
             "yesterday": {
-                "gte": (today - timedelta(days=1)).strftime("%Y-%m-%d"),
+                "gte": (today - timedelta(days=2)).strftime("%Y-%m-%d"),
                 "lte": (today - timedelta(days=1)).strftime("%Y-%m-%d"),
             },
             "last_30_days": {
