@@ -6,6 +6,7 @@ import re
 
 import country_converter as coco
 import requests
+from celery import shared_task
 from django.core.exceptions import MultipleObjectsReturned, ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage, storages
@@ -391,6 +392,7 @@ def get_articles_by_doi(dois):
     return articles
 
 
+@shared_task(acks_late=True)
 def import_to_scoap3(data, migrate_files, copy_files=False):
     article = _create_article(data)
     if migrate_files:

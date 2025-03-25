@@ -67,7 +67,7 @@ class Article(LifecycleModelMixin, models.Model):
         if os.getenv("COMPLIANCE_DISABLED", "0") == "1":
             return
 
-        compliance_checks.delay(self.id)
+        compliance_checks.apply_async(args=[self.id], priority=9)
 
 
 class ArticleFile(models.Model):
