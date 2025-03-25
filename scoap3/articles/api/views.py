@@ -124,8 +124,11 @@ class ArticleDocumentView(BaseDocumentViewSet):
         "article_identifiers.identifier_value",
     )
 
-    ordering_fields = {"publication_date": "publication_date"}
-    ordering = ["-publication_date"]
+    ordering_fields = {
+        "publication_date": "publication_date",
+        "_updated_at": "_updated_at",
+    }
+    ordering = ["-publication_date", "-_updated_at"]
 
     filter_fields = {
         "publication_year": {
