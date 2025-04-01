@@ -25,6 +25,7 @@ from scoap3.misc.api.views import (
     PublisherViewSet,
     RelatedMaterialViewSet,
 )
+from scoap3.robotupload.api.views import RobotUploadViewSet
 from scoap3.users.api.views import UserViewSet
 
 if settings.DEBUG:
@@ -64,6 +65,7 @@ router.register("article-arxiv-category", ArticleArxivCategoryViewSet)
 router.register("experimental-collaboration", ExperimentalCollaborationViewSet)
 router.register("funder", FunderViewSet)
 router.register("related-material", RelatedMaterialViewSet)
+router.register("robot-upload", RobotUploadViewSet, basename="robot-upload")
 
 app_name = "api"
 
