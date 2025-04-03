@@ -46,7 +46,7 @@ router.register(
 )
 
 # Records
-router.register("records", LegacyArticleDocumentView, basename="records-list")
+router.register("records", LegacyArticleDocumentView, basename="records")
 
 # Authors
 router.register("author", AuthorViewSet)
