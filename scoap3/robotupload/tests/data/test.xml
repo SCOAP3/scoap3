@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+    <record>
+        <datafield tag="024" ind1="7" ind2=" ">
+            <subfield code="a">10.5506/APhysPolB.55.12-A2</subfield>
+            <subfield code="2">DOI</subfield>
+        </datafield>
+        <datafield tag="037" ind1=" " ind2=" ">
+            <subfield code="a">2411.02330</subfield>
+            <subfield code="9">arXiv</subfield>
+        </datafield>
+        <datafield tag="100" ind1=" " ind2=" ">
+            <subfield code="a">Ambjørn, J.</subfield>
+            <subfield code="u">The Niels Bohr Institute, Copenhagen University, Denmark</subfield>
+        </datafield>
+        <datafield tag="700" ind1=" " ind2=" ">
+            <subfield code="a">Gizbert-Studnicki, J.</subfield>
+            <subfield code="u">Institute of Theoretical Physics, Jagiellonian University, Kraków, Poland</subfield>
+        </datafield>
+        <datafield tag="700" ind1=" " ind2=" ">
+            <subfield code="a">Görlich, A.</subfield>
+            <subfield code="u">Institute of Theoretical Physics, Jagiellonian University, Kraków, Poland</subfield>
+        </datafield>
+        <datafield tag="700" ind1=" " ind2=" ">
+            <subfield code="a">Németh, D.</subfield>
+            <subfield code="u">IMAPP, Radboud University Nijmegen, The Netherlands</subfield>
+        </datafield>
+        <datafield tag="245" ind1=" " ind2=" ">
+            <subfield code="a">Robotupload test</subfield>
+        </datafield>
+        <datafield tag="260" ind1=" " ind2=" ">
+            <subfield code="c">2025-01-07</subfield>
+        </datafield>
+        <datafield tag="520" ind1=" " ind2=" ">
+            <subfield code="a">Causal Dynamical Triangulations (CDT) is a lattice theory of quantum gravity. It is shown how to identify the IR and the UV limits of this lattice theory with similar limits studied using the continuum, functional renormalization group (FRG) approach. The main technical tool in this study will be the so-called two-point function. It will allow us to identify a correlation length not directly related to the propagation of physical degrees of freedom.</subfield>
+        </datafield>
+        <datafield tag="540" ind1=" " ind2=" ">
+            <subfield code="a">CC-BY-4.0</subfield>
+            <subfield code="u">http://creativecommons.org/licenses/by/4.0/</subfield>
+        </datafield>
+        <datafield tag="542" ind1=" " ind2=" ">
+            <subfield code="f">The Authors</subfield>
+        </datafield>
+        <datafield tag="773" ind1=" " ind2=" ">
+            <subfield code="p">Acta Physica Polonica B</subfield>
+            <subfield code="v">55</subfield>
+            <subfield code="n">12</subfield>
+            <subfield code="c">A2.1-28</subfield>
+            <subfield code="y">2024</subfield>
+        </datafield>
+        <datafield tag="980" ind1=" " ind2=" ">
+            <subfield code="a">SCOAP3</subfield>
+            <subfield code="b">Acta</subfield>
+        </datafield>
+        <datafield tag="FFT" ind1=" " ind2=" ">
+            <subfield code="a">https://www.actaphys.uj.edu.pl/fulltext?series=reg&amp;vol=55&amp;aid=12-A2</subfield>
+            <subfield code="f">.pdf</subfield>
+            <subfield code="n">fulltext</subfield>
+        </datafield>
+        <datafield tag="FFT" ind1=" " ind2=" ">
+            <subfield code="a">https://www.actaphys.uj.edu.pl/fulltext?series=reg&amp;vol=55&amp;aid=12-A2&amp;fmt=pdfa</subfield>
+            <subfield code="f">.pdf;pdfa</subfield>
+            <subfield code="n">fulltext</subfield>
+        </datafield>
+    </record>
+</collection>
