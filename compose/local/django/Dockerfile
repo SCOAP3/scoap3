@@ -20,6 +20,7 @@ RUN curl -sSL https://install.python-poetry.org \
   && poetry --version
 
 COPY poetry.lock pyproject.toml ./
+COPY inspire_dojson ./
 RUN poetry install --no-root
 
 COPY . ${APP_HOME}
