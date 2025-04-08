@@ -36,7 +36,7 @@ const labels = [
     Help
   </a>,
   <a
-    href="https://github.com/SCOAP3/scoap3-next/wiki"
+    href="https://github.com/SCOAP3/scoap3/wiki"
     target="_blank"
     rel="noopener noreferrer"
   >

@@ -19,7 +19,7 @@ const Partners = () => {
             download articles and the corresponding metadata. A full
             documentation of the API is available{" "}
             <a
-              href="https://github.com/SCOAP3/scoap3-next/wiki/For-partners"
+              href="https://github.com/SCOAP3/scoap3/wiki/For-partners"
               target="_blank"
               rel="noopener noreferrer"
             >
