@@ -251,3 +251,5 @@ CORS_ALLOWED_ORIGINS = [
     "https://scoap3.org",
     "https://www.scoap3.org",
 ]
+
+CORS_ALLOW_CREDENTIALS = True
