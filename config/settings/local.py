@@ -90,3 +90,9 @@ CELERY_TASK_EAGER_PROPAGATES = True
 # django-webpack-loader
 # ------------------------------------------------------------------------------
 WEBPACK_LOADER["DEFAULT"]["CACHE"] = not DEBUG  # noqa: F405
+
+CORS_ALLOWED_ORIGINS = [
+    "https://scoap3.org",
+    "https://www.scoap3.org",
+    "http://localhost:3001",
+]
