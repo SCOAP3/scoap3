@@ -6,6 +6,7 @@ from datetime import date
 from django.db import models
 from django.db.models.fields.files import FieldFile
 from django_lifecycle import AFTER_CREATE, AFTER_UPDATE, LifecycleModelMixin, hook
+from simple_history.models import HistoricalRecords
 
 
 class ArticleIdentifierType(models.TextChoices):
@@ -55,6 +56,7 @@ class Article(LifecycleModelMixin, models.Model):
     )
     _created_at = models.DateTimeField(auto_now_add=True)
     _updated_at = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     class Meta:
         ordering = ["id"]
@@ -78,6 +80,8 @@ class ArticleFile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     filetype = models.TextField(blank=True, default="")
+    history = HistoricalRecords()
+    version_id = models.TextField(blank=True, default="")
 
     def __str__(self) -> str:
         return self.file.name

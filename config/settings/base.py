@@ -80,7 +80,6 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
-    "rangefilter",
     "django.contrib.admin",
     "django.forms",
 ]
@@ -101,6 +100,8 @@ THIRD_PARTY_APPS = [
     "django_elasticsearch_dsl_drf",
     "django_prometheus",
     "more_admin_filters",
+    "rangefilter",
+    "simple_history",
 ]
 
 LOCAL_APPS = [
@@ -169,6 +170,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_prometheus.middleware.PrometheusAfterMiddleware",
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 # STATIC
