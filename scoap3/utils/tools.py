@@ -114,9 +114,22 @@ def author_export(search_year, search_country):
     if search_country:
         search = search.filter("term", countries=search_country)
 
+    seen_dois = set()
+
     for article in search.scan():
+        doi = get_first_doi(article)
+
+        if doi in seen_dois or doi is None:
+            continue
+
+        seen_dois.add(doi)
+
         year = article.publication_date.year
-        journal = article.publication_info[0].journal_title
+        journal = (
+            article.publication_info[0].journal_title
+            if article.publication_info
+            else None
+        )
         doi = get_first_doi(article)
         arxiv = get_first_arxiv(article)
         arxiv_category = get_arxiv_primary_category(article)
@@ -125,34 +138,29 @@ def author_export(search_year, search_country):
         missing_author_affiliations = 0
 
         for author in authors:
-            # if there are no affiliations, we cannot add this author
-            # (this also means the record is not valid according to the schema)
             if not author.affiliations:
                 missing_author_affiliations += 1
                 continue
 
             author_first_name = author.get("first_name", "UNKNOWN")
             author_last_name = author.get("last_name", "UNKNOWN")
-            # add extracted information to result list
             for affiliation in author.affiliations:
-                if not affiliation.country:
-                    aff_country = "UNKNOWN"
-                else:
+                if affiliation.country.code == search_country:
                     aff_country = affiliation.country.code
-                aff_value = affiliation.get("value", "UNKNOWN")
-                result_data.append(
-                    [
-                        year,
-                        journal,
-                        doi,
-                        arxiv,
-                        arxiv_category,
-                        author_first_name + " " + author_last_name,
-                        aff_country,
-                        aff_value,
-                        total_authors,
-                    ]
-                )
+                    aff_value = affiliation.get("value", "UNKNOWN")
+                    result_data.append(
+                        [
+                            year,
+                            journal,
+                            doi,
+                            arxiv,
+                            arxiv_category,
+                            author_first_name + " " + author_last_name,
+                            aff_country,
+                            aff_value,
+                            total_authors,
+                        ]
+                    )
 
         if missing_author_affiliations:
             logger.warn(
@@ -160,6 +168,7 @@ def author_export(search_year, search_country):
                     doi, missing_author_affiliations, total_authors
                 )
             )
+
     return {"header": result_headers, "data": result_data}
 
 
