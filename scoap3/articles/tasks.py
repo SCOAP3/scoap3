@@ -36,15 +36,15 @@ def check_required_file_formats(obj):
 
     journal_format_mapping = {
         "Acta Physica Polonica B": ["pdf", "pdf/a"],
-        "Adv. High Energy Phys.": ["pdf", "pdf/a", "xml"],
-        "Prog. of Theor. and Exp. Phys.": ["pdf", "pdf/a", "xml"],
+        "Advances in High Energy Physics": ["pdf", "pdf/a", "xml"],
+        "Progress of Theoretical and Experimental Physics": ["pdf", "pdf/a", "xml"],
         "European Physical Journal C": ["pdf/a", "xml"],
         "Journal of High Energy Physics": ["pdf/a", "xml"],
         "Nuclear Physics B": ["pdf", "pdf/a", "xml"],
         "Physics Letters B": ["pdf", "pdf/a", "xml"],
-        "Physical review letters": ["pdf", "xml"],
-        "Physical review C": ["pdf", "xml"],
-        "Physical review D": ["pdf", "xml"],
+        "Physical Review Letters": ["pdf", "xml"],
+        "Physical Review C": ["pdf", "xml"],
+        "Physical Review D": ["pdf", "xml"],
         "Chinese Physics C": ["pdf", "xml"],
     }
 
@@ -167,7 +167,7 @@ def check_contains_funded_by_scoap3(article):
         for article_file in article_files:
             if article_file.filetype in ["pdf", "pdf/a"]:
                 try:
-                    if is_string_in_pdf(article_file, "Funded by SCOAP3"):
+                    if is_string_in_pdf(article_file, "Funded by SCOAP"):
                         return (
                             True,
                             f"Files contain the required text: 'Funded by SCOAP3'. File: {article_file.file.url}",

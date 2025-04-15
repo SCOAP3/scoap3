@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from django.urls import reverse
 from rest_framework import status
@@ -39,13 +41,36 @@ def test_article_search_ordering_default(user, client, license):
         )
         assert response.status_code == 201
 
+    time.sleep(0.5)
+
+    updated_article = {
+        "title": "Article 2.5",
+        "related_licenses": [license.id],
+        "publication_date": "2014-01-02",
+    }
+
+    response = client.post(
+        reverse("api:article-list"),
+        data=updated_article,
+    )
+    assert response.status_code == 201
+
     response = client.get(reverse("search:article-list"))
     data = response.json()
 
     publication_dates = []
+    titles = []
     for result in data["results"]:
         publication_dates.append(result["publication_date"])
+        titles.append(result["title"])
 
     assert publication_dates == sorted(
         publication_dates, reverse=True
     ), "Articles are not ordered by publication date in descending order"
+
+    assert titles == [
+        "Article 3",
+        "Article 2.5",
+        "Article 2",
+        "Article 1",
+    ], "Articles are not secondarily ordered by _updated_at"
