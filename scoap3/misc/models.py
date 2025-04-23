@@ -74,6 +74,7 @@ class PublicationInfo(models.Model):
     )
     journal_volume = models.CharField(max_length=255, blank=True, default="")
     journal_title = models.CharField(max_length=255)
+    material = models.CharField(max_length=255, blank=True, default="")
     journal_issue = models.CharField(max_length=255, blank=True, default="")
     page_start = models.CharField(blank=True)
     page_end = models.CharField(blank=True)
