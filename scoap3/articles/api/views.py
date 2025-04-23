@@ -163,6 +163,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
         },
         "orcid": "author.orcid",
         "doi": "doi",
+        "material": "publication_info.material",
     }
 
     faceted_search_fields = {

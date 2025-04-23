@@ -231,6 +231,7 @@ class ArticleDocument(Document):
                 "journal_volume": publication_info.journal_volume,
                 "journal_issue": publication_info.journal_issue,
                 "journal_title": publication_info.journal_title,
+                "material": publication_info.material,
                 "page_start": publication_info.page_start,
                 "page_end": publication_info.page_end,
                 "artid": publication_info.artid,

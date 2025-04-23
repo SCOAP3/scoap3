@@ -251,6 +251,7 @@ def _create_publication_info(data, article, publishers):
         publication_info_data = {
             "journal_volume": publication_info.get("journal_volume", ""),
             "journal_title": publication_info.get("journal_title", ""),
+            "material": publication_info.get("material", ""),
             "journal_issue": publication_info.get("journal_issue", ""),
             "page_start": publication_info.get("page_start", ""),
             "page_end": publication_info.get("page_end", ""),
