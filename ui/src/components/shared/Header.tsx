@@ -6,7 +6,7 @@ import { Button } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { MenuItem } from "@/types";
 import { BASE_URL } from "@/utils/utils";
-import { useUser} from "@/components/shared/UserContext"
+import { useUser } from "@/components/shared/UserContext"
 import { useRouter } from "next/router";
 
 interface MenuProps {
@@ -18,14 +18,13 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> = ({
   items,
-  onClick = () => {},
+  onClick = () => { },
   mobile = false,
   collapsed = true,
 }) => (
   <ul
-    className={`menu-${mobile ? "mobile" : "desktop"} ant-menu ${
-      collapsed ? "collapsed" : "visible"
-    }`}
+    className={`menu-${mobile ? "mobile" : "desktop"} ant-menu ${collapsed ? "collapsed" : "visible"
+      }`}
   >
     {items.map((item: MenuItem) => (
       <li className="ant-menu-item" key={item.key} onClick={onClick}>
@@ -58,7 +57,7 @@ const Header: React.FC = () => {
       About
     </a>,
     <a
-      href="https://scoap3.org/scoap3-repository-help"
+      href="https://scoap3.org/scoap3-repository"
       target="_blank"
       rel="noopener noreferrer"
     >
