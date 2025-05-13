@@ -88,6 +88,7 @@ class ArticleDocument(Document):
 
     authors = fields.ObjectField(
         properties={
+            "name": fields.KeywordField(),
             "first_name": fields.KeywordField(),
             "last_name": fields.KeywordField(),
             "affiliations": fields.ObjectField(
@@ -100,8 +101,10 @@ class ArticleDocument(Document):
                             "name": fields.KeywordField(),
                         }
                     ),
+                    "ror": fields.KeywordField(),
                 }
             ),
+            "orcid": fields.KeywordField(),
         }
     )
 
@@ -161,6 +164,7 @@ class ArticleDocument(Document):
             serialized_author = {
                 "first_name": author.first_name.strip(),
                 "last_name": author.last_name.strip(),
+                "name": author.first_name.strip() + " " + author.last_name.strip(),
                 "affiliations": serialized_affiliations,
                 **(
                     {

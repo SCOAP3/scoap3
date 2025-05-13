@@ -1,6 +1,10 @@
 from datetime import datetime, timedelta
 
-from django_elasticsearch_dsl_drf.constants import LOOKUP_FILTER_RANGE, LOOKUP_QUERY_IN
+from django_elasticsearch_dsl_drf.constants import (
+    LOOKUP_FILTER_RANGE,
+    LOOKUP_QUERY_CONTAINS,
+    LOOKUP_QUERY_IN,
+)
 from django_elasticsearch_dsl_drf.filter_backends import (
     DefaultOrderingFilterBackend,
     FacetedSearchFilterBackend,
@@ -119,6 +123,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
         "title",
         "id",
         "doi",
+        "authors.name",
         "authors.first_name",
         "authors.last_name",
         "article_identifiers.identifier_value",
@@ -142,14 +147,27 @@ class ArticleDocumentView(BaseDocumentViewSet):
             ],
         },
         "country": "authors.affiliations.country.name",
-        "first_name": "authors.first_name",
-        "last_name": "authors.last_name",
+        "ror": "authors.affiliations.ror",
+        "affiliation": "authors.affiliations.value",
+        "name": {
+            "field": "authors.name",
+            "lookups": [LOOKUP_QUERY_CONTAINS],
+        },
+        "first_name": {
+            "field": "authors.first_name",
+            "lookups": [LOOKUP_QUERY_CONTAINS],
+        },
+        "last_name": {
+            "field": "authors.last_name",
+            "lookups": [LOOKUP_QUERY_CONTAINS],
+        },
+        "orcid": "author.orcid",
         "doi": "doi",
     }
 
     faceted_search_fields = {
         "publication_year": {
-            "field": "publication_date",
+            "field": "publication_date.keyword",
             "facet": DateHistogramFacet,
             "options": {
                 "interval": "year",
@@ -157,7 +175,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
             "enabled": True,
         },
         "journal": {
-            "field": "publication_info.journal_title",
+            "field": "publication_info.journal_title.keyword",
             "facet": TermsFacet,
             "enabled": True,
             "options": {
@@ -168,7 +186,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
             },
         },
         "country": {
-            "field": "authors.affiliations.country.name",
+            "field": "authors.affiliations.country.name.keyword",
             "facet": TermsFacet,
             "enabled": True,
             "options": {
