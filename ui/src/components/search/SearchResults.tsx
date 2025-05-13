@@ -7,6 +7,7 @@ import ResultItem from "./ResultItem";
 import SearchPagination from "./SearchPagination";
 import { useRouter } from "next/navigation";
 import { getSearchUrl, getApiUrl } from "@/utils/utils";
+import MathjaxContext from "../shared/MathjaxContext";
 
 interface SearchResultsProps {
   results: Result[];
@@ -43,14 +44,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   };
 
   const downloadUrl = () => {
-      let exportSearchParams = getSearchUrl({
-        ...params,
-        all: true,
-        format: "csv"
-      })
-      const export_search_url = getApiUrl()+"/"+exportSearchParams;
-      return export_search_url;
-    }
+    let exportSearchParams = getSearchUrl({
+      ...params,
+      all: true,
+      format: "csv"
+    })
+    const export_search_url = getApiUrl() + "/" + exportSearchParams;
+    return export_search_url;
+  }
 
   return (
     <div>
@@ -77,13 +78,15 @@ const SearchResults: React.FC<SearchResultsProps> = ({
           )}
         </div>
       </div>
-      <ul className="border-0 border-t border-solid border-slate-200">
-        {results &&
-          results?.length > 0 &&
-          results?.map((article: any) => (
-            <ResultItem key={article?.id} article={article} />
-          ))}
-      </ul>
+      <MathjaxContext>
+        <ul className="border-0 border-t border-solid border-slate-200">
+          {results &&
+            results?.length > 0 &&
+            results?.map((article: any) => (
+              <ResultItem key={article?.id} article={article} />
+            ))}
+        </ul>
+      </MathjaxContext>
       <div className="flex justify-center mb-7">
         <SearchPagination count={count} params={params} />
       </div>

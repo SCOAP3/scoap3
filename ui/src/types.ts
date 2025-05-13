@@ -42,6 +42,7 @@ export interface Result {
   id: number;
   authors: Author[];
   article_identifiers: ArticleIdentifier[];
+  doi: string;
   subtitle: string;
   reception_date: Date | null;
   article_arxiv_category: ArxivCategory[];
@@ -114,8 +115,8 @@ export interface JournalInfo {
   journal_volume: string;
   journal_title: string;
   journal_issue: string;
-  page_start: number;
-  page_end: number;
+  page_start: number | string | null;
+  page_end: number | string | null;
   artid: number;
   volume_year: number;
   journal_issue_date: Date | null;

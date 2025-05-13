@@ -10,6 +10,7 @@ import {
   resolveIdentifierLink,
 } from "@/utils/utils";
 import FulltextFiles from "../shared/FulltextFiles";
+import TitleWithSupport from "./TitleWithSupport";
 
 interface ResultItemProps {
   article: Result;
@@ -30,15 +31,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ article }) => {
   return (
     <li className="search-results-record border-0 border-b border-solid border-slate-200 py-6">
       <a href={`/records/${article?.id}`} className="mb-2 block text-lg">
-        <Text
-          text={
-            <span
-              dangerouslySetInnerHTML={{
-                __html: renderComplexSytnax(cleanText(article?.title)),
-              }}
-            />
-          }
-        />
+        <TitleWithSupport title={article?.title} showExtra={false} />
       </a>
       <div className="mb-2">
         <Authors authors={article?.authors} page="search" />
