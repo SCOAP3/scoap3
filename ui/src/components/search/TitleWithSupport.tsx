@@ -24,7 +24,7 @@ export default function TitleWithSupport({ title, showExtra = false }: TitleWith
     const toggle = () => setExpanded(!expanded);
 
     return (
-        <div stdyle={{ flex: 1, flexDirection: "row", display: "flex" }}>
+        <div>
             <Text
                 text={
                     <span
