@@ -341,6 +341,29 @@ class TestArticleViewSet:
             == "2024-06-20"
         )
 
+    def test_create_update_from_workflow_with_material(
+        self,
+        client,
+        user,
+        shared_datadir,
+    ):
+        client.force_login(user)
+        contents = (shared_datadir / "workflow_record.json").read_text()
+        data = json.loads(contents)
+
+        response = client.post(
+            reverse("api:article-workflow-import-list"),
+            data,
+            content_type="application/json",
+        )
+        assert response.status_code == status.HTTP_200_OK
+
+        article_id_with_material = response.data["id"]
+        publication_info_with_material = PublicationInfo.objects.get(
+            article_id=article_id_with_material
+        )
+        assert publication_info_with_material.material == "article"
+
     def test_create_update_from_workflow_with_journal_year(
         self,
         client,

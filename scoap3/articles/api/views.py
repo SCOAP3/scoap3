@@ -145,6 +145,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
         "first_name": "authors.first_name",
         "last_name": "authors.last_name",
         "doi": "doi",
+        "material": "publication_info.material",
     }
 
     faceted_search_fields = {
