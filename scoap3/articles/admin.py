@@ -126,6 +126,9 @@ class ComplianceReportAdmin(admin.ModelAdmin):
             "Check Arxiv Category": "check_arxiv_category",
             "Check Article Type": "check_article_type",
             "Check DOI Registration": "check_doi_registration_time_description",
+            "Check Author Affiliations": "check_authors_affiliation",
+            "Check Funded by SCOAP3": "check_contains_funded_by_scoap3",
+            "Compliant": "compliant",
         }
 
         response = HttpResponse(content_type="text/csv")
