@@ -1,7 +1,10 @@
+from datetime import date
+
 import pytest
+from django.db.utils import IntegrityError
 from django.test import TestCase
 
-from scoap3.articles.models import Article
+from scoap3.articles.models import Article, ArticleIdentifier
 from scoap3.utils.tools import update_article_db_model_sequence
 
 
@@ -34,3 +37,25 @@ class ArticleModelTest(TestCase):
         new_article.title = "Test Article 2"
         new_article.save()
         self.assertEqual(new_article.title, "Test Article 2")
+
+    def test_unique_doi_constraint(self):
+        article1 = Article.objects.create(
+            title="Test Article 1",
+            publication_date=date(2023, 5, 19),
+        )
+
+        article2 = Article.objects.create(
+            title="Test Article 2",
+            publication_date=date(2023, 5, 20),
+        )
+
+        doi_value = "10.1234/test.12345"
+
+        ArticleIdentifier.objects.create(
+            article_id=article1, identifier_type="DOI", identifier_value=doi_value
+        )
+
+        with self.assertRaises(IntegrityError):
+            ArticleIdentifier.objects.create(
+                article_id=article2, identifier_type="DOI", identifier_value=doi_value
+            )

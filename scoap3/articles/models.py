@@ -100,6 +100,13 @@ class ArticleIdentifier(models.Model):
         indexes = [
             models.Index(fields=["article_id", "identifier_type", "identifier_value"])
         ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["identifier_value"],
+                condition=models.Q(identifier_type="DOI"),
+                name="unique_doi_identifier",
+            )
+        ]
 
 
 class ComplianceReport(models.Model):
