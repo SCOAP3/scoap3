@@ -1,6 +1,7 @@
 import { renderComplexSytnax } from '@/utils/utils';
 import { useState } from 'react';
 import { Text } from "react-mathjax2";
+import MathjaxContext from "@/components/shared/MathjaxContext";
 
 interface TitleWithSupportProps {
     title: string;
@@ -25,15 +26,23 @@ export default function TitleWithSupport({ title, showExtra = false }: TitleWith
 
     return (
         <div>
-            <Text
-                text={
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: renderComplexSytnax(mainTitle),
-                        }}
-                    />
-                }
+            <span
+                className='hidden'
+                dangerouslySetInnerHTML={{
+                    __html: renderComplexSytnax(mainTitle),
+                }}
             />
+            <MathjaxContext>
+                <Text
+                    text={
+                        <span
+                            dangerouslySetInnerHTML={{
+                                __html: renderComplexSytnax(mainTitle),
+                            }}
+                        />
+                    }
+                />
+            </MathjaxContext>
             {showExtra && hasSupportInfo && (
                 <span>
                     {!expanded ? (

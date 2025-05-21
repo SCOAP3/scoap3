@@ -72,15 +72,21 @@ export default function RecordPage({ article }: RecordPageProps) {
       <div className="container">
         <div className="container-inner">
           <div className="flex flex-col md:flex-row">
-            <MathjaxContext>
-              <div className="detail-page-main">
-                <TitleWithSupport title={article?.title} showExtra />
-                <Authors
-                  authors={article?.authors}
-                  page="detail"
-                  affiliations
-                  className="mb-3"
-                />
+            <div className="detail-page-main">
+              <TitleWithSupport title={article?.title} showExtra />
+              <Authors
+                authors={article?.authors}
+                page="detail"
+                affiliations
+                className="mb-3"
+              />
+              <div
+                className="text-justify leading-relaxed hidden"
+                dangerouslySetInnerHTML={{
+                  __html: renderComplexSytnax(cleanText(article?.abstract)),
+                }}
+              />
+              <MathjaxContext>
                 <Text
                   text={
                     <p
@@ -91,9 +97,10 @@ export default function RecordPage({ article }: RecordPageProps) {
                     />
                   }
                 />
-                <JsonPreview article={article} />
-              </div>
-            </MathjaxContext>
+              </MathjaxContext>
+
+              <JsonPreview article={article} />
+            </div>
             <div className="detail-page-right">
               <DetailPageInfo article={article} />
             </div>
