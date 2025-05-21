@@ -181,7 +181,7 @@ def check_contains_funded_by_scoap3(article):
 
 
 @shared_task(name="compliance_checks", acks_late=True)
-def compliance_checks(article_id):
+def compliance_checks(article_id, after_update=False):
     if os.getenv("COMPLIANCE_DISABLED", "0") == "1":
         return f"compliance disabled:: article {str(article_id)}"
 
@@ -235,7 +235,7 @@ def compliance_checks(article_id):
         check_contains_funded_by_scoap3=check_funded_by_scoap3_compliance,
         check_contains_funded_by_scoap3_description=check_funded_by_scoap3_description,
     )
-    report.compliant = report.is_compliant()
+    report.compliant = report.is_compliant(after_update)
     report.save()
     logger.info("Compliance checks completed for article %s", article_id)
     return f"Compliance checks completed for article {article_id}"
