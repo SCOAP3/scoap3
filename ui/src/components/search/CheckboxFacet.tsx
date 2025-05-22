@@ -18,6 +18,7 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
   const [filters, setFilters] = useState<any[]>([]);
   const [showMore, setShowMore] = useState(false);
   const displayedData = showMore ? data : data?.slice(0, 13);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname()
@@ -41,7 +42,7 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
 
   useEffect(() => {
     setFilters(searchParams.getAll(type));
-  }, []);
+  }, [searchParams, type]);
 
   const shortJournalName = (value: string) => {
     const journalMapping: Record<string, string> = {
