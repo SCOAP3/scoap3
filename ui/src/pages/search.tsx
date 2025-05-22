@@ -1,13 +1,14 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 
-import { Facets, Params, Response, Result } from "@/types";
+import { Facets, Params, Result } from "@/types";
 import SearchBar from "@/components/shared/SearchBar";
 import SearchResults from "@/components/search/SearchResults";
 import YearFacet from "@/components/search/YearFacet";
-import { authToken, getApiUrl, getSearchUrl } from "@/utils/utils";
+import { authToken, getApiUrl} from "@/utils/utils";
 import CheckboxFacet from "@/components/search/CheckboxFacet";
-import { encode } from 'querystring'
+import ResetSearchButton from "@/components/search/ResetSearchButton";
+import { encode } from 'querystring';
 
 interface SearchPageProps {
   results: Result[];
@@ -26,36 +27,42 @@ const SearchPage: React.FC<SearchPageProps> = ({
   const countries = facets?._filter_country?.country?.buckets;
   const journals = facets?._filter_journal?.journal?.buckets;
 
+  const hasSelectedCountries = query.country && (Array.isArray(query.country) ? query.country.length > 0 : true);
+  const hasSelectedJournals = query.journal && (Array.isArray(query.journal) ? query.journal.length > 0 : true);
+
+  const showCountryFacet = (countries && countries.length > 0) || hasSelectedCountries;
+  const showJournalFacet = (journals && journals.length > 0) || hasSelectedJournals;
+
   return (
     <div className="container">
       <div className="container-inner">
         <div className="search flex">
           <div className="search-facets">
-            {results && results.length > 0 && (
-              <>
-                {years && years.length > 0 && (
-                  <YearFacet data={years} params={query} />
-                )}
-                {countries && countries.length > 0 && (
-                  <CheckboxFacet
-                    data={countries}
-                    title="Country / Region / Territory"
-                    type={"country"}
-                  />
-                )}
+            {results && results.length > 0 && years && years.length > 0 && (
+              <YearFacet data={years} params={query} />
+            )}
 
-                {journals && journals.length > 0 && (
-                  <CheckboxFacet
-                    data={journals}
-                    title="Journal"
-                    type={"journal"}
-                  />
-                )}
-              </>
+            {showCountryFacet && (
+              <CheckboxFacet
+                data={countries || []}
+                title="Country / Region / Territory"
+                type={"country"}
+              />
+            )}
+
+            {showJournalFacet && (
+              <CheckboxFacet
+                data={journals || []}
+                title="Journal"
+                type={"journal"}
+              />
             )}
           </div>
           <div className="search-results">
-            <SearchBar className="search-results-searchbar" />
+            <div className="flex items-center gap-3 mb-4">
+              <SearchBar className="search-results-searchbar flex-1" />
+              <ResetSearchButton />
+            </div>
             <SearchResults results={results} count={count} params={query} />
           </div>
         </div>
