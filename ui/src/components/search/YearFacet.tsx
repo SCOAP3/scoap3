@@ -29,9 +29,27 @@ const YearFacet = ({ data }: any) => {
   useEffect(() => {
     const initialData = mapInitialDataToYears(data);
     setFilters(initialData);
-    setSliderEndpoints(getSliderEndpoints(initialData));
-    setInitialEndpoints(getSliderEndpoints(initialData));
-  }, [data]);
+    const endpoints = getSliderEndpoints(initialData);
+    setInitialEndpoints(endpoints);
+
+    const hasYearFilters = searchParams.get('publication_year__gte') || searchParams.get('publication_year__lte');
+    if (!hasYearFilters) {
+      setSliderEndpoints(endpoints);
+    }
+  }, [data, searchParams]);
+
+  useEffect(() => {
+    const gteParam = searchParams.get('publication_year__gte');
+    const lteParam = searchParams.get('publication_year__lte');
+
+    if (gteParam && lteParam && initialEndpoints.length > 0) {
+      const gteYear = parseInt(gteParam.split('-')[0]);
+      const lteYear = parseInt(lteParam.split('-')[0]);
+      setSliderEndpoints([gteYear, lteYear]);
+    } else if (!gteParam && !lteParam && initialEndpoints.length > 0) {
+      setSliderEndpoints(initialEndpoints);
+    }
+  }, [searchParams, initialEndpoints]);
 
   const resolveYearQuery = (name: string, params: any, range: number[]) => {
     if (range[0] === range[1]) {

@@ -17,7 +17,7 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
 }) => {
   const [filters, setFilters] = useState<any[]>([]);
   const [showMore, setShowMore] = useState(false);
-  const displayedData = showMore ? data : data?.slice(0, 13);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname()
@@ -41,7 +41,7 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
 
   useEffect(() => {
     setFilters(searchParams.getAll(type));
-  }, []);
+  }, [searchParams, type]);
 
   const shortJournalName = (value: string) => {
     const journalMapping: Record<string, string> = {
@@ -69,6 +69,25 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
     router.push(pathname + '?' + createQueryString(type, updated_filters))
   };
 
+  const getDisplayItems = () => {
+    const dataMap = new Map((data || []).map(item => [item.key, item]));
+    const combinedItems = [...(data || [])];
+
+    filters.forEach(filterKey => {
+      if (!dataMap.has(filterKey)) {
+        combinedItems.push({
+          key: filterKey,
+          doc_count: 0
+        });
+      }
+    });
+
+    return combinedItems;
+  };
+
+  const allItems = getDisplayItems();
+  const displayedData = showMore ? allItems : allItems?.slice(0, 13);
+
   return (
     <Card title={title} className="search-facets-facet mb-5">
       <div>
@@ -88,7 +107,7 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
           </div>
         ))}
       </div>
-      {data && data?.length > 13 && (
+      {allItems && allItems?.length > 13 && (
         <div className="mt-2">
           <a onClick={() => setShowMore(!showMore)} className="ml-1">
             {showMore ? "Show Less" : "Show More"}

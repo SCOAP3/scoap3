@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "antd";
 import { getSearchUrl } from "@/utils/utils";
@@ -20,6 +20,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const value = searchParams.get("search_simple_query_string") ?? "";
 
   const [val, setVal] = useState(value);
+
+  useEffect(() => {
+    setVal(value);
+  }, [value]);
 
   const { Search } = Input;
 
