@@ -1,13 +1,14 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 
-import { Facets, Params, Response, Result } from "@/types";
+import { Facets, Params, Result } from "@/types";
 import SearchBar from "@/components/shared/SearchBar";
 import SearchResults from "@/components/search/SearchResults";
 import YearFacet from "@/components/search/YearFacet";
-import { authToken, getApiUrl, getSearchUrl } from "@/utils/utils";
+import { authToken, getApiUrl} from "@/utils/utils";
 import CheckboxFacet from "@/components/search/CheckboxFacet";
-import { encode } from 'querystring'
+import ResetSearchButton from "@/components/search/ResetSearchButton";
+import { encode } from 'querystring';
 
 interface SearchPageProps {
   results: Result[];
@@ -55,7 +56,10 @@ const SearchPage: React.FC<SearchPageProps> = ({
             )}
           </div>
           <div className="search-results">
-            <SearchBar className="search-results-searchbar" />
+            <div className="flex items-center gap-3 mb-4">
+              <SearchBar className="search-results-searchbar flex-1" />
+              <ResetSearchButton />
+            </div>
             <SearchResults results={results} count={count} params={query} />
           </div>
         </div>
