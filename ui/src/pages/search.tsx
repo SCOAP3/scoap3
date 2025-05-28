@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import { Facets, Params, Response, Result } from "@/types";
 import SearchBar from "@/components/shared/SearchBar";
 import SearchResults from "@/components/search/SearchResults";
+import SelectedFilters from "@/components/search/SelectedFilters";
 import YearFacet from "@/components/search/YearFacet";
 import { authToken, getApiUrl, getSearchUrl } from "@/utils/utils";
 import CheckboxFacet from "@/components/search/CheckboxFacet";
@@ -56,6 +57,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
           </div>
           <div className="search-results">
             <SearchBar className="search-results-searchbar" />
+            <SelectedFilters query={query} />
             <SearchResults results={results} count={count} params={query} />
           </div>
         </div>

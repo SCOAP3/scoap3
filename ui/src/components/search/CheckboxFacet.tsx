@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Card } from "antd";
 
@@ -15,17 +15,17 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
   title,
   data,
 }) => {
-  const [filters, setFilters] = useState<any[]>([]);
   const [showMore, setShowMore] = useState(false);
   const displayedData = showMore ? data : data?.slice(0, 13);
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname()
 
-  const createQueryString = useCallback(
-    (name: string, value: any) => {
-      const params = new URLSearchParams(searchParams.toString())
+  const filters = searchParams.getAll(type);
 
+  const createQueryString = useCallback(
+    (name: string, value: string[]) => {
+      const params = new URLSearchParams(searchParams.toString());
       params.delete(name);
       params.delete("page");
 
@@ -37,11 +37,7 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
       return params.toString()
     },
     [searchParams]
-  )
-
-  useEffect(() => {
-    setFilters(searchParams.getAll(type));
-  }, []);
+  );
 
   const shortJournalName = (value: string) => {
     const journalMapping: Record<string, string> = {
@@ -57,16 +53,11 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
   };
 
   const onCheckboxChange = (value: string) => {
-    let updated_filters = [];
+    let updatedFilters = filters.includes(value)
+      ? filters.filter((item) => item !== value)
+      : [...filters, value];
 
-    if (filters.includes(value)) {
-      updated_filters = filters.filter((item: string) => item !== value);
-    } else {
-      updated_filters = [...filters, value]
-    }
-
-    setFilters(updated_filters);
-    router.push(pathname + '?' + createQueryString(type, updated_filters))
+    router.push(pathname + "?" + createQueryString(type, updatedFilters));
   };
 
   return (
