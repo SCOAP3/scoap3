@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Tag } from "antd";
+import { Space, Tag } from "antd";
+import { usePathname } from "next/navigation";
 
 interface Params {
   country?: string[] | string;
@@ -15,6 +16,7 @@ interface SelectedFiltersProps {
 
 const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
   const router = useRouter();
+  const pathname = usePathname()
 
   const getFilterArray = (val: string | string[] | undefined): string[] => {
     if (!val) return [];
@@ -26,7 +28,6 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
   const handleRemove = (filterKey: string, value: string) => {
     const newQuery = { ...query };
     const values = getFilterArray(newQuery[filterKey]);
-
     const updatedValues = values.filter((v) => v !== value);
     if (updatedValues.length === 0) {
       delete newQuery[filterKey];
@@ -35,25 +36,26 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
     }
 
     router.push({
-      pathname: "/search",
+      pathname,
       query: newQuery,
     });
   };
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', margin: '1rem 0' }}>
+    <Space wrap size={1} style={{ marginTop: "8px" }}>
       {filterKeys.flatMap((key) =>
         getFilterArray(query[key])?.map((val) => (
           <Tag
             key={`${key}-${val}`}
             closable
+            bordered={false}
             onClose={() => handleRemove(key, val)}
           >
             {val}
           </Tag>
         ))
       )}
-    </div>
+    </Space>
   );
 };
 
