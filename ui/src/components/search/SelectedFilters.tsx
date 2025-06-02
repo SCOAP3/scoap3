@@ -23,7 +23,7 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
     return Array.isArray(val) ? val : [val];
   };
 
-  const filterKeys = ["country", "journal", "_filter_publication_year"];
+  const filterKeys = ["country", "journal", "publication_year__lte", "publication_year__gte"];
 
   const handleRemove = (filterKey: string, value: string) => {
     const newQuery = { ...query };
@@ -41,6 +41,18 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
     });
   };
 
+  const resertSearch = () => {
+    router.push({
+      pathname,
+      query: {},
+    });
+  };
+
+  const KEY_TO_TAGNAME: { [key: string]: string } = {
+    "publication_year__lte": "pub year <",
+    "publication_year__gte": "pub year >",
+  }
+
   return (
     <Space wrap size={1} style={{ marginTop: "8px" }}>
       {filterKeys.flatMap((key) =>
@@ -51,10 +63,20 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
             bordered={false}
             onClose={() => handleRemove(key, val)}
           >
-            {val}
+            {KEY_TO_TAGNAME[key] ? KEY_TO_TAGNAME[key] : `${key} : `} {val}
           </Tag>
         ))
       )}
+      {Object.keys(query).length > 0 &&
+        <Tag
+          key={`reset-search`}
+          closable
+          color="#ccc"
+          bordered={false}
+          onClose={resertSearch}
+        >
+          Reset search
+        </Tag>}
     </Space>
   );
 };
