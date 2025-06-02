@@ -27,19 +27,25 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <>
       {!hide && (
         <Search
-          onSearch={() => {
+          onSearch={(value, event, { source = "input" } = {}) => {
+
             const params = new URLSearchParams(searchParams.toString());
 
-            if (val) params.set("search_simple_query_string", val);
-            else params.delete("search_simple_query_string")
-
-            router.push(pathname + (params.toString() ? `?${params.toString()}` : ""))
+            if (source === "clear") {
+              params.delete("search_simple_query_string")
+            }
+            else {
+              if (val) params.set("search_simple_query_string", val);
+              else params.delete("search_simple_query_string")
+            }
+            router.push("/search" + (params.toString() ? `?${params.toString()}` : ""))
           }}
           placeholder={placeholder}
           enterButton
           className={className}
           value={val}
           onChange={(e) => setVal(e?.target?.value)}
+          allowClear
         />
       )}
     </>
