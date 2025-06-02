@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Input } from "antd";
-import { getSearchUrl } from "@/utils/utils";
 
 interface SearchBarProps {
   placeholder?: string;
@@ -15,6 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   className,
 }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const value = searchParams.get("search_simple_query_string") ?? "";
@@ -28,13 +28,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
       {!hide && (
         <Search
           onSearch={() => {
-            const params = Object.fromEntries(
-              new URLSearchParams(searchParams.toString())
-            )
-            if (val) params["search_simple_query_string"] = val;
-            else delete params["search_simple_query_string"]
+            const params = new URLSearchParams(searchParams.toString());
 
-            router.push(getSearchUrl(params, true))
+            if (val) params.set("search_simple_query_string", val);
+            else params.delete("search_simple_query_string")
+
+            router.push(pathname + (params.toString() ? `?${params.toString()}` : ""))
           }}
           placeholder={placeholder}
           enterButton
