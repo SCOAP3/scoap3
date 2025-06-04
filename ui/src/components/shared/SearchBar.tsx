@@ -50,7 +50,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           className={className}
           value={val}
           onChange={(e) => setVal(e?.target?.value)}
-          allowClear
+          allowClear={pathname == "/search"}
         />
       )}
     </>
