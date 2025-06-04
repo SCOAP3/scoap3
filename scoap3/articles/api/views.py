@@ -168,7 +168,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
 
     faceted_search_fields = {
         "publication_year": {
-            "field": "publication_date.keyword",
+            "field": "publication_date",
             "facet": DateHistogramFacet,
             "options": {
                 "interval": "year",
@@ -176,7 +176,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
             "enabled": True,
         },
         "journal": {
-            "field": "publication_info.journal_title.keyword",
+            "field": "publication_info.journal_title",
             "facet": TermsFacet,
             "enabled": True,
             "options": {
@@ -187,7 +187,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
             },
         },
         "country": {
-            "field": "authors.affiliations.country.name.keyword",
+            "field": "authors.affiliations.country.name",
             "facet": TermsFacet,
             "enabled": True,
             "options": {
