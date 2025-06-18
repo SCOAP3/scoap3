@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 interface Params {
   country?: string[] | string;
+  "country__term"?: string[] | string;
   journal?: string[] | string;
   _filter_publication_year?: string[] | string;
   [key: string]: any;
@@ -16,14 +17,21 @@ interface SelectedFiltersProps {
 
 const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
   const router = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const getFilterArray = (val: string | string[] | undefined): string[] => {
     if (!val) return [];
     return Array.isArray(val) ? val : [val];
   };
 
-  const filterKeys = ["country", "journal", "publication_year__lte", "publication_year__gte"];
+  const filterKeys = [
+    "country",
+    "country__term",
+    "journal",
+    "publication_year__lte",
+    "publication_year__gte",
+  ];
+
 
   const handleRemove = (filterKey: string, value: string) => {
     const newQuery = { ...query };
@@ -51,7 +59,8 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
   const KEY_TO_TAGNAME: { [key: string]: string } = {
     "publication_year__lte": "pub year <",
     "publication_year__gte": "pub year >",
-  }
+    "country__term": "country :",
+  };
 
   return (
     <Space wrap size={1} style={{ marginTop: "8px" }}>
@@ -67,7 +76,7 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
           </Tag>
         ))
       )}
-      {Object.keys(query).length > 0 &&
+      {Object.keys(query).length > 0 && (
         <Tag
           key={`reset-search`}
           closable
@@ -76,7 +85,8 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
           onClose={resertSearch}
         >
           Reset search
-        </Tag>}
+        </Tag>
+      )}
     </Space>
   );
 };
