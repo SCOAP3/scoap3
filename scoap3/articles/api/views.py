@@ -199,6 +199,23 @@ class ArticleDocumentView(BaseDocumentViewSet):
         },
     }
 
+    def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
+
+        country_logic = self.request.query_params.get("country_logic")
+        country_values = self.request.query_params.getlist("country")
+
+        if country_values:
+            if country_logic == "or":
+                pass
+            else:
+                for country in country_values:
+                    queryset = queryset.filter(
+                        "term", **{"authors.affiliations.country.name": country}
+                    )
+
+        return queryset
+
     def get_queryset(self):
         get_all = self.request.query_params.get("all", "false").lower() == "true"
         search = super().get_queryset()
