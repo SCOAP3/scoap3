@@ -59,7 +59,7 @@
     }
   ],
   "files": {
-    "pdfa": "scoap3-dev-backend/media/harvested_files/10.1103/PhysRevD.110.025020/PhysRevD.110.025020.pdf",
-    "xml": "scoap3-dev-backend/media/harvested_files/10.1103/PhysRevD.110.025020/PhysRevD.110.025020.xml"
+    "pdfa": {"path": "scoap3-dev-backend/media/harvested_files/10.1103/PhysRevD.110.025020/PhysRevD.110.025020.pdf", "version_id": "1"},
+    "xml": {"path": "scoap3-dev-backend/media/harvested_files/10.1103/PhysRevD.110.025020/PhysRevD.110.025020.xml", "version_id": "1"}
   }
 }
