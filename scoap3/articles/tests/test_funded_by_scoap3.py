@@ -1,6 +1,6 @@
 from io import BytesIO
 
-import fitz  # PyMuPDF
+import fitz
 import pytest
 from django.core.files import File
 from django.core.files.base import ContentFile
@@ -39,6 +39,17 @@ def create_pdf_with_text():
 
 
 @pytest.fixture
+def create_pdf_from_file():
+    def _create_pdf_from_file(file_path):
+        with open(file_path, "rb") as pdf_file:
+            pdf_data = pdf_file.read()
+            file_name = file_path.split("/")[-1]
+            return ContentFile(pdf_data, file_name)
+
+    return _create_pdf_from_file
+
+
+@pytest.fixture
 def attach_file_to_article(db):
     def _attach_file_to_article(article, content, file_name, filetype="pdf"):
         file = File(content, name=file_name)
@@ -54,6 +65,48 @@ class TestCheckContainsFundedBySCOAP3:
         article = create_article()
 
         file_with_text = create_pdf_with_text("Funded by SCOAP3")
+        attach_file_to_article(article, file_with_text, "file_with_text.pdf")
+
+        result, message = check_contains_funded_by_scoap3(article)
+        assert result is True
+        assert message.startswith("Files contain the required text: 'Funded by SCOAP3'")
+
+    def test_contains_funded_by_with_line_break(
+        self, create_article, create_pdf_with_text, attach_file_to_article
+    ):
+        article = create_article()
+
+        file_with_line_break = create_pdf_with_text("Funded by\nSCOAP3")
+        attach_file_to_article(
+            article, file_with_line_break, "file_with_line_break.pdf"
+        )
+
+        result, message = check_contains_funded_by_scoap3(article)
+        assert result is True
+        assert message.startswith("Files contain the required text: 'Funded by SCOAP3'")
+
+    def test_contains_funded_by_with_multiple_whitespace(
+        self, create_article, create_pdf_with_text, attach_file_to_article
+    ):
+        article = create_article()
+
+        file_with_whitespace = create_pdf_with_text("Funded    by\n\n   SCOAP3")
+        attach_file_to_article(
+            article, file_with_whitespace, "file_with_whitespace.pdf"
+        )
+
+        result, message = check_contains_funded_by_scoap3(article)
+        assert result is True
+        assert message.startswith("Files contain the required text: 'Funded by SCOAP3'")
+
+    def test_contains_funded_by_different_pages(
+        self, create_article, create_pdf_from_file, attach_file_to_article
+    ):
+        article = create_article()
+
+        file_with_text = create_pdf_from_file(
+            "scoap3/articles/tests/data/test_funded_by_scoap3.pdf"
+        )
         attach_file_to_article(article, file_with_text, "file_with_text.pdf")
 
         result, message = check_contains_funded_by_scoap3(article)
