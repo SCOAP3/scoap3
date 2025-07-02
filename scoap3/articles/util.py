@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 
 import fitz
@@ -31,23 +32,26 @@ def parse_string_to_date_object(date_string):
 
 def is_string_in_pdf(article_file, search_string):
     try:
-        with article_file.file.open(mode="rb") as _file:
-            file_content = _file.read()
+        with article_file.file.open(mode="rb") as f:
+            data = f.read()
 
-            if article_file.file.name.endswith(".pdf"):
-                document = fitz.open(stream=file_content, filetype="pdf")
-            else:
-                document = fitz.open(stream=file_content, filetype="txt")
-            search_string_lower = search_string.lower()
-            for page_num in range(document.page_count):
-                page = document[page_num]
-                page_text = page.get_text().lower()
-                if search_string_lower in page_text:
-                    document.close()
-                    return True
+        filetype = "pdf" if article_file.file.name.lower().endswith(".pdf") else "txt"
+        doc = fitz.open(stream=data, filetype=filetype)
 
-            document.close()
-            return False
+        for page in doc:
+            hits = page.search_for(search_string)
+            if hits:
+                doc.close()
+                return True
+
+        full_text = ""
+        for page in doc:
+            full_text += page.get_text()
+        search_string_normalized = re.sub(r"\s+", "", search_string.lower())
+        full_text_normalized = re.sub(r"\s+", "", full_text.lower())
+        doc.close()
+        return search_string_normalized in full_text_normalized
+
     except FileNotFoundError:
         raise FileNotFoundError(f"File not found: {article_file}")
     except Exception as e:
