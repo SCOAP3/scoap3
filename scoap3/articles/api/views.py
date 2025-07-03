@@ -140,6 +140,10 @@ class ArticleDocumentView(BaseDocumentViewSet):
             "field": "publication_date",
             "lookups": [LOOKUP_FILTER_RANGE, LOOKUP_QUERY_IN, "lte", "gte"],
         },
+        "updated_at": {
+            "field": "_updated_at",
+            "lookups": [LOOKUP_FILTER_RANGE, "gte", "lte"],
+        },
         "journal": {
             "field": "publication_info.journal_title",
             "lookups": [
