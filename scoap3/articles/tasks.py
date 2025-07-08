@@ -1,6 +1,6 @@
 import logging
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from celery import shared_task
 from django.core.paginator import Paginator
@@ -255,3 +255,15 @@ def index_all_articles(batch_size=100):
     for page_number in paginator.page_range:
         page = paginator.page(page_number)
         index_article_batch.delay(list(page.object_list))
+
+
+@shared_task(acks_late=True)
+def rerun_failed_compliance_checks_by_date(
+    start_date=(datetime.now() - timedelta(hours=24)), end_date=datetime.now()
+):
+    articles = Article.objects.filter(
+        report__report_date__range=(start_date, end_date)
+    ).filter(report__compliant=False)
+
+    for article in articles:
+        compliance_checks.delay(article.id)
