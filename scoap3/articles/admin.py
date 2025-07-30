@@ -138,7 +138,11 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         rows_titles = ["Link to Article"] + field_names
         writer.writerow(rows_titles)
 
-        for obj in queryset:
+        latest_reports = queryset.order_by("article_id", "-report_date").distinct(
+            "article_id"
+        )
+
+        for obj in latest_reports:
             article_doi = self.article_doi(obj)
             article_journal = self.article_journal(obj)
             values = [
