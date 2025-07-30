@@ -1,0 +1,73 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      X-USER-AGENT:
+      - python-requests/2.32.3 habanero/1.2.6
+    method: GET
+    uri: https://api.crossref.org/works/10.1155/2024/6666609
+  response:
+    body:
+      string: '{"status":"ok","message-type":"work","message-version":"1.0.0","message":{"indexed":{"date-parts":[[2025,7,30]],"date-time":"2025-07-30T15:15:09Z","timestamp":1753888509496,"version":"3.41.2"},"reference-count":43,"publisher":"Wiley","issue":"1","license":[{"start":{"date-parts":[[2024,7,8]],"date-time":"2024-07-08T00:00:00Z","timestamp":1720396800000},"content-version":"vor","delay-in-days":189,"URL":"http:\/\/creativecommons.org\/licenses\/by\/4.0\/"}],"funder":[{"DOI":"10.13039\/501100002651","name":"Sponsoring
+        Consortium for Open Access Publishing in Particle Physics","doi-asserted-by":"publisher","id":[{"id":"10.13039\/501100002651","id-type":"DOI","asserted-by":"publisher"}]}],"content-domain":{"domain":["onlinelibrary.wiley.com"],"crossmark-restriction":true},"short-container-title":["Advances
+        in High Energy Physics"],"published-print":{"date-parts":[[2024,1]]},"abstract":"<jats:p>For
+        the static spherically symmetric dilatonic black hole described by the Gibbons\u2013Maeda\u2013Garfinkle\u2013Horowitz\u2013Strominger
+        geometry, we analyze the timelike trajectories for electrically charged test
+        particles. Both cases of an electric black hole and a magnetic one are considered.
+        Finally, we are obtaining the solution to the Klein\u2013Gordon equation in
+        terms of Heun confluent functions and the corresponding energy spectrum. A
+        special attention is given to the role of the dilaton parameter.<\/jats:p>","DOI":"10.1155\/2024\/6666609","type":"journal-article","created":{"date-parts":[[2024,7,8]],"date-time":"2024-07-08T10:50:07Z","timestamp":1720435807000},"update-policy":"https:\/\/doi.org\/10.1002\/crossmark_policy","source":"Crossref","is-referenced-by-count":0,"title":["Charged
+        Particles Moving around a Spherically Symmetric Dilatonic Black Hole"],"prefix":"10.1155","volume":"2024","author":[{"ORCID":"https:\/\/orcid.org\/0000-0003-2257-0701","authenticated-orcid":false,"given":"Vitalie","family":"Lungu","sequence":"first","affiliation":[]},{"ORCID":"https:\/\/orcid.org\/0000-0002-0385-3485","authenticated-orcid":false,"given":"Marina\u2013Aura","family":"Dariescu","sequence":"additional","affiliation":[]},{"ORCID":"https:\/\/orcid.org\/0000-0001-7086-2915","authenticated-orcid":false,"given":"Ciprian","family":"Dariescu","sequence":"additional","affiliation":[]},{"ORCID":"https:\/\/orcid.org\/0000-0001-7585-9897","authenticated-orcid":false,"given":"Cristian","family":"Stelea","sequence":"additional","affiliation":[]}],"member":"311","published-online":{"date-parts":[[2024,7,8]]},"reference":[{"key":"e_1_2_9_1_2","doi-asserted-by":"publisher","DOI":"10.1038\/s41550-018-0449-5"},{"key":"e_1_2_9_2_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.43.3140"},{"key":"e_1_2_9_3_2","doi-asserted-by":"publisher","DOI":"10.1016\/0550-3213(88)90006-5"},{"key":"e_1_2_9_4_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.69.1006"},{"key":"e_1_2_9_5_2","unstructured":"NarangA.
+        MohantyS. andKumarA. Test of Kerr-Sen metric with black hole observations
+        2020 https:\/\/arxiv.org\/abs\/2002.12786."},{"key":"e_1_2_9_6_2","doi-asserted-by":"publisher","DOI":"10.1051\/0004-6361\/202037813"},{"key":"e_1_2_9_7_2","doi-asserted-by":"publisher","DOI":"10.1088\/1475-7516\/2023\/08\/039"},{"key":"e_1_2_9_8_2","doi-asserted-by":"publisher","DOI":"10.1093\/mnras\/staa3232"},{"key":"e_1_2_9_9_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.109.044008"},{"key":"e_1_2_9_10_2","doi-asserted-by":"publisher","DOI":"10.1088\/1475-7516\/2021\/07\/002"},{"key":"e_1_2_9_11_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.103.044046"},{"key":"e_1_2_9_12_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.109.063014"},{"key":"e_1_2_9_13_2","doi-asserted-by":"crossref","unstructured":"FengH.andYangR.
+        J. Thin accretion disk around Kerr-Sen black hole in Einstein-Maxwell-dilaton-axion
+        gravity 2024 https:\/\/arxiv.org\/abs\/2403.18541.","DOI":"10.1103\/PhysRevD.109.063014"},{"key":"e_1_2_9_14_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.97.024003"},{"key":"e_1_2_9_15_2","doi-asserted-by":"publisher","DOI":"10.1063\/1.1539899"},{"key":"e_1_2_9_16_2","doi-asserted-by":"publisher","DOI":"10.1088\/1674-1137\/43\/3\/035102"},{"key":"e_1_2_9_17_2","doi-asserted-by":"publisher","DOI":"10.3390\/universe8110604"},{"key":"e_1_2_9_18_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.79.064016"},{"key":"e_1_2_9_19_2","unstructured":"BlagaC.
+        Timelike geodesics around a charged spherically symmetric dilaton black hole
+        2014 https:\/\/arxiv.org\/abs\/1407.1504."},{"key":"e_1_2_9_20_2","doi-asserted-by":"publisher","DOI":"10.1142\/S0218271815500868"},{"key":"e_1_2_9_21_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.85.024033"},{"key":"e_1_2_9_22_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.94.024010"},{"key":"e_1_2_9_23_2","doi-asserted-by":"publisher","DOI":"10.1140\/epjc\/s10052-015-3794-x"},{"key":"e_1_2_9_24_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.95.104052"},{"key":"e_1_2_9_25_2","doi-asserted-by":"publisher","DOI":"10.1142\/S0218271821500954"},{"key":"e_1_2_9_26_2","doi-asserted-by":"publisher","DOI":"10.1093\/oso\/9780198596950.001.0001"},{"key":"e_1_2_9_27_2","doi-asserted-by":"publisher","DOI":"10.1209\/0295-5075\/119\/20002"},{"key":"e_1_2_9_28_2","doi-asserted-by":"publisher","DOI":"10.1007\/s10714-023-03134-3"},{"key":"e_1_2_9_29_2","doi-asserted-by":"publisher","DOI":"10.1016\/j.aop.2016.06.016"},{"key":"e_1_2_9_30_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.68.024003"},{"key":"e_1_2_9_31_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.102.064052"},{"key":"e_1_2_9_32_2","first-page":"530","article-title":"Remarques
+        sur une exp\u00e9rience de M. Birkeland","volume":"123","author":"Poincar\u00e9
+        H.","year":"1896","journal-title":"Comptes Rendus Chimie"},{"key":"e_1_2_9_33_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.109.024021"},{"key":"e_1_2_9_34_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.103.084044"},{"key":"e_1_2_9_35_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.106.064023"},{"key":"e_1_2_9_36_2","doi-asserted-by":"publisher","DOI":"10.1093\/oso\/9780198505730.001.0001"},{"key":"e_1_2_9_37_2","doi-asserted-by":"publisher","DOI":"10.1016\/j.astropartphys.2010.06.005"},{"key":"e_1_2_9_38_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.105.064043"},{"key":"e_1_2_9_39_2","doi-asserted-by":"crossref","unstructured":"BirkandanT.andHorta\u00e7suM.
+        Exact solution of the wave equation of a scalar particle in the zero mass
+        limit of Kerr and Kerr-(anti-) de-Sitter space-times 2018 https:\/\/arxiv.org\/abs\/1711.06811.","DOI":"10.1007\/s10714-018-2351-y"},{"key":"e_1_2_9_40_2","doi-asserted-by":"publisher","DOI":"10.1140\/epjc\/s10052-021-09182-w"},{"key":"e_1_2_9_41_2","doi-asserted-by":"publisher","DOI":"10.1142\/S0218271819501517"},{"key":"e_1_2_9_42_2","doi-asserted-by":"publisher","DOI":"10.1155\/2019\/5769564"},{"key":"e_1_2_9_43_2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.91.024040"}],"container-title":["Advances
+        in High Energy Physics"],"original-title":[],"language":"en","link":[{"URL":"https:\/\/onlinelibrary.wiley.com\/doi\/pdf\/10.1155\/2024\/6666609","content-type":"unspecified","content-version":"vor","intended-application":"similarity-checking"}],"deposited":{"date-parts":[[2025,3,12]],"date-time":"2025-03-12T06:57:33Z","timestamp":1741762653000},"score":1,"resource":{"primary":{"URL":"https:\/\/onlinelibrary.wiley.com\/doi\/10.1155\/2024\/6666609"}},"subtitle":[],"editor":[{"given":"Muhammad
+        Farasat","family":"Shamir","sequence":"additional","affiliation":[]}],"short-title":[],"issued":{"date-parts":[[2024,1]]},"references-count":43,"journal-issue":{"issue":"1","published-print":{"date-parts":[[2024,1]]}},"alternative-id":["10.1155\/2024\/6666609"],"URL":"https:\/\/doi.org\/10.1155\/2024\/6666609","archive":["Portico"],"relation":{},"ISSN":["1687-7357","1687-7365"],"issn-type":[{"type":"print","value":"1687-7357"},{"type":"electronic","value":"1687-7365"}],"subject":[],"published":{"date-parts":[[2024,1]]},"assertion":[{"value":"2024-02-26","order":0,"name":"received","label":"Received","group":{"name":"publication_history","label":"Publication
+        History"}},{"value":"2024-05-11","order":2,"name":"accepted","label":"Accepted","group":{"name":"publication_history","label":"Publication
+        History"}},{"value":"2024-07-08","order":3,"name":"published","label":"Published","group":{"name":"publication_history","label":"Publication
+        History"}}],"article-number":"6666609"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 01 Aug 2025 12:22:36 GMT
+      access-control-allow-headers:
+      - X-Requested-With, Accept, Accept-Encoding, Accept-Charset, Accept-Language,
+        Accept-Ranges, Cache-Control
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Link
+      content-length:
+      - '8574'
+      permissions-policy:
+      - interest-cohort=()
+      server:
+      - Jetty(9.4.40.v20210413)
+      vary:
+      - Accept-Encoding
+      x-api-pool:
+      - public
+      x-rate-limit-interval:
+      - 1s
+      x-rate-limit-limit:
+      - '50'
+    status:
+      code: 200
+      message: OK
+version: 1

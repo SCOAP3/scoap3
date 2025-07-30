@@ -1,7 +1,10 @@
 import pytest
 from django.test import TestCase
 
-from scoap3.misc.utils import fetch_doi_registration_date
+from scoap3.misc.utils import (
+    fetch_doi_registration_date,
+    fetch_doi_registration_date_aps,
+)
 
 
 @pytest.mark.vcr
@@ -14,4 +17,17 @@ class TestFetchDOIRegistrationDate(TestCase):
     def test_fetch_doi_registration_date_invalid_doi(self):
         self.assertEqual(
             fetch_doi_registration_date("10.10232332/JHEP11(2019)0010"), None
+        )
+
+
+@pytest.mark.vcr
+class TestFetchDoiRegistrationDateAPS(TestCase):
+    def test_fetch_doi_registration_date_aps_happy_case(self):
+        self.assertEqual(
+            fetch_doi_registration_date_aps("10.1103/923l-yxkc"), "2025-06-26"
+        )
+
+    def test_fetch_doi_registration_date_invalid_doi(self):
+        self.assertEqual(
+            fetch_doi_registration_date_aps("10.1103/923l-yxkc-invalid"), None
         )
