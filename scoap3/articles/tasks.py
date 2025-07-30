@@ -10,7 +10,10 @@ from scoap3.articles.models import Article, ArticleFile, ComplianceReport
 from scoap3.articles.util import is_string_in_pdf
 from scoap3.authors.models import Author
 from scoap3.misc.models import Affiliation, PublicationInfo
-from scoap3.misc.utils import fetch_doi_registration_date
+from scoap3.misc.utils import (
+    fetch_doi_registration_date,
+    fetch_doi_registration_date_aps,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -108,10 +111,20 @@ def check_arxiv_category(obj):
 
 def check_doi_registration_time(obj):
     doi_identifier = obj.article_identifiers.filter(identifier_type="DOI").first()
+    obj_publisher = (
+        obj.publication_info.first().publisher.name
+        if obj.publication_info.exists()
+        else None
+    )
     if doi_identifier:
-        doi_registration_date = fetch_doi_registration_date(
-            doi_identifier.identifier_value
-        )
+        if obj_publisher == "APS":
+            doi_registration_date = fetch_doi_registration_date_aps(
+                doi_identifier.identifier_value
+            )
+        else:
+            doi_registration_date = fetch_doi_registration_date(
+                doi_identifier.identifier_value
+            )
         if doi_registration_date and obj._created_at:
             doi_registration_date = datetime.strptime(
                 doi_registration_date, "%Y-%m-%d"
