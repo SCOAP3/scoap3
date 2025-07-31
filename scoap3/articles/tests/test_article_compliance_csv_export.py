@@ -31,7 +31,10 @@ class ExportAsCSVTest(TestCase):
             article_id=article,
             publisher=publisher,
         )
+
         self.report = ComplianceReport.objects.create(article=article)
+        self.second_report = ComplianceReport.objects.create(article=article)
+
         self.factory = RequestFactory()
         self.model_admin = ComplianceReportAdmin(Article, admin.site)
         self.queryset = ComplianceReport.objects.all()
@@ -46,6 +49,9 @@ class ExportAsCSVTest(TestCase):
         content = response.content.decode("utf-8")
         csv_reader = csv.reader(io.StringIO(content))
         rows = list(csv_reader)
+
+        assert len(rows) == 2
+
         self.assertEqual(
             rows[0],
             [
