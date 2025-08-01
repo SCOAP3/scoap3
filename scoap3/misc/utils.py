@@ -16,3 +16,16 @@ def fetch_doi_registration_date(doi):
     except Exception as e:
         logger.error("Failed to fetch DOI registration date for %s: %s", doi, str(e))
         return None
+
+
+@backoff.on_exception(backoff.expo, RequestError, max_tries=5)
+def fetch_doi_registration_date_aps(doi):
+    cr = Crossref()
+    try:
+        response = cr.works(ids=doi)
+        date_parts = response["message"]["published"]["date-parts"][0]
+        year, month, day = date_parts
+        return f"{year:04d}-{month:02d}-{day:02d}"
+    except Exception as e:
+        logger.error("Failed to fetch DOI registration date for %s: %s", doi, str(e))
+        return None

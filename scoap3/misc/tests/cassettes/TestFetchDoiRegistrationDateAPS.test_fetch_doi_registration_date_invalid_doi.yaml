@@ -1,0 +1,47 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      X-USER-AGENT:
+      - python-requests/2.32.3 habanero/1.2.6
+    method: GET
+    uri: https://api.crossref.org/works/10.1103/923l-yxkc-invalid
+  response:
+    body:
+      string: Resource not found.
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/plain
+      Date:
+      - Thu, 31 Jul 2025 11:32:24 GMT
+      Transfer-Encoding:
+      - chunked
+      access-control-allow-headers:
+      - X-Requested-With, Accept, Accept-Encoding, Accept-Charset, Accept-Language,
+        Accept-Ranges, Cache-Control
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Link
+      permissions-policy:
+      - interest-cohort=()
+      server:
+      - Jetty(9.4.40.v20210413)
+      x-api-pool:
+      - public
+      x-rate-limit-interval:
+      - 1s
+      x-rate-limit-limit:
+      - '50'
+    status:
+      code: 404
+      message: Not Found
+version: 1

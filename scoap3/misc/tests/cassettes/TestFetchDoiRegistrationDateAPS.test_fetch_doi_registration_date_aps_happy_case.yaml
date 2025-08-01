@@ -1,0 +1,79 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      X-USER-AGENT:
+      - python-requests/2.32.3 habanero/1.2.6
+    method: GET
+    uri: https://api.crossref.org/works/10.1103/923l-yxkc
+  response:
+    body:
+      string: '{"status":"ok","message-type":"work","message-version":"1.0.0","message":{"indexed":{"date-parts":[[2025,6,27]],"date-time":"2025-06-27T04:11:19Z","timestamp":1750997479691,"version":"3.41.0"},"reference-count":63,"publisher":"American
+        Physical Society (APS)","issue":"6","license":[{"start":{"date-parts":[[2025,6,26]],"date-time":"2025-06-26T00:00:00Z","timestamp":1750896000000},"content-version":"vor","delay-in-days":0,"URL":"https:\/\/creativecommons.org\/licenses\/by\/4.0\/"}],"funder":[{"DOI":"10.13039\/501100004281","name":"Narodowe
+        Centrum Nauki","doi-asserted-by":"publisher","award":["2022\/47\/B\/ST2\/01372","2018\/30\/E\/ST2\/00432"],"id":[{"id":"10.13039\/501100004281","id-type":"DOI","asserted-by":"publisher"}]},{"name":"Faculty
+        of Physics, Astronomy, and Applied Computer Science","award":["LM\/36\/BS"]}],"content-domain":{"domain":["journals.aps.org"],"crossmark-restriction":true},"short-container-title":["Phys.
+        Rev. C"],"accepted":{"date-parts":[[2025,5,30]]},"abstract":"<jats:p>In this
+        work, we address the problem of longitudinal spin polarization of the <a:math
+        xmlns:a=\"http:\/\/www.w3.org\/1998\/Math\/MathML\"><a:mi mathvariant=\"normal\">\u039b<\/a:mi><\/a:math>
+        hyperons produced in relativistic heavy-ion collisions. We combine a relativistic
+        kinetic-theory framework that includes spin degrees of freedom treated in
+        a classical way with the freeze-out parametrization used in previous investigations.
+        The use of the kinetic theory allows us to incorporate dissipative corrections
+        (due to the thermal shear and gradients of thermal vorticity) into the Pauli-Lubanski
+        vector that determines spin polarization and can be directly compared with
+        the experimental data. As in earlier similar studies, it turns out that a
+        successful description of data can only be achieved with additional assumptions\u2014in
+        our case, they involve the use of projected thermal vorticity and a suitably
+        adjusted time for spin relaxation (<c:math xmlns:c=\"http:\/\/www.w3.org\/1998\/Math\/MathML\"><c:msub><c:mi>\u03c4<\/c:mi><c:mi>s<\/c:mi><\/c:msub><\/c:math>).
+        From our analysis, we find that <d:math xmlns:d=\"http:\/\/www.w3.org\/1998\/Math\/MathML\"><d:mrow><d:msub><d:mi>\u03c4<\/d:mi><d:mi>s<\/d:mi><\/d:msub><d:mo>\u223c<\/d:mo><d:mn>5<\/d:mn><\/d:mrow><d:mspace
+        width=\"4pt\"\/><d:mrow><d:mi>fm<\/d:mi><d:mo>\/<\/d:mo><d:mi>c<\/d:mi><\/d:mrow><\/d:math>,
+        which is comparable with other estimates.<\/jats:p>\n          <jats:sec>\n            <jats:title\/>\n            <jats:supplementary-material>\n              <jats:permissions>\n                <jats:copyright-statement>Published
+        by the American Physical Society<\/jats:copyright-statement>\n                <jats:copyright-year>2025<\/jats:copyright-year>\n              <\/jats:permissions>\n            <\/jats:supplementary-material>\n          <\/jats:sec>","DOI":"10.1103\/923l-yxkc","type":"journal-article","created":{"date-parts":[[2025,5,30]],"date-time":"2025-05-30T15:26:34Z","timestamp":1748618794000},"update-policy":"https:\/\/doi.org\/10.1103\/crossmark-policy","source":"Crossref","is-referenced-by-count":0,"title":["Longitudinal
+        spin polarization in a thermal model with dissipative corrections"],"prefix":"10.1103","volume":"111","author":[{"ORCID":"https:\/\/orcid.org\/0000-0002-7141-6121","authenticated-orcid":true,"given":"Soham","family":"Banerjee","sequence":"first","affiliation":[{"id":[{"id":"https:\/\/ror.org\/02r2k1c68","id-type":"ROR","asserted-by":"publisher"}],"name":"National
+        Institute of Science Education and Research"}]},{"ORCID":"https:\/\/orcid.org\/0000-0002-8693-4482","authenticated-orcid":true,"given":"Samapan","family":"Bhadury","sequence":"additional","affiliation":[{"id":[{"id":"https:\/\/ror.org\/03bqmcz70","id-type":"ROR","asserted-by":"publisher"}],"name":"Jagiellonian
+        University"}]},{"ORCID":"https:\/\/orcid.org\/0000-0002-9215-0238","authenticated-orcid":true,"given":"Wojciech","family":"Florkowski","sequence":"additional","affiliation":[{"id":[{"id":"https:\/\/ror.org\/03bqmcz70","id-type":"ROR","asserted-by":"publisher"}],"name":"Jagiellonian
+        University"}]},{"ORCID":"https:\/\/orcid.org\/0000-0001-5692-9167","authenticated-orcid":true,"given":"Amaresh","family":"Jaiswal","sequence":"additional","affiliation":[{"id":[{"id":"https:\/\/ror.org\/02r2k1c68","id-type":"ROR","asserted-by":"publisher"}],"name":"National
+        Institute of Science Education and Research"},{"id":[{"id":"https:\/\/ror.org\/03bqmcz70","id-type":"ROR","asserted-by":"publisher"}],"name":"Jagiellonian
+        University"}]},{"ORCID":"https:\/\/orcid.org\/0000-0003-3094-7863","authenticated-orcid":true,"given":"Radoslaw","family":"Ryblewski","sequence":"additional","affiliation":[{"id":[{"id":"https:\/\/ror.org\/01n78t774","id-type":"ROR","asserted-by":"publisher"}],"name":"Institute
+        of Nuclear Physics, Polish Academy of Sciences"}]}],"member":"16","published-online":{"date-parts":[[2025,6,26]]},"reference":[{"key":"923l-yxkcCc1R1","doi-asserted-by":"publisher","DOI":"10.1038\/nature23004"},{"key":"923l-yxkcCc2R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.98.014910"},{"key":"923l-yxkcCc3R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.123.132301"},{"key":"923l-yxkcCc4R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.125.012301"},{"key":"923l-yxkcCc5R1","doi-asserted-by":"publisher","DOI":"10.1142\/S0218301324300108"},{"key":"923l-yxkcCc6R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.94.102301"},{"key":"923l-yxkcCc6R2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.96.039901"},{"key":"923l-yxkcCc7R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.physletb.2005.09.060"},{"key":"923l-yxkcCc8R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.aop.2010.03.007"},{"key":"923l-yxkcCc9R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.96.056012"},{"key":"923l-yxkcCc9R2","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.96.079901"},{"key":"923l-yxkcCc10R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.96.076016"},{"key":"923l-yxkcCc11R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.97.041901"},{"key":"923l-yxkcCc12R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.97.116017"},{"key":"923l-yxkcCc13R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.98.044906"},{"key":"923l-yxkcCc14R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.99.011903"},{"key":"923l-yxkcCc15R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.physletb.2019.05.040"},{"key":"923l-yxkcCc16R1","doi-asserted-by":"publisher","DOI":"10.1140\/epjc\/s10052-019-7576-8"},{"key":"923l-yxkcCc17R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.99.044910"},{"key":"923l-yxkcCc18R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.100.056018"},{"key":"923l-yxkcCc19R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.127.052301"},{"key":"923l-yxkcCc20R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.103.014030"},{"key":"923l-yxkcCc21R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.103.044906"},{"key":"923l-yxkcCc22R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.103.074024"},{"key":"923l-yxkcCc23R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.104.064901"},{"key":"923l-yxkcCc24R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.104.114043"},{"key":"923l-yxkcCc25R1","doi-asserted-by":"publisher","DOI":"10.1007\/JHEP11(2021)150"},{"key":"923l-yxkcCc26R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.105.054007"},{"key":"923l-yxkcCc27R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.105.114050"},{"key":"923l-yxkcCc28R1","doi-asserted-by":"publisher","DOI":"10.1007\/JHEP08(2022)263"},{"key":"923l-yxkcCc29R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.106.096014"},{"key":"923l-yxkcCc30R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.107.054031"},{"key":"923l-yxkcCc31R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.106.116021"},{"key":"923l-yxkcCc32R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.107.076025"},{"key":"923l-yxkcCc33R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.108.014024"},{"key":"923l-yxkcCc34R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.108.076011"},{"key":"923l-yxkcCc35R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.109.036024"},{"key":"923l-yxkcCc36R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.109.034034"},{"key":"923l-yxkcCc37R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.109.054038"},{"key":"923l-yxkcCc38R1","doi-asserted-by":"publisher","DOI":"10.1007\/978-3-030-71427-7_2"},{"key":"923l-yxkcCc39R1","doi-asserted-by":"publisher","DOI":"10.1140\/epja\/s10050-021-00455-2"},{"key":"923l-yxkcCc40R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.aop.2013.07.004"},{"key":"923l-yxkcCc41R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.120.012302"},{"key":"923l-yxkcCc42R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.100.054907"},{"key":"923l-yxkcCc43R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.105.064901"},{"key":"923l-yxkcCc44R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.ppnp.2019.07.001"},{"key":"923l-yxkcCc45R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.physletb.2021.136096"},{"key":"923l-yxkcCc46R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.129.192301"},{"key":"923l-yxkcCc47R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.127.142301"},{"key":"923l-yxkcCc48R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.physletb.2021.136519"},{"key":"923l-yxkcCc49R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.127.272302"},{"key":"923l-yxkcCc50R1","doi-asserted-by":"publisher","DOI":"10.1063\/1.1570571"},{"key":"923l-yxkcCc51R1","doi-asserted-by":"publisher","DOI":"10.1051\/epjconf\/201817107002"},{"key":"923l-yxkcCc52R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.101.024907"},{"key":"923l-yxkcCc53R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.102.056019"},{"key":"923l-yxkcCc54R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.108.016020"},{"key":"923l-yxkcCc55R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevC.109.054909"},{"key":"923l-yxkcCc56R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevResearch.6.043103"},{"key":"923l-yxkcCc57R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.87.272302"},{"key":"923l-yxkcCc58R1","first-page":"761","volume":"33","author":"W.
+        Florkowski","year":"2002","journal-title":"Acta Phys. Polon. B"},{"key":"923l-yxkcCc60R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.90.094503"},{"key":"923l-yxkcCc61R1","doi-asserted-by":"publisher","DOI":"10.1093\/ptep\/ptaa104"},{"volume-title":"Relativistic
+        Kinetic Theory: Principles and Applications","year":"1980","author":"S.\u00a0R.
+        De Groot","key":"923l-yxkcCc62R1"}],"container-title":["Physical Review C"],"original-title":[],"language":"en","link":[{"URL":"https:\/\/link.aps.org\/article\/10.1103\/923l-yxkc","content-type":"unspecified","content-version":"vor","intended-application":"syndication"},{"URL":"http:\/\/harvest.aps.org\/v2\/journals\/articles\/10.1103\/923l-yxkc\/fulltext","content-type":"unspecified","content-version":"vor","intended-application":"similarity-checking"}],"deposited":{"date-parts":[[2025,6,26]],"date-time":"2025-06-26T14:15:04Z","timestamp":1750947304000},"score":1,"resource":{"primary":{"URL":"https:\/\/link.aps.org\/doi\/10.1103\/923l-yxkc"}},"subtitle":[],"short-title":[],"issued":{"date-parts":[[2025,6,26]]},"references-count":63,"journal-issue":{"issue":"6","published-print":{"date-parts":[[2025,6]]}},"URL":"https:\/\/doi.org\/10.1103\/923l-yxkc","relation":{"has-preprint":[{"id-type":"doi","id":"10.48550\/arXiv.2405.05089","asserted-by":"subject"}]},"ISSN":["2469-9985","2469-9993"],"issn-type":[{"type":"print","value":"2469-9985"},{"type":"electronic","value":"2469-9993"}],"subject":[],"published":{"date-parts":[[2025,6,26]]},"article-number":"064912"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 31 Jul 2025 11:32:24 GMT
+      access-control-allow-headers:
+      - X-Requested-With, Accept, Accept-Encoding, Accept-Charset, Accept-Language,
+        Accept-Ranges, Cache-Control
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Link
+      content-length:
+      - '12019'
+      permissions-policy:
+      - interest-cohort=()
+      server:
+      - Jetty(9.4.40.v20210413)
+      vary:
+      - Accept-Encoding
+      x-api-pool:
+      - public
+      x-rate-limit-interval:
+      - 1s
+      x-rate-limit-limit:
+      - '50'
+    status:
+      code: 200
+      message: OK
+version: 1
