@@ -1,4 +1,3 @@
-import csv
 import io
 import json
 import logging
@@ -30,7 +29,6 @@ from scoap3.misc.models import (
     PublicationInfo,
     Publisher,
 )
-from scoap3.utils.tools import year_export
 
 logger = logging.getLogger(__name__)
 cc = coco.CountryConverter()
@@ -503,16 +501,3 @@ def link_affiliations(folder_name, index_range):
             with storage.open(os.path.join(folder_name, filename)) as file:
                 json_data = json.load(file)
                 update_affiliations(json_data)
-
-
-@celery_app.task(acks_late=True)
-def year_data_export(start_date, end_date, publisher_name, file_name):
-    result = year_export(start_date, end_date, publisher_name)
-
-    with io.StringIO() as buffer:
-        writer = csv.writer(buffer)
-        writer.writerow(result["header"])
-        writer.writerows(result["data"])
-        csv_content = buffer.getvalue()
-        file_content = ContentFile(csv_content)
-        default_storage.save(f"generated_files/{file_name}", file_content)

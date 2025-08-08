@@ -203,8 +203,13 @@ def year_export(start_date=None, end_date=None, publisher_name=None):
 
     for article in search.scan():
         year = article.publication_date.year
-        journal = article.publication_info[0].journal_title
-        publisher = article.publication_info[0].publisher
+
+        pub_infos = getattr(article, "publication_info", []) or []
+        primary_info = pub_infos[0] if len(pub_infos) > 0 else {}
+
+        journal = primary_info.get("journal_title", None)
+        publisher = primary_info.get("publisher", None)
+
         doi = get_first_doi(article)
         publication_date = article.publication_date
         arxiv = get_first_arxiv(article)

@@ -30,3 +30,24 @@ class AuthorExportForm(forms.Form):
         label="Country",
         required=True,
     )
+
+
+class YearExportForm(forms.Form):
+    start_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date"}),
+        label="Start date",
+        help_text="Leave blank for no start date",
+    )
+    end_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date"}),
+        label="End date",
+        help_text="Leave blank for no end date",
+    )
+    publisher_name = forms.CharField(
+        required=False,
+        max_length=200,
+        label="Publisher name",
+        help_text="Leave blank for all publishers",
+    )

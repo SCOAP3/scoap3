@@ -29,7 +29,7 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
-            "--pub",
+            "--publisher",
             type=str,
             required=False,
             help="Publisher Name",
