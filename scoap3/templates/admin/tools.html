@@ -1,57 +1,42 @@
-{% extends "admin/base_site.html" %}
-
-{% block extrahead %}
-{{ block.super }}
-{{ form.media.css }}
-{{ form2.media.css }}
-{{ form3.media.css }}
+{% extends "admin/base_site.html" %} {% block extrahead %} {{ block.super }} {{
+form.media.css }} {{ form2.media.css }} {{ form3.media.css }}
 <style>
-.tools-select .select2-container select {
-  width: 100px;
-}
-select { width: 100px; }
+  .tools-select .select2-container select {
+    width: 100px;
+  }
+  select {
+    width: 100px;
+  }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-{{ form.media.js }}
-{{ form2.media.js }}
-{{ form3.media.js }}
-{% endblock extrahead %}
-
-{% block responsive %}{% endblock responsive %}
-
-{% block content %}
+{{ form.media.js }} {{ form2.media.js }} {{ form3.media.js }} {% endblock
+extrahead %} {% block responsive %}{% endblock responsive %} {% block content %}
 <h3>Tools</h3>
 
 <form action="/admin/tools/" method="post" class="tools-select">
-    <h4>Affiliations Export</h4>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="affiliation_export" value="Download">
+  <h4>Affiliations Export</h4>
+  {% csrf_token %} {{ form.as_p }}
+  <input type="submit" name="affiliation_export" value="Download" />
 </form>
 
-<hr style="margin: 5px 0;"/>
+<hr style="margin: 5px 0" />
 
 <form action="/admin/tools/" method="post" class="tools-select">
-    <h4>Authors Export</h4>
-    {% csrf_token %}
-    {{ form2.as_p }}
-    <input type="submit" name="author_export" value="Download">
+  <h4>Authors Export</h4>
+  {% csrf_token %} {{ form2.as_p }}
+  <input type="submit" name="author_export" value="Download" />
 </form>
 
-<hr style="margin: 5px 0;"/>
+{% if user.is_superuser %}
+
+<hr style="margin: 5px 0" />
 
 <form action="/admin/tools/" method="post" class="tools-select">
-    <h4>Year-&amp;–Publisher Export</h4>
-    {% csrf_token %}
-    {{ form3.as_p }}
-    <input type="submit" name="year_export" value="Download">
+  <h4>Year-&amp;–Publisher Export</h4>
+  {% csrf_token %} {{ form3.as_p }}
+  <input type="submit" name="year_export" value="Download" />
 </form>
-{% endblock content %}
-
-{% block extrabody %}
-{{ block.super }}
+{% endif %} {% endblock content %} {% block extrabody %} {{ block.super }}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-{{ form.media.js }}
-{{ form2.media.js }}
-{{ form3.media.js }}
-{% endblock extrabody %}
+{{ form.media.js }} {{ form2.media.js }} {{ form3.media.js }} {% endblock
+extrabody %}
