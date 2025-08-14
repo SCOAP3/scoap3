@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 interface Params {
   country?: string[] | string;
+  "country__term"?: string[] | string;
   journal?: string[] | string;
   _filter_publication_year?: string[] | string;
   [key: string]: any;
@@ -23,7 +24,14 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
     return Array.isArray(val) ? val : [val];
   };
 
-  const filterKeys = ["country", "journal", "publication_year__lte", "publication_year__gte"];
+  const filterKeys = [
+    "country",
+    "country__term",
+    "journal",
+    "publication_year__lte",
+    "publication_year__gte",
+  ];
+
 
   const handleRemove = (filterKey: string, value: string) => {
     const newQuery = { ...query };
@@ -51,7 +59,8 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
   const KEY_TO_TAGNAME: { [key: string]: string } = {
     "publication_year__lte": "pub year <",
     "publication_year__gte": "pub year >",
-  }
+    "country__term": "country :",
+  };
 
   return (
     <Space wrap size={1} style={{ marginTop: "8px" }}>
