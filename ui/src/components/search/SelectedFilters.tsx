@@ -67,6 +67,18 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({ query }) => {
           </Tag>
         ))
       )}
+      {filterKeys.flatMap((key) =>
+        getFilterArray(query[`${key}__term`])?.map((val) => (
+          <Tag
+            key={`${key}__term-${val}`}
+            closable
+            bordered={false}
+            onClose={() => handleRemove(`${key}__term`, val)}
+          >
+            {KEY_TO_TAGNAME[key] ? KEY_TO_TAGNAME[key] : `${key} : `} {val}
+          </Tag>
+        ))
+      )}
       {Object.keys(query).length > 0 &&
         <Tag
           key={`reset-search`}

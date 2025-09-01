@@ -3,11 +3,17 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Card } from "antd";
 
 import { Country, Journal } from "@/types";
+import OperatorSwitch from "./OperatorSwitch";
 
 interface CheckboxFacetProps {
   type: "country" | "journal";
   title: string;
   data: Country[] | Journal[];
+}
+
+const SEARCH_OPERATORS = {
+  "country": ["OR", "AND"],
+  "journal": ["OR"]
 }
 
 const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
@@ -21,26 +27,34 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname()
+  const andQueries = searchParams.getAll(`${type}__term`);
+  const [mode, setMode] = useState<"OR" | "AND">(andQueries.length > 0 ? "AND" : "OR");
 
   const createQueryString = useCallback(
-    (name: string, value: any) => {
+    (name: string, value: any, mode = "OR") => {
       const params = new URLSearchParams(searchParams.toString())
 
       params.delete(name);
+      params.delete(`${name}__term`);
       params.delete("page");
 
       if (!Array.isArray(value)) value = [value];
+
+      const query_name = mode == "OR" ? name : `${name}__term`;
       value.forEach((val: string) => {
-        params.append(name, val);
+        params.append(query_name, val);
       });
 
       return params.toString()
     },
-    [searchParams]
-  )
+    [searchParams, mode]
+  );
 
   useEffect(() => {
-    setFilters(searchParams.getAll(type));
+    const orQueries = searchParams.getAll(type);
+    const andQueries = searchParams.getAll(`${type}__term`);
+
+    setFilters([...orQueries, ...andQueries]);
   }, [searchParams]);
 
   const shortJournalName = (value: string) => {
@@ -66,11 +80,17 @@ const CheckboxFacet: React.FC<CheckboxFacetProps> = ({
     }
 
     setFilters(updated_filters);
-    router.push(pathname + '?' + createQueryString(type, updated_filters))
+    router.push(pathname + '?' + createQueryString(type, updated_filters, mode))
   };
+
+  const onLogicModeChange = (new_mode: "OR" | "AND") => {
+    setMode(new_mode)
+    router.push(pathname + '?' + createQueryString(type, filters, new_mode))
+  }
 
   return (
     <Card title={title} className="search-facets-facet mb-5">
+      <OperatorSwitch isToggleable={SEARCH_OPERATORS[type]?.length > 1} mode={mode} setMode={onLogicModeChange} />
       <div>
         {displayedData?.map((item) => (
           <div key={item?.key} className="flex items-center justify-between">
