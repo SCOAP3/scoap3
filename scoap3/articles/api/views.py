@@ -189,6 +189,7 @@ class ArticleDocumentView(BaseDocumentViewSet):
                     "_key": "asc",
                 },
             },
+            "global": True,
         },
         "country": {
             "field": "authors.affiliations.country.name",
