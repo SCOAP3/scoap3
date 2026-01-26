@@ -186,4 +186,4 @@ make tests
 ```
 ### Tools
 
-[TODO]
+[TODO] Add information about tooling
