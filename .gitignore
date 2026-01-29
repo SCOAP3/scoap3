@@ -274,6 +274,4 @@ scoap3/media/
 
 .pytest_cache/
 .ipython/
-scoap3/static/webpack_bundles/
-webpack-stats.json
 .env

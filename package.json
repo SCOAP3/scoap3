@@ -17,12 +17,7 @@
     "postcss-loader": "^7.0.2",
     "postcss-preset-env": "^8.0.1",
     "sass": "^1.43.4",
-    "sass-loader": "^13.2.0",
-    "webpack": "^5.65.0",
-    "webpack-bundle-tracker": "^1.4.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.6.0",
-    "webpack-merge": "^5.8.0"
+    "sass-loader": "^13.2.0"
   },
   "engines": {
     "node": "16"
@@ -34,9 +29,5 @@
     "presets": [
       "@babel/preset-env"
     ]
-  },
-  "scripts": {
-    "dev": "webpack serve --config webpack/dev.config.js",
-    "build": "webpack --config webpack/prod.config.js"
   }
 }

@@ -2,17 +2,13 @@ include .envs/local/.django
 include .envs/local/.postgres
 export
 
-.PHONY: django webpack celery migrate load-envs unload-envs services
+.PHONY: django celery migrate load-envs unload-envs services
 
 django:
 	poetry run python manage.py runserver 0.0.0.0:8000
 
 run-tests:
 	poetry run pytest -x
-
-
-webpack:
-	npm run dev
 
 celery:
 	poetry run celery -A config.celery_app worker --loglevel=info
