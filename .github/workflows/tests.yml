@@ -9,8 +9,11 @@ on:
         required: true
     outputs:
       backend-image-id:
-        description: The ID of image that has been buit
+        description: The ID of backend image that has been built
         value: ${{ jobs.build-backend.outputs.image-id }}
+      ui-image-id:
+        description: The ID of ui image that has been built
+        value: ${{ jobs.build-ui.outputs.image-id }}
 
 jobs:
   build-backend:

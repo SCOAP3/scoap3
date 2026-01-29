@@ -26,4 +26,5 @@ jobs:
           repo: cern-sis/kubernetes-scoap3
           images: |
             cern-sis/scoap3/scoap3-backend@${{ needs.test.outputs.backend-image-id }}
+            cern-sis/scoap3/scoap3-backend-ui@${{ needs.test.outputs.ui-image-id }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES_SCOAP3 }}
