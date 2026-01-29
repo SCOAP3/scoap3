@@ -1,5 +1,7 @@
 include .envs/local/.django
 include .envs/local/.postgres
+include .envs/local/.minio
+
 export
 
 .PHONY: django webpack celery migrate load-envs unload-envs services
