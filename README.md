@@ -108,15 +108,6 @@ or
 poetry run python manage.py runserver 0.0.0.0:8000
 ```
 
-#### Start webpack
-```bash
-make webpack
-```
-or
-```bash
-npm run dev
-```
-
 #### Start UI
 In `scoap3/ui`:
 ```bash

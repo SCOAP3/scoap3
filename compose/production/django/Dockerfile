@@ -7,12 +7,6 @@ COPY ./package.json ${APP_HOME}
 RUN npm install && npm cache clean --force
 COPY . ${APP_HOME}
 
-ARG DJANGO_AWS_STORAGE_BUCKET_NAME
-ENV DJANGO_AWS_STORAGE_BUCKET_NAME=${DJANGO_AWS_STORAGE_BUCKET_NAME}
-ARG DJANGO_AWS_S3_CUSTOM_DOMAIN
-ENV DJANGO_AWS_S3_CUSTOM_DOMAIN=${DJANGO_AWS_S3_CUSTOM_DOMAIN}
-RUN npm run build
-
 WORKDIR ${APP_UI}
 COPY ./ui/package.json ${APP_UI}
 RUN yarn install
@@ -30,9 +24,9 @@ ARG BUILD_ENVIRONMENT=production
 ENV BUILD_ENV=${BUILD_ENVIRONMENT}
 
 ENV PATH="/root/.local/bin:${PATH}" \
-    POETRY_VIRTUALENVS_CREATE=false \
-    PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
+  POETRY_VIRTUALENVS_CREATE=false \
+  PYTHONUNBUFFERED=1 \
+  PYTHONDONTWRITEBYTECODE=1
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
   curl libpq-dev build-essential gettext \
@@ -45,7 +39,7 @@ RUN curl -sSL https://install.python-poetry.org \
   | python - --version "${POETRY_VERSION}" \
   && poetry --version
 
-COPY poetry.lock pyproject.toml .
+COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-root
 
 COPY . ${APP_HOME}

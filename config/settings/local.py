@@ -87,9 +87,7 @@ INSTALLED_APPS += ["django_extensions"]  # noqa: F405
 
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#task-eager-propagates
 CELERY_TASK_EAGER_PROPAGATES = True
-# django-webpack-loader
-# ------------------------------------------------------------------------------
-WEBPACK_LOADER["DEFAULT"]["CACHE"] = not DEBUG  # noqa: F405
+
 
 CORS_ALLOWED_ORIGINS = [
     "https://scoap3.org",
