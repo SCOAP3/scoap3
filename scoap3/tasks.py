@@ -1,3 +1,4 @@
+import contextlib
 import io
 import json
 import logging
@@ -80,9 +81,7 @@ def _create_licenses(data):
             license["name"] = "CC-BY-3.0"
             license["url"] = "http://creativecommons.org/licenses/by/3.0/"
 
-        license, _ = License.objects.get_or_create(
-            url=license.get("url", ""), name=license.get("name", "")
-        )
+        license, _ = License.objects.get_or_create(url=license.get("url", ""), name=license.get("name", ""))
         licenses.append(license)
     return licenses
 
@@ -92,10 +91,8 @@ def _create_article(data):
         "title": data["titles"][0].get("title"),
         "subtitle": data["titles"][0].get("subtitle", ""),
     }
-    try:
+    with contextlib.suppress(KeyError, IndexError):
         article_data["abstract"] = data["abstracts"][0].get("value", "")
-    except (KeyError, IndexError):
-        pass
 
     doi_exists = False
     doi_value = data.get("dois")[0].get("value")
@@ -105,10 +102,8 @@ def _create_article(data):
         ).exists()
 
     publication_date = None
-    try:
+    with contextlib.suppress(KeyError, IndexError):
         publication_date = data["imprints"][0].get("date")
-    except (KeyError, IndexError):
-        pass
     if publication_date:
         article_data["publication_date"] = publication_date
 
@@ -116,8 +111,7 @@ def _create_article(data):
     if data.get("control_number"):
         if doi_exists:
             logger.info(
-                f"Creating article with id={data['control_number']} - "
-                f"Article with DOI={doi_value} already exists."
+                f"Creating article with id={data['control_number']} - Article with DOI={doi_value} already exists."
             )
         control_number = int(data["control_number"])
         if Article.objects.filter(pk=control_number).exists():
@@ -126,14 +120,10 @@ def _create_article(data):
         else:
             article_data["id"] = control_number
             article = Article.objects.create(**article_data)
-            article._created_at = data.get("_created") or data.get(
-                "record_creation_date"
-            )
+            article._created_at = data.get("_created") or data.get("record_creation_date")
     # else if "doi" present, check to update a already inserted article
     elif doi_exists:
-        article = ArticleIdentifier.objects.get(
-            identifier_type="DOI", identifier_value=doi_value
-        ).article_id
+        article = ArticleIdentifier.objects.get(identifier_type="DOI", identifier_value=doi_value).article_id
         if publication_date:
             article_data["publication_date"] = publication_date
         article.__dict__.update(**article_data)
@@ -221,14 +211,12 @@ def _create_copyright(data, article):
 
 
 def _create_article_arxiv_category(data, article):
-    if "arxiv_eprints" in data.keys():
-        for idx, arxiv_category in enumerate(
-            data["arxiv_eprints"][0].get("categories", [])
-        ):
+    if "arxiv_eprints" in data:
+        for idx, arxiv_category in enumerate(data["arxiv_eprints"][0].get("categories", [])):
             article_arxiv_category_data = {
                 "article_id": article,
                 "category": arxiv_category,
-                "primary": True if idx == 0 else False,
+                "primary": idx == 0,
             }
             ArticleArxivCategory.objects.get_or_create(**article_arxiv_category_data)
 
@@ -261,32 +249,24 @@ def _create_publication_info(data, article, publishers):
         if PublicationInfo.objects.filter(article_id=article.id).exists():
             if volume_year:
                 publication_info_data["volume_year"] = volume_year
-            publication_info_obj = PublicationInfo.objects.filter(
-                article_id=article.id
-            ).first()
+            publication_info_obj = PublicationInfo.objects.filter(article_id=article.id).first()
             publication_info_obj.__dict__.update(**publication_info_data)
         else:
             if volume_year:
                 publication_info_data["volume_year"] = volume_year
             publication_info_data["article_id"] = article
-            publication_info_obj = PublicationInfo.objects.create(
-                **publication_info_data
-            )
+            publication_info_obj = PublicationInfo.objects.create(**publication_info_data)
         publication_info_obj.save()
 
 
 def _create_experimental_collaborations(data):
-    if "collaborations" in data.keys():
+    if "collaborations" in data:
         for experimental_collaboration in data.get("collaborations", []):
-            experimental_collaboration_data = {
-                "name": experimental_collaboration.get("value")
-            }
+            experimental_collaboration_data = {"name": experimental_collaboration.get("value")}
             (
                 experimental_collaboration,
                 _,
-            ) = ExperimentalCollaboration.objects.get_or_create(
-                **experimental_collaboration_data
-            )
+            ) = ExperimentalCollaboration.objects.get_or_create(**experimental_collaboration_data)
 
 
 def _create_author(data, article):
@@ -313,7 +293,7 @@ def _create_author(data, article):
 
 def _create_author_identifier(data, authors):
     for idx, author in enumerate(data.get("authors", [])):
-        if "orcid" in author.keys():
+        if "orcid" in author:
             author_identifier_data = {
                 "author_id": authors[idx],
                 "identifier_type": "ORCID",
@@ -375,9 +355,7 @@ def _create_affiliation(data, authors):
             ror_url = affiliation.get("ror", "")
             ror = re.sub(r"^https:\/\/ror\.org\/", "", ror_url)
             try:
-                affiliation_obj, _ = Affiliation.objects.get_or_create(
-                    **affiliation_data
-                )
+                affiliation_obj, _ = Affiliation.objects.get_or_create(**affiliation_data)
                 affiliation_obj.author_id.add(authors[idx].id)
                 affiliations.append(affiliation_obj)
                 if ror:

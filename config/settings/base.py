@@ -1,6 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
+
 import logging
 import platform
 from pathlib import Path
@@ -44,10 +45,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 db_host = None
-if platform.system() == "Linux":
-    db_host = env("POSTGRES_HOST")
-else:
-    db_host = "localhost"
+db_host = env("POSTGRES_HOST") if platform.system() == "Linux" else "localhost"
 
 DATABASES = {
     "default": {
@@ -145,9 +143,7 @@ PASSWORD_HASHERS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -277,12 +273,7 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "filters": {"ignore_insecure_requests": {"()": IgnoreInsecureRequestWarning}},
-    "formatters": {
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
-        }
-    },
+    "formatters": {"verbose": {"format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"}},
     "handlers": {
         "console": {
             "level": "DEBUG",
@@ -385,7 +376,7 @@ SPECTACULAR_SETTINGS = {
 # ------------------------------------------------------------------------------
 # Name of the Opensearch index
 OPENSEARCH_INDEX_NAMES = {
-    "scoap3.articles.documents": f'{env("OPENSEARCH_INDEX_PREFIX")}-articles',
+    "scoap3.articles.documents": f"{env('OPENSEARCH_INDEX_PREFIX')}-articles",
 }
 
 OPENSEARCH_DSL = {

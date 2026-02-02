@@ -27,9 +27,7 @@ from scoap3.misc.models import (
 @pytest.mark.vcr
 class TestArticleCompliance(TestCase):
     def setUp(self):
-        self.license = License.objects.create(
-            name="CC-BY-3.0", url="https://creativecommons.org/licenses/by/3.0/"
-        )
+        self.license = License.objects.create(name="CC-BY-3.0", url="https://creativecommons.org/licenses/by/3.0/")
         self.publisher = Publisher.objects.create(
             name="Elsevier",
         )
@@ -95,11 +93,11 @@ class TestArticleCompliance(TestCase):
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
 
-        self.assertEqual(report.check_license, True)
-        self.assertEqual(report.check_required_file_formats, True)
-        self.assertEqual(report.check_article_type, True)
-        self.assertEqual(report.check_arxiv_category, True)
-        self.assertEqual(report.check_doi_registration_time, True)
+        assert report.check_license
+        assert report.check_required_file_formats
+        assert report.check_article_type
+        assert report.check_arxiv_category
+        assert report.check_doi_registration_time
 
     def test_create_article_with_not_compliant_doi(self):
         ArticleIdentifier.objects.create(
@@ -112,21 +110,21 @@ class TestArticleCompliance(TestCase):
         article = Article.objects.get(id=self.article_with_not_compliant_doi.id)
         report = article.report.first()
 
-        self.assertEqual(report.check_doi_registration_time, False)
+        assert not report.check_doi_registration_time
 
     def test_create_article_with_missing_compliant_doi(self):
         compliance_checks(self.article_with_not_compliant_doi.id)
         article = Article.objects.get(id=self.article_with_not_compliant_doi.id)
         report = article.report.first()
 
-        self.assertEqual(report.check_doi_registration_time, False)
+        assert not report.check_doi_registration_time
 
     def test_create_article_with_not_compliant_title(self):
         compliance_checks(self.article_with_not_compliant_title.id)
         article = Article.objects.get(id=self.article_with_not_compliant_title.id)
         report = article.report.first()
 
-        self.assertEqual(report.check_article_type, False)
+        assert not report.check_article_type
 
     def test_create_article_with_not_compliant_file_format_no_publication_info(self):
         for file_format in self.file_formats:
@@ -140,11 +138,8 @@ class TestArticleCompliance(TestCase):
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
 
-        self.assertEqual(report.check_required_file_formats, False)
-        self.assertEqual(
-            report.check_required_file_formats_description,
-            "No publication information found.",
-        )
+        assert not report.check_required_file_formats
+        assert report.check_required_file_formats_description == "No publication information found."
 
     def test_create_article_with_compliant_file_format(self):
         PublicationInfo.objects.create(
@@ -163,11 +158,8 @@ class TestArticleCompliance(TestCase):
         compliance_checks(self.article.id)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
-        self.assertEqual(report.check_required_file_formats, True)
-        self.assertEqual(
-            report.check_required_file_formats_description,
-            "All required file formats are present.",
-        )
+        assert report.check_required_file_formats
+        assert report.check_required_file_formats_description == "All required file formats are present."
 
     def test_create_article_with_not_compliant_file_format(self):
         PublicationInfo.objects.create(
@@ -186,7 +178,7 @@ class TestArticleCompliance(TestCase):
         compliance_checks(self.article.id)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
-        self.assertEqual(report.check_required_file_formats, False)
+        assert not report.check_required_file_formats
 
     def test_create_article_with_not_compliant_arxiv_category(self):
         ArticleIdentifier.objects.create(
@@ -207,7 +199,7 @@ class TestArticleCompliance(TestCase):
         compliance_checks(self.article.id)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
-        self.assertEqual(report.check_arxiv_category, False)
+        assert not report.check_arxiv_category
 
     def test_create_author_with_no_affiliation(self):
         Author.objects.create(
@@ -220,7 +212,7 @@ class TestArticleCompliance(TestCase):
         compliance_checks(self.article.id)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
-        self.assertEqual(report.check_authors_affiliation, False)
+        assert not report.check_authors_affiliation
 
     def test_create_author_with_affiliation(self):
         Author.objects.create(
@@ -234,9 +226,7 @@ class TestArticleCompliance(TestCase):
             code="BE",
             name="Belgium",
         )
-        author_id = (
-            Author.objects.get(last_name="ExampleSurname", first_name="ExampleName"),
-        )
+        author_id = (Author.objects.get(last_name="ExampleSurname", first_name="ExampleName"),)
         affiliation = Affiliation.objects.create(
             country=Country.objects.get(code="BE", name="Belgium"),
             value="Example",
@@ -247,7 +237,7 @@ class TestArticleCompliance(TestCase):
         compliance_checks(self.article.id)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
-        self.assertEqual(report.check_authors_affiliation, True)
+        assert report.check_authors_affiliation
 
     def test_create_article_with_not_compliant_category_having_not_partial_journal(
         self,
@@ -270,25 +260,25 @@ class TestArticleCompliance(TestCase):
         compliance_checks(self.article.id)
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
-        self.assertEqual(report.check_arxiv_category, True)
+        assert report.check_arxiv_category
 
     def test_create_article_published_before_2023(self):
         compliance_checks(self.article_published_before_2023.id)
         report = self.article_published_before_2023.report.first()
 
-        self.assertEqual(report.compliant, True)
+        assert report.compliant
 
     def test_mark_article_with_reports_as_compliant(self):
         compliance_checks(self.article.id)
         make_compliant(Article.objects.all())
         report = self.article.report.first()
 
-        self.assertEqual(report.compliant, True)
+        assert report.compliant
 
     def test_mark_article_without_reports_as_compliant(self):
         ids = make_compliant(Article.objects.all())
 
-        self.assertEqual(list(ids), [])
+        assert list(ids) == []
 
     def tearDown(self):
         ArticleIdentifier.objects.all().delete()

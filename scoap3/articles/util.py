@@ -53,6 +53,6 @@ def is_string_in_pdf(article_file, search_string):
         return search_string_normalized in full_text_normalized
 
     except FileNotFoundError:
-        raise FileNotFoundError(f"File not found: {article_file}")
+        raise FileNotFoundError(f"File not found: {article_file}") from None
     except Exception as e:
-        raise Exception(f"An error occurred while reading the PDF: {str(e)}")
+        raise Exception(f"An error occurred while reading the PDF: {str(e)}") from e

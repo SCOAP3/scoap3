@@ -1,3 +1,4 @@
+import contextlib
 import json
 from datetime import datetime, timedelta
 
@@ -36,13 +37,10 @@ class TestArticleViewSet:
         article_id = response.data["id"]
         article = Article.objects.get(id=article_id)
         assert (
-            article.title
-            == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
+            article.title == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
         )
 
-    def test_create_article_from_workflow_with_large_text(
-        self, client, user, shared_datadir
-    ):
+    def test_create_article_from_workflow_with_large_text(self, client, user, shared_datadir):
         client.force_login(user)
         contents = (shared_datadir / "workflow_record_with_large_text.json").read_text()
         data = json.loads(contents)
@@ -57,8 +55,7 @@ class TestArticleViewSet:
         article_id = response.data["id"]
         article = Article.objects.get(id=article_id)
         assert (
-            article.title
-            == "Functional renormalization group approach to dipolar fixed "
+            article.title == "Functional renormalization group approach to dipolar fixed "
             "point which is scale invariant but nonconformal"
         )
 
@@ -70,9 +67,7 @@ class TestArticleViewSet:
             "workflow_record_with_large_text_pdf_slash_a.json",
         ],
     )
-    def test_create_article_from_workflow_pdfa_behaviour(
-        self, client, user, shared_datadir, file_name
-    ):
+    def test_create_article_from_workflow_pdfa_behaviour(self, client, user, shared_datadir, file_name):
         client.force_login(user)
 
         contents = (shared_datadir / file_name).read_text()
@@ -98,9 +93,7 @@ class TestArticleViewSet:
             "legacy_record_pdf_slash_a.json",
         ],
     )
-    def test_create_article_from_legacy_pdfa_behaviour(
-        self, client, user, shared_datadir, file_name
-    ):
+    def test_create_article_from_legacy_pdfa_behaviour(self, client, user, shared_datadir, file_name):
         client.force_login(user)
         contents = (shared_datadir / file_name).read_text()
         data = json.loads(contents)
@@ -180,12 +173,9 @@ class TestArticleViewSet:
         article_id = response.data["id"]
         article = Article.objects.get(id=article_id)
         assert (
-            article.title
-            == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
+            article.title == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
         )
-        search_article_detail_url = reverse(
-            "search:article-detail", kwargs={"pk": article_id}
-        )
+        search_article_detail_url = reverse("search:article-detail", kwargs={"pk": article_id})
 
         search_response = client.get(
             search_article_detail_url,
@@ -193,30 +183,12 @@ class TestArticleViewSet:
         )
         assert search_response.status_code == status.HTTP_200_OK
         assert search_response.data["doi"] == data["dois"][0]["value"]
-        assert (
-            search_response.data["copyright"][0]["statement"]
-            == data["copyright"][0]["statement"]
-        )
-        assert (
-            search_response.data["publication_info"][0]["publisher"]
-            == data["imprints"][0]["publisher"]
-        )
-        assert (
-            search_response.data["authors"][0]["affiliations"][0]["country"]["code"]
-            == "GB"
-        )
-        assert (
-            search_response.data["authors"][0]["affiliations"][0]["country"]["name"]
-            == "United Kingdom"
-        )
-        assert (
-            search_response.data["authors"][1]["affiliations"][0]["country"]["code"]
-            == "-"
-        )
-        assert (
-            search_response.data["authors"][1]["affiliations"][0]["country"]["name"]
-            == "-"
-        )
+        assert search_response.data["copyright"][0]["statement"] == data["copyright"][0]["statement"]
+        assert search_response.data["publication_info"][0]["publisher"] == data["imprints"][0]["publisher"]
+        assert search_response.data["authors"][0]["affiliations"][0]["country"]["code"] == "GB"
+        assert search_response.data["authors"][0]["affiliations"][0]["country"]["name"] == "United Kingdom"
+        assert search_response.data["authors"][1]["affiliations"][0]["country"]["code"] == "-"
+        assert search_response.data["authors"][1]["affiliations"][0]["country"]["name"] == "-"
 
         data["titles"][0]["title"] = "New title"
         response = client.post(
@@ -229,17 +201,14 @@ class TestArticleViewSet:
         article_id = response.data["id"]
         article = Article.objects.get(id=article_id)
         expected_dois = [
-            doi.identifier_value
-            for doi in article.article_identifiers.filter(identifier_type="DOI").all()
+            doi.identifier_value for doi in article.article_identifiers.filter(identifier_type="DOI").all()
         ]
 
         assert article.title == "New title"
         assert len(expected_dois) == 1
         assert "10.5506/APhysPolB.54.10-A3" in expected_dois
 
-    def test_create_article_from_workflow_without_abstract(
-        self, client, user, shared_datadir
-    ):
+    def test_create_article_from_workflow_without_abstract(self, client, user, shared_datadir):
         client.force_login(user)
         contents = (shared_datadir / "workflow_record.json").read_text()
         data = json.loads(contents)
@@ -259,9 +228,7 @@ class TestArticleViewSet:
         article = Article.objects.get(id=article_id)
         assert article.abstract == ""
 
-    def test_create_article_from_workflow_without_publication_date(
-        self, client, user, shared_datadir
-    ):
+    def test_create_article_from_workflow_without_publication_date(self, client, user, shared_datadir):
         client.force_login(user)
         contents = (shared_datadir / "workflow_record.json").read_text()
         data = json.loads(contents)
@@ -279,9 +246,7 @@ class TestArticleViewSet:
         article = Article.objects.get(id=article_id)
         assert article.publication_date is None
 
-    def test_create_update_from_workflow_without_publication_date(
-        self, client, user, shared_datadir
-    ):
+    def test_create_update_from_workflow_without_publication_date(self, client, user, shared_datadir):
         client.force_login(user)
         contents = (shared_datadir / "workflow_record.json").read_text()
         data = json.loads(contents)
@@ -293,9 +258,7 @@ class TestArticleViewSet:
         assert response.status_code == status.HTTP_200_OK
 
         article_id_with_publication_date = response.data["id"]
-        article_with_publication_date = Article.objects.get(
-            id=article_id_with_publication_date
-        )
+        article_with_publication_date = Article.objects.get(id=article_id_with_publication_date)
         assert article_with_publication_date.publication_date is not None
 
         del data["imprints"][0]["date"]
@@ -308,9 +271,7 @@ class TestArticleViewSet:
 
         article_id_without_publication_date = response.data["id"]
         assert article_id_with_publication_date == article_id_without_publication_date
-        article_without_publication_date = Article.objects.get(
-            id=article_id_without_publication_date
-        )
+        article_without_publication_date = Article.objects.get(id=article_id_without_publication_date)
         assert article_without_publication_date.publication_date is not None
 
     def test_create_update_from_workflow_with_publication_date(
@@ -331,13 +292,8 @@ class TestArticleViewSet:
         assert response.status_code == status.HTTP_200_OK
 
         article_id_with_publication_date = response.data["id"]
-        article_with_publication_date = Article.objects.get(
-            id=article_id_with_publication_date
-        )
-        assert (
-            article_with_publication_date.publication_date.strftime("%Y-%m-%d")
-            == "2023-10-31"
-        )
+        article_with_publication_date = Article.objects.get(id=article_id_with_publication_date)
+        assert article_with_publication_date.publication_date.strftime("%Y-%m-%d") == "2023-10-31"
         data["imprints"][0]["date"] = "2024-06-20"
         response = client.post(
             reverse("api:article-workflow-import-list"),
@@ -347,16 +303,9 @@ class TestArticleViewSet:
         assert response.status_code == status.HTTP_200_OK
 
         article_id_with_updated_publication_date = response.data["id"]
-        assert (
-            article_id_with_publication_date == article_id_with_updated_publication_date
-        )
-        article_with_updated_publication_date = Article.objects.get(
-            id=article_id_with_updated_publication_date
-        )
-        assert (
-            article_with_updated_publication_date.publication_date.strftime("%Y-%m-%d")
-            == "2024-06-20"
-        )
+        assert article_id_with_publication_date == article_id_with_updated_publication_date
+        article_with_updated_publication_date = Article.objects.get(id=article_id_with_updated_publication_date)
+        assert article_with_updated_publication_date.publication_date.strftime("%Y-%m-%d") == "2024-06-20"
 
     def test_create_update_from_workflow_with_material(
         self,
@@ -376,9 +325,7 @@ class TestArticleViewSet:
         assert response.status_code == status.HTTP_200_OK
 
         article_id_with_material = response.data["id"]
-        publication_info_with_material = PublicationInfo.objects.get(
-            article_id=article_id_with_material
-        )
+        publication_info_with_material = PublicationInfo.objects.get(article_id=article_id_with_material)
         assert publication_info_with_material.material == "article"
 
     def test_create_update_from_workflow_with_journal_year(
@@ -399,9 +346,7 @@ class TestArticleViewSet:
         assert response.status_code == status.HTTP_200_OK
 
         article_id_with_journal_year = response.data["id"]
-        publication_info_with_journal_year = PublicationInfo.objects.get(
-            article_id=article_id_with_journal_year
-        )
+        publication_info_with_journal_year = PublicationInfo.objects.get(article_id=article_id_with_journal_year)
         assert publication_info_with_journal_year.volume_year == "2023"
 
         data["publication_info"][0]["year"] = "2024"
@@ -424,9 +369,7 @@ class TestArticleViewSet:
             content_type="application/json",
         )
         assert response.status_code == status.HTTP_200_OK
-        journal_info_with_deleted_journal_year = PublicationInfo.objects.get(
-            article_id=article_id_with_journal_year
-        )
+        journal_info_with_deleted_journal_year = PublicationInfo.objects.get(article_id=article_id_with_journal_year)
         assert journal_info_with_deleted_journal_year.volume_year == "2024"
 
     def test_create_update_from_workflow_without_journal_year(
@@ -451,9 +394,7 @@ class TestArticleViewSet:
         article_id_with_publication_date = response.data["id"]
 
         try:
-            article_with_publication_date = PublicationInfo.objects.get(
-                article_id=article_id_with_publication_date
-            )
+            article_with_publication_date = PublicationInfo.objects.get(article_id=article_id_with_publication_date)
         except PublicationInfo.DoesNotExist:
             article_with_publication_date = None
 
@@ -483,9 +424,7 @@ class TestArticleViewSet:
         assert response.status_code == status.HTTP_200_OK
 
         article_id_with_updated_publication_date = response.data["id"]
-        assert (
-            article_id_with_publication_date == article_id_with_updated_publication_date
-        )
+        assert article_id_with_publication_date == article_id_with_updated_publication_date
         article_with_updated_publication_date = PublicationInfo.objects.get(
             article_id=article_id_with_updated_publication_date
         )
@@ -538,9 +477,7 @@ class TestArticleViewSet:
                 }
             ],
             "titles": [
-                {
-                    "title": "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
-                }
+                {"title": "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"}
             ],
             "arxiv_eprints": [{"categories": ["hep-ph"], "value": "2310.16258"}],
             "publication_info": [
@@ -560,9 +497,7 @@ class TestArticleViewSet:
                     "value": 'The QCD <span class="it">effective charge</span> extracted from the experimental data is used to construct the vector interaction of a Dirac relativistic model for the charmonium spectrum. The process required to fit the spectrum is discussed and the relationship with a previous study of the vector interaction is analyzed.'  # noqa: E501
                 }
             ],
-            "imprints": [
-                {"date": "2023-10-31", "publisher": "Jagiellonian University"}
-            ],
+            "imprints": [{"date": "2023-10-31", "publisher": "Jagiellonian University"}],
             "acquisition_source": {
                 "date": "2023-10-31T08:20:22.109321",
                 "source": "Jagiellonian University",
@@ -586,8 +521,7 @@ class TestArticleViewSet:
         article_id = response.data["id"]
         article = Article.objects.get(id=article_id)
         assert (
-            article.title
-            == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
+            article.title == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
         )
 
         data2 = data.copy()
@@ -656,8 +590,7 @@ class TestArticleViewSet:
         article_id = response.data["id"]
         article = Article.objects.get(id=article_id)
         expected_dois = [
-            doi.identifier_value
-            for doi in article.article_identifiers.filter(identifier_type="DOI").all()
+            doi.identifier_value for doi in article.article_identifiers.filter(identifier_type="DOI").all()
         ]
 
         assert article.title == "New title"
@@ -682,19 +615,15 @@ class TestArticleStatsViewSet:
     def test_get_article_stats(self, client, user):
         client.force_login(user)
 
-        try:
+        with contextlib.suppress(Exception):
             ArticleDocument._index.delete(ignore=404)
-        except Exception:
-            pass
         ArticleDocument.init()
 
         today = datetime.now().date()
 
         publisher = Publisher.objects.create(name="Test Publisher")
 
-        article1 = Article.objects.create(
-            publication_date=today - timedelta(days=1), title="Article 1"
-        )
+        article1 = Article.objects.create(publication_date=today - timedelta(days=1), title="Article 1")
         PublicationInfo.objects.create(
             article_id=article1,
             journal_title="Journal A",
@@ -708,9 +637,7 @@ class TestArticleStatsViewSet:
             publisher=publisher,
         )
 
-        article2 = Article.objects.create(
-            publication_date=today - timedelta(days=10), title="Article 2"
-        )
+        article2 = Article.objects.create(publication_date=today - timedelta(days=10), title="Article 2")
         PublicationInfo.objects.create(
             article_id=article2,
             journal_title="Journal B",
@@ -724,9 +651,7 @@ class TestArticleStatsViewSet:
             publisher=publisher,
         )
 
-        article3 = Article.objects.create(
-            publication_date=today - timedelta(days=5), title="Article 3"
-        )
+        article3 = Article.objects.create(publication_date=today - timedelta(days=5), title="Article 3")
         PublicationInfo.objects.create(
             article_id=article3,
             journal_title="Journal A",
@@ -740,9 +665,7 @@ class TestArticleStatsViewSet:
             publisher=publisher,
         )
 
-        article4 = Article.objects.create(
-            publication_date=today - timedelta(days=40), title="Article 4"
-        )
+        article4 = Article.objects.create(publication_date=today - timedelta(days=40), title="Article 4")
         PublicationInfo.objects.create(
             article_id=article4,
             journal_title="Journal C",
