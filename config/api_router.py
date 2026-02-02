@@ -27,10 +27,7 @@ from scoap3.misc.api.views import (
 )
 from scoap3.users.api.views import UserViewSet
 
-if settings.DEBUG:
-    router = DefaultRouter()
-else:
-    router = SimpleRouter()
+router = DefaultRouter() if settings.DEBUG else SimpleRouter()
 
 router.register("users", UserViewSet)
 

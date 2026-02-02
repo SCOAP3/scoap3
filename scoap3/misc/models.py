@@ -18,9 +18,7 @@ class Country(models.Model):
 
 
 class Affiliation(models.Model):
-    author_id = models.ManyToManyField(
-        "authors.Author", blank=True, related_name="affiliations"
-    )
+    author_id = models.ManyToManyField("authors.Author", blank=True, related_name="affiliations")
     country = models.ForeignKey("misc.Country", on_delete=models.CASCADE, null=True)
     value = models.TextField(blank=True, default="")
     organization = models.TextField(blank=True, default="")
@@ -51,27 +49,21 @@ class InstitutionIdentifier(models.Model):
 
     class Meta:
         ordering = ["id"]
-        indexes = [
-            models.Index(
-                fields=["affiliation_id", "identifier_type", "identifier_value"]
-            )
-        ]
+        indexes = [models.Index(fields=["affiliation_id", "identifier_type", "identifier_value"])]
 
 
 class Publisher(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
-    def __str__(self) -> str:
-        return self.name
-
     class Meta:
         ordering = ["id"]
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class PublicationInfo(models.Model):
-    article_id = models.ForeignKey(
-        "articles.Article", on_delete=models.CASCADE, related_name="publication_info"
-    )
+    article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE, related_name="publication_info")
     journal_volume = models.CharField(max_length=255, blank=True, default="")
     journal_title = models.CharField(max_length=255)
     material = models.CharField(max_length=255, blank=True, default="")
@@ -79,7 +71,7 @@ class PublicationInfo(models.Model):
     page_start = models.CharField(blank=True)
     page_end = models.CharField(blank=True)
     artid = models.CharField(max_length=255, blank=True, default="")
-    volume_year = models.CharField(max_length=255, blank=True, null=True)
+    volume_year = models.CharField(max_length=255, blank=True, null=True)  # noqa: DJ001
     journal_issue_date = models.DateField(blank=True, null=True)
     publisher = models.ForeignKey("misc.Publisher", on_delete=models.CASCADE)
 
@@ -91,18 +83,16 @@ class License(models.Model):
     url = models.URLField(blank=True, default="")
     name = models.CharField(max_length=255, blank=True, default="")
 
-    def __str__(self) -> str:
-        return self.name
-
     class Meta:
         ordering = ["id"]
         unique_together = (("url", "name"),)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Copyright(models.Model):
-    article_id = models.ForeignKey(
-        "articles.Article", on_delete=models.CASCADE, related_name="copyright"
-    )
+    article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE, related_name="copyright")
     statement = models.CharField(max_length=255, blank=True, default="")
     holder = models.CharField(max_length=255, blank=True, default="")
     year = models.PositiveIntegerField(blank=True, null=True)

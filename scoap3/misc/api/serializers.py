@@ -35,13 +35,9 @@ class AffiliationSerializer(serializers.ModelSerializer):
         ]
 
     def get_ror(self, obj):
-        if obj.institutionidentifier_set.filter(
-            identifier_type=InstitutionIdentifierType.ROR
-        ).exists():
+        if obj.institutionidentifier_set.filter(identifier_type=InstitutionIdentifierType.ROR).exists():
             return (
-                obj.institutionidentifier_set.filter(
-                    identifier_type=InstitutionIdentifierType.ROR
-                )
+                obj.institutionidentifier_set.filter(identifier_type=InstitutionIdentifierType.ROR)
                 .values_list("identifier_value", flat=True)
                 .first()
             )

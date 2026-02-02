@@ -13,21 +13,19 @@ class Author(models.Model):
     )
     first_name = models.CharField(max_length=255, blank=True, default="")
     last_name = models.CharField(max_length=255, blank=True, default="")
-    email = models.EmailField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)  # noqa: DJ001
     author_order = models.IntegerField()
+
+    class Meta:
+        ordering = ["id"]
 
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
 
-    class Meta:
-        ordering = ["id"]
-
 
 class AuthorIdentifier(models.Model):
-    author_id = models.ForeignKey(
-        "authors.Author", on_delete=models.CASCADE, related_name="identifiers"
-    )
+    author_id = models.ForeignKey("authors.Author", on_delete=models.CASCADE, related_name="identifiers")
     identifier_type = models.CharField(
         max_length=255,
         choices=AuthorIdentifierType.choices,
@@ -38,6 +36,4 @@ class AuthorIdentifier(models.Model):
 
     class Meta:
         ordering = ["id"]
-        indexes = [
-            models.Index(fields=["author_id", "identifier_type", "identifier_value"])
-        ]
+        indexes = [models.Index(fields=["author_id", "identifier_type", "identifier_value"])]

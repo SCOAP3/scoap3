@@ -23,9 +23,7 @@ def get_timestamp_str():
 
 def check_time_unit(time_unit):
     if time_unit not in ("h", "d", "w", "m", "y"):
-        raise Exception(
-            "The value of option --time-units possible options are: h, d, w, m, y"
-        )
+        raise Exception("The value of option --time-units possible options are: h, d, w, m, y")
     else:
         return time_unit
 
@@ -59,9 +57,7 @@ def get_results(es, response, path, scroll="30s"):
 
 
 def get_dois_from_response_legacy(es, response, scroll="30s"):
-    all_dois = get_results(
-        es=es, response=response, scroll=scroll, path="_source.dois[0].value"
-    )
+    all_dois = get_results(es=es, response=response, scroll=scroll, path="_source.dois[0].value")
     return all_dois
 
 
@@ -84,9 +80,7 @@ def get_countries_from_authors(all_authors):
 
 
 def get_countries_from_response_legacy(es, response, scroll="30s"):
-    all_authors = get_results(
-        es=es, response=response, scroll=scroll, path="_source.authors"
-    )
+    all_authors = get_results(es=es, response=response, scroll=scroll, path="_source.authors")
     countries = get_countries_from_authors(all_authors)
     countries_set = set(countries)
     return countries_set
@@ -98,9 +92,7 @@ def get_dois_from_response(es, response, scroll="30s"):
 
 
 def get_countries_from_response(es, response, scroll="30s"):
-    all_authors = get_results(
-        es=es, response=response, scroll=scroll, path="_source.authors"
-    )
+    all_authors = get_results(es=es, response=response, scroll=scroll, path="_source.authors")
     countries = get_countries_from_authors(all_authors)
     country_names = [country["name"] for country in countries]
     countries_set = set(country_names)
@@ -133,9 +125,9 @@ def get_mapped_dois_and_files_legacy(es, response, scroll="30s"):
         documents = response["hits"]["hits"]
         items = [
             {
-                get_path_value(
-                    doc, "_source.dois[0].value"
-                ): get_record_files_urls_legacy(get_path_value(doc, "_source._files"))
+                get_path_value(doc, "_source.dois[0].value"): get_record_files_urls_legacy(
+                    get_path_value(doc, "_source._files")
+                )
             }
             for doc in documents
         ]
@@ -171,13 +163,9 @@ def get_mapped_dois_and_files_new(es, response, scroll="30s"):
 
 def get_added_new_files(updated_at_record_date, files):
     updated_files = []
-    updated_at_date = datetime.fromisoformat(updated_at_record_date).replace(
-        second=0, microsecond=0
-    )
+    updated_at_date = datetime.fromisoformat(updated_at_record_date).replace(second=0, microsecond=0)
     for one_file in files:
-        created_at_date = datetime.fromisoformat(one_file["created"]).replace(
-            second=0, microsecond=0
-        )
+        created_at_date = datetime.fromisoformat(one_file["created"]).replace(second=0, microsecond=0)
         if created_at_date == updated_at_date:
             updated_files.append(one_file)
     return get_record_files_urls_new(updated_files)
@@ -216,14 +204,7 @@ def get_publishers_and_dois(es, path_pub, path_doi, response, scroll="30s"):
     processed = 0
     while processed < total_docs:
         documents = response["hits"]["hits"]
-        items = [
-            {
-                get_path_value(doc, path_doi): {
-                    "publishers": get_path_value(doc, path_pub)
-                }
-            }
-            for doc in documents
-        ]
+        items = [{get_path_value(doc, path_doi): {"publishers": get_path_value(doc, path_pub)}} for doc in documents]
         processed += len(items)
         clean_items = [item for item in items for doi in item if len(item[doi]) > 0]
         all_items = all_items + clean_items

@@ -18,4 +18,4 @@ class TestsAPIThrottle(APITestCase):
         _url = reverse("api:article-list")
         self.client.get(_url)
         response = self.client.get(_url)
-        self.assertEqual(response.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
+        assert response.status_code == status.HTTP_429_TOO_MANY_REQUESTS

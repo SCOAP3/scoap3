@@ -1,6 +1,6 @@
 import logging
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from celery import shared_task
 from django.core.paginator import Paginator
@@ -53,9 +53,7 @@ def check_required_file_formats(obj):
 
     default_required_formats = ["pdf", "pdf/a", "xml"]
 
-    required_formats = journal_format_mapping.get(
-        publication_info.journal_title, default_required_formats
-    )
+    required_formats = journal_format_mapping.get(publication_info.journal_title, default_required_formats)
 
     available_formats = []
     for file in obj.related_files.all():
@@ -95,11 +93,7 @@ def check_arxiv_category(obj):
         "Physical Review Letters",
         "Acta Physica Polonica B",
     ]
-    journal_title = (
-        obj.publication_info.first().journal_title
-        if obj.publication_info.exists()
-        else None
-    )
+    journal_title = obj.publication_info.first().journal_title if obj.publication_info.exists() else None
 
     if journal_title in partial_journals:
         categories = obj.article_arxiv_category.all()
@@ -111,24 +105,14 @@ def check_arxiv_category(obj):
 
 def check_doi_registration_time(obj):
     doi_identifier = obj.article_identifiers.filter(identifier_type="DOI").first()
-    obj_publisher = (
-        obj.publication_info.first().publisher.name
-        if obj.publication_info.exists()
-        else None
-    )
+    obj_publisher = obj.publication_info.first().publisher.name if obj.publication_info.exists() else None
     if doi_identifier:
         if obj_publisher == "APS":
-            doi_registration_date = fetch_doi_registration_date_aps(
-                doi_identifier.identifier_value
-            )
+            doi_registration_date = fetch_doi_registration_date_aps(doi_identifier.identifier_value)
         else:
-            doi_registration_date = fetch_doi_registration_date(
-                doi_identifier.identifier_value
-            )
+            doi_registration_date = fetch_doi_registration_date(doi_identifier.identifier_value)
         if doi_registration_date and obj._created_at:
-            doi_registration_date = datetime.strptime(
-                doi_registration_date, "%Y-%m-%d"
-            ).date()
+            doi_registration_date = datetime.strptime(doi_registration_date, "%Y-%m-%d").date()
             hours_difference = (obj._created_at.date() - doi_registration_date).days
             if hours_difference > 1:
                 logger.info(
@@ -208,9 +192,7 @@ def compliance_checks(article_id):
         check_doi_registration_compliance,
         check_doi_registration_description,
     ) = check_doi_registration_time(article)
-    check_article_type_compliance, check_article_type_description = check_article_type(
-        article
-    )
+    check_article_type_compliance, check_article_type_description = check_article_type(article)
     (
         check_arxiv_category_compliance,
         check_arxiv_category_description,
@@ -268,15 +250,3 @@ def index_all_articles(batch_size=100):
     for page_number in paginator.page_range:
         page = paginator.page(page_number)
         index_article_batch.delay(list(page.object_list))
-
-
-@shared_task(acks_late=True)
-def rerun_failed_compliance_checks_by_date(
-    start_date=(datetime.now() - timedelta(hours=24)), end_date=datetime.now()
-):
-    articles = Article.objects.filter(
-        report__report_date__range=(start_date, end_date)
-    ).filter(report__compliant=False)
-
-    for article in articles:
-        compliance_checks.delay(article.id)

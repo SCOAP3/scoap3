@@ -32,9 +32,7 @@ class Command(BaseCommand):
         storage = storages["default"]
         result = author_export(options["year"], options["country"])
 
-        with storage.open(
-            f"scoap3_export_authors_{datetime.datetime.now()}.csv", "w"
-        ) as f:
+        with storage.open(f"scoap3_export_authors_{datetime.datetime.now()}.csv", "w") as f:
             writer = csv.writer(f)
             writer.writerow(result["header"])
             writer.writerows(result["data"])

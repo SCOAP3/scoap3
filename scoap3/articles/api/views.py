@@ -62,9 +62,7 @@ class ArticleViewSet(
 
         article_id = data.get("id")
         if Article.objects.filter(id=article_id).exists():
-            return Response(
-                {"error": "ID already exists"}, status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({"error": "ID already exists"}, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -72,9 +70,7 @@ class ArticleViewSet(
         serializer.save(id=article_id)
 
         headers = self.get_success_headers(serializer.data)
-        return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers
-        )
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class RecordViewSet(RetrieveModelMixin, GenericViewSet):
@@ -399,17 +395,13 @@ class ArticleStatsViewSet(ViewSet):
 
         other_data = {}
         for key, range_values in date_ranges.items():
-            search_query = ArticleDocument.search().query(
-                "range", publication_date=range_values
-            )
+            search_query = ArticleDocument.search().query("range", publication_date=range_values)
             count = search_query.count()
             other_data[key] = count
 
         journal_search = ArticleDocument.search().extra(track_total_hits=True)
         other_data["all"] = journal_search.count()
-        journal_search.aggs.bucket(
-            "journals", "terms", field="publication_info.journal_title", size=100
-        )
+        journal_search.aggs.bucket("journals", "terms", field="publication_info.journal_title", size=100)
         journals_result = journal_search.execute()
         journal_buckets = journals_result.aggregations.journals.buckets
         journals_data = {bucket.key: bucket.doc_count for bucket in journal_buckets}

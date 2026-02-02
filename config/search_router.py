@@ -3,10 +3,7 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from scoap3.articles.api.views import ArticleDocumentView
 
-if settings.DEBUG:
-    router = DefaultRouter()
-else:
-    router = SimpleRouter()
+router = DefaultRouter() if settings.DEBUG else SimpleRouter()
 
 
 # Articles
