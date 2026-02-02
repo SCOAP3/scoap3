@@ -6,7 +6,9 @@ from scoap3.tasks import import_to_scoap3
 env = environ.Env()
 
 
-def get_legacy_es(es_config={}):
+def get_legacy_es(es_config=None):
+    if es_config is None:
+        es_config = {}
     if not es_config.get("username"):
         es_config["username"] = env("LEGACY_OPENSEARCH_USERNAME")
     if not es_config.get("password"):
@@ -33,7 +35,13 @@ def get_legacy_es(es_config={}):
     return es, es_index
 
 
-def fetch_legacy_articles(es_config={}, dois=[], ids=[], batch_size=1000):
+def fetch_legacy_articles(es_config=None, dois=None, ids=None, batch_size=1000):
+    if ids is None:
+        ids = []
+    if dois is None:
+        dois = []
+    if es_config is None:
+        es_config = {}
     es, es_index = get_legacy_es(es_config)
 
     es_body = {
@@ -70,7 +78,11 @@ def fetch_legacy_articles(es_config={}, dois=[], ids=[], batch_size=1000):
     return all_docs
 
 
-def migrate_legacy_records_by_id_or_doi(dois=[], ids=[], migrate_files=True):
+def migrate_legacy_records_by_id_or_doi(dois=None, ids=None, migrate_files=True):
+    if ids is None:
+        ids = []
+    if dois is None:
+        dois = []
     articles = fetch_legacy_articles(dois=dois, ids=ids)
     for article in articles:
         article_metadata = article.get("_source")

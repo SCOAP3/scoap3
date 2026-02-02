@@ -45,15 +45,9 @@ class ExportView(FormView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         form2 = self.second_form_class(request.POST)
-        form3 = (
-            self.third_form_class(request.POST) if request.user.is_superuser else None
-        )
+        form3 = self.third_form_class(request.POST) if request.user.is_superuser else None
 
-        is_valid = (
-            form.is_valid()
-            or form2.is_valid()
-            or (form3 is not None and form3.is_valid())
-        )
+        is_valid = form.is_valid() or form2.is_valid() or (form3 is not None and form3.is_valid())
         if is_valid:
             return self.form_valid(form, form2, form3)
         else:
@@ -89,13 +83,9 @@ class ExportView(FormView):
                 action_name = "year_export"
                 start_date = form3.cleaned_data.get("start_date") if form3 else None
                 end_date = form3.cleaned_data.get("end_date") if form3 else None
-                pub = (
-                    form3.cleaned_data.get("publisher_name") if form3 else None
-                ) or None
+                pub = (form3.cleaned_data.get("publisher_name") if form3 else None) or None
 
-                start_date_string = (
-                    start_date.strftime("%Y-%m-%d") if start_date else None
-                )
+                start_date_string = start_date.strftime("%Y-%m-%d") if start_date else None
                 end_date_string = end_date.strftime("%Y-%m-%d") if end_date else None
                 result = year_export(start_date_string, end_date_string, pub)
 

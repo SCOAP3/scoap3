@@ -85,30 +85,21 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
             ],
             "abstracts": [
                 {
-                    "source": "".join(
-                        [entry.publisher.name for entry in obj.publication_info.all()]
-                    ),
+                    "source": "".join([entry.publisher.name for entry in obj.publication_info.all()]),
                     "value": obj.abstract,
                 }
             ],
             "arxiv_eprints": [
                 {
-                    "categories": {
-                        entry.category for entry in obj.article_arxiv_category.all()
-                    },
-                    "value": {
-                        entry.identifier_value
-                        for entry in obj.article_identifiers.all()
-                    },
+                    "categories": {entry.category for entry in obj.article_arxiv_category.all()},
+                    "value": {entry.identifier_value for entry in obj.article_identifiers.all()},
                 }
             ],
             "authors": [
                 {
                     "affiliations": [
                         {
-                            "country": affiliation.country.name
-                            if affiliation.country
-                            else None,
+                            "country": affiliation.country.name if affiliation.country else None,
                             "organization": affiliation.organization,
                             "value": affiliation.value,
                             **(
@@ -133,23 +124,17 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
                     "surname": entry.last_name,
                     **(
                         {
-                            "orcid": entry.identifiers.filter(
-                                identifier_type=AuthorIdentifierType.ORCID
-                            )
+                            "orcid": entry.identifiers.filter(identifier_type=AuthorIdentifierType.ORCID)
                             .values_list("identifier_value", flat=True)
                             .first()
                         }
-                        if entry.identifiers.filter(
-                            identifier_type=AuthorIdentifierType.ORCID
-                        ).exists()
+                        if entry.identifiers.filter(identifier_type=AuthorIdentifierType.ORCID).exists()
                         else {}
                     ),
                 }
                 for entry in obj.authors.all()
             ],
-            "collections": [
-                {"primary": entry.journal_title} for entry in obj.publication_info.all()
-            ],
+            "collections": [{"primary": entry.journal_title} for entry in obj.publication_info.all()],
             "control_number": obj.id,
             "copyright": [
                 {
@@ -159,10 +144,7 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
                 }
                 for entry in obj.copyright.all()
             ],
-            "dois": [
-                {"value": entry.identifier_value}
-                for entry in obj.article_identifiers.all()
-            ],
+            "dois": [{"value": entry.identifier_value} for entry in obj.article_identifiers.all()],
             "imprints": [
                 {
                     "date": entry.journal_issue_date,
@@ -177,11 +159,7 @@ class LegacyArticleSerializer(serializers.ModelSerializer):
                 }
                 for entry in obj.related_licenses.all()
             ],
-            "page_nr": [
-                int(entry.page_end)
-                for entry in obj.publication_info.all()
-                if entry.page_end.isdigit()
-            ],
+            "page_nr": [int(entry.page_end) for entry in obj.publication_info.all() if entry.page_end.isdigit()],
             "publication_info": [
                 {
                     "artid": entry.artid,
@@ -288,30 +266,17 @@ class LegacyArticleDocumentSerializer(serializers.Serializer):
     def get_metadata(self, obj):
         data = obj.to_dict()
         return {
-            "_files": [
-                self._get_files(entry.get("file", "")) for entry in obj.related_files
-            ],
+            "_files": [self._get_files(entry.get("file", "")) for entry in obj.related_files],
             "abstracts": [
                 {
-                    "source": "".join(
-                        [
-                            entry.get("publisher")
-                            for entry in obj.get("publication_info", [])
-                        ]
-                    ),
+                    "source": "".join([entry.get("publisher") for entry in obj.get("publication_info", [])]),
                     "value": obj.get("abstract"),
                 }
             ],
             "arxiv_eprints": [
                 {
-                    "categories": [
-                        entry.get("category")
-                        for entry in obj.get("article_arxiv_category", [])
-                    ],
-                    "value": [
-                        entry.get("identifier_value")
-                        for entry in obj.get("article_identifiers", [])
-                    ],
+                    "categories": [entry.get("category") for entry in obj.get("article_arxiv_category", [])],
+                    "value": [entry.get("identifier_value") for entry in obj.get("article_identifiers", [])],
                 }
             ],
             "authors": [
@@ -333,10 +298,7 @@ class LegacyArticleDocumentSerializer(serializers.Serializer):
                 }
                 for entry in data.get("authors", [])
             ],
-            "collections": [
-                {"primary": entry.get("journal_title")}
-                for entry in obj.get("publication_info", [])
-            ],
+            "collections": [{"primary": entry.get("journal_title")} for entry in obj.get("publication_info", [])],
             "control_number": data.get("id"),
             "copyright": [
                 {
@@ -346,10 +308,7 @@ class LegacyArticleDocumentSerializer(serializers.Serializer):
                 }
                 for entry in obj.get("copyright", [])
             ],
-            "dois": [
-                {"value": entry.get("identifier_value")}
-                for entry in data.get("article_identifiers", [])
-            ],
+            "dois": [{"value": entry.get("identifier_value")} for entry in data.get("article_identifiers", [])],
             "imprints": [
                 {
                     "date": entry.get("journal_issue_date"),
