@@ -1,0 +1,35 @@
+target-version = "py311"
+line-length = 120
+
+exclude = [
+    "**/migrations/**",
+]
+
+[lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[lint]
+select = [
+    "E", # pycodestyle errors
+    "F", # pyflakes
+    "I", # isort
+    "UP", # pyupgrade
+    "B", # flake8-bugbear
+    "SIM", # flake8-simplify
+    "TID", # tidy-imports
+    "DJ", # flake8-django
+    "PT", # flake8-pytest-style
+]
+
+ignore = [
+    "DJ008"
+]
+
+[lint.pydocstyle]
+convention = "google"
+
+[format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
