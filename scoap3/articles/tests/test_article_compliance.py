@@ -27,7 +27,9 @@ from scoap3.misc.models import (
 @pytest.mark.vcr
 class TestArticleCompliance(TestCase):
     def setUp(self):
-        self.license = License.objects.create(name="CC-BY-3.0", url="https://creativecommons.org/licenses/by/3.0/")
+        self.license = License.objects.create(
+            name="CC-BY-3.0", url="https://creativecommons.org/licenses/by/3.0/"
+        )
         self.publisher = Publisher.objects.create(
             name="Elsevier",
         )
@@ -139,7 +141,10 @@ class TestArticleCompliance(TestCase):
         report = article.report.first()
 
         assert not report.check_required_file_formats
-        assert report.check_required_file_formats_description == "No publication information found."
+        assert (
+            report.check_required_file_formats_description
+            == "No publication information found."
+        )
 
     def test_create_article_with_compliant_file_format(self):
         PublicationInfo.objects.create(
@@ -159,7 +164,10 @@ class TestArticleCompliance(TestCase):
         article = Article.objects.get(id=self.article.id)
         report = article.report.first()
         assert report.check_required_file_formats
-        assert report.check_required_file_formats_description == "All required file formats are present."
+        assert (
+            report.check_required_file_formats_description
+            == "All required file formats are present."
+        )
 
     def test_create_article_with_not_compliant_file_format(self):
         PublicationInfo.objects.create(
@@ -226,7 +234,9 @@ class TestArticleCompliance(TestCase):
             code="BE",
             name="Belgium",
         )
-        author_id = (Author.objects.get(last_name="ExampleSurname", first_name="ExampleName"),)
+        author_id = (
+            Author.objects.get(last_name="ExampleSurname", first_name="ExampleName"),
+        )
         affiliation = Affiliation.objects.create(
             country=Country.objects.get(code="BE", name="Belgium"),
             value="Example",

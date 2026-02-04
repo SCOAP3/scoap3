@@ -16,12 +16,16 @@ class ArticleModelTest(TestCase):
         article.save()
         assert article.id == 1
 
-        new_article = Article.objects.create(id=1000, title="Test Article 2", abstract="Test Content 2")
+        new_article = Article.objects.create(
+            id=1000, title="Test Article 2", abstract="Test Content 2"
+        )
         new_article.save()
         assert new_article.id == 1000
 
         update_article_db_model_sequence(1001)
-        new_article = Article.objects.create(title="Test Article 2", abstract="Test Content 2")
+        new_article = Article.objects.create(
+            title="Test Article 2", abstract="Test Content 2"
+        )
         new_article.save()
         assert new_article.id == 1001
 
@@ -47,7 +51,11 @@ class ArticleModelTest(TestCase):
 
         doi_value = "10.1234/test.12345"
 
-        ArticleIdentifier.objects.create(article_id=article1, identifier_type="DOI", identifier_value=doi_value)
+        ArticleIdentifier.objects.create(
+            article_id=article1, identifier_type="DOI", identifier_value=doi_value
+        )
 
         with pytest.raises(IntegrityError):
-            ArticleIdentifier.objects.create(article_id=article2, identifier_type="DOI", identifier_value=doi_value)
+            ArticleIdentifier.objects.create(
+                article_id=article2, identifier_type="DOI", identifier_value=doi_value
+            )

@@ -59,7 +59,9 @@ def attach_file_to_article(db):
 
 
 class TestCheckContainsFundedBySCOAP3:
-    def test_contains_funded_by(self, create_article, create_pdf_with_text, attach_file_to_article):
+    def test_contains_funded_by(
+        self, create_article, create_pdf_with_text, attach_file_to_article
+    ):
         article = create_article()
 
         file_with_text = create_pdf_with_text("Funded by SCOAP3")
@@ -69,11 +71,15 @@ class TestCheckContainsFundedBySCOAP3:
         assert result is True
         assert message.startswith("Files contain the required text: 'Funded by SCOAP3'")
 
-    def test_contains_funded_by_with_line_break(self, create_article, create_pdf_with_text, attach_file_to_article):
+    def test_contains_funded_by_with_line_break(
+        self, create_article, create_pdf_with_text, attach_file_to_article
+    ):
         article = create_article()
 
         file_with_line_break = create_pdf_with_text("Funded by\nSCOAP3")
-        attach_file_to_article(article, file_with_line_break, "file_with_line_break.pdf")
+        attach_file_to_article(
+            article, file_with_line_break, "file_with_line_break.pdf"
+        )
 
         result, message = check_contains_funded_by_scoap3(article)
         assert result is True
@@ -85,27 +91,37 @@ class TestCheckContainsFundedBySCOAP3:
         article = create_article()
 
         file_with_whitespace = create_pdf_with_text("Funded    by\n\n   SCOAP3")
-        attach_file_to_article(article, file_with_whitespace, "file_with_whitespace.pdf")
+        attach_file_to_article(
+            article, file_with_whitespace, "file_with_whitespace.pdf"
+        )
 
         result, message = check_contains_funded_by_scoap3(article)
         assert result is True
         assert message.startswith("Files contain the required text: 'Funded by SCOAP3'")
 
-    def test_contains_funded_by_different_pages(self, create_article, create_pdf_from_file, attach_file_to_article):
+    def test_contains_funded_by_different_pages(
+        self, create_article, create_pdf_from_file, attach_file_to_article
+    ):
         article = create_article()
 
-        file_with_text = create_pdf_from_file("scoap3/articles/tests/data/test_funded_by_scoap3.pdf")
+        file_with_text = create_pdf_from_file(
+            "scoap3/articles/tests/data/test_funded_by_scoap3.pdf"
+        )
         attach_file_to_article(article, file_with_text, "file_with_text.pdf")
 
         result, message = check_contains_funded_by_scoap3(article)
         assert result is True
         assert message.startswith("Files contain the required text: 'Funded by SCOAP3'")
 
-    def test_contains_funded_by_multiple_files(self, create_article, create_pdf_with_text, attach_file_to_article):
+    def test_contains_funded_by_multiple_files(
+        self, create_article, create_pdf_with_text, attach_file_to_article
+    ):
         article = create_article()
 
         file_with_text_1 = create_pdf_with_text("Funded by SCOAP3")
-        file_with_text_2 = create_pdf_with_text("Some other content. Funded by SCOAP3 again.")
+        file_with_text_2 = create_pdf_with_text(
+            "Some other content. Funded by SCOAP3 again."
+        )
 
         attach_file_to_article(article, file_with_text_1, "file_with_text_1.pdf")
         attach_file_to_article(article, file_with_text_2, "file_with_text_2.pdf")
@@ -114,7 +130,9 @@ class TestCheckContainsFundedBySCOAP3:
         assert result is True
         assert message.startswith("Files contain the required text: 'Funded by SCOAP3'")
 
-    def test_does_not_contain_funded_by(self, create_article, create_pdf_with_text, attach_file_to_article):
+    def test_does_not_contain_funded_by(
+        self, create_article, create_pdf_with_text, attach_file_to_article
+    ):
         article = create_article()
 
         file_without_text = create_pdf_with_text("Other text")
@@ -139,7 +157,9 @@ class TestCheckContainsFundedBySCOAP3:
         assert result is False
         assert message == "Files do not contain the required text: 'Funded by SCOAP3'"
 
-    def test_mixed_files(self, create_article, create_pdf_with_text, attach_file_to_article):
+    def test_mixed_files(
+        self, create_article, create_pdf_with_text, attach_file_to_article
+    ):
         article = create_article()
 
         file_with_text = create_pdf_with_text("Funded by SCOAP3")
@@ -147,7 +167,9 @@ class TestCheckContainsFundedBySCOAP3:
         file_without_text_xml = create_pdf_with_text("<>Other textXML</>")
         attach_file_to_article(article, file_with_text, "file_with_text.pdf")
         attach_file_to_article(article, file_without_text, "file_without_text.pdf")
-        attach_file_to_article(article, file_without_text_xml, "file_without_text.xml", filetype="xml")
+        attach_file_to_article(
+            article, file_without_text_xml, "file_without_text.xml", filetype="xml"
+        )
 
         result, message = check_contains_funded_by_scoap3(article)
         assert result is True

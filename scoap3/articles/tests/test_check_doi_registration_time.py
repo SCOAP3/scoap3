@@ -27,7 +27,9 @@ class TestCheckDoiRegistrationTime(TestCase):
     def _create_test_article(self, publisher, doi_value):
         article = Article.objects.create(**self.article_data)
 
-        PublicationInfo.objects.create(article_id=article, publisher=publisher, **self.publication_data)
+        PublicationInfo.objects.create(
+            article_id=article, publisher=publisher, **self.publication_data
+        )
 
         ArticleIdentifier.objects.create(
             identifier_type="DOI",
@@ -40,7 +42,9 @@ class TestCheckDoiRegistrationTime(TestCase):
 
     def test_check_doi_registration_time_success(self):
         with freeze_time("2024-07-08"):
-            article = self._create_test_article(self.hindawi_publisher, "10.1155/2024/6666609")
+            article = self._create_test_article(
+                self.hindawi_publisher, "10.1155/2024/6666609"
+            )
 
             compliance_checks(article.id)
             report = article.report.first()
@@ -48,7 +52,9 @@ class TestCheckDoiRegistrationTime(TestCase):
 
     def test_check_doi_registration_time_fail(self):
         with freeze_time("2024-07-10"):
-            article = self._create_test_article(self.hindawi_publisher, "10.1155/2024/6666609")
+            article = self._create_test_article(
+                self.hindawi_publisher, "10.1155/2024/6666609"
+            )
 
             compliance_checks(article.id)
             report = article.report.first()
