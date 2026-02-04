@@ -29,7 +29,10 @@ class Affiliation(models.Model):
         ordering = ["id"]
 
     def __str__(self) -> str:
-        return f"{self.value} ({self.organization}) - {self.country.name if self.country else '-'}"
+        return (
+            f"{self.value} ({self.organization}) - "
+            f"{self.country.name if self.country else '-'}"
+        )
 
 
 class InstitutionIdentifierType(models.TextChoices):
@@ -61,11 +64,11 @@ class InstitutionIdentifier(models.Model):
 class Publisher(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
-    def __str__(self) -> str:
-        return self.name
-
     class Meta:
         ordering = ["id"]
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class PublicationInfo(models.Model):
@@ -79,7 +82,7 @@ class PublicationInfo(models.Model):
     page_start = models.CharField(blank=True)
     page_end = models.CharField(blank=True)
     artid = models.CharField(max_length=255, blank=True, default="")
-    volume_year = models.CharField(max_length=255, blank=True, null=True)
+    volume_year = models.CharField(max_length=255, blank=True, null=True)  # noqa: DJ001
     journal_issue_date = models.DateField(blank=True, null=True)
     publisher = models.ForeignKey("misc.Publisher", on_delete=models.CASCADE)
 
@@ -91,12 +94,12 @@ class License(models.Model):
     url = models.URLField(blank=True, default="")
     name = models.CharField(max_length=255, blank=True, default="")
 
-    def __str__(self) -> str:
-        return self.name
-
     class Meta:
         ordering = ["id"]
         unique_together = (("url", "name"),)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Copyright(models.Model):

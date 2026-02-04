@@ -1,6 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
+
 import logging
 import platform
 from pathlib import Path
@@ -44,10 +45,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 db_host = None
-if platform.system() == "Linux":
-    db_host = env("POSTGRES_HOST")
-else:
-    db_host = "localhost"
+db_host = env("POSTGRES_HOST") if platform.system() == "Linux" else "localhost"
 
 DATABASES = {
     "default": {
@@ -146,7 +144,7 @@ PASSWORD_HASHERS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"  # noqa: E501
     },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
@@ -279,8 +277,10 @@ LOGGING = {
     "filters": {"ignore_insecure_requests": {"()": IgnoreInsecureRequestWarning}},
     "formatters": {
         "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+            "format": (
+                "%(levelname)s %(asctime)s %(module)s "
+                "%(process)d %(thread)d %(message)s"
+            )
         }
     },
     "handlers": {
@@ -372,7 +372,8 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 CORS_ALLOW_CREDENTIALS = True
 
-# By Default swagger ui is available only to admin user(s). You can change permission classes to change that
+# By Default swagger ui is available only to admin user(s).
+# You can change permission classes to change that.
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
     "TITLE": "SCOAP3 API",
@@ -385,7 +386,7 @@ SPECTACULAR_SETTINGS = {
 # ------------------------------------------------------------------------------
 # Name of the Opensearch index
 OPENSEARCH_INDEX_NAMES = {
-    "scoap3.articles.documents": f'{env("OPENSEARCH_INDEX_PREFIX")}-articles',
+    "scoap3.articles.documents": f"{env('OPENSEARCH_INDEX_PREFIX')}-articles",
 }
 
 OPENSEARCH_DSL = {

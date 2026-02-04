@@ -48,7 +48,7 @@ class TestCheckDoiRegistrationTime(TestCase):
 
             compliance_checks(article.id)
             report = article.report.first()
-            self.assertEqual(report.check_doi_registration_time, True)
+            assert report.check_doi_registration_time
 
     def test_check_doi_registration_time_fail(self):
         with freeze_time("2024-07-10"):
@@ -58,7 +58,7 @@ class TestCheckDoiRegistrationTime(TestCase):
 
             compliance_checks(article.id)
             report = article.report.first()
-            self.assertEqual(report.check_doi_registration_time, False)
+            assert not report.check_doi_registration_time
 
     def test_check_doi_registration_time_aps_success(self):
         with freeze_time("2025-07-01"):
@@ -66,7 +66,7 @@ class TestCheckDoiRegistrationTime(TestCase):
 
             compliance_checks(article.id)
             report = article.report.first()
-            self.assertEqual(report.check_doi_registration_time, True)
+            assert report.check_doi_registration_time
 
     def test_check_doi_registration_time_aps_fail(self):
         with freeze_time("2025-07-03"):
@@ -74,4 +74,4 @@ class TestCheckDoiRegistrationTime(TestCase):
 
             compliance_checks(article.id)
             report = article.report.first()
-            self.assertEqual(report.check_doi_registration_time, False)
+            assert not report.check_doi_registration_time

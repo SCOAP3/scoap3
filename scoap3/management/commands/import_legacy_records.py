@@ -53,13 +53,17 @@ class Command(BaseCommand):
             "--username",
             type=str,
             required=False,
-            help="Username for Elasticsearch. Uses LEGACY_OPENSEARCH_USERNAME if empty.",
+            help=(
+                "Username for Elasticsearch. Uses LEGACY_OPENSEARCH_USERNAME if empty."
+            ),
         )
         parser.add_argument(
             "--password",
             type=str,
             required=False,
-            help="Password for Elasticsearch. Uses LEGACY_OPENSEARCH_PASSWORD if empty.",
+            help=(
+                "Password for Elasticsearch. Uses LEGACY_OPENSEARCH_PASSWORD if empty."
+            ),
         )
         parser.add_argument(
             "--from-date",

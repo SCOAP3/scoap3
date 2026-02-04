@@ -321,7 +321,10 @@ class ArticleAdmin(admin.ModelAdmin):
         url = reverse("api:article-detail", args=[obj.id])
         web_url = url.replace("/api/articles", "/records")
         return format_html(
-            '<a href="{}" target="_blank">JSON</a>|<a href="{}" target="_blank">Web</a>',
+            (
+                "<a href='{}' target='_blank'>JSON</a>|"
+                "<a href='{}' target='_blank'>Web</a>"
+            ),
             url,
             web_url,
         )
@@ -336,7 +339,7 @@ class ArticleAdmin(admin.ModelAdmin):
             request,
             f"""
             Selected articles are being processed, it might take some time before seeing
-            the results in the reports. {', '.join(ids)}.
+            the results in the reports. {", ".join(ids)}.
             """,
         )
 
@@ -347,7 +350,7 @@ class ArticleAdmin(admin.ModelAdmin):
             request,
             f"""
             Selected articles are being processed, it might take some time before seeing
-            the results in the reports. {', '.join(ids)}.
+            the results in the reports. {", ".join(ids)}.
             """,
         )
 

@@ -64,9 +64,9 @@ def test_article_search_ordering_default(user, client, license):
         publication_dates.append(result["publication_date"])
         titles.append(result["title"])
 
-    assert publication_dates == sorted(
-        publication_dates, reverse=True
-    ), "Articles are not ordered by publication date in descending order"
+    assert publication_dates == sorted(publication_dates, reverse=True), (
+        "Articles are not ordered by publication date in descending order"
+    )
 
     assert titles == [
         "Article 3",

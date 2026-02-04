@@ -7,8 +7,9 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
+from config.settings.base import env
+
 from .base import *  # noqa
-from .base import env
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -89,9 +90,9 @@ AWS_S3_MAX_MEMORY_SIZE = env.int(
 AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default=None)
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront
 AWS_S3_CUSTOM_DOMAIN = (
-    f'{env("DJANGO_AWS_STORAGE_BUCKET_NAME")}.{env("DJANGO_AWS_S3_CUSTOM_DOMAIN")}'
+    f"{env('DJANGO_AWS_STORAGE_BUCKET_NAME')}.{env('DJANGO_AWS_S3_CUSTOM_DOMAIN')}"
 )
-AWS_S3_ENDPOINT_URL = f'https://{env("DJANGO_AWS_S3_CUSTOM_DOMAIN")}'  # noqa: E231
+AWS_S3_ENDPOINT_URL = f"https://{env('DJANGO_AWS_S3_CUSTOM_DOMAIN')}"  # noqa: E231
 
 # STORAGE
 # ------------------------
@@ -168,8 +169,10 @@ LOGGING = {
     "disable_existing_loggers": True,
     "formatters": {
         "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+            "format": (
+                "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d "
+                "%(message)s"
+            )
         }
     },
     "handlers": {

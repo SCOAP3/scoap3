@@ -1,3 +1,4 @@
+import contextlib
 import json
 from datetime import datetime, timedelta
 
@@ -37,7 +38,8 @@ class TestArticleViewSet:
         article = Article.objects.get(id=article_id)
         assert (
             article.title
-            == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
+            == "The Effective QCD Running Coupling Constant and a Dirac Model for the "
+            "Charmonium Spectrum"
         )
 
     def test_create_article_from_workflow_with_large_text(
@@ -179,9 +181,9 @@ class TestArticleViewSet:
 
         article_id = response.data["id"]
         article = Article.objects.get(id=article_id)
-        assert (
-            article.title
-            == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
+        assert article.title == (
+            "The Effective QCD Running Coupling Constant "
+            "and a Dirac Model for the Charmonium Spectrum"
         )
         search_article_detail_url = reverse(
             "search:article-detail", kwargs={"pk": article_id}
@@ -531,7 +533,10 @@ class TestArticleViewSet:
                     "affiliations": [
                         {
                             "country": "Colombia",
-                            "value": "Universidad Nacional de Colombia, Bogot\u00e1, Colombia",
+                            "value": (
+                                "Universidad Nacional de Colombia, "
+                                "Bogot\u00e1, Colombia"
+                            ),
                         }
                     ],
                     "full_name": "De Sanctis, M.",
@@ -539,7 +544,10 @@ class TestArticleViewSet:
             ],
             "titles": [
                 {
-                    "title": "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
+                    "title": (
+                        "The Effective QCD Running Coupling Constant "
+                        "and a Dirac Model for the Charmonium Spectrum"
+                    )
                 }
             ],
             "arxiv_eprints": [{"categories": ["hep-ph"], "value": "2310.16258"}],
@@ -587,7 +595,8 @@ class TestArticleViewSet:
         article = Article.objects.get(id=article_id)
         assert (
             article.title
-            == "The Effective QCD Running Coupling Constant and a Dirac Model for the Charmonium Spectrum"
+            == "The Effective QCD Running Coupling Constant and a Dirac Model for the "
+            "Charmonium Spectrum"
         )
 
         data2 = data.copy()
@@ -598,7 +607,9 @@ class TestArticleViewSet:
                 "affiliations": [
                     {
                         "country": "Colombia",
-                        "value": "Universidad Nacional de Colombia, Bogot\u00e1, Colombia",
+                        "value": (
+                            "Universidad Nacional de Colombia, Bogot\u00e1, Colombia"
+                        ),
                     }
                 ],
                 "full_name": "De Sanctis, M.",
@@ -628,7 +639,9 @@ class TestArticleViewSet:
                 "affiliations": [
                     {
                         "country": "Colombia",
-                        "value": "Universidad Nacional de Colombia, Bogot\u00e1, Colombia",
+                        "value": (
+                            "Universidad Nacional de Colombia, Bogot\u00e1, Colombia"
+                        ),
                     }
                 ],
                 "full_name": "De Sanccctis, M.",
@@ -682,10 +695,8 @@ class TestArticleStatsViewSet:
     def test_get_article_stats(self, client, user):
         client.force_login(user)
 
-        try:
+        with contextlib.suppress(Exception):
             ArticleDocument._index.delete(ignore=404)
-        except Exception:
-            pass
         ArticleDocument.init()
 
         today = datetime.now().date()

@@ -10,24 +10,16 @@ from scoap3.misc.utils import (
 @pytest.mark.vcr
 class TestFetchDOIRegistrationDate(TestCase):
     def test_fetch_doi_registration_date_happy_case(self):
-        self.assertEqual(
-            fetch_doi_registration_date("10.1007/JHEP11(2019)001"), "2019-11-11"
-        )
+        assert fetch_doi_registration_date("10.1007/JHEP11(2019)001") == "2019-11-11"
 
     def test_fetch_doi_registration_date_invalid_doi(self):
-        self.assertEqual(
-            fetch_doi_registration_date("10.10232332/JHEP11(2019)0010"), None
-        )
+        assert fetch_doi_registration_date("10.10232332/JHEP11(2019)0010") is None
 
 
 @pytest.mark.vcr
 class TestFetchDoiRegistrationDateAPS(TestCase):
     def test_fetch_doi_registration_date_aps_happy_case(self):
-        self.assertEqual(
-            fetch_doi_registration_date_aps("10.1103/923l-yxkc"), "2025-06-26"
-        )
+        assert fetch_doi_registration_date_aps("10.1103/923l-yxkc") == "2025-06-26"
 
     def test_fetch_doi_registration_date_invalid_doi(self):
-        self.assertEqual(
-            fetch_doi_registration_date_aps("10.1103/923l-yxkc-invalid"), None
-        )
+        assert fetch_doi_registration_date_aps("10.1103/923l-yxkc-invalid") is None

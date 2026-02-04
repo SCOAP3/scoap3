@@ -23,7 +23,8 @@
 #     """Validate subject of each commit.
 
 #     This rule will enforce that each commit starts with a "module: text" format.
-#     The 'module' can be any alphanumeric word, and the message must start with a colon followed by a space.
+#     The 'module' can be any alphanumeric word, and the message must start with a
+#     colon followed by a space.
 #     """
 
 #     name = "approved-subject-in-title"

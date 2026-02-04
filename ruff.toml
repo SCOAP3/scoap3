@@ -1,0 +1,31 @@
+target-version = "py311"
+
+exclude = [
+    "**/migrations/**",
+]
+
+[lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[lint]
+select = [
+    "E", # pycodestyle errors
+    "F", # pyflakes
+    "I", # isort
+    "UP", # pyupgrade
+    "B", # flake8-bugbear
+    "SIM", # flake8-simplify
+    "TID", # tidy-imports
+    "DJ", # flake8-django
+    "PT", # flake8-pytest-style
+]
+
+ignore = [
+    "DJ008"
+]
+
+[lint.pydocstyle]
+convention = "google"
+
+[format]
+docstring-code-line-length = 60

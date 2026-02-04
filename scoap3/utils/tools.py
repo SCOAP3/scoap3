@@ -69,9 +69,8 @@ def affiliation_export(search_year, search_country):
 
         if missing_author_affiliations:
             logger.warn(
-                "Article with DOI: {} had missing affiliations in {} / {} authors".format(
-                    doi, missing_author_affiliations, total_authors
-                )
+                f"Article with DOI: {doi} had missing affiliations "
+                f"in {missing_author_affiliations} / {total_authors} authors"
             )
 
         # add extracted information to result list
@@ -165,9 +164,8 @@ def author_export(search_year, search_country):
 
         if missing_author_affiliations:
             logger.warn(
-                "Article with DOI: {} had missing affiliations in {} / {} authors".format(
-                    doi, missing_author_affiliations, total_authors
-                )
+                f"Article with DOI: {doi} had missing affiliations "
+                f"in {missing_author_affiliations} / {total_authors} authors"
             )
 
     return {"header": result_headers, "data": result_data}
@@ -263,7 +261,8 @@ def update_article_db_model_sequence(new_start_sequence):
     max_id = Article.objects.aggregate(max_id=Max("id"))["max_id"] or 0
     if new_start_sequence <= max_id:
         print(
-            f"New sequence start ({new_start_sequence}) must be higher than current max ID ({max_id})."
+            f"New sequence start ({new_start_sequence}) must be higher than "
+            f"current max ID ({max_id})."
         )
         return False
 
@@ -271,10 +270,13 @@ def update_article_db_model_sequence(new_start_sequence):
     model_name = Article._meta.model_name
 
     with connection.cursor() as cursor:
-        command = f"ALTER SEQUENCE {app_label}_{model_name}_id_seq RESTART WITH {new_start_sequence};"
-        cursor.execute(command)
+        cursor.execute(
+            f"ALTER SEQUENCE {app_label}_{model_name}_id_seq "
+            f"RESTART WITH {new_start_sequence};"
+        )
     print(
-        f"Sequence for {app_label}_{model_name} updated to start with {new_start_sequence}."
+        f"Sequence for {app_label}_{model_name} updated "
+        f"to start with {new_start_sequence}."
     )
     return True
 

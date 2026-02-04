@@ -13,15 +13,15 @@ class Author(models.Model):
     )
     first_name = models.CharField(max_length=255, blank=True, default="")
     last_name = models.CharField(max_length=255, blank=True, default="")
-    email = models.EmailField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)  # noqa: DJ001
     author_order = models.IntegerField()
+
+    class Meta:
+        ordering = ["id"]
 
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
-
-    class Meta:
-        ordering = ["id"]
 
 
 class AuthorIdentifier(models.Model):

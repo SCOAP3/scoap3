@@ -134,7 +134,10 @@ class ComplianceReport(models.Model):
     compliant = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Compliance Report for {self.article.title} on {self.report_date.strftime('%Y-%m-%d')}"
+        return (
+            "Compliance Report for"
+            f" {self.article.title} on {self.report_date.strftime('%Y-%m-%d')}"
+        )
 
     def is_compliant(self):
         # If article is part of the following jouranls list, we
@@ -147,9 +150,7 @@ class ComplianceReport(models.Model):
         ]
         pub_info = self.article.publication_info.all()
         _check_arxiv_category = True
-        if len(pub_info) and not (
-            pub_info[0].journal_title in JOURNALS_SKIP_COMPLIANCE
-        ):
+        if len(pub_info) and pub_info[0].journal_title not in JOURNALS_SKIP_COMPLIANCE:
             _check_arxiv_category = self.check_arxiv_category
 
         if isinstance(

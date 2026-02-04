@@ -27,7 +27,10 @@ def check_license(obj):
     else:
         return (
             False,
-            f"Non-compliant licenses: {', '.join(article_licenses)}. Required: {', '.join(compliant_licenses)}.",
+            (
+                "Non-compliant licenses: {', '.join(article_licenses)}."
+                f" Required: {', '.join(compliant_licenses)}."
+            ),
         )
 
 
@@ -138,7 +141,10 @@ def check_doi_registration_time(obj):
                 )
                 return (
                     False,
-                    f"DOI registration time exceeded 24 hours. {hours_difference} passed.",
+                    (
+                        "DOI registration time exceeded 24 hours."
+                        f" {hours_difference} passed."
+                    ),
                 )
             else:
                 logger.info(
@@ -148,7 +154,10 @@ def check_doi_registration_time(obj):
                 )
                 return (
                     True,
-                    f"DOI registration time is within acceptable range. {hours_difference} passed.",
+                    (
+                        "DOI registration time is within acceptable range."
+                        f" {hours_difference} passed."
+                    ),
                 )
         else:
             logger.warning(
@@ -183,7 +192,10 @@ def check_contains_funded_by_scoap3(article):
                     if is_string_in_pdf(article_file, "Funded by SCOAP"):
                         return (
                             True,
-                            f"Files contain the required text: 'Funded by SCOAP3'. File: {article_file.file.url}",
+                            (
+                                "Files contain the required text: 'Funded by SCOAP3'."
+                                f" File: {article_file.file.url}"
+                            ),
                         )
                 except FileNotFoundError:
                     return False, f"File not found: {article_file.file.url}"
@@ -271,9 +283,11 @@ def index_all_articles(batch_size=100):
 
 
 @shared_task(acks_late=True)
-def rerun_failed_compliance_checks_by_date(
-    start_date=(datetime.now() - timedelta(hours=24)), end_date=datetime.now()
-):
+def rerun_failed_compliance_checks_by_date(start_date=None, end_date=None):
+    if start_date is None:
+        start_date = datetime.now() - timedelta(hours=24)
+    if end_date is None:
+        end_date = datetime.now()
     articles = Article.objects.filter(
         report__report_date__range=(start_date, end_date)
     ).filter(report__compliant=False)

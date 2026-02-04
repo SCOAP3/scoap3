@@ -46,7 +46,8 @@ class TokenAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         """
-        Restrict the 'user' dropdown in the admin form to display only the logged-in user.
+        Restrict the 'user' dropdown in the admin
+        form to display only the logged-in user.
         """
         if db_field.name == "user":
             if not request.user.is_superuser:
