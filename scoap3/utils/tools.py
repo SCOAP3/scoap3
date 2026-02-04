@@ -125,7 +125,11 @@ def author_export(search_year, search_country):
         seen_dois.add(doi)
 
         year = article.publication_date.year
-        journal = article.publication_info[0].journal_title if article.publication_info else None
+        journal = (
+            article.publication_info[0].journal_title
+            if article.publication_info
+            else None
+        )
         doi = get_first_doi(article)
         arxiv = get_first_arxiv(article)
         arxiv_category = get_arxiv_primary_category(article)
@@ -256,16 +260,24 @@ def year_export(start_date=None, end_date=None, publisher_name=None):
 def update_article_db_model_sequence(new_start_sequence):
     max_id = Article.objects.aggregate(max_id=Max("id"))["max_id"] or 0
     if new_start_sequence <= max_id:
-        print(f"New sequence start ({new_start_sequence}) must be higher than current max ID ({max_id}).")
+        print(
+            f"New sequence start ({new_start_sequence}) must be higher than "
+            f"current max ID ({max_id})."
+        )
         return False
 
     app_label = Article._meta.app_label
     model_name = Article._meta.model_name
 
     with connection.cursor() as cursor:
-        command = f"ALTER SEQUENCE {app_label}_{model_name}_id_seq RESTART WITH {new_start_sequence};"
-        cursor.execute(command)
-    print(f"Sequence for {app_label}_{model_name} updated to start with {new_start_sequence}.")
+        cursor.execute(
+            f"ALTER SEQUENCE {app_label}_{model_name}_id_seq "
+            f"RESTART WITH {new_start_sequence};"
+        )
+    print(
+        f"Sequence for {app_label}_{model_name} updated "
+        f"to start with {new_start_sequence}."
+    )
     return True
 
 
@@ -279,7 +291,9 @@ def parse_article_xml(article, publisher):
 
     for file in xml_files:
         url = file.file
-        file_obj = ArticleFile.objects.filter(file__contains=url.split("ch/media/")[-1])[0]
+        file_obj = ArticleFile.objects.filter(
+            file__contains=url.split("ch/media/")[-1]
+        )[0]
         parsed_authors, parsed_affiliations = parse_xml_from_s3(file_obj, publisher)
 
     return parsed_authors, parsed_affiliations
@@ -316,8 +330,13 @@ def parse_aps_hindawi_xml(root):
             else None
         )
         ror = (
-            aff_element.find("institution-wrap/institution-id[@institution-id-type='ror']").text
-            if aff_element.find("institution-wrap/institution-id[@institution-id-type='ror']") is not None
+            aff_element.find(
+                "institution-wrap/institution-id[@institution-id-type='ror']"
+            ).text
+            if aff_element.find(
+                "institution-wrap/institution-id[@institution-id-type='ror']"
+            )
+            is not None
             else None
         )
 
@@ -356,7 +375,9 @@ def parse_springer_xml(root):
                 "InstitutionName": institution_name,
                 "ror": ror_id,
             }
-            affiliations_list.append({"id": aff_id, "name": institution_name, "ror": ror_id})
+            affiliations_list.append(
+                {"id": aff_id, "name": institution_name, "ror": ror_id}
+            )
 
     authors = []
     for author in root.findall(".//AuthorGroup/Author"):
@@ -369,7 +390,9 @@ def parse_springer_xml(root):
             "given_name": f"{given_name}",
             "family_name": f"{family_name}",
             "orcid": orcid,
-            "Affiliations": [affiliation_map.get(aff_id, {}) for aff_id in affiliation_ids],
+            "Affiliations": [
+                affiliation_map.get(aff_id, {}) for aff_id in affiliation_ids
+            ],
         }
 
         authors.append(author_data)

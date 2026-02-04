@@ -40,7 +40,9 @@ class TestRecordViewSet:
         )
         assert response.status_code == 201
 
-        response = client.get(reverse("api:records-detail", kwargs={"pk": response.json()["id"]}))
+        response = client.get(
+            reverse("api:records-detail", kwargs={"pk": response.json()["id"]})
+        )
         assert response.status_code == status.HTTP_200_OK
 
         data = response.json()
@@ -79,7 +81,9 @@ class TestRecordViewSet:
         )
         assert response.status_code == 201
 
-        response = client.get(reverse("api:records-detail", kwargs={"pk": response.json()["id"]}))
+        response = client.get(
+            reverse("api:records-detail", kwargs={"pk": response.json()["id"]})
+        )
         assert response.status_code == status.HTTP_200_OK
 
         data = response.json()

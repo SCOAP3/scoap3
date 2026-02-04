@@ -18,7 +18,9 @@ class Country(models.Model):
 
 
 class Affiliation(models.Model):
-    author_id = models.ManyToManyField("authors.Author", blank=True, related_name="affiliations")
+    author_id = models.ManyToManyField(
+        "authors.Author", blank=True, related_name="affiliations"
+    )
     country = models.ForeignKey("misc.Country", on_delete=models.CASCADE, null=True)
     value = models.TextField(blank=True, default="")
     organization = models.TextField(blank=True, default="")
@@ -27,7 +29,10 @@ class Affiliation(models.Model):
         ordering = ["id"]
 
     def __str__(self) -> str:
-        return f"{self.value} ({self.organization}) - {self.country.name if self.country else '-'}"
+        return (
+            f"{self.value} ({self.organization}) - "
+            f"{self.country.name if self.country else '-'}"
+        )
 
 
 class InstitutionIdentifierType(models.TextChoices):
@@ -49,7 +54,11 @@ class InstitutionIdentifier(models.Model):
 
     class Meta:
         ordering = ["id"]
-        indexes = [models.Index(fields=["affiliation_id", "identifier_type", "identifier_value"])]
+        indexes = [
+            models.Index(
+                fields=["affiliation_id", "identifier_type", "identifier_value"]
+            )
+        ]
 
 
 class Publisher(models.Model):
@@ -63,7 +72,9 @@ class Publisher(models.Model):
 
 
 class PublicationInfo(models.Model):
-    article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE, related_name="publication_info")
+    article_id = models.ForeignKey(
+        "articles.Article", on_delete=models.CASCADE, related_name="publication_info"
+    )
     journal_volume = models.CharField(max_length=255, blank=True, default="")
     journal_title = models.CharField(max_length=255)
     material = models.CharField(max_length=255, blank=True, default="")
@@ -92,7 +103,9 @@ class License(models.Model):
 
 
 class Copyright(models.Model):
-    article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE, related_name="copyright")
+    article_id = models.ForeignKey(
+        "articles.Article", on_delete=models.CASCADE, related_name="copyright"
+    )
     statement = models.CharField(max_length=255, blank=True, default="")
     holder = models.CharField(max_length=255, blank=True, default="")
     year = models.PositiveIntegerField(blank=True, null=True)

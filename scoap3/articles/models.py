@@ -50,7 +50,9 @@ class Article(LifecycleModelMixin, models.Model):
         "misc.License",
         related_name="related_licenses",
     )
-    related_materials = models.ManyToManyField("misc.RelatedMaterial", related_name="related_articles", blank=True)
+    related_materials = models.ManyToManyField(
+        "misc.RelatedMaterial", related_name="related_articles", blank=True
+    )
     _created_at = models.DateTimeField(auto_now_add=True)
     _updated_at = models.DateTimeField(auto_now=True)
 
@@ -69,7 +71,9 @@ class Article(LifecycleModelMixin, models.Model):
 
 
 class ArticleFile(models.Model):
-    article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE, related_name="related_files")
+    article_id = models.ForeignKey(
+        "articles.Article", on_delete=models.CASCADE, related_name="related_files"
+    )
     file = CustomFileField(upload_to=article_file_upload_path)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -80,7 +84,9 @@ class ArticleFile(models.Model):
 
 
 class ArticleIdentifier(models.Model):
-    article_id = models.ForeignKey("articles.Article", on_delete=models.CASCADE, related_name="article_identifiers")
+    article_id = models.ForeignKey(
+        "articles.Article", on_delete=models.CASCADE, related_name="article_identifiers"
+    )
     identifier_type = models.CharField(
         max_length=255,
         choices=ArticleIdentifierType.choices,
@@ -91,7 +97,9 @@ class ArticleIdentifier(models.Model):
 
     class Meta:
         ordering = ["id"]
-        indexes = [models.Index(fields=["article_id", "identifier_type", "identifier_value"])]
+        indexes = [
+            models.Index(fields=["article_id", "identifier_type", "identifier_value"])
+        ]
         constraints = [
             models.UniqueConstraint(
                 fields=["identifier_value"],
@@ -102,7 +110,9 @@ class ArticleIdentifier(models.Model):
 
 
 class ComplianceReport(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="report")
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="report"
+    )
     report_date = models.DateTimeField(auto_now_add=True)
 
     check_license = models.BooleanField(default=False)
@@ -118,11 +128,16 @@ class ComplianceReport(models.Model):
     check_authors_affiliation = models.BooleanField(default=False)
     check_authors_affiliation_description = models.TextField(blank=True, default="")
     check_contains_funded_by_scoap3 = models.BooleanField(default=False)
-    check_contains_funded_by_scoap3_description = models.TextField(blank=True, default="")
+    check_contains_funded_by_scoap3_description = models.TextField(
+        blank=True, default=""
+    )
     compliant = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Compliance Report for {self.article.title} on {self.report_date.strftime('%Y-%m-%d')}"
+        return (
+            "Compliance Report for"
+            f" {self.article.title} on {self.report_date.strftime('%Y-%m-%d')}"
+        )
 
     def is_compliant(self):
         # If article is part of the following jouranls list, we
@@ -138,9 +153,9 @@ class ComplianceReport(models.Model):
         if len(pub_info) and pub_info[0].journal_title not in JOURNALS_SKIP_COMPLIANCE:
             _check_arxiv_category = self.check_arxiv_category
 
-        if isinstance(self.article.publication_date, datetime.date) and self.article.publication_date < date(
-            2023, 1, 1
-        ):
+        if isinstance(
+            self.article.publication_date, datetime.date
+        ) and self.article.publication_date < date(2023, 1, 1):
             return True
 
         return all(

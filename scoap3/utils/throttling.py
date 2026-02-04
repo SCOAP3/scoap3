@@ -23,6 +23,10 @@ class UserGroupThrottle(SimpleRateThrottle):
         return super().allow_request(request, view)
 
     def get_cache_key(self, request, view) -> str | None:
-        ident = request.user.pk if request.user and request.user.is_authenticated else self.get_ident(request)
+        ident = (
+            request.user.pk
+            if request.user and request.user.is_authenticated
+            else self.get_ident(request)
+        )
 
         return self.cache_format % {"scope": "_".join(self.user_groups), "ident": ident}

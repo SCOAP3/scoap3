@@ -101,7 +101,9 @@ class ComplianceReportAdmin(admin.ModelAdmin):
 
     @admin.display(description="DOI")
     def article_doi(self, obj):
-        doi_identifier = obj.article.article_identifiers.filter(identifier_type="DOI").first()
+        doi_identifier = obj.article.article_identifiers.filter(
+            identifier_type="DOI"
+        ).first()
         return [doi_identifier.identifier_value if doi_identifier else "None"]
 
     @admin.display(description="Publisher")
@@ -136,12 +138,17 @@ class ComplianceReportAdmin(admin.ModelAdmin):
         rows_titles = ["Link to Article"] + field_names
         writer.writerow(rows_titles)
 
-        latest_reports = queryset.order_by("article_id", "-report_date").distinct("article_id")
+        latest_reports = queryset.order_by("article_id", "-report_date").distinct(
+            "article_id"
+        )
 
         for obj in latest_reports:
             article_doi = self.article_doi(obj)
             article_journal = self.article_journal(obj)
-            values = [getattr(obj, field_names_mapping.get(field, field), None) for field in field_names]
+            values = [
+                getattr(obj, field_names_mapping.get(field, field), None)
+                for field in field_names
+            ]
             values = [value for value in values if value is not None]
             row = [
                 f"{base_url}/{article_doi[0]}",
@@ -221,7 +228,9 @@ class ArticleAuthorsInline(admin.StackedInline):
 
     @admin.display(description="Countries")
     def get_countries(self, obj):
-        return ", ".join([affiliation.country.name for affiliation in obj.affiliations.all()])
+        return ", ".join(
+            [affiliation.country.name for affiliation in obj.affiliations.all()]
+        )
 
     @admin.display(description="Affiliations")
     def get_affiliations(self, obj):
@@ -229,7 +238,12 @@ class ArticleAuthorsInline(admin.StackedInline):
 
     @admin.display(description="Identifiers")
     def get_identifiers(self, obj):
-        return ", ".join([f"{_id.identifier_type}: {_id.identifier_value}" for _id in obj.identifiers.all()])
+        return ", ".join(
+            [
+                f"{_id.identifier_type}: {_id.identifier_value}"
+                for _id in obj.identifiers.all()
+            ]
+        )
 
 
 def make_compliant(article_queryset):
@@ -293,7 +307,10 @@ class ArticleAdmin(admin.ModelAdmin):
 
     @admin.display(description="DOI")
     def doi(self, obj):
-        return [identifier.identifier_value for identifier in obj.article_identifiers.filter(identifier_type="DOI")]
+        return [
+            identifier.identifier_value
+            for identifier in obj.article_identifiers.filter(identifier_type="DOI")
+        ]
 
     @admin.display(description="Publisher")
     def publisher(self, obj):
@@ -304,7 +321,10 @@ class ArticleAdmin(admin.ModelAdmin):
         url = reverse("api:article-detail", args=[obj.id])
         web_url = url.replace("/api/articles", "/records")
         return format_html(
-            '<a href="{}" target="_blank">JSON</a>|<a href="{}" target="_blank">Web</a>',
+            (
+                "<a href='{}' target='_blank'>JSON</a>|"
+                "<a href='{}' target='_blank'>Web</a>"
+            ),
             url,
             web_url,
         )

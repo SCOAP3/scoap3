@@ -168,11 +168,15 @@ class ArticleDocument(Document):
                 "affiliations": serialized_affiliations,
                 **(
                     {
-                        "orcid": author.identifiers.filter(identifier_type=AuthorIdentifierType.ORCID)
+                        "orcid": author.identifiers.filter(
+                            identifier_type=AuthorIdentifierType.ORCID
+                        )
                         .values_list("identifier_value", flat=True)
                         .first()
                     }
-                    if author.identifiers.filter(identifier_type=AuthorIdentifierType.ORCID).exists()
+                    if author.identifiers.filter(
+                        identifier_type=AuthorIdentifierType.ORCID
+                    ).exists()
                     else {}
                 ),
             }
@@ -191,7 +195,9 @@ class ArticleDocument(Document):
         return serialized_article_identifiers
 
     def prepare_doi(self, instance):
-        article_identifiers = ArticleIdentifier.objects.filter(article_id=instance, identifier_type="DOI")
+        article_identifiers = ArticleIdentifier.objects.filter(
+            article_id=instance, identifier_type="DOI"
+        )
         return article_identifiers[0].identifier_value if article_identifiers else None
 
     def prepare_related_files(self, instance):
