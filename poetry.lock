@@ -1262,22 +1262,22 @@ prometheus-client = ">=0.7"
 
 [[package]]
 name = "django-redis"
-version = "5.4.0"
+version = "6.0.0"
 description = "Full featured redis cache backend for Django."
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "django-redis-5.4.0.tar.gz", hash = "sha256:6a02abaa34b0fea8bf9b707d2c363ab6adc7409950b2db93602e6cb292818c42"},
-    {file = "django_redis-5.4.0-py3-none-any.whl", hash = "sha256:ebc88df7da810732e2af9987f7f426c96204bf89319df4c6da6ca9a2942edd5b"},
+    {file = "django_redis-6.0.0-py3-none-any.whl", hash = "sha256:20bf0063a8abee567eb5f77f375143c32810c8700c0674ced34737f8de4e36c0"},
+    {file = "django_redis-6.0.0.tar.gz", hash = "sha256:2d9cb12a20424a4c4dde082c6122f486628bae2d9c2bee4c0126a4de7fda00dd"},
 ]
 
 [package.dependencies]
-Django = ">=3.2"
-redis = ">=3,<4.0.0 || >4.0.0,<4.0.1 || >4.0.1"
+Django = ">=4.2"
+redis = ">=4.0.2"
 
 [package.extras]
-hiredis = ["redis[hiredis] (>=3,!=4.0.0,!=4.0.1)"]
+hiredis = ["redis[hiredis] (>=4.0.2)"]
 
 [[package]]
 name = "django-select2"
@@ -4733,4 +4733,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "14d853dc40e9bf492121e2bdb564166afb334ca46351fc0efe5f6e1a42c76127"
+content-hash = "1e90db2f334f156ddcaea88dc1727b56958400bf941410d6924f4ffc929e9485"
