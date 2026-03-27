@@ -60,14 +60,23 @@ class Article(LifecycleModelMixin, models.Model):
         ordering = ["id"]
 
     @hook(AFTER_UPDATE, on_commit=True)
+    def on_update(self):
+        self.on_save(after_update=True)
+
     @hook(AFTER_CREATE, on_commit=True)
-    def on_save(self):
+    def on_create(self):
+        self.on_save(after_update=False)
+
+    def on_save(self, after_update):
         from scoap3.articles.tasks import compliance_checks
 
         if os.getenv("COMPLIANCE_DISABLED", "0") == "1":
             return
 
-        compliance_checks.apply_async(args=[self.id], priority=9)
+        if after_update:
+            compliance_checks.apply_async(args=[self.id, True], priority=9)
+        else:
+            compliance_checks.apply_async(args=[self.id, False], priority=9)
 
 
 class ArticleFile(models.Model):
@@ -139,7 +148,7 @@ class ComplianceReport(models.Model):
             f" {self.article.title} on {self.report_date.strftime('%Y-%m-%d')}"
         )
 
-    def is_compliant(self):
+    def is_compliant(self, after_update):
         # If article is part of the following jouranls list, we
         # should not take into account the ARXIV category compliance
         JOURNALS_SKIP_COMPLIANCE = [
@@ -153,10 +162,11 @@ class ComplianceReport(models.Model):
         if len(pub_info) and pub_info[0].journal_title not in JOURNALS_SKIP_COMPLIANCE:
             _check_arxiv_category = self.check_arxiv_category
 
-        if isinstance(
-            self.article.publication_date, datetime.date
-        ) and self.article.publication_date < date(2023, 1, 1):
-            return True
+        if not after_update:
+            if isinstance(
+                self.article.publication_date, datetime.date
+            ) and self.article.publication_date < date(2023, 1, 1):
+                return True
 
         return all(
             [
