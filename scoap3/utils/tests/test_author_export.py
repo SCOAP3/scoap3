@@ -84,7 +84,7 @@ class TestAuthorExport(TestCase):
         return article
 
     def test_author_export_no_data(self):
-        result = author_export("2024", "IN")
+        result = author_export("2024-01-01", "2024-12-31", "IN")
         expected_result = {
             "header": [
                 "year",
@@ -121,7 +121,7 @@ class TestAuthorExport(TestCase):
             affiliation_value="Example",
         )
 
-        result = author_export("2024", "JP")
+        result = author_export("2024-01-01", "2024-12-31", "JP")
         expected_result = {
             "header": [
                 "year",
@@ -158,7 +158,7 @@ class TestAuthorExport(TestCase):
             affiliation_value="Example",
         )
 
-        result = author_export("2023", "BE")
+        result = author_export("2023-01-01", "2023-12-31", "BE")
         expected_result = {
             "header": [
                 "year",
@@ -213,7 +213,7 @@ class TestAuthorExport(TestCase):
             affiliation_value="Example2",
         )
 
-        result = author_export("2024", "BR")
+        result = author_export("2024-01-01", "2024-12-31", "BR")
         expected_result = {
             "header": [
                 "year",
@@ -280,7 +280,7 @@ class TestAuthorExport(TestCase):
             affiliation_value="Example2",
         )
 
-        result = author_export("2024", "IT")
+        result = author_export("2024-01-01", "2024-12-31", "IT")
         result["data"].sort(key=lambda x: x[2])
 
         expected_result = {

@@ -17,7 +17,7 @@ from scoap3.articles.util import (
 logger = logging.getLogger(__name__)
 
 
-def affiliation_export(search_year, search_country):
+def affiliation_export(start_date, end_date, search_country):
     result_headers = [
         "year",
         "journal",
@@ -33,8 +33,13 @@ def affiliation_export(search_year, search_country):
 
     search = ArticleDocument.search()
 
-    if search_year:
-        search = search.filter("match", publication_date=f"{search_year}-01-01||/y")
+    if start_date or end_date:
+        date_range = {}
+        if start_date:
+            date_range["gte"] = datetime.strptime(start_date, "%Y-%m-%d")
+        if end_date:
+            date_range["lte"] = datetime.strptime(end_date, "%Y-%m-%d")
+        search = search.filter("range", publication_date=date_range)
 
     if search_country:
         search = search.filter("term", countries=search_country)
@@ -92,7 +97,7 @@ def affiliation_export(search_year, search_country):
     return {"header": result_headers, "data": result_data}
 
 
-def author_export(search_year, search_country):
+def author_export(start_date, end_date, search_country):
     result_headers = [
         "year",
         "journal",
@@ -108,8 +113,13 @@ def author_export(search_year, search_country):
 
     search = ArticleDocument.search()
 
-    if search_year:
-        search = search.filter("match", publication_date=f"{search_year}-01-01||/y")
+    if start_date or end_date:
+        date_range = {}
+        if start_date:
+            date_range["gte"] = datetime.strptime(start_date, "%Y-%m-%d")
+        if end_date:
+            date_range["lte"] = datetime.strptime(end_date, "%Y-%m-%d")
+        search = search.filter("range", publication_date=date_range)
 
     if search_country:
         search = search.filter("term", countries=search_country)
