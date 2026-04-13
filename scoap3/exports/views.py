@@ -66,17 +66,35 @@ class ExportView(FormView):
 
             if "affiliation_export" in self.request.POST:
                 action_name = "affiliation_export"
-                year = form.cleaned_data.get("aff_year")
+                start_date = form.cleaned_data.get("aff_start_date")
+                end_date = form.cleaned_data.get("aff_end_date")
                 country_field = form.cleaned_data.get("aff_country")
                 country = getattr(country_field, "code", None)
-                result = affiliation_export(year or None, country or None)
+                start_date_string = (
+                    start_date.strftime("%Y-%m-%d") if start_date else None
+                )
+                end_date_string = (
+                    end_date.strftime("%Y-%m-%d") if end_date else None
+                )
+                result = affiliation_export(
+                    start_date_string, end_date_string, country or None
+                )
 
             elif "author_export" in self.request.POST:
                 action_name = "author_export"
-                year = form2.cleaned_data.get("author_year")
+                start_date = form2.cleaned_data.get("author_start_date")
+                end_date = form2.cleaned_data.get("author_end_date")
                 country_field = form2.cleaned_data.get("author_country")
                 country = getattr(country_field, "code", None)
-                result = author_export(year or None, country or None)
+                start_date_string = (
+                    start_date.strftime("%Y-%m-%d") if start_date else None
+                )
+                end_date_string = (
+                    end_date.strftime("%Y-%m-%d") if end_date else None
+                )
+                result = author_export(
+                    start_date_string, end_date_string, country or None
+                )
 
             elif "year_export" in self.request.POST:
                 if not self.request.user.is_superuser:

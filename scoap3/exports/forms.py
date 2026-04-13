@@ -13,7 +13,18 @@ class Country2Widget(ModelSelect2Widget):
 
 
 class AffiliationExportForm(forms.Form):
-    aff_year = forms.IntegerField(label="Year", required=True)
+    aff_start_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date"}),
+        label="Start date",
+        help_text="Leave blank for no start date",
+    )
+    aff_end_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date"}),
+        label="End date",
+        help_text="Leave blank for no end date",
+    )
     aff_country = forms.ModelChoiceField(
         queryset=Country.objects.all(),
         widget=Country2Widget,
@@ -23,7 +34,18 @@ class AffiliationExportForm(forms.Form):
 
 
 class AuthorExportForm(forms.Form):
-    author_year = forms.IntegerField(label="Year", required=True)
+    author_start_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date"}),
+        label="Start date",
+        help_text="Leave blank for no start date",
+    )
+    author_end_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date"}),
+        label="End date",
+        help_text="Leave blank for no end date",
+    )
     author_country = forms.ModelChoiceField(
         queryset=Country.objects.all(),
         widget=CountryWidget,
