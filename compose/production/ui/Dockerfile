@@ -1,4 +1,4 @@
-FROM node:18 as client-builder
+FROM node:20 as client-builder
 
 ARG APP_UI=/ui
 

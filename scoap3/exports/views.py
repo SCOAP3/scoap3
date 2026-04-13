@@ -73,9 +73,7 @@ class ExportView(FormView):
                 start_date_string = (
                     start_date.strftime("%Y-%m-%d") if start_date else None
                 )
-                end_date_string = (
-                    end_date.strftime("%Y-%m-%d") if end_date else None
-                )
+                end_date_string = end_date.strftime("%Y-%m-%d") if end_date else None
                 result = affiliation_export(
                     start_date_string, end_date_string, country or None
                 )
@@ -89,9 +87,7 @@ class ExportView(FormView):
                 start_date_string = (
                     start_date.strftime("%Y-%m-%d") if start_date else None
                 )
-                end_date_string = (
-                    end_date.strftime("%Y-%m-%d") if end_date else None
-                )
+                end_date_string = end_date.strftime("%Y-%m-%d") if end_date else None
                 result = author_export(
                     start_date_string, end_date_string, country or None
                 )
