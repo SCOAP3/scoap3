@@ -3,15 +3,25 @@
 {% block content %}
 <hr/>
 <div style="margin-top: 20px;" >
-    <div clasfs="module">
+    <div class="module">
         <h1>Tools & Extra links</h1>
-<div style="padding: 10px; background-color: #f4f4f4;" >
-    <a href="/admin/tools">Export tools</a>
+
+        <div style="padding: 10px; background-color: #f4f4f4; display: flex; gap: 15px; align-items: center;" >
+
+            <a href="/admin/tools">Export tools</a>
+
+            <span style="color: #ccc;">|</span>
+
+            <a href="{% url 'admin:articles_article_trigger_reharvest' %}">
+                Trigger DOI Reharvest
+            </a>
+
+        </div>
     </div>
-</div>
 </div>
 <hr style="margin-top: 20px;margin-bottom: 20px;"/>
 <h1>Content & Settings</h1>
 {{block.super}}
 
 {% endblock %}
+›

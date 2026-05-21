@@ -1,0 +1,32 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+    &rsaquo; <a href="{% url 'admin:articles_article_changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+    &rsaquo; Trigger Reharvest
+</div>
+{% endblock %}
+
+{% block content %}
+<h3>Trigger DOI Reharvest</h3>
+
+<p style="margin-bottom: 20px;">Use este formulário para disparar manualmente uma DAG de reharvest no Airflow para um DOI específico.</p>
+
+<form action="{% url 'admin:articles_article_trigger_reharvest' %}" method="post">
+    <h4>Informações do Reharvest</h4>
+
+    {% csrf_token %}
+
+    {# O form.as_p renderiza os campos e labels automaticamente seguindo o padrão simples #}
+    {{ form.as_p }}
+
+    <div style="margin-top: 20px;">
+        <input type="submit" value="Trigger Reharvest">
+        <a href="{% url 'admin:articles_article_changelist' %}" style="margin-left: 15px; color: #417690; text-decoration: none;">Cancelar</a>
+    </div>
+</form>
+
+{% endblock %}

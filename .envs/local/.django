@@ -17,3 +17,9 @@ CELERY_FLOWER_PASSWORD=debug
 # Opensearch
 OPENSEARCH_HOST=localhost:9200
 OPENSEARCH_INDEX_PREFIX=scoap3-backend-local
+
+# AirFlow
+
+airflow_url = getattr(settings, "AIRFLOW_URL", "http://localhost:8080")
+airflow_user = getattr(settings, "AIRFLOW_USER", "admin")
+airflow_password = getattr(settings, "AIRFLOW_PASSWORD", "admin")
