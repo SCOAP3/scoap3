@@ -48,6 +48,13 @@ const Header: React.FC = () => {
     <Link href="https://scoap3.org/" target="_blank" rel="noopener noreferrer">
       SCOAP3 project
     </Link>,
+    <a
+      href="https://scoap3.org/scoap3-books/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Books
+    </a>,
     <Link href="/partners">Partners</Link>,
     <a
       href="https://scoap3.org/scoap3-repository"
