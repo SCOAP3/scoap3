@@ -57,8 +57,8 @@ const FulltextFiles: React.FC<FulltextFilesProps> = ({
               key={file?.file}
               href={file?.file}
               className={`file-${size} mr-2`}
-              download
               target="_blank"
+              rel="noopener noreferrer"
             >
               {icon}
               {label}
