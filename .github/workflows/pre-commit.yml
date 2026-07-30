@@ -6,7 +6,7 @@ on:
       ref:
         description: The reference to build
         type: string
-        required: true
+        required: false
 
 jobs:
   linter:
