@@ -1,0 +1,20 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://example.org/files/article.pdfa
+  response:
+    body:
+      string: '%PDF-1.4 fake pdfa content for testing'
+    headers: {}
+    status:
+      code: 200
+      message: OK
+version: 1
