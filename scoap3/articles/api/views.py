@@ -407,15 +407,31 @@ class ArticleStatsViewSet(ViewSet):
 
         journal_search = ArticleDocument.search().extra(track_total_hits=True)
         other_data["all"] = journal_search.count()
-        journal_search.aggs.bucket(
+        journals_agg = journal_search.aggs.bucket(
             "journals", "terms", field="publication_info.journal_title", size=100
+        )
+        journals_agg.bucket(
+            "publishers", "terms", field="publication_info.publisher", size=10
         )
         journals_result = journal_search.execute()
         journal_buckets = journals_result.aggregations.journals.buckets
+
         journals_data = {bucket.key: bucket.doc_count for bucket in journal_buckets}
+        journal_details_data = [
+            {
+                "name": bucket.key,
+                "count": bucket.doc_count,
+                "publishers": [
+                    publisher_bucket.key
+                    for publisher_bucket in bucket.publishers.buckets
+                ],
+            }
+            for bucket in journal_buckets
+        ]
 
         data = {
             "other": other_data,
             "journals": journals_data,
+            "journal_details": journal_details_data,
         }
         return Response(data)

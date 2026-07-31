@@ -1,0 +1,81 @@
+name: PR tests
+
+on:
+  workflow_call:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    services:
+      opensearch:
+        image: registry.cern.ch/cern-sis/scoap3/opensearch
+        env:
+          bootstrap.memory_lock: true
+          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          discovery.type: single-node
+          DISABLE_SECURITY_PLUGIN: true
+        ports:
+          - 9200:9200
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+          - 5672:5672
+      redis:
+        image: redis:6
+        ports:
+          - 6379:6379
+      db:
+        image: postgres:14.1
+        env:
+          POSTGRES_DB: scoap3
+          POSTGRES_USER: scoap3
+          POSTGRES_PASSWORD: scoap3
+        ports:
+          - 5432:5432
+      mailhog:
+        image: mailhog/mailhog:v1.0.0
+        ports:
+          - '8025:8025'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Build backend image
+        run: >
+          docker build
+          --file ./compose/production/django/Dockerfile
+          --tag scoap3-backend:pr
+          .
+
+      - name: Test
+        run: >
+          docker run
+          --network=host
+          --entrypoint poetry
+          --env DJANGO_SETTINGS_MODULE=config.settings.test
+          --env DISABLE_SECURITY_PLUGIN=true
+          --env POSTGRES_DB=scoap3
+          --env POSTGRES_USER=scoap3
+          --env POSTGRES_PASSWORD=scoap3
+          --env POSTGRES_HOST=127.0.0.1
+          --env OPENSEARCH_HOST=127.0.0.1:9200
+          scoap3-backend:pr
+          run pytest
+
+  build-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Build ui image
+        run: >
+          docker build
+          --file ./compose/production/ui/Dockerfile
+          --tag scoap3-backend-ui:pr
+          .
