@@ -702,6 +702,7 @@ class TestArticleStatsViewSet:
         today = datetime.now().date()
 
         publisher = Publisher.objects.create(name="Test Publisher")
+        second_publisher = Publisher.objects.create(name="Second Publisher")
 
         article1 = Article.objects.create(
             publication_date=today - timedelta(days=1), title="Article 1"
@@ -735,6 +736,7 @@ class TestArticleStatsViewSet:
             publisher=publisher,
         )
 
+        # Journal A is published by both publishers.
         article3 = Article.objects.create(
             publication_date=today - timedelta(days=5), title="Article 3"
         )
@@ -748,7 +750,7 @@ class TestArticleStatsViewSet:
             artid="A3",
             volume_year="2022",
             journal_issue_date=today - timedelta(days=5),
-            publisher=publisher,
+            publisher=second_publisher,
         )
 
         article4 = Article.objects.create(
@@ -794,3 +796,23 @@ class TestArticleStatsViewSet:
             "Journal C": 1,
         }
         assert data.get("journals") == expected_journals
+
+        journal_details = data.get("journal_details")
+        journal_details_by_name = {
+            journal["name"]: journal for journal in journal_details
+        }
+        assert set(journal_details_by_name["Journal A"]["publishers"]) == {
+            "Test Publisher",
+            "Second Publisher",
+        }
+        assert journal_details_by_name["Journal A"]["count"] == 2
+        assert journal_details_by_name["Journal B"] == {
+            "name": "Journal B",
+            "count": 1,
+            "publishers": ["Test Publisher"],
+        }
+        assert journal_details_by_name["Journal C"] == {
+            "name": "Journal C",
+            "count": 1,
+            "publishers": ["Test Publisher"],
+        }
