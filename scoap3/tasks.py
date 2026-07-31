@@ -2,6 +2,7 @@ import contextlib
 import io
 import json
 import logging
+import mimetypes
 import os
 import re
 
@@ -455,13 +456,27 @@ def fetch_file_and_save_to_s3(url, s3_path):
         response.raise_for_status()  # Raise error for HTTP status codes >= 400
 
         file_content = ContentFile(response.content)
+        content_type = response.headers.get("Content-Type")
+
+        if not content_type or "octet-stream" in content_type:
+            content_type, _ = mimetypes.guess_type(s3_path)
+
+        if not content_type:
+            if s3_path.lower().endswith((".pdf", ".pdfa")):
+                content_type = "application/pdf"
+            elif s3_path.lower().endswith(".xml"):
+                content_type = "application/xml"
+            else:
+                content_type = "binary/octet-stream"
+
+        file_content.content_type = content_type
 
         s3_file = default_storage.save(s3_path, file_content)
-
         s3_url = default_storage.url(s3_file)
 
         print(f"File successfully saved to {s3_url}")
         return s3_url
+
     except requests.exceptions.RequestException as e:
         print(f"Failed to fetch file from URL: {e}")
         return None
