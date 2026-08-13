@@ -3,7 +3,7 @@ import datetime
 
 from django.contrib import admin, messages
 from django.http import HttpResponse
-from django.urls import reverse
+from django.urls import path, reverse
 from django.utils.html import format_html
 from more_admin_filters import MultiSelectRelatedFilter
 from rangefilter.filters import DateRangeQuickSelectListFilterBuilder
@@ -15,6 +15,7 @@ from scoap3.articles.models import (
     ComplianceReport,
 )
 from scoap3.articles.tasks import compliance_checks
+from scoap3.articles.views import post_reharvest_view
 from scoap3.authors.models import Author
 
 
@@ -300,6 +301,20 @@ class ArticleAdmin(admin.ModelAdmin):
         "_updated_at",
     ]
     inlines = [ArticleAuthorsInline, ArticleComplianceReportInline]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "trigger-reharvest/",
+                self.admin_site.admin_view(self.trigger_reharvest_custom_view),
+                name="articles_article_trigger_reharvest",
+            ),
+        ]
+        return custom_urls + urls
+
+    def trigger_reharvest_custom_view(self, request):
+        return post_reharvest_view(self, request)
 
     @admin.display(description="Journal")
     def journal_title(self, obj):
